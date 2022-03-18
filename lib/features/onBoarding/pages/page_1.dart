@@ -49,6 +49,11 @@ class _Page1State extends State<Page1> with TickerProviderStateMixin {
     );
   }
 
+
+
+
+
+
   @override
   void dispose() {
     _lottieController.dispose();
