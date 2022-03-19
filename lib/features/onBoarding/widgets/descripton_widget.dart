@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/resources/string_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DescriptionWidget extends StatelessWidget {
   final String description;
@@ -10,7 +11,7 @@ class DescriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      description,
+      description.tr(),
       style: Theme.of(context).textTheme.headline6,
     );
   }

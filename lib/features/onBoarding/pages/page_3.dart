@@ -33,7 +33,10 @@ class _Page3State extends State<Page3> with TickerProviderStateMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AnimationWidget(controller: _lottieController,asset: AssetManager.liveTracking,),
+          AnimationWidget(
+            controller: _lottieController,
+            asset: AssetManager.liveTracking,
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -41,15 +44,15 @@ class _Page3State extends State<Page3> with TickerProviderStateMixin {
           const SizedBox(
             height: 10,
           ),
-          const DescriptionWidget(description: StringManager.lorem),
+          const DescriptionWidget(description: StringManager.liveTrackingInfo),
         ],
       ),
     );
   }
+
   @override
   void dispose() {
     _lottieController.dispose();
     super.dispose();
   }
- 
 }

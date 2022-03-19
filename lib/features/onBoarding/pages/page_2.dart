@@ -41,7 +41,7 @@ class _Page2State extends State<Page2> with TickerProviderStateMixin {
           const SizedBox(
             height: 10,
           ),
-          const DescriptionWidget(description: StringManager.lorem),
+          const DescriptionWidget(description: StringManager.securePaymentInfo),
         ],
       ),
     );

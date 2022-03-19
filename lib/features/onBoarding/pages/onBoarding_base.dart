@@ -6,6 +6,7 @@ import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/features/onBoarding/pages/page_1.dart';
 import 'package:yalla_bus/features/onBoarding/pages/page_2.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'page_3.dart';
 
@@ -26,11 +27,11 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
           TextButton(
             onPressed: () {},
             child: Text(
-              StringManager.skip,
+              StringManager.skip.tr(),
               style: Theme.of(context)
                   .textTheme
                   .headline6!
-                  .copyWith(color: Colors.grey,fontWeight: FontWeight.bold),
+                  .copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -40,7 +41,7 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
         height: double.infinity,
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height - 250,
               child: PageView(
                 controller: controller,
@@ -59,9 +60,9 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
             SmoothPageIndicator(
               controller: controller,
               count: 3,
-              effect: WormEffect(
+              effect: const WormEffect(
                 dotWidth: 9,
-                activeDotColor: HexToColor.hexColor("#48B2FF"),
+                activeDotColor: Colors.black,
                 dotHeight: 9,
                 spacing: 4,
                 radius: 10,
@@ -76,7 +77,9 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
                 shape: const CircleBorder(),
               ),
               onPressed: () {
-                controller.nextPage(duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+                controller.nextPage(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeIn);
               },
               child: Center(
                 child: SvgPicture.asset(

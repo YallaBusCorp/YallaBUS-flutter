@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/core/resources/constants.dart';
 
 import '../../../core/extensions/extensions.dart';
 import '../../../core/resources/string_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HeadlineWidget extends StatelessWidget {
   final String headline;
-  const HeadlineWidget({Key? key,required this.headline}) : super(key: key);
+  const HeadlineWidget({Key? key, required this.headline}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,32 +15,33 @@ class HeadlineWidget extends StatelessWidget {
       children: [
         Container(
           width: MediaQuery.of(context).size.width / 3,
-          color: HexToColor.hexColor("#48B2FF"),
+          color: ColorsManager.blue,
           height: 2,
         ),
         const SizedBox(
-          width: 5,
+          width: 8,
         ),
         ConstrainedBox(
           constraints: const BoxConstraints(
-            maxWidth: 90,
+            maxWidth: 70,
             minHeight: 30,
             minWidth: 30,
             maxHeight: 70,
           ),
           child: Text(
-            headline,
+            headline.tr(),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline5,
           ),
         ),
         const SizedBox(
-          width: 5,
+          width: 8,
         ),
-        Container(
-          width: MediaQuery.of(context).size.width / 3.4,
-          color: HexToColor.hexColor("#59BD8F"),
-          height: 2,
+        Expanded(
+          child: Container(
+            color: ColorsManager.green,
+            height: 2,
+          ),
         ),
       ],
     );
