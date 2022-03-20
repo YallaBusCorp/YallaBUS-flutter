@@ -29,6 +29,7 @@ final TextTheme textThemeEnglish = TextTheme(
     fontSize: 16,
     fontWeight: FontWeight.w300,
   ),
+
 );
 
 //Not Completed
@@ -62,18 +63,24 @@ final TextTheme textThemeArabic = TextTheme(
 final ThemeData light = ThemeData(
   colorScheme: const ColorScheme.light(),
   primaryColor: Colors.white,
-  textTheme: textThemeArabic,
+  textTheme: textThemeEnglish,
   scaffoldBackgroundColor: Colors.white,
-  buttonTheme: ButtonThemeData(
-    buttonColor: ColorsManager.orange,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      primary: ColorsManager.orange,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+    ),
   ),
   appBarTheme: const AppBarTheme(
+   
     iconTheme: IconThemeData(
       color: Colors.black,
     ),
     color: Colors.white,
     elevation: 0,
-    systemOverlayStyle: SystemUiOverlayStyle(
+    systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.white,
@@ -83,13 +90,20 @@ final ThemeData light = ThemeData(
 
 final ThemeData dark = ThemeData(
   colorScheme: const ColorScheme.dark(),
-  buttonTheme: ButtonThemeData(
-    buttonColor: ColorsManager.orange,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      primary: ColorsManager.orange,
+      minimumSize: const Size(double.infinity, 50),
+    ),
   ),
   primaryColor: ColorsManager.black,
   textTheme: textThemeEnglish,
   scaffoldBackgroundColor: ColorsManager.black,
   appBarTheme: AppBarTheme(
+  
     iconTheme: const IconThemeData(
       color: Colors.white,
     ),

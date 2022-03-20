@@ -23,7 +23,7 @@ class HeadlineWidget extends StatelessWidget {
         ),
         ConstrainedBox(
           constraints: const BoxConstraints(
-            maxWidth: 70,
+            maxWidth: 90,
             minHeight: 30,
             minWidth: 30,
             maxHeight: 70,

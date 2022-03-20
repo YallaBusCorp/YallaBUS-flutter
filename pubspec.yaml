@@ -27,14 +27,18 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  bloc: ^8.0.3
   cupertino_icons: ^1.0.2
   easy_localization: ^3.0.0
   equatable: ^2.0.3
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.0.1
   flutter_svg: ^1.0.3
+  get_it: ^7.2.0
   google_fonts: ^2.3.1
   lottie: ^1.2.2
+  shared_preferences: ^2.0.13
   smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
