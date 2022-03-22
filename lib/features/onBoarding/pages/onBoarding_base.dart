@@ -4,13 +4,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/constants.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/features/onBoarding/pages/page_1.dart';
 import 'package:yalla_bus/features/onBoarding/pages/page_2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:yalla_bus/core/injection/di.dart';
+import '../../../core/resources/colors_manager.dart';
 import 'page_3.dart';
 
 class OnBoardingBase extends StatefulWidget {
@@ -28,6 +29,7 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         actions: [
           TextButton(
             onPressed: () {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/resources/constants.dart';
+
+import '../resources/colors_manager.dart';
 
 class ButtonWidget extends StatelessWidget {
-  final Function func;
+  final Function? func;
   final Widget child;
   const ButtonWidget({Key? key, required this.func, required this.child})
       : super(key: key);
@@ -10,11 +11,15 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        func;
-      },
+      onPressed: (){},
       child: child,
-      style: Theme.of(context).elevatedButtonTheme.style,
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(MediaQuery.of(context).size.width - 50, 40),
+        primary: ColorsManager.orange,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
     );
   }
 }

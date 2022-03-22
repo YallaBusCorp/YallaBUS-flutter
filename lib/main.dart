@@ -6,12 +6,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/injection/di.dart' as sl;
 import 'package:yalla_bus/core/injection/di.dart';
-import 'package:yalla_bus/core/resources/constants.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/theme_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/choose_company/presentation/pages/choose_company.dart';
+import 'package:yalla_bus/features/login_otp/presentation/bloc/login_bloc.dart';
 import 'package:yalla_bus/features/onBoarding/pages/onBoarding_base.dart';
+
+import 'features/login_otp/presentation/pages/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,6 +44,10 @@ class MyApp extends StatelessWidget {
           create: (builder) => CompanySelectionBloc(),
           child: const ChooseCompany(),
         ),
+        BlocProvider(
+          create: (builder) => LoginBloc(),
+          child: const LoginOtp(),
+        ),
       ],
       child: MaterialApp(
         onGenerateRoute: RouteGenerator.getRoute,
@@ -56,6 +63,7 @@ class MyApp extends StatelessWidget {
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
         home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
+        // home: LoginOtp(),
       ),
     );
   }
