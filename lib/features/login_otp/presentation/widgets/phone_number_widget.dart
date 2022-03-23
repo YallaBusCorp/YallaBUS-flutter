@@ -34,7 +34,12 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
               return Text(
                 widget.num[index].toString(),
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    color: bloc.index > index ? Colors.white : Colors.grey),
+                    color: bloc.indexOfPhoneNumber > index
+                        ? MediaQuery.of(context).platformBrightness ==
+                                Brightness.dark
+                            ? Colors.white
+                            : Colors.black
+                        : Colors.grey),
               );
             },
           ),

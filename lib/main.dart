@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +20,8 @@ import 'features/login_otp/presentation/pages/login.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await sl.init();
+  await Firebase.initializeApp();
+
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(

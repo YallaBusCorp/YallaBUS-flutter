@@ -6,31 +6,39 @@ import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 
 final TextTheme textThemeEnglish = TextTheme(
-   bodyText2: GoogleFonts.nunito(
-    fontSize: 45,
+  bodyText2: GoogleFonts.nunito(
+    fontSize: 40,
     fontWeight: FontWeight.w400,
   ),
   bodyText1: GoogleFonts.nunito(
     fontSize: 26,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w600,
   ),
   subtitle1: GoogleFonts.nunito(
     fontSize: 24,
     fontWeight: FontWeight.w500,
-  ), 
-  headline6:  GoogleFonts.nunito(
+  ),
+  subtitle2: GoogleFonts.nunito(
+    fontSize: 21,
+    fontWeight: FontWeight.w500,
+  ),
+  caption: GoogleFonts.nunito(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  ),
+  headline6: GoogleFonts.nunito(
     fontSize: 16,
     fontWeight: FontWeight.w400,
   ),
   headline5: GoogleFonts.nunito(
     fontSize: 20,
     fontWeight: FontWeight.bold,
-  ), 
+  ),
 );
 
 //Not Completed
 final TextTheme textThemeArabic = TextTheme(
- headline1: GoogleFonts.balooBhaijaan2(
+  headline1: GoogleFonts.balooBhaijaan2(
     fontSize: 45,
     fontWeight: FontWeight.w400,
   ),
@@ -42,14 +50,14 @@ final TextTheme textThemeArabic = TextTheme(
     fontSize: 24,
     fontWeight: FontWeight.bold,
   ),
-  headline6:  GoogleFonts.balooBhaijaan2(
+  headline6: GoogleFonts.balooBhaijaan2(
     fontSize: 16,
     fontWeight: FontWeight.w400,
   ),
   headline5: GoogleFonts.balooBhaijaan2(
     fontSize: 20,
     fontWeight: FontWeight.bold,
-  ), 
+  ),
 );
 
 final ThemeData light = ThemeData(

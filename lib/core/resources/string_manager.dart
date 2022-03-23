@@ -14,5 +14,8 @@ class StringManager {
   static const String enterYourNumber = "Enter your mobile number";
   static const String sendYouConfirmation = "We will send you a code";
   static const String confirm = "Confirm";
-
+  static const String verifyYourNumber = "Verify your mobile number";
+  static const String codeSentTo = "Code was sent to ";
+  static const String otp = "Otp";
+  static const String verify = "Verify";
 }

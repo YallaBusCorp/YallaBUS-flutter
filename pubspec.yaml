@@ -29,8 +29,11 @@ environment:
 dependencies:
   bloc: ^8.0.3
   cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
   easy_localization: ^3.0.0
   equatable: ^2.0.3
+  firebase_auth: ^3.3.11
+  firebase_core: ^1.13.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1

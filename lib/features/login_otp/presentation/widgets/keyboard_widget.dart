@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/login_bloc.dart';
+import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/constants_manager.dart';
 
 class KeyboardWidget extends StatelessWidget {
-  const KeyboardWidget({Key? key}) : super(key: key);
+  final String type;
+  const KeyboardWidget({Key? key, required this.type}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
@@ -15,8 +18,20 @@ class KeyboardWidget extends StatelessWidget {
       width: double.infinity,
       height: MediaQuery.of(context).size.height / 2.8,
       decoration: BoxDecoration(
-        color: ColorsManager.black2,
+        color: MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? ColorsManager.black2
+            : Colors.white,
         borderRadius: BorderRadius.circular(15),
+        boxShadow: MediaQuery.of(context).platformBrightness == Brightness.light
+            ? [
+                const BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 5,
+                ),
+              ]
+            : [
+                const BoxShadow(blurRadius: 0),
+              ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -28,7 +43,9 @@ class KeyboardWidget extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(1));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(1))
+                        : bloc.add(const WritePinCode(1));
                   },
                   child: Text(
                     ValuesManager.v1,
@@ -37,7 +54,9 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(2));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(2))
+                        : bloc.add(const WritePinCode(2));
                   },
                   child: Text(
                     ValuesManager.v2,
@@ -46,7 +65,9 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(3));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(3))
+                        : bloc.add(const WritePinCode(3));
                   },
                   child: Text(
                     ValuesManager.v3,
@@ -61,7 +82,9 @@ class KeyboardWidget extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(4));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(4))
+                        : bloc.add(const WritePinCode(4));
                   },
                   child: Text(
                     ValuesManager.v4,
@@ -70,7 +93,9 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(5));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(5))
+                        : bloc.add(const WritePinCode(5));
                   },
                   child: Text(
                     ValuesManager.v5,
@@ -79,7 +104,9 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(6));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(6))
+                        : bloc.add(const WritePinCode(6));
                   },
                   child: Text(
                     ValuesManager.v6,
@@ -94,7 +121,9 @@ class KeyboardWidget extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(7));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(7))
+                        : bloc.add(const WritePinCode(7));
                   },
                   child: Text(
                     ValuesManager.v7,
@@ -103,7 +132,9 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(8));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(8))
+                        : bloc.add(const WritePinCode(8));
                   },
                   child: Text(
                     ValuesManager.v8,
@@ -112,7 +143,9 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(9));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(9))
+                        : bloc.add(const WritePinCode(9));
                   },
                   child: Text(
                     ValuesManager.v9,
@@ -134,7 +167,9 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumber(0));
+                    type == StringManager.otp
+                        ? bloc.add(const WritePhoneNumber(0))
+                        : bloc.add(const WritePinCode(0));
                   },
                   child: Text(
                     ValuesManager.v0,
@@ -143,10 +178,15 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    bloc.add(RemovePhoneNumber());
+                    type == StringManager.otp
+                        ? bloc.add(RemovePhoneNumber())
+                        : bloc.add(RemovePinNumber());
                   },
-                  child:
-                      const Icon(Icons.backspace_outlined, color: Colors.white),
+                  child: Icon(Icons.backspace_outlined,
+                      color: MediaQuery.of(context).platformBrightness ==
+                              Brightness.dark
+                          ? Colors.white
+                          : Colors.black),
                 ),
               ],
             ),

@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "403200399686",
+    "project_id": "yallabus-eb5a0",
+    "storage_bucket": "yallabus-eb5a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403200399686:android:f87e4442b19c0185aded47",
+        "android_client_info": {
+          "package_name": "com.example.yalla_bus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403200399686-q94gj3vi8l0uvke07jugce5sublpqvcr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yalla_bus",
+            "certificate_hash": "2148108b6605c5aaa6373ee8021a13ee5fe60090"
+          }
+        },
+        {
+          "client_id": "403200399686-8sabonrgirsfq2641uro210p70rrve04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkXVzukwjcpRYkJE1XmSOO4dTZTFNGJuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403200399686-8sabonrgirsfq2641uro210p70rrve04.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "403200399686-dpjqcr2d816gqq0sjbq836vug4utn39a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.MohamedKAttar.YallaBUS"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

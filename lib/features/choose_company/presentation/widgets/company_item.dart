@@ -27,7 +27,20 @@ class _CompanyItemState extends State<CompanyItem> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: ColorsManager.black2,
+          color: MediaQuery.of(context).platformBrightness == Brightness.dark
+              ? ColorsManager.black2
+              : Colors.white,
+          boxShadow:
+              MediaQuery.of(context).platformBrightness == Brightness.light
+                  ? [
+                      const BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 5,
+                      ),
+                    ]
+                  : [
+                      const BoxShadow(blurRadius: 0),
+                    ],
           borderRadius: BorderRadius.circular(15),
           border: Border.all(
             color: widget.bloc.isSelected[widget.index]
@@ -55,7 +68,7 @@ class _CompanyItemState extends State<CompanyItem> {
               ),
               Text(
                 widget.bloc.companies[widget.index].tr(),
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.subtitle2,
               ),
               const Spacer(),
               IconButton(

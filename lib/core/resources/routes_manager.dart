@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 
 import '../../features/choose_company/presentation/pages/choose_company.dart';
 import '../../features/home/presentation/pages/home.dart';
 import '../../features/login_otp/presentation/pages/login.dart';
 
 class Routes {
-  static const String home = '/';
+  static const String home = '/home';
   static const String chooseCompany = '/chooseCompany';
   static const String loginOtp = '/login';
   static const String verifyOtp = '/verifyOtp';
@@ -20,6 +21,13 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginOtp());
       case Routes.home:
         return MaterialPageRoute(builder: (_) => const Home());
+      case Routes.verifyOtp:
+        var args = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => VerifyScreen(
+            number: args,
+          ),
+        );
       default:
         return unDefainedRoute();
     }

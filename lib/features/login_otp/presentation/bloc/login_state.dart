@@ -12,3 +12,13 @@ class LoginInitial extends LoginState {}
 class Loading extends LoginState{}
 
 class ChangeIndexOfNumber extends LoginState{}
+
+class ChangeIndexOfPin extends LoginState{}
+
+class SendingData extends LoginState{}
+
+
+class Success extends LoginState{}
+
+class Error extends LoginState{}
+
