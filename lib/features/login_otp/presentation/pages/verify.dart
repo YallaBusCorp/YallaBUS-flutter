@@ -5,12 +5,14 @@ import 'package:yalla_bus/core/custom_widgets/loading_widget.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/phone_number_widget.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_code.dart';
+import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_keyboard_widget.dart';
 
+import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../bloc/login_bloc.dart';
-import '../widgets/keyboard_widget.dart';
+import '../widgets/login_keyboard_widget.dart';
 
 class VerifyScreen extends StatefulWidget {
   final String number;
@@ -93,71 +95,70 @@ class _VerifyScreenState extends State<VerifyScreen>
               },
             ),
             const Spacer(),
-            BlocBuilder<LoginBloc, LoginState>(
-              builder: (context, state) {
-                if (state is Success) {
-                  Navigator.of(context).pushReplacementNamed(Routes.home);
-                } else if (state is Error) {
-                  return Center(
-                    child : Container(
-                      width: 200,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: ColorsManager.black2,
-                        borderRadius: BorderRadius.circular(18),
-
-                      ),
-                      child : Center(
-                          child: Text(
-                        'Error',
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ), ),
-                    
-                    ),
-                  );
-                } 
-                  return Center(
-                    child: ElevatedButton(
-                      onPressed: bloc.indexOfPinNumber == 6
-                          ? () {
-                              String otpCode = getOtpCode(bloc.pins);
-                              bloc.add(VerifyCodeVerification(otpCode));
-                            }
-                          : null,
-                      child: Text(
-                        StringManager.verify,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize:
-                            Size(MediaQuery.of(context).size.width - 50, 46),
-                        primary: ColorsManager.orange,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+            BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+              if (state is Success) {
+                Navigator.of(context).pushReplacementNamed(Routes.home);
+              } else if (state is Error) {
+                return Center(
+                  child: Dialog(
+                    backgroundColor: ColorsManager.black2,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            state.message,
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ButtonWidget(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Cancel',
+                                style: Theme.of(context).textTheme.subtitle2),
+                            height: 100,
+                            width: 50,
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                }
-        
-            ),
+                  ),
+                );
+              }
+              return Center(
+                child: ElevatedButton(
+                  onPressed: bloc.indexOfPinNumber == 6
+                      ? () {
+                          String otpCode = bloc.pinCode;
+                          bloc.add(VerifyCodeVerificationEvent(otpCode));
+                          Navigator.of(context)
+                              .pushReplacementNamed(Routes.home);
+                        }
+                      : null,
+                  child: Text(
+                    StringManager.verify,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        Size(MediaQuery.of(context).size.width - 50, 46),
+                    primary: ColorsManager.orange,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ),
+              );
+            }),
             const SizedBox(
               height: 10,
             ),
-            const KeyboardWidget(
-              type: StringManager.verify,
-            ),
+            const PinCodeKeyboardWidget(),
           ],
         ),
       ),
     );
-  }
-
-  String getOtpCode(List<String> otpCode) {
-    String code = "";
-    for (int i = 0; i < otpCode.length; i++) {
-      code += otpCode[i];
-    }
-    return code;
   }
 }

@@ -20,5 +20,9 @@ class SendingData extends LoginState{}
 
 class Success extends LoginState{}
 
-class Error extends LoginState{}
+class Error extends LoginState{
+  final String message;
+
+  const Error(this.message);
+}
 

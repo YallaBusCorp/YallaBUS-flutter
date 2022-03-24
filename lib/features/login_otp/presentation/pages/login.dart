@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:yalla_bus/core/custom_widgets/animation_widget.dart';
+import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/login_bloc.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/keyboard_widget.dart';
+import 'package:yalla_bus/features/login_otp/presentation/widgets/login_keyboard_widget.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/phone_number_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -70,7 +72,7 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
               ],
             ),
             const SizedBox(
-              height: 80,
+              height: 40,
             ),
             BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
@@ -81,38 +83,30 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                 );
               },
             ),
-            const Spacer(),
             BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
+                if (state is SendingData) {
+                  WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    showDialogWidget(context, 'Loading');
+                    // Add Your Code here.
+                  });
+                }
                 if (state is Success) {
-                  String number = collectPhoneNumber(bloc.phoneNumber);
-                  Navigator.of(context)
-                      .pushNamed(Routes.verifyOtp, arguments: number);
+                  SchedulerBinding.instance!.addPostFrameCallback((_) {
+                   Navigator.of(context).pushNamed(Routes.verifyOtp,arguments: bloc.number);
+                  });
                 } else if (state is Error) {
-                  return Center(
-                    child: Container(
-                      width: 200,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: ColorsManager.black2,
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Error',
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                      ),
-                    ),
-                  );
+                  WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    showDialogWidget(context, 'Error');
+                    // Add Your Code here.
+                  });
                 }
                 return Center(
                   child: ElevatedButton(
                     onPressed: bloc.indexOfPhoneNumber == 9
                         ? () {
-                            String number =
-                                collectPhoneNumber(bloc.phoneNumber);
-                            bloc.add(SendCodeVerification(number));
+                            String number = bloc.number;
+                            bloc.add(SendCodeVerificationEvent(number));
                           }
                         : null,
                     child: Text(
@@ -131,27 +125,13 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                 );
               },
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            const KeyboardWidget(
-              type: StringManager.otp,
-            ),
+            Spacer(),
+            const Align(
+                alignment: Alignment.bottomCenter,
+                child: const LoginKeyboardWidget()),
           ],
         ),
       ),
     );
   }
-
-  String collectPhoneNumber(List<int> number) {
-    String phone = "+201";
-    for (int i = 0; i < number.length; i++) {
-      phone += number[i].toString();
-    }
-    return phone;
-  }
-
-  // Future sendCodeToNumber(String number, BuildContext context) {
-
-  // }
 }

@@ -2,17 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../resources/colors_manager.dart';
 
-class ButtonWidget extends StatelessWidget {
+class CircleButtonWidget extends StatelessWidget {
   final GestureTapCallback onPressed;
   final Widget child;
-  double? width;
-  double? height;
-  ButtonWidget(
-      {Key? key,
-      required this.onPressed,
-      required this.child,
-      this.width,
-      this.height})
+  const CircleButtonWidget({Key? key, required this.onPressed, required this.child})
       : super(key: key);
 
   @override
@@ -21,11 +14,11 @@ class ButtonWidget extends StatelessWidget {
       onPressed: onPressed,
       child: child,
       style: ElevatedButton.styleFrom(
-        minimumSize:
-            Size(width ?? MediaQuery.of(context).size.width - 50, height ?? 40),
-        primary: ColorsManager.orange,
+        elevation: 0,
+        minimumSize: const Size(60, 60),
+        primary: ColorsManager.black2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(50),
         ),
       ),
     );

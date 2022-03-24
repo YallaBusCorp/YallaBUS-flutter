@@ -7,30 +7,30 @@ abstract class LoginEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class WritePhoneNumber extends LoginEvent {
+class WritePhoneNumberEvent extends LoginEvent {
   final int number;
 
-  const WritePhoneNumber(this.number);
+  const WritePhoneNumberEvent(this.number);
 }
 
-class RemovePhoneNumber extends LoginEvent {}
+class RemovePhoneNumberEvent extends LoginEvent {}
 
-class WritePinCode extends LoginEvent {
+class WritePinCodeEvent extends LoginEvent {
   final int number;
 
-  const WritePinCode(this.number);
+  const WritePinCodeEvent(this.number);
 }
 
-class RemovePinNumber extends LoginEvent {}
+class RemovePinNumberEvent extends LoginEvent {}
 
-class SendCodeVerification extends LoginEvent {
+class SendCodeVerificationEvent extends LoginEvent {
   final String number;
 
-  const SendCodeVerification(this.number);
+  const SendCodeVerificationEvent(this.number);
 }
 
-class VerifyCodeVerification extends LoginEvent {
+class VerifyCodeVerificationEvent extends LoginEvent {
   final String otpCode;
 
-  const VerifyCodeVerification(this.otpCode);
+  const VerifyCodeVerificationEvent(this.otpCode);
 }
