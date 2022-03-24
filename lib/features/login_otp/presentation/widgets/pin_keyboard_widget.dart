@@ -17,25 +17,25 @@ class PinCodeKeyboardWidget extends StatelessWidget {
     LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height / 2.5,
+      height: MediaQuery.of(context).size.height / ValuesManager.v2AndHalf,
       decoration: BoxDecoration(
         color: MediaQuery.of(context).platformBrightness == Brightness.dark
             ? ColorsManager.black2
             : Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(ValuesManager.v16),
         boxShadow: MediaQuery.of(context).platformBrightness == Brightness.light
             ? [
                 const BoxShadow(
                   color: Colors.grey,
-                  blurRadius: 5,
+                  blurRadius: ValuesManager.v5,
                 ),
               ]
             : [
-                const BoxShadow(blurRadius: 0),
+                const BoxShadow(blurRadius: ValuesManager.v0),
               ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(ValuesManager.v16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -44,100 +44,100 @@ class PinCodeKeyboardWidget extends StatelessWidget {
               children: [
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(1));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv1));
                   },
                   child: Text(
-                    ValuesManager.v1,
+                    ValuesManager.v1.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(2));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv2));
                   },
                   child: Text(
-                    ValuesManager.v2,
+                    ValuesManager.v2.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(3));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv3));
                   },
                   child: Text(
-                    ValuesManager.v3,
+                    ValuesManager.v3.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: ValuesManager.v10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(4));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv4));
                   },
                   child: Text(
-                    ValuesManager.v4,
+                    ValuesManager.v4.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(5));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv5));
                   },
                   child: Text(
-                    ValuesManager.v5,
+                    ValuesManager.v5.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(6));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv6));
                   },
                   child: Text(
-                    ValuesManager.v6,
+                    ValuesManager.v6.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: ValuesManager.v10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(7));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv7));
                   },
                   child: Text(
-                    ValuesManager.v7,
+                    ValuesManager.v7.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(8));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv8));
                   },
                   child: Text(
-                    ValuesManager.v8,
+                    ValuesManager.v8.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(9));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv9));
                   },
                   child: Text(
-                    ValuesManager.v9,
+                    ValuesManager.v9.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: ValuesManager.v10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -150,10 +150,10 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePinCodeEvent(0));
+                    bloc.add(const WritePinCodeEvent(ValuesManager.iv0));
                   },
                   child: Text(
-                    ValuesManager.v0,
+                    ValuesManager.v0.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),

@@ -7,6 +7,7 @@ import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
+import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/login_bloc.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/login_keyboard_widget.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/phone_number_widget.dart';
@@ -32,8 +33,8 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
   void initState() {
     _lottieController = AnimationController(
       vsync: this,
-      upperBound: 0.7,
-      duration: const Duration(milliseconds: 500),
+      upperBound: ValuesManager.vZeroPointSeven,
+      duration: Duration(milliseconds: ValuesManager.v500.toInt()),
     );
 
     super.initState();
@@ -45,7 +46,7 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(ValuesManager.v16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -68,11 +69,12 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-                Lottie.asset(AssetManager.darkverify, width: 100, height: 100),
+                Lottie.asset(AssetManager.darkverify,
+                    width: ValuesManager.v100, height: ValuesManager.v100),
               ],
             ),
             const SizedBox(
-              height: 40,
+              height: ValuesManager.v40,
             ),
             BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
@@ -93,7 +95,8 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                 }
                 if (state is Success) {
                   SchedulerBinding.instance!.addPostFrameCallback((_) {
-                   Navigator.of(context).pushNamed(Routes.verifyOtp,arguments: bloc.number);
+                    Navigator.of(context)
+                        .pushNamed(Routes.verifyOtp, arguments: bloc.number);
                   });
                 } else if (state is Error) {
                   WidgetsBinding.instance!.addPostFrameCallback((_) {
@@ -103,7 +106,7 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                 }
                 return Center(
                   child: ElevatedButton(
-                    onPressed: bloc.indexOfPhoneNumber == 9
+                    onPressed: bloc.indexOfPhoneNumber == ValuesManager.v9
                         ? () {
                             String number = bloc.number;
                             bloc.add(SendCodeVerificationEvent(number));
@@ -114,21 +117,22 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     style: ElevatedButton.styleFrom(
-                      minimumSize:
-                          Size(MediaQuery.of(context).size.width - 50, 46),
+                      minimumSize: Size(
+                          MediaQuery.of(context).size.width - ValuesManager.v50,
+                          ValuesManager.v45),
                       primary: ColorsManager.orange,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(ValuesManager.v16),
                       ),
                     ),
                   ),
                 );
               },
             ),
-            Spacer(),
+            const Spacer(),
             const Align(
                 alignment: Alignment.bottomCenter,
-                child: const LoginKeyboardWidget()),
+                child: LoginKeyboardWidget()),
           ],
         ),
       ),

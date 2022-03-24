@@ -13,12 +13,13 @@ class RepositoryImplementation extends Repository {
     if (await network.isConnected()) {
       final response = await login.send(number);
       response.fold((failure) {
-        return VerificationFailure('Error, Try again');
+        return Left(
+            VerificationFailure(message: 'Oops! Try again in another time!'));
       }, (success) {
-        return success;
+        return Right(success);
       });
     }
-    // return Left(NetworkFailure('You need to connect to internet'));
-    return const Right("35ddddrrrr");
+
+    return Left(NetworkFailure(message: 'You need to connect to internet'));
   }
 }

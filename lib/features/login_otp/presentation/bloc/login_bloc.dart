@@ -15,14 +15,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   List<String> pins = List.generate(6, (index) => '');
   String number = "+201";
   String pinCode = "";
-  final SendCodeVerification _sendCodeVerification = di<SendCodeVerification>() ;
+  final SendCodeVerification _sendCodeVerification = di<SendCodeVerification>();
   late String verificationId;
 
   int indexOfPhoneNumber = 0;
   int indexOfPinNumber = 0;
   LoginBloc() : super(LoginInitial()) {
     on<WritePhoneNumberEvent>((event, emit) {
-      // TODO: implement event handler
       emit(Loading());
       phoneNumber[indexOfPhoneNumber] = event.number;
       number += event.number.toString();
@@ -33,7 +32,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<RemovePhoneNumberEvent>((event, emit) {
-      // TODO: implement event handler
+      
       emit(Loading());
       if (indexOfPhoneNumber >= 1) {
         number = number.substring(0, number.length - 1);
@@ -44,7 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<WritePinCodeEvent>((event, emit) {
-      // TODO: implement event handler
+      
       emit(Loading());
       pins[indexOfPinNumber] = event.number.toString();
       pinCode = event.number.toString();
@@ -55,7 +54,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<RemovePinNumberEvent>((event, emit) {
-      // TODO: implement event handler
+  
       emit(Loading());
       if (indexOfPinNumber >= 1) {
         pinCode = pinCode.substring(0, pinCode.length - 1);
@@ -75,7 +74,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         verificationId = success.toString();
         emit(Success());
       });
-      // emit(ChangeIndexOfNumber());
     });
 
     on<VerifyCodeVerificationEvent>((event, emit) async {
@@ -86,7 +84,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await FirebaseAuth.instance.signInWithCredential(credential);
         emit(Success());
       } catch (e) {
-        emit(Error('Error'));
+        emit(const Error('Error'));
       }
     });
   }

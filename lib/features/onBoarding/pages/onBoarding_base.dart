@@ -7,6 +7,7 @@ import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
+import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/onBoarding/pages/page_1.dart';
 import 'package:yalla_bus/features/onBoarding/pages/page_2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -24,12 +25,11 @@ class OnBoardingBase extends StatefulWidget {
 class _OnBoardingBaseState extends State<OnBoardingBase> {
   PageController controller = PageController();
   final SharedPreferences perfs = di<SharedPreferences>();
-  int index = 0;
+  int index = ValuesManager.iv0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         actions: [
           TextButton(
             onPressed: () {
@@ -51,7 +51,7 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height - 250,
+              height: MediaQuery.of(context).size.height - ValuesManager.v250,
               child: PageView(
                 controller: controller,
                 onPageChanged: (i) {
@@ -68,24 +68,24 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
             ),
             SmoothPageIndicator(
               controller: controller,
-              count: 3,
+              count: ValuesManager.iv3,
               effect: WormEffect(
-                dotWidth: 9,
+                dotWidth: ValuesManager.v9,
                 activeDotColor:
                     MediaQuery.of(context).platformBrightness == Brightness.dark
                         ? Colors.white
                         : Colors.black,
-                dotHeight: 9,
-                spacing: 4,
-                radius: 10,
+                dotHeight: ValuesManager.v9,
+                spacing: ValuesManager.v4,
+                radius: ValuesManager.v10,
                 dotColor: Colors.grey,
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: ValuesManager.v30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: ColorsManager.orange,
-                maximumSize: const Size(78, 78),
+                maximumSize: const Size(ValuesManager.v78, ValuesManager.v78),
                 shape: const CircleBorder(),
               ),
               onPressed: () {
@@ -93,15 +93,16 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
                   seeOnBoarding();
                 }
                 controller.nextPage(
-                    duration: const Duration(milliseconds: 200),
+                    duration:
+                        Duration(milliseconds: ValuesManager.v200.toInt()),
                     curve: Curves.easeIn);
               },
               child: Center(
                 child: SvgPicture.asset(
                   AssetManager.arrow,
                   color: Colors.white,
-                  width: 35,
-                  height: 35,
+                  width: ValuesManager.v35,
+                  height: ValuesManager.v35,
                 ),
               ),
             ),

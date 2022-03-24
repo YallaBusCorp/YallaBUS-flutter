@@ -18,25 +18,25 @@ class LoginKeyboardWidget extends StatelessWidget {
     LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height / 2.5,
+      height: MediaQuery.of(context).size.height / ValuesManager.v2AndHalf,
       decoration: BoxDecoration(
         color: MediaQuery.of(context).platformBrightness == Brightness.dark
             ? ColorsManager.black2
             : Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(ValuesManager.v16),
         boxShadow: MediaQuery.of(context).platformBrightness == Brightness.light
             ? [
                 const BoxShadow(
                   color: Colors.grey,
-                  blurRadius: 5,
+                  blurRadius: ValuesManager.v5,
                 ),
               ]
             : [
-                const BoxShadow(blurRadius: 0),
+                const BoxShadow(blurRadius: ValuesManager.v0),
               ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(ValuesManager.v16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -45,100 +45,100 @@ class LoginKeyboardWidget extends StatelessWidget {
               children: [
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumberEvent(1));
+                    bloc.add(const WritePhoneNumberEvent(ValuesManager.iv1));
                   },
                   child: Text(
-                    ValuesManager.v1,
+                    ValuesManager.iv1.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumberEvent(2));
+                    bloc.add(const WritePhoneNumberEvent(ValuesManager.iv2));
                   },
                   child: Text(
-                    ValuesManager.v2,
+                    ValuesManager.iv2.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumberEvent(3));
+                    bloc.add(const WritePhoneNumberEvent(ValuesManager.iv3));
                   },
                   child: Text(
-                    ValuesManager.v3,
+                    ValuesManager.iv3.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: ValuesManager.v10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumberEvent(4));
+                    bloc.add(const WritePhoneNumberEvent(ValuesManager.iv4));
                   },
                   child: Text(
-                    ValuesManager.v4,
+                    ValuesManager.iv4.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumberEvent(5));
+                    bloc.add(const WritePhoneNumberEvent(ValuesManager.iv5));
                   },
                   child: Text(
-                    ValuesManager.v5,
+                    ValuesManager.iv5.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumberEvent(6));
+                    bloc.add(const WritePhoneNumberEvent(ValuesManager.iv6));
                   },
                   child: Text(
-                    ValuesManager.v6,
+                    ValuesManager.iv6.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: ValuesManager.v10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumberEvent(7));
+                    bloc.add(const WritePhoneNumberEvent(ValuesManager.iv7));
                   },
                   child: Text(
-                    ValuesManager.v7,
+                    ValuesManager.iv7.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumberEvent(8));
+                    bloc.add(const WritePhoneNumberEvent(ValuesManager.iv8));
                   },
                   child: Text(
-                    ValuesManager.v8,
+                    ValuesManager.iv8.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(const WritePhoneNumberEvent(9));
+                    bloc.add(const WritePhoneNumberEvent(ValuesManager.iv9));
                   },
                   child: Text(
-                    ValuesManager.v9,
+                    ValuesManager.iv9.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: ValuesManager.v10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -154,7 +154,7 @@ class LoginKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePhoneNumberEvent(0));
                   },
                   child: Text(
-                    ValuesManager.v0,
+                    ValuesManager.iv0.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),

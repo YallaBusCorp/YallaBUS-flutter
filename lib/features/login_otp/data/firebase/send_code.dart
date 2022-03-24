@@ -7,7 +7,8 @@ class FirebaseAuthLogin {
   Future<Either<Failure, String>> send(String number) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
     String id = "";
-    await _auth.verifyPhoneNumber(
+    await _auth
+        .verifyPhoneNumber(
       phoneNumber: number,
       verificationCompleted: (AuthCredential credential) async {
         await _auth.signInWithCredential(credential);
@@ -18,7 +19,9 @@ class FirebaseAuthLogin {
       },
       timeout: const Duration(seconds: 60),
       codeAutoRetrievalTimeout: (String verificationId) {},
-    );
-    return id.isEmpty? Left(VerificationFailure('Error, Try again')) : Right(id);
+        );
+    return id.isEmpty
+        ? Left(VerificationFailure())
+        : Right(id);
   }
 }

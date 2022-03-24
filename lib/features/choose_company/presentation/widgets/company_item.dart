@@ -7,6 +7,7 @@ import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 
 import '../../../../core/resources/colors_manager.dart';
+import '../../../../core/resources/values_manager.dart';
 
 class CompanyItem extends StatefulWidget {
   final int index;
@@ -35,36 +36,36 @@ class _CompanyItemState extends State<CompanyItem> {
                   ? [
                       const BoxShadow(
                         color: Colors.grey,
-                        blurRadius: 5,
+                        blurRadius: ValuesManager.v5,
                       ),
                     ]
                   : [
-                      const BoxShadow(blurRadius: 0),
+                      const BoxShadow(blurRadius: ValuesManager.v0),
                     ],
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(ValuesManager.v16),
           border: Border.all(
             color: widget.bloc.isSelected[widget.index]
                 ? ColorsManager.blue2
                 : Colors.transparent,
-            width: 2,
+            width: ValuesManager.v2,
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(ValuesManager.v8),
           child: Row(
             children: [
               Container(
-                width: 40,
-                height: 40,
+                width: ValuesManager.v40,
+                height: ValuesManager.v40,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(ValuesManager.v16),
                   image: const DecorationImage(
                       image: NetworkImage(AssetManager.companyPhoto),
                       fit: BoxFit.cover),
                 ),
               ),
               const SizedBox(
-                width: 10,
+                width: ValuesManager.v10,
               ),
               Text(
                 widget.bloc.companies[widget.index].tr(),
@@ -77,26 +78,27 @@ class _CompanyItemState extends State<CompanyItem> {
                       context: context,
                       builder: (_) => Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius:
+                                  BorderRadius.circular(ValuesManager.v16),
                               color: ColorsManager.black2,
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(ValuesManager.v16),
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Center(
                                       child: Container(
-                                        width: 50,
-                                        height: 5,
+                                        width: ValuesManager.v50,
+                                        height: ValuesManager.v5,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
+                                            borderRadius: BorderRadius.circular(
+                                                ValuesManager.v16)),
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: ValuesManager.v10,
                                     ),
                                     Text(
                                       widget.bloc.companies[widget.index],
@@ -104,14 +106,14 @@ class _CompanyItemState extends State<CompanyItem> {
                                           Theme.of(context).textTheme.subtitle1,
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: ValuesManager.v10,
                                     ),
                                     Text('Works hours : 9am to 5pm',
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1),
                                     const SizedBox(
-                                      height: 10,
+                                      height: ValuesManager.v10,
                                     ),
                                     Text(
                                         'Facebook account : www: https://facebook.com/${widget.bloc.companies[widget.index]}',
@@ -119,7 +121,7 @@ class _CompanyItemState extends State<CompanyItem> {
                                             .textTheme
                                             .subtitle1),
                                     const SizedBox(
-                                      height: 10,
+                                      height: ValuesManager.v10,
                                     ),
                                     Text('Phone number : +201019035005',
                                         style: Theme.of(context)
@@ -131,7 +133,7 @@ class _CompanyItemState extends State<CompanyItem> {
                 },
                 icon: Icon(
                   Icons.info_outline_rounded,
-                  size: 25,
+                  size: ValuesManager.v25,
                   color: ColorsManager.blue2,
                 ),
               ),

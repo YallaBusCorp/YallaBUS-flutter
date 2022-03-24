@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:yalla_bus/core/custom_widgets/loading_widget.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
+import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/phone_number_widget.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_code.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_keyboard_widget.dart';
@@ -30,8 +31,8 @@ class _VerifyScreenState extends State<VerifyScreen>
   void initState() {
     _lottieController = AnimationController(
       vsync: this,
-      upperBound: 0.7,
-      duration: const Duration(milliseconds: 500),
+      upperBound: ValuesManager.vZeroPointSeven,
+      duration: Duration(milliseconds: ValuesManager.v500.toInt()),
     );
 
     super.initState();
@@ -43,7 +44,7 @@ class _VerifyScreenState extends State<VerifyScreen>
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(ValuesManager.v16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -69,22 +70,23 @@ class _VerifyScreenState extends State<VerifyScreen>
                     ],
                   ),
                 ),
-                Lottie.asset(AssetManager.darkverify, width: 100, height: 100),
+                Lottie.asset(AssetManager.darkverify,
+                    width: ValuesManager.v100, height: ValuesManager.v100),
               ],
             ),
             const SizedBox(
-              height: 80,
+              height: ValuesManager.v80,
             ),
             BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
                 return SizedBox(
-                  height: 55,
+                  height: ValuesManager.v55,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 6,
+                    itemCount: ValuesManager.iv6,
                     separatorBuilder: (BuildContext context, int index) {
                       return const SizedBox(
-                        width: 12,
+                        width: ValuesManager.v12,
                       );
                     },
                     itemBuilder: (BuildContext context, int index) {
@@ -110,7 +112,7 @@ class _VerifyScreenState extends State<VerifyScreen>
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: ValuesManager.v10,
                           ),
                           ButtonWidget(
                             onPressed: () {
@@ -118,8 +120,8 @@ class _VerifyScreenState extends State<VerifyScreen>
                             },
                             child: Text('Cancel',
                                 style: Theme.of(context).textTheme.subtitle2),
-                            height: 100,
-                            width: 50,
+                            height: ValuesManager.v100,
+                            width: ValuesManager.v50,
                           ),
                         ],
                       ),
@@ -129,7 +131,7 @@ class _VerifyScreenState extends State<VerifyScreen>
               }
               return Center(
                 child: ElevatedButton(
-                  onPressed: bloc.indexOfPinNumber == 6
+                  onPressed: bloc.indexOfPinNumber == ValuesManager.v6
                       ? () {
                           String otpCode = bloc.pinCode;
                           bloc.add(VerifyCodeVerificationEvent(otpCode));
@@ -142,18 +144,19 @@ class _VerifyScreenState extends State<VerifyScreen>
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        Size(MediaQuery.of(context).size.width - 50, 46),
+                    minimumSize: Size(
+                        MediaQuery.of(context).size.width - ValuesManager.v50,
+                        ValuesManager.v45),
                     primary: ColorsManager.orange,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(ValuesManager.v16),
                     ),
                   ),
                 ),
               );
             }),
             const SizedBox(
-              height: 10,
+              height: ValuesManager.v10,
             ),
             const PinCodeKeyboardWidget(),
           ],

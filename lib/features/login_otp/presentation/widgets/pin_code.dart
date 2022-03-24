@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
 
+import '../../../../core/resources/values_manager.dart';
+
 class PinCode extends StatelessWidget {
   final String pin;
   const PinCode({Key? key, required this.pin}) : super(key: key);
@@ -8,16 +10,19 @@ class PinCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 44,
-      height: 55,
+      width: ValuesManager.v45,
+      height: ValuesManager.v55,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(ValuesManager.v8),
         color: ColorsManager.black2,
       ),
       child: Center(
         child: Text(
           pin,
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 31),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(fontSize: ValuesManager.v30),
         ),
       ),
     );

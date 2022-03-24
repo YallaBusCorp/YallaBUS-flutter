@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/core/resources/string_manager.dart';
+import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/login_bloc.dart';
 
 class PhoneNumberWidget extends StatefulWidget {
@@ -17,15 +19,19 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('+', style: Theme.of(context).textTheme.bodyText2),
-        Text('2', style: Theme.of(context).textTheme.bodyText2),
-        Text('0', style: Theme.of(context).textTheme.bodyText2),
+        Text(StringManager.plusOperator,
+            style: Theme.of(context).textTheme.bodyText2),
+        Text(ValuesManager.iv2.toString(),
+            style: Theme.of(context).textTheme.bodyText2),
+        Text(ValuesManager.iv0.toString(),
+            style: Theme.of(context).textTheme.bodyText2),
         const SizedBox(
-          width: 10,
+          width: ValuesManager.v10,
         ),
-        Text('1', style: Theme.of(context).textTheme.bodyText2),
+        Text(ValuesManager.iv1.toString(),
+            style: Theme.of(context).textTheme.bodyText2),
         SizedBox(
-          height: 100,
+          height: ValuesManager.v100,
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
