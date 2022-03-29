@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:yalla_bus/features/login_otp/domain/use%20case/send_code_verification.dart';
 import '../../../../core/injection/di.dart';
+import '../../../../core/network/network_info.dart';
 import '../../../../core/resources/routes_manager.dart';
 
 part 'login_event.dart';
@@ -15,11 +16,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   List<String> pins = List.generate(6, (index) => '');
   String number = "+201";
   String pinCode = "";
-  final SendCodeVerification _sendCodeVerification = di<SendCodeVerification>();
+  final NetworkInfo network = di<NetworkInfo>();
   late String verificationId;
-
+  late UserCredential user;
   int indexOfPhoneNumber = 0;
   int indexOfPinNumber = 0;
+
+  void onChange(Change<LoginState> change) {
+    super.onChange(change);
+    print(change);
+  }
+
   LoginBloc() : super(LoginInitial()) {
     on<WritePhoneNumberEvent>((event, emit) {
       emit(Loading());
@@ -32,7 +39,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<RemovePhoneNumberEvent>((event, emit) {
-      
       emit(Loading());
       if (indexOfPhoneNumber >= 1) {
         number = number.substring(0, number.length - 1);
@@ -43,10 +49,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<WritePinCodeEvent>((event, emit) {
-      
       emit(Loading());
       pins[indexOfPinNumber] = event.number.toString();
-      pinCode = event.number.toString();
+      pinCode += event.number.toString();
       if (indexOfPinNumber < pins.length) {
         indexOfPinNumber++;
       }
@@ -54,7 +59,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<RemovePinNumberEvent>((event, emit) {
-  
       emit(Loading());
       if (indexOfPinNumber >= 1) {
         pinCode = pinCode.substring(0, pinCode.length - 1);
@@ -66,26 +70,44 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     on<SendCodeVerificationEvent>((event, emit) async {
       emit(SendingData());
-      final verificationSendResponse =
-          await _sendCodeVerification.call(event.number);
-      verificationSendResponse.fold((failure) {
-        emit(Error(failure.message));
-      }, (success) {
-        verificationId = success.toString();
-        emit(Success());
-      });
+      FirebaseAuth _auth = FirebaseAuth.instance;
+      if (await network.isConnected()) {
+        await _auth.verifyPhoneNumber(
+            phoneNumber: number,
+            verificationCompleted: verificationCompleted,
+            verificationFailed: verificationFailed,
+            codeSent: codeSent,
+            timeout: const Duration(seconds: 60),
+            codeAutoRetrievalTimeout: (String verificationId) {});
+      } else {
+        emit(const Error('You are not connected to internet'));
+      }
     });
 
     on<VerifyCodeVerificationEvent>((event, emit) async {
-      emit(SendingData());
-      PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: verificationId, smsCode: event.otpCode);
-      try {
-        await FirebaseAuth.instance.signInWithCredential(credential);
-        emit(Success());
-      } catch (e) {
-        emit(const Error('Error'));
-      }
+      await submitOtp(event.otpCode);
     });
+  }
+
+  void verificationCompleted(AuthCredential credential) {}
+  void verificationFailed(FirebaseAuthException authException) {
+    emit(Error('${authException.message}'));
+  }
+
+  void codeSent(String verificationId, int? resendToken) {
+    this.verificationId = verificationId;
+    emit(Success(true));
+  }
+
+  Future<void> submitOtp(String otpCode) async {
+    emit(SendingData());
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId, smsCode: otpCode);
+    try {
+      user = await FirebaseAuth.instance.signInWithCredential(credential);
+      emit(const Success(true));
+    } on FirebaseAuthException {
+      emit(const Error('Wrong Verification!'));
+    }
   }
 }

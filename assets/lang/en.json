@@ -9,6 +9,19 @@
     "chooseCompany" : "Choose Company",
     "companyNo1" : "ElZanaty Travals",
     "companyNo2" : "Sarkes Travals",
-    "companyNo3" : "Bebo Travals"
+    "companyNo3" : "Bebo Travals",
+    "companyNo4" : "Uni-bus Travals",
+    "companyNo5" : "Abo Ibrahim Travals",
+    "companyNo6" : "Mit Ghamr",
+    "companyNo7" : "Mit Ghamr",
+    "companyNo8" : "Mit Ghamr",
+    "companyNo9" : "Ras Elbar",
+    "enterYourNumber" : "Enter your mobile number",
+    "sendYouConfirmation" : "We will send you a code",
+    "confirm" : "Confirm",
+    "next" : "Next",
+    "verifyYourNumber" : "Verify your mobile number",
+    "codeSentTo" : "Code was sent to ",
+    "verify" : "Verify"
     
 }

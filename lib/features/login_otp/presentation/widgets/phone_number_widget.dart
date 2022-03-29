@@ -19,17 +19,22 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(StringManager.plusOperator,
-            style: Theme.of(context).textTheme.bodyText2),
+        Text(
+          StringManager.plusOperator,
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 40),
+        ),
         Text(ValuesManager.iv2.toString(),
-            style: Theme.of(context).textTheme.bodyText2),
+            style:
+                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 40)),
         Text(ValuesManager.iv0.toString(),
-            style: Theme.of(context).textTheme.bodyText2),
+            style:
+                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 40)),
         const SizedBox(
           width: ValuesManager.v10,
         ),
         Text(ValuesManager.iv1.toString(),
-            style: Theme.of(context).textTheme.bodyText2),
+            style:
+                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 40)),
         SizedBox(
           height: ValuesManager.v100,
           child: ListView.builder(
@@ -39,7 +44,8 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
             itemBuilder: (BuildContext context, int index) {
               return Text(
                 widget.num[index].toString(),
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: 40,
                     color: bloc.indexOfPhoneNumber > index
                         ? MediaQuery.of(context).platformBrightness ==
                                 Brightness.dark

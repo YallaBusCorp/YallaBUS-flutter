@@ -22,7 +22,7 @@ class PinCode extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodyText1!
-              .copyWith(fontSize: ValuesManager.v30),
+              .copyWith(fontSize: ValuesManager.v40),
         ),
       ),
     );

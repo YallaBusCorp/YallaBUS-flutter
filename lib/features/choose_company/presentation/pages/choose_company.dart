@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:yalla_bus/core/custom_widgets/text_form.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
@@ -35,46 +36,46 @@ class _ChooseCompanyState extends State<ChooseCompany>
 
   @override
   Widget build(BuildContext context) {
+    CompanySelectionBloc bloc = BlocProvider.of<CompanySelectionBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           StringManager.chooseCompany.tr(),
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyText2,
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: ValuesManager.v16),
+        padding: const EdgeInsets.all(ValuesManager.v16),
         child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AnimationWidget(
-                controller: controller,
-                asset: AssetManager.chooseCompany,
-                width: ValuesManager.v2AndHalf,
-                height: ValuesManager.v2AndHalf,
+              //HereT
+              const TextFormWidget(),
+              const SizedBox(
+                height: 20,
               ),
               BlocBuilder<CompanySelectionBloc, CompanySelectionState>(
                 builder: (context, state) {
-                  CompanySelectionBloc bloc =
-                      BlocProvider.of<CompanySelectionBloc>(context);
-                  return SizedBox(
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: bloc.companies.length,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: ValuesManager.v10,
-                        );
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return CompanyItem(
-                          index: index,
-                          bloc: bloc,
-                        );
-                      },
+                  return Expanded(
+                    child: SizedBox(
+                      child: ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: bloc.companies.length,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: ValuesManager.v10,
+                          );
+                        },
+                        itemBuilder: (BuildContext context, int index) {
+                          return CompanyItem(
+                            index: index,
+                            bloc: bloc,
+                          );
+                        },
+                      ),
                     ),
                   );
                 },
@@ -82,33 +83,45 @@ class _ChooseCompanyState extends State<ChooseCompany>
               const SizedBox(
                 height: ValuesManager.v10,
               ),
-              // Text(
-              //   'Note: If you don\'t have an account yet, choose the company that you want to subscipe to at',
-              //   style: Theme.of(context).textTheme.headline6,
-              // ),
+
+              Text(
+                'NOTE: If you don\'t have an account yet, choose the company that you want to subscipe to at',
+                style: Theme.of(context)
+                    .textTheme
+                    .caption!
+                    .copyWith(color: Colors.grey),
+              ),
               const SizedBox(
                 height: ValuesManager.v10,
               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: ValuesManager.v30),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(
-                        MediaQuery.of(context).size.width - ValuesManager.v50,
-                        ValuesManager.v45),
-                    primary: ColorsManager.orange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(ValuesManager.v16),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(Routes.loginOtp);
+                child: BlocBuilder<CompanySelectionBloc, CompanySelectionState>(
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(
+                            MediaQuery.of(context).size.width -
+                                ValuesManager.v50,
+                            ValuesManager.v45),
+                        primary: ColorsManager.orange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(ValuesManager.v16),
+                        ),
+                      ),
+                      onPressed: bloc.isSelected.contains(true)
+                          ? () {
+                              Navigator.of(context).pushNamed(Routes.loginOtp);
+                            }
+                          : null,
+                      child: Text(
+                        StringManager.next.tr(),
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    );
                   },
-                  child: Text(
-                    StringManager.next,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
                 ),
               ),
             ],

@@ -28,9 +28,9 @@ class _CompanyItemState extends State<CompanyItem> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: MediaQuery.of(context).platformBrightness == Brightness.dark
+          color: widget.bloc.isSelected[widget.index]
               ? ColorsManager.black2
-              : Colors.white,
+              : ColorsManager.black,
           boxShadow:
               MediaQuery.of(context).platformBrightness == Brightness.light
                   ? [
@@ -43,12 +43,6 @@ class _CompanyItemState extends State<CompanyItem> {
                       const BoxShadow(blurRadius: ValuesManager.v0),
                     ],
           borderRadius: BorderRadius.circular(ValuesManager.v16),
-          border: Border.all(
-            color: widget.bloc.isSelected[widget.index]
-                ? ColorsManager.blue2
-                : Colors.transparent,
-            width: ValuesManager.v2,
-          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(ValuesManager.v8),
@@ -134,7 +128,7 @@ class _CompanyItemState extends State<CompanyItem> {
                 icon: Icon(
                   Icons.info_outline_rounded,
                   size: ValuesManager.v25,
-                  color: ColorsManager.blue2,
+                  color: ColorsManager.orange,
                 ),
               ),
             ],

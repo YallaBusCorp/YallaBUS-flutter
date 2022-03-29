@@ -142,12 +142,9 @@ class LoginKeyboardWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircleButtonWidget(
-                  onPressed: () {},
-                  child: Text(
-                    '*',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
+                //new edit
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 6,
                 ),
                 CircleButtonWidget(
                   onPressed: () {

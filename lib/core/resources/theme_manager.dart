@@ -7,12 +7,12 @@ import 'package:yalla_bus/core/resources/constants_manager.dart';
 
 final TextTheme textThemeEnglish = TextTheme(
   bodyText2: GoogleFonts.nunito(
-    fontSize: 40,
-    fontWeight: FontWeight.w400,
+    fontSize: 26,
+    fontWeight: FontWeight.bold,
   ),
   bodyText1: GoogleFonts.nunito(
     fontSize: 26,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w400,
   ),
   subtitle1: GoogleFonts.nunito(
     fontSize: 24,
@@ -65,18 +65,13 @@ final ThemeData light = ThemeData(
   primaryColor: Colors.white,
   textTheme: textThemeEnglish,
   scaffoldBackgroundColor: Colors.white,
-  appBarTheme: const AppBarTheme(
-    titleTextStyle: TextStyle(
-      color: Colors.black,
-      fontSize: 28,
-      fontWeight: FontWeight.w800,
-    ),
+  appBarTheme: AppBarTheme(
     iconTheme: IconThemeData(
-      color: Colors.black,
+      color: ColorsManager.orange,
     ),
     color: Colors.white,
     elevation: 0,
-    systemOverlayStyle: SystemUiOverlayStyle(
+    systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.white,
@@ -90,13 +85,8 @@ final ThemeData dark = ThemeData(
   textTheme: textThemeEnglish,
   scaffoldBackgroundColor: ColorsManager.black,
   appBarTheme: AppBarTheme(
-    titleTextStyle: TextStyle(
-      color: Colors.red,
-      fontSize: 28,
-      fontWeight: FontWeight.w800,
-    ),
-    iconTheme: const IconThemeData(
-      color: Colors.white,
+    iconTheme: IconThemeData(
+      color: ColorsManager.orange,
     ),
     color: ColorsManager.black,
     elevation: 0,

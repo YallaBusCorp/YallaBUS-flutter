@@ -13,9 +13,15 @@ class CompanySelectionBloc
     StringManager.companyNo1.tr(),
     StringManager.companyNo2.tr(),
     StringManager.companyNo3.tr(),
+    StringManager.companyNo4.tr(),
+    StringManager.companyNo5.tr(),
+    StringManager.companyNo6.tr(),
+    StringManager.companyNo6.tr(),
+    StringManager.companyNo7.tr(),
+
   ];
 
-  List<bool> isSelected = List.generate(3, (index) => false);
+  List<bool> isSelected = List.generate(8, (index) => false);
 
   bool isClicked = false;
 

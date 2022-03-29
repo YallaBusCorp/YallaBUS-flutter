@@ -10,17 +10,19 @@ class StringManager {
   static const String companyNo1 = "companyNo1";
   static const String companyNo2 = "companyNo2";
   static const String companyNo3 = "companyNo3";
+  static const String companyNo4 = "companyNo4";
+  static const String companyNo5 = "companyNo6";
+  static const String companyNo6 = "companyNo5";
+  static const String companyNo7 = "companyNo7";
+  static const String companyNo8 = "companyNo8";
   static const String plusOperator = "+";
 
-  
-  //edit those!
-  
-  static const String enterYourNumber = "Enter your mobile number";
-  static const String sendYouConfirmation = "We will send you a code";
-  static const String confirm = "Confirm";
-  static const String next = "Next";
-  static const String verifyYourNumber = "Verify your mobile number";
-  static const String codeSentTo = "Code was sent to ";
+  static const String enterYourNumber = "enterYourNumber";
+  static const String sendYouConfirmation = "sendYouConfirmation";
+  static const String confirm = "confirm";
+  static const String next = "next";
+  static const String verifyYourNumber = "verifyYourNumber";
+  static const String codeSentTo = "codeSentTo";
   static const String otp = "Otp";
-  static const String verify = "Verify";
+  static const String verify = "verify";
 }

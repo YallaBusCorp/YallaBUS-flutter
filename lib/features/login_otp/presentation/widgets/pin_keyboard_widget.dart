@@ -47,7 +47,7 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv1));
                   },
                   child: Text(
-                    ValuesManager.v1.toString(),
+                    ValuesManager.iv1.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -56,7 +56,7 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv2));
                   },
                   child: Text(
-                    ValuesManager.v2.toString(),
+                    ValuesManager.iv2.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -65,7 +65,7 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv3));
                   },
                   child: Text(
-                    ValuesManager.v3.toString(),
+                    ValuesManager.iv3.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -80,7 +80,7 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv4));
                   },
                   child: Text(
-                    ValuesManager.v4.toString(),
+                    ValuesManager.iv4.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -89,7 +89,7 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv5));
                   },
                   child: Text(
-                    ValuesManager.v5.toString(),
+                    ValuesManager.iv5.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -98,7 +98,7 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv6));
                   },
                   child: Text(
-                    ValuesManager.v6.toString(),
+                    ValuesManager.iv6.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -113,7 +113,7 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv7));
                   },
                   child: Text(
-                    ValuesManager.v7.toString(),
+                    ValuesManager.iv7.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -122,7 +122,7 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv8));
                   },
                   child: Text(
-                    ValuesManager.v8.toString(),
+                    ValuesManager.iv8.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -131,7 +131,7 @@ class PinCodeKeyboardWidget extends StatelessWidget {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv9));
                   },
                   child: Text(
-                    ValuesManager.v9.toString(),
+                    ValuesManager.iv9.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -141,19 +141,15 @@ class PinCodeKeyboardWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircleButtonWidget(
-                  onPressed: () {},
-                  child: Text(
-                    '*',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 6,
                 ),
                 CircleButtonWidget(
                   onPressed: () {
                     bloc.add(const WritePinCodeEvent(ValuesManager.iv0));
                   },
                   child: Text(
-                    ValuesManager.v0.toString(),
+                    ValuesManager.iv0.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),

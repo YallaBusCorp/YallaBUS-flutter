@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/login_bloc.dart';
+import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/login_keyboard_widget.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/phone_number_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -59,11 +61,11 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        StringManager.enterYourNumber,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        StringManager.enterYourNumber.tr(),
+                        style: Theme.of(context).textTheme.bodyText2,
                       ),
                       Text(
-                        StringManager.sendYouConfirmation,
+                        StringManager.sendYouConfirmation.tr(),
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     ],
@@ -73,9 +75,7 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                     width: ValuesManager.v100, height: ValuesManager.v100),
               ],
             ),
-            const SizedBox(
-              height: ValuesManager.v40,
-            ),
+            const Spacer(),
             BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
                 return Center(
@@ -85,25 +85,20 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                 );
               },
             ),
-            BlocBuilder<LoginBloc, LoginState>(
-              builder: (context, state) {
+            BlocConsumer<LoginBloc, LoginState>(
+              listener: (context, state) {
                 if (state is SendingData) {
-                  WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    showDialogWidget(context, 'Loading');
-                    // Add Your Code here.
-                  });
-                }
-                if (state is Success) {
-                  SchedulerBinding.instance!.addPostFrameCallback((_) {
-                    Navigator.of(context)
-                        .pushNamed(Routes.verifyOtp, arguments: bloc.number);
-                  });
+                  DialogWidget(context, 'Wait a while ...', 'Loading');
+                } else if (state is Success) {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  Navigator.of(context)
+                      .pushNamed(Routes.verifyOtp, arguments: bloc.number);
                 } else if (state is Error) {
-                  WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    showDialogWidget(context, 'Error');
-                    // Add Your Code here.
-                  });
+                  // Navigator.of(context, rootNavigator: true).pop();
+                  DialogWidget(context, state.message, 'Error');
                 }
+              },
+              builder: (context, state) {
                 return Center(
                   child: ElevatedButton(
                     onPressed: bloc.indexOfPhoneNumber == ValuesManager.v9
@@ -113,8 +108,8 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                           }
                         : null,
                     child: Text(
-                      StringManager.confirm,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      StringManager.confirm.tr(),
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(
@@ -129,7 +124,9 @@ class _LoginOtpState extends State<LoginOtp> with TickerProviderStateMixin {
                 );
               },
             ),
-            const Spacer(),
+            const SizedBox(
+              height: 20,
+            ),
             const Align(
                 alignment: Alignment.bottomCenter,
                 child: LoginKeyboardWidget()),

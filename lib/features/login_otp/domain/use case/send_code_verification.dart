@@ -3,11 +3,10 @@ import 'package:yalla_bus/features/login_otp/domain/repository/repository.dart';
 
 import '../../../../core/failure/failure.dart';
 
-class SendCodeVerification{
+class SendCodeVerification {
   final Repository repository;
 
   SendCodeVerification(this.repository);
-  Future<Either<Failure, String>> call(String number){
-    return repository.sendCodeToPhoneNumber(number);
-  }
+  // Future<Either<Failure, bool>> call(String number) async{
+    // return await repository.sendCodeToPhoneNumber(number);
 }
