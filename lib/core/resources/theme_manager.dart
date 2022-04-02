@@ -4,59 +4,33 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/core/resources/fonts_family.dart';
 
-final TextTheme textThemeEnglish = TextTheme(
-  bodyText2: GoogleFonts.nunito(
-    fontSize: 26,
-    fontWeight: FontWeight.bold,
+const TextTheme textThemeEnglish = TextTheme(
+  headline6: TextStyle(
+    fontFamily: FontFamily.nunitoSemiBold,
   ),
-  bodyText1: GoogleFonts.nunito(
-    fontSize: 26,
-    fontWeight: FontWeight.w400,
+  headline5: TextStyle(
+    fontFamily: FontFamily.nunitoBold,
   ),
-  subtitle1: GoogleFonts.nunito(
-    fontSize: 24,
-    fontWeight: FontWeight.w500,
+  headline4: TextStyle(
+    fontFamily: FontFamily.nunitoExtraBold,
   ),
-  subtitle2: GoogleFonts.nunito(
-    fontSize: 21,
-    fontWeight: FontWeight.w500,
-  ),
-  caption: GoogleFonts.nunito(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-  ),
-  headline6: GoogleFonts.nunito(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-  ),
-  headline5: GoogleFonts.nunito(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
+  caption: TextStyle(
+    fontFamily: FontFamily.nunitoRegular,
   ),
 );
 
 //Not Completed
-final TextTheme textThemeArabic = TextTheme(
-  headline1: GoogleFonts.balooBhaijaan2(
-    fontSize: 45,
-    fontWeight: FontWeight.w400,
+const TextTheme textThemeArabic = TextTheme(
+  headline6: TextStyle(
+    fontFamily: FontFamily.balooRegular,
   ),
-  headline2: GoogleFonts.balooBhaijaan2(
-    fontSize: 26,
-    fontWeight: FontWeight.bold,
+  headline5: TextStyle(
+    fontFamily: FontFamily.balooSemiBold,
   ),
-  headline3: GoogleFonts.balooBhaijaan2(
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-  ),
-  headline6: GoogleFonts.balooBhaijaan2(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-  ),
-  headline5: GoogleFonts.balooBhaijaan2(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
+  headline4: TextStyle(
+    fontFamily: FontFamily.balooBold,
   ),
 );
 
@@ -64,8 +38,10 @@ final ThemeData light = ThemeData(
   colorScheme: const ColorScheme.light(),
   primaryColor: Colors.white,
   textTheme: textThemeEnglish,
+  backgroundColor: Colors.white,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
+    centerTitle: true,
     iconTheme: IconThemeData(
       color: ColorsManager.orange,
     ),
@@ -83,8 +59,10 @@ final ThemeData dark = ThemeData(
   colorScheme: const ColorScheme.dark(),
   primaryColor: ColorsManager.black,
   textTheme: textThemeEnglish,
+  backgroundColor: Colors.black,
   scaffoldBackgroundColor: ColorsManager.black,
   appBarTheme: AppBarTheme(
+    centerTitle: true,
     iconTheme: IconThemeData(
       color: ColorsManager.orange,
     ),

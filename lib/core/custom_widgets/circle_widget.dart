@@ -16,7 +16,7 @@ class CircleButtonWidget extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         elevation: 0,
         minimumSize: const Size(60, 60),
-        primary: ColorsManager.black2,
+        primary: Theme.of(context).backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),

@@ -17,11 +17,14 @@
     "companyNo8" : "Mit Ghamr",
     "companyNo9" : "Ras Elbar",
     "enterYourNumber" : "Enter your mobile number",
-    "sendYouConfirmation" : "We will send you a code",
-    "confirm" : "Confirm",
+    "sendYouConfirmation" : "We will send you a confirmation code",
+    "sendCode" : "Send Code",
     "next" : "Next",
     "verifyYourNumber" : "Verify your mobile number",
     "codeSentTo" : "Code was sent to ",
-    "verify" : "Verify"
+    "verify" : "Verify",
+    "wait" : "Wait a while ...",
+    "errorVerification" : "Wrong Verification! "
+
     
 }

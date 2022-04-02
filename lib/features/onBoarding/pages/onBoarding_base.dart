@@ -39,8 +39,8 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
               StringManager.skip.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
-                  .copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+                  .headline5!
+                  .copyWith(color: Colors.grey),
             ),
           ),
         ],

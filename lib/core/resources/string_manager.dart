@@ -19,10 +19,13 @@ class StringManager {
 
   static const String enterYourNumber = "enterYourNumber";
   static const String sendYouConfirmation = "sendYouConfirmation";
-  static const String confirm = "confirm";
+  static const String sendCode = "sendCode";
   static const String next = "next";
   static const String verifyYourNumber = "verifyYourNumber";
   static const String codeSentTo = "codeSentTo";
   static const String otp = "Otp";
   static const String verify = "verify";
+  static const String wait = "wait";
+  static const String verificationError = "errorVerification";
+  
 }

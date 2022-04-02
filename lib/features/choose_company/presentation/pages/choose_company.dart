@@ -41,7 +41,7 @@ class _ChooseCompanyState extends State<ChooseCompany>
       appBar: AppBar(
         title: Text(
           StringManager.chooseCompany.tr(),
-          style: Theme.of(context).textTheme.bodyText2,
+          style: Theme.of(context).textTheme.headline5,
         ),
       ),
       body: Padding(

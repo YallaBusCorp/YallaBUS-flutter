@@ -11,12 +11,6 @@ class LoginInitial extends LoginState {}
 
 class Loading extends LoginState{}
 
-class ChangeIndexOfNumber extends LoginState{}
- 
-class ChangeIndexOfPin extends LoginState{}
-
-
-enum LoginRenderStatus {loading,success,error} 
 
 class SendingData extends LoginState{}
 

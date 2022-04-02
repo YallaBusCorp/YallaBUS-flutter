@@ -5,9 +5,12 @@ import 'package:lottie/lottie.dart';
 import 'package:yalla_bus/core/custom_widgets/loading_widget.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
+import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
+import 'package:yalla_bus/features/login_otp/presentation/widgets/Auth_button_widget.dart';
+import 'package:yalla_bus/features/login_otp/presentation/widgets/Auth_header_layout.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/phone_number_widget.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_code.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_keyboard_widget.dart';
+import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_layout.dart';
 
 import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/custom_widgets/show_dialog.dart';
@@ -15,8 +18,8 @@ import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../../../home/presentation/pages/home.dart';
-import '../bloc/login_bloc.dart';
-import '../widgets/login_keyboard_widget.dart';
+import '../bloc/Login/login_bloc.dart';
+import '../widgets/Auth_keyboard_widget.dart';
 
 class VerifyScreen extends StatefulWidget {
   final String number;
@@ -26,24 +29,11 @@ class VerifyScreen extends StatefulWidget {
   State<VerifyScreen> createState() => _VerifyScreenState();
 }
 
-class _VerifyScreenState extends State<VerifyScreen>
-    with TickerProviderStateMixin {
-  late AnimationController _lottieController;
-
-  @override
-  void initState() {
-    _lottieController = AnimationController(
-      vsync: this,
-      upperBound: ValuesManager.vZeroPointSeven,
-      duration: Duration(milliseconds: ValuesManager.v500.toInt()),
-    );
-
-    super.initState();
-  }
-
+class _VerifyScreenState extends State<VerifyScreen> {
   @override
   Widget build(BuildContext context) {
     LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
+    KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -51,114 +41,30 @@ class _VerifyScreenState extends State<VerifyScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        StringManager.verifyYourNumber.tr(),
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                      Text(
-                        StringManager.codeSentTo.tr() + widget.number,
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                Lottie.asset(AssetManager.darkverify,
-                    width: ValuesManager.v100, height: ValuesManager.v100),
-              ],
-            ),
+            AuthHeader(
+                header1: StringManager.verifyYourNumber,
+                header2: StringManager.codeSentTo + keyboard.number,
+                asset: AssetManager.darkverify),
             const SizedBox(
               height: ValuesManager.v80,
             ),
-            BlocConsumer<LoginBloc, LoginState>(
-              listener: (context, state) {
-                if (state is SendingData) {
-                  DialogWidget(
-                    context,
-                    'Wait a while ...',
-                    'Loading',
-                  );
-                } else if (state is Success) {
-                  Navigator.of(context).pop();
-                  Navigator.popUntil(context, (route) {
-                    return route.settings.name == Routes.verifyOtp;
-                  });
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (_) => const Home()),
-                      (route) => false);
-                } else if (state is Error) {
-                  Navigator.of(context).pop();
-
-                  DialogWidget(
-                    context,
-                    state.message,
-                    'Error',
-                  );
-                  Navigator.popUntil(context, (route) {
-                    return route.settings.name == Routes.chooseCompany;
-                  });
-                }
-              },
-              builder: (context, state) {
-                return SizedBox(
-                  height: ValuesManager.v55,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: ValuesManager.iv6,
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(
-                        width: ValuesManager.v12,
-                      );
-                    },
-                    itemBuilder: (BuildContext context, int index) {
-                      return PinCode(pin: bloc.pins[index]);
-                    },
-                  ),
-                );
-              },
-            ),
+            const PinCode(),
             const Spacer(),
-            BlocBuilder<LoginBloc, LoginState>(
-              builder: (context, state) {
-                return Center(
-                  child: ElevatedButton(
-                    onPressed: bloc.indexOfPinNumber == ValuesManager.iv6
-                        ? () {
-                            String otpCode = bloc.pinCode;
-                            bloc.add(VerifyCodeVerificationEvent(otpCode));
-                          }
-                        : null,
-                    child: Text(
-                      StringManager.verify.tr(),
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(
-                          MediaQuery.of(context).size.width - ValuesManager.v50,
-                          ValuesManager.v45),
-                      primary: ColorsManager.orange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(ValuesManager.v16),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+            AuthButton(
+                text: StringManager.sendCode,
+                onPressed: () {
+                  keyboard.indexOfPinNumber == ValuesManager.v5
+                      ? bloc.add(
+                          VerifyCodeVerificationEvent(keyboard.pinCode),
+                        )
+                      : null;
+                }),
             const SizedBox(
               height: ValuesManager.v20,
             ),
-            const PinCodeKeyboardWidget(),
+            const KeyboardWidget(
+              type: StringManager.otp,
+            ),
           ],
         ),
       ),

@@ -13,7 +13,7 @@ class _TextFormWidgetState extends State<TextFormWidget> {
   TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height / 15,
       child: Center(
@@ -24,13 +24,14 @@ class _TextFormWidgetState extends State<TextFormWidget> {
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.only(top: 20),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(
                 color: ColorsManager.orange,
               ),
             ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide.none,
             ),
             hintText: 'Search ..',
             prefixIcon: const Icon(
@@ -40,9 +41,9 @@ class _TextFormWidgetState extends State<TextFormWidget> {
             hintStyle: Theme.of(context)
                 .textTheme
                 .headline6!
-                .copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+                .copyWith(color: Colors.grey),
             filled: true,
-            fillColor: ColorsManager.black2,
+            fillColor: Theme.of(context).backgroundColor,
           ),
         ),
       ),

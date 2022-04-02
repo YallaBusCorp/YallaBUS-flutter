@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../resources/values_manager.dart';
+
 extension ColorsExtensions on Color {
   static Color hexColor(String color) {
     final buffer = StringBuffer();
@@ -16,5 +18,18 @@ extension ColorsExtensions on Color {
         ? Colors.white
         : Colors.black;
   }
+}
+
+List<BoxShadow> selectShadow(BuildContext context){
+  return MediaQuery.of(context).platformBrightness == Brightness.light
+            ? [
+                const BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: ValuesManager.v5,
+                ),
+              ]
+            : [
+                 const BoxShadow(blurRadius: ValuesManager.v0),
+              ];
 }
 

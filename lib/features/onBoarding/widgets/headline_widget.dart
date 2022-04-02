@@ -6,6 +6,8 @@ import '../../../core/resources/colors_manager.dart';
 import '../../../core/resources/string_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../../core/resources/values_manager.dart';
+
 class HeadlineWidget extends StatelessWidget {
   final String headline;
   const HeadlineWidget({Key? key, required this.headline}) : super(key: key);
@@ -15,19 +17,19 @@ class HeadlineWidget extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: MediaQuery.of(context).size.width / 3,
+          width: MediaQuery.of(context).size.width / ValuesManager.v3,
           color: ColorsManager.blue,
-          height: 2,
+          height: ValuesManager.v2,
         ),
         const SizedBox(
-          width: 8,
+          width: ValuesManager.v8,
         ),
         ConstrainedBox(
           constraints: const BoxConstraints(
-            maxWidth: 90,
-            minHeight: 30,
-            minWidth: 30,
-            maxHeight: 70,
+            maxWidth: ValuesManager.v90,
+            minHeight: ValuesManager.v30,
+            minWidth: ValuesManager.v30,
+            maxHeight: ValuesManager.v70,
           ),
           child: Text(
             headline.tr(),
@@ -36,12 +38,12 @@ class HeadlineWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          width: 8,
+          width: ValuesManager.v8,
         ),
         Expanded(
           child: Container(
             color: ColorsManager.green,
-            height: 2,
+            height: ValuesManager.v2,
           ),
         ),
       ],

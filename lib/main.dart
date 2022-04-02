@@ -12,7 +12,7 @@ import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/theme_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/choose_company/presentation/pages/choose_company.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/login_bloc.dart';
+import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
 import 'package:yalla_bus/features/onBoarding/pages/onBoarding_base.dart';
 
 import 'features/login_otp/presentation/pages/login.dart';
@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key) {
     isSeen = perfs.getBool(ConstantsManager.seenKey) ?? false;
   }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -59,10 +60,12 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
-        theme: context.deviceLocale.hashCode == const Locale('ar').hashCode
-            ? light.copyWith(textTheme: textThemeArabic)
-            : light,
-        darkTheme: context.deviceLocale.hashCode == const Locale('ar').hashCode
+        theme:
+            context.deviceLocale.runtimeType == const Locale('ar').runtimeType
+                ? light.copyWith(textTheme: textThemeArabic)
+                : light,
+        darkTheme: context.deviceLocale.runtimeType.hashCode ==
+                const Locale('ar').runtimeType.hashCode
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
         home: isSeen ? const ChooseCompany() : const OnBoardingBase(),

@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
+import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_layout.dart';
 
+import '../../../../core/custom_widgets/show_dialog.dart';
+import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../../../home/presentation/pages/home.dart';
+import '../bloc/Login/login_bloc.dart';
 
 class PinCode extends StatelessWidget {
-  final String pin;
-  const PinCode({Key? key, required this.pin}) : super(key: key);
+  const PinCode({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: ValuesManager.v45,
-      height: ValuesManager.v55,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(ValuesManager.v8),
-        color: ColorsManager.black2,
-      ),
-      child: Center(
-        child: Text(
-          pin,
-          style: Theme.of(context)
-              .textTheme
-              .bodyText1!
-              .copyWith(fontSize: ValuesManager.v40),
-        ),
-      ),
+    KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
+    return BlocBuilder<KeyboardBloc, KeyboardState>(
+      builder: (context, state) {
+        return SizedBox(
+          height: ValuesManager.v55,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: ValuesManager.iv6,
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                width: ValuesManager.v10,
+              );
+            },
+            itemBuilder: (BuildContext context, int index) {
+              return PinLayout(pin: keyboard.pins[index]);
+            },
+          ),
+        );
+      },
     );
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/login_bloc.dart';
+import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
+import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
 
 class PhoneNumberWidget extends StatefulWidget {
   List<int> num;
@@ -15,26 +16,26 @@ class PhoneNumberWidget extends StatefulWidget {
 class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
   @override
   Widget build(BuildContext context) {
-    LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
+     KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           StringManager.plusOperator,
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 40),
+          style: Theme.of(context).textTheme.headline5!.copyWith(fontSize: 40),
         ),
         Text(ValuesManager.iv2.toString(),
             style:
-                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 40)),
+                Theme.of(context).textTheme.headline5!.copyWith(fontSize: 40)),
         Text(ValuesManager.iv0.toString(),
             style:
-                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 40)),
+                Theme.of(context).textTheme.headline5!.copyWith(fontSize: 40)),
         const SizedBox(
           width: ValuesManager.v10,
         ),
         Text(ValuesManager.iv1.toString(),
             style:
-                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 40)),
+                Theme.of(context).textTheme.headline5!.copyWith(fontSize: 40)),
         SizedBox(
           height: ValuesManager.v100,
           child: ListView.builder(
@@ -44,13 +45,12 @@ class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
             itemBuilder: (BuildContext context, int index) {
               return Text(
                 widget.num[index].toString(),
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 40,
-                    color: bloc.indexOfPhoneNumber > index
-                        ? MediaQuery.of(context).platformBrightness ==
-                                Brightness.dark
-                            ? Colors.white
-                            : Colors.black
+                style: Theme.of(context).textTheme.headline5!.copyWith(
+                    fontSize: ValuesManager.v40,
+                    color: keyboard.indexOfPhoneNumber > index
+                        ? Theme.of(context).backgroundColor == Colors.white
+                            ? Colors.black
+                            : Colors.white
                         : Colors.grey),
               );
             },

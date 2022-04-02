@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
@@ -29,19 +30,13 @@ class _CompanyItemState extends State<CompanyItem> {
       child: Container(
         decoration: BoxDecoration(
           color: widget.bloc.isSelected[widget.index]
-              ? ColorsManager.black2
-              : ColorsManager.black,
-          boxShadow:
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? [
-                      const BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: ValuesManager.v5,
-                      ),
-                    ]
-                  : [
-                      const BoxShadow(blurRadius: ValuesManager.v0),
-                    ],
+              ? Theme.of(context).backgroundColor == Colors.black
+                  ? ColorsManager.black2
+                  : Colors.grey
+              : Theme.of(context).backgroundColor == Colors.black
+                  ? ColorsManager.black2
+                  : Colors.white,
+          boxShadow: selectShadow(context),
           borderRadius: BorderRadius.circular(ValuesManager.v16),
         ),
         child: Padding(
@@ -63,7 +58,10 @@ class _CompanyItemState extends State<CompanyItem> {
               ),
               Text(
                 widget.bloc.companies[widget.index].tr(),
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(fontSize: 18),
               ),
               const Spacer(),
               IconButton(
@@ -74,7 +72,7 @@ class _CompanyItemState extends State<CompanyItem> {
                             decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.circular(ValuesManager.v16),
-                              color: ColorsManager.black2,
+                              color: Theme.of(context).backgroundColor,
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(ValuesManager.v16),
@@ -97,7 +95,7 @@ class _CompanyItemState extends State<CompanyItem> {
                                     Text(
                                       widget.bloc.companies[widget.index],
                                       style:
-                                          Theme.of(context).textTheme.subtitle1,
+                                          Theme.of(context).textTheme.headline5,
                                     ),
                                     const SizedBox(
                                       height: ValuesManager.v10,
@@ -105,7 +103,7 @@ class _CompanyItemState extends State<CompanyItem> {
                                     Text('Works hours : 9am to 5pm',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .subtitle1),
+                                            .headline5),
                                     const SizedBox(
                                       height: ValuesManager.v10,
                                     ),
@@ -113,14 +111,14 @@ class _CompanyItemState extends State<CompanyItem> {
                                         'Facebook account : www: https://facebook.com/${widget.bloc.companies[widget.index]}',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .subtitle1),
+                                            .headline5),
                                     const SizedBox(
                                       height: ValuesManager.v10,
                                     ),
                                     Text('Phone number : +201019035005',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .subtitle1),
+                                            .headline5),
                                   ]),
                             ),
                           ));
