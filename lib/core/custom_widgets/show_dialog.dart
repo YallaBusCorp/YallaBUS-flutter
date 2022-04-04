@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:yalla_bus/core/custom_widgets/animation_widget.dart';
@@ -29,7 +30,7 @@ void DialogWidget(BuildContext context, String message, String type) {
                 height: 10,
               ),
               TextWidget(
-                  text: message, style: Theme.of(context).textTheme.headline6!),
+                  text: message.tr(), style: Theme.of(context).textTheme.headline6!),
             ],
           ),
           actions: type == 'Error'

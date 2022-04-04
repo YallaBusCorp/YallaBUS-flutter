@@ -180,7 +180,9 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    bloc.add(RemovePhoneNumberEvent());
+                    type == StringManager.otp
+                        ? bloc.add(RemovePinNumberEvent())
+                        : bloc.add(RemovePhoneNumberEvent());
                   },
                   child: Icon(Icons.backspace_outlined,
                       color: MediaQuery.of(context).platformBrightness ==

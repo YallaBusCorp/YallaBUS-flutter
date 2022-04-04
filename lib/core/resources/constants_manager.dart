@@ -10,12 +10,23 @@ Dark Color:	#111111
 
 */
 
-
-class ConstantsManager{
+class ConstantsManager {
   static const String seenKey = 'Seen';
   static const String login = 'Login';
   static const String loading = 'Loading';
   static const String error = 'Error';
+
+  static const List<String> universities = <String>[
+    'MET Academy',
+    'Mansoura University',
+    'Delta Academy',
+    'Nile Academy',
+  ];
+
+  static const List<String> towns = [
+    'Mit Ghamr',
+    'Maynet Elnasr',
+    'El-Darkasa',
+    'Samnod',
+  ];
 }
-
-

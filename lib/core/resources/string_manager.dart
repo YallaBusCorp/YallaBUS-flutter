@@ -27,5 +27,11 @@ class StringManager {
   static const String verify = "verify";
   static const String wait = "wait";
   static const String verificationError = "errorVerification";
-  
+
+  static const String compeletProfile = "Compelete Your Profile";
+  static const String search = "Search";
+  static const String firstName = "First name";
+  static const String lastName = "Last name";
+  static const String town = "Town";
+  static const String university = "University";
 }

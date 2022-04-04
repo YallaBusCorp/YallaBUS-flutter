@@ -12,8 +12,11 @@ import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/theme_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/choose_company/presentation/pages/choose_company.dart';
+import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
+import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/onBoarding/pages/onBoarding_base.dart';
+import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 
 import 'features/login_otp/presentation/pages/login.dart';
 
@@ -52,6 +55,10 @@ class MyApp extends StatelessWidget {
           create: (builder) => LoginBloc(),
           child: const LoginOtp(),
         ),
+        BlocProvider(
+          create: (builder) => KeyboardBloc(),
+          child: const LoginOtp(),
+        ),
       ],
       child: MaterialApp(
         onGenerateRoute: RouteGenerator.getRoute,
@@ -60,16 +67,10 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
-        theme:
-            context.deviceLocale.runtimeType == const Locale('ar').runtimeType
-                ? light.copyWith(textTheme: textThemeArabic)
-                : light,
-        darkTheme: context.deviceLocale.runtimeType.hashCode ==
-                const Locale('ar').runtimeType.hashCode
-            ? dark.copyWith(textTheme: textThemeArabic)
-            : dark,
-        home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
-        // home: LoginOtp(),
+        theme:light,
+        darkTheme: dark,
+        // home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
+        home: CompleteProfile(),
       ),
     );
   }

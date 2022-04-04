@@ -38,7 +38,7 @@ final ThemeData light = ThemeData(
   colorScheme: const ColorScheme.light(),
   primaryColor: Colors.white,
   textTheme: textThemeEnglish,
-  backgroundColor: Colors.white,
+  backgroundColor: Colors.red,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
     centerTitle: true,
@@ -59,7 +59,7 @@ final ThemeData dark = ThemeData(
   colorScheme: const ColorScheme.dark(),
   primaryColor: ColorsManager.black,
   textTheme: textThemeEnglish,
-  backgroundColor: Colors.black,
+  backgroundColor: ColorsManager.black2,
   scaffoldBackgroundColor: ColorsManager.black,
   appBarTheme: AppBarTheme(
     centerTitle: true,

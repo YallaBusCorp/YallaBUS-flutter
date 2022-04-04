@@ -12,7 +12,7 @@ class DescriptionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       description.tr(),
-      style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
+      style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: 16),
     );
   }
 }

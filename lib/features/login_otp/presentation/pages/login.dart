@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:yalla_bus/core/custom_widgets/animation_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
+import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
@@ -45,7 +46,7 @@ class _LoginOtpState extends State<LoginOtp> {
             const AuthHeader(
               asset: AssetManager.darkverify,
               header1: StringManager.enterYourNumber,
-              header2: StringManager.enterYourNumber,
+              header2: StringManager.sendYouConfirmation,
             ),
             const Spacer(),
             BlocBuilder<KeyboardBloc, KeyboardState>(
@@ -57,21 +58,46 @@ class _LoginOtpState extends State<LoginOtp> {
                 );
               },
             ),
-            AuthButton(
-              text: StringManager.sendCode,
-              onPressed: () {
-                keyboard.indexOfPhoneNumber == ValuesManager.v8
-                    ? bloc.add(SendCodeVerificationEvent(keyboard.number))
-                    : null;
+            BlocBuilder<KeyboardBloc, KeyboardState>(
+              builder: (context, state) {
+                return keyboard.phoneNumber[0] != 0 &&
+                        keyboard.phoneNumber[0] != 1 &&
+                        keyboard.phoneNumber[0] != 2 &&
+                        keyboard.phoneNumber[0] != 5
+                    ? Center(
+                        child: TextWidget(
+                          text: 'Number must start with 010, 011, 012 or 015',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(fontSize: 14, color: Colors.red),
+                        ),
+                      )
+                    : Container();
+              },
+            ),
+            BlocBuilder<KeyboardBloc, KeyboardState>(
+              builder: (context, state) {
+                return AuthButton(
+                  text: StringManager.sendCode.tr(),
+                  onPressed: keyboard.indexOfPhoneNumber == ValuesManager.iv9
+                      ? () {
+                          bloc.add(SendCodeVerificationEvent(keyboard.number));
+                        }
+                      : null,
+                );
               },
             ),
             const SizedBox(
               height: 20,
             ),
-            const Align(
-              alignment: Alignment.bottomCenter,
-              child: KeyboardWidget(
-                type: ConstantsManager.login,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: const KeyboardWidget(
+                  type: ConstantsManager.login,
+                ),
               ),
             ),
           ],

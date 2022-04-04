@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
+import 'package:yalla_bus/features/choose_company/presentation/widgets/company_information.dart';
 
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
@@ -29,13 +31,7 @@ class _CompanyItemState extends State<CompanyItem> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: widget.bloc.isSelected[widget.index]
-              ? Theme.of(context).backgroundColor == Colors.black
-                  ? ColorsManager.black2
-                  : Colors.grey
-              : Theme.of(context).backgroundColor == Colors.black
-                  ? ColorsManager.black2
-                  : Colors.white,
+          color: setColorOfCompanyItem(widget.bloc, context, widget.index),
           boxShadow: selectShadow(context),
           borderRadius: BorderRadius.circular(ValuesManager.v16),
         ),
@@ -56,72 +52,38 @@ class _CompanyItemState extends State<CompanyItem> {
               const SizedBox(
                 width: ValuesManager.v10,
               ),
-              Text(
-                widget.bloc.companies[widget.index].tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(fontSize: 18),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.bloc.companies[widget.index].tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontSize: ValuesManager.v16),
+                  ),
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        AssetManager.mapPinPointCompany,
+                        color: ColorsManager.orange,
+                        width: ValuesManager.v20,
+                        height: ValuesManager.v20,
+                      ),
+                      const SizedBox(
+                        width: ValuesManager.v5,
+                      ),
+                      TextWidget(
+                          text: 'Mit Ghamr',
+                          style: Theme.of(context).textTheme.caption!),
+                    ],
+                  ),
+                ],
               ),
               const Spacer(),
               IconButton(
                 onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (_) => Container(
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(ValuesManager.v16),
-                              color: Theme.of(context).backgroundColor,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(ValuesManager.v16),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Center(
-                                      child: Container(
-                                        width: ValuesManager.v50,
-                                        height: ValuesManager.v5,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(
-                                                ValuesManager.v16)),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: ValuesManager.v10,
-                                    ),
-                                    Text(
-                                      widget.bloc.companies[widget.index],
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    ),
-                                    const SizedBox(
-                                      height: ValuesManager.v10,
-                                    ),
-                                    Text('Works hours : 9am to 5pm',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5),
-                                    const SizedBox(
-                                      height: ValuesManager.v10,
-                                    ),
-                                    Text(
-                                        'Facebook account : www: https://facebook.com/${widget.bloc.companies[widget.index]}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5),
-                                    const SizedBox(
-                                      height: ValuesManager.v10,
-                                    ),
-                                    Text('Phone number : +201019035005',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5),
-                                  ]),
-                            ),
-                          ));
+                  CompanyInfo(widget.bloc, context, widget.index);
                 },
                 icon: Icon(
                   Icons.info_outline_rounded,

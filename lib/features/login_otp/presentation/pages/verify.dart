@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:yalla_bus/core/custom_widgets/loading_widget.dart';
+import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
@@ -42,25 +43,43 @@ class _VerifyScreenState extends State<VerifyScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AuthHeader(
-                header1: StringManager.verifyYourNumber,
-                header2: StringManager.codeSentTo + keyboard.number,
+                header1: StringManager.verifyYourNumber.tr(),
+                header2: StringManager.codeSentTo.tr() + keyboard.number,
                 asset: AssetManager.darkverify),
-            const SizedBox(
-              height: ValuesManager.v80,
-            ),
+            const Spacer(),
             const PinCode(),
             const Spacer(),
-            AuthButton(
-                text: StringManager.sendCode,
-                onPressed: () {
-                  keyboard.indexOfPinNumber == ValuesManager.v5
-                      ? bloc.add(
-                          VerifyCodeVerificationEvent(keyboard.pinCode),
-                        )
-                      : null;
-                }),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Center(
+                child: TextWidget(
+                  text: 'Resend Verification Code',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(fontSize: 14, color: ColorsManager.orange),
+                ),
+              ),
+            ),
             const SizedBox(
-              height: ValuesManager.v20,
+              height: ValuesManager.v10,
+            ),
+            BlocBuilder<KeyboardBloc, KeyboardState>(
+              builder: (context, state) {
+                return AuthButton(
+                  text: StringManager.verify.tr(),
+                  onPressed: keyboard.indexOfPinNumber == ValuesManager.v6
+                      ? () {
+                          bloc.add(
+                            VerifyCodeVerificationEvent(keyboard.pinCode),
+                          );
+                        }
+                      : null,
+                );
+              },
+            ),
+            const SizedBox(
+              height: 20,
             ),
             const KeyboardWidget(
               type: StringManager.otp,

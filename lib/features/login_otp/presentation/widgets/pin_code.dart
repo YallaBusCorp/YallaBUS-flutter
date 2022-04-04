@@ -19,17 +19,19 @@ class PinCode extends StatelessWidget {
       builder: (context, state) {
         return SizedBox(
           height: ValuesManager.v55,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: ValuesManager.iv6,
-            separatorBuilder: (BuildContext context, int index) {
-              return const SizedBox(
-                width: ValuesManager.v10,
-              );
-            },
-            itemBuilder: (BuildContext context, int index) {
-              return PinLayout(pin: keyboard.pins[index]);
-            },
+          child: Center(
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: ValuesManager.iv6,
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(
+                  width: ValuesManager.v10,
+                );
+              },
+              itemBuilder: (BuildContext context, int index) {
+                return PinLayout(pin: keyboard.pins[index]);
+              },
+            ),
           ),
         );
       },

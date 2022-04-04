@@ -53,7 +53,11 @@ class _ChooseCompanyState extends State<ChooseCompany>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //HereT
-              const TextFormWidget(),
+              const TextFormWidget(
+                text: StringManager.search,
+                width: double.infinity,
+                icon: Icons.search,
+              ),
               const SizedBox(
                 height: 20,
               ),
