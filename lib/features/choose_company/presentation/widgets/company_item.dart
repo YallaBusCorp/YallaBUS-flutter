@@ -29,69 +29,72 @@ class _CompanyItemState extends State<CompanyItem> {
       onTap: () {
         widget.bloc.add(SelectCompanyEvent(widget.index));
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: setColorOfCompanyItem(widget.bloc, context, widget.index),
-          boxShadow: selectShadow(context),
-          borderRadius: BorderRadius.circular(ValuesManager.v16),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(ValuesManager.v8),
-          child: Row(
-            children: [
-              Container(
-                width: ValuesManager.v40,
-                height: ValuesManager.v40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(ValuesManager.v16),
-                  image: const DecorationImage(
-                      image: NetworkImage(AssetManager.companyPhoto),
-                      fit: BoxFit.cover),
-                ),
-              ),
-              const SizedBox(
-                width: ValuesManager.v10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.bloc.companies[widget.index].tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontSize: ValuesManager.v16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: ValuesManager.v8),
+        child: Container(
+          decoration: BoxDecoration(
+            color: setColorOfCompanyItem(widget.bloc, context, widget.index),
+            boxShadow: selectShadow(context),
+            borderRadius: BorderRadius.circular(ValuesManager.v16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(ValuesManager.v8),
+            child: Row(
+              children: [
+                Container(
+                  width: ValuesManager.v40,
+                  height: ValuesManager.v40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(ValuesManager.v16),
+                    image: const DecorationImage(
+                        image: NetworkImage(AssetManager.companyPhoto),
+                        fit: BoxFit.cover),
                   ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        AssetManager.mapPinPointCompany,
-                        color: ColorsManager.orange,
-                        width: ValuesManager.v20,
-                        height: ValuesManager.v20,
-                      ),
-                      const SizedBox(
-                        width: ValuesManager.v5,
-                      ),
-                      TextWidget(
-                          text: 'Mit Ghamr',
-                          style: Theme.of(context).textTheme.caption!),
-                    ],
-                  ),
-                ],
-              ),
-              const Spacer(),
-              IconButton(
-                onPressed: () {
-                  CompanyInfo(widget.bloc, context, widget.index);
-                },
-                icon: Icon(
-                  Icons.info_outline_rounded,
-                  size: ValuesManager.v25,
-                  color: ColorsManager.orange,
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: ValuesManager.v10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.bloc.companies[widget.index].tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: ValuesManager.v16),
+                    ),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          AssetManager.mapPinPointCompany,
+                          color: ColorsManager.orange,
+                          width: ValuesManager.v16,
+                          height: ValuesManager.v16,
+                        ),
+                        const SizedBox(
+                          width: ValuesManager.v5,
+                        ),
+                        TextWidget(
+                            text: 'Mit Ghamr',
+                            style: Theme.of(context).textTheme.caption!),
+                      ],
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () {
+                    CompanyInfo(widget.bloc, context, widget.index);
+                  },
+                  icon: Icon(
+                    Icons.info_outline_rounded,
+                    size: ValuesManager.v25,
+                    color: ColorsManager.orange,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

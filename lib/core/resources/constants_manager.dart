@@ -16,6 +16,8 @@ class ConstantsManager {
   static const String loading = 'Loading';
   static const String error = 'Error';
 
+  static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
+
   static const List<String> universities = <String>[
     'MET Academy',
     'Mansoura University',

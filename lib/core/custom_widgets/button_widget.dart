@@ -22,7 +22,7 @@ class ButtonWidget extends StatelessWidget {
       child: child,
       style: ElevatedButton.styleFrom(
         minimumSize:
-            Size(width ?? MediaQuery.of(context).size.width - 50, height ?? 40),
+            Size(width ?? MediaQuery.of(context).size.width - 50, height ?? 46),
         primary: ColorsManager.orange,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),

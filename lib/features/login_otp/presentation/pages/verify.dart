@@ -67,6 +67,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
             BlocBuilder<KeyboardBloc, KeyboardState>(
               builder: (context, state) {
                 return AuthButton(
+                  type: StringManager.otp,
                   text: StringManager.verify.tr(),
                   onPressed: keyboard.indexOfPinNumber == ValuesManager.v6
                       ? () {

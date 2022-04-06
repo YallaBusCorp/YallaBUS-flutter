@@ -18,6 +18,8 @@ import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/onBoarding/pages/onBoarding_base.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 
+import 'features/home/presentation/bloc/map_bloc.dart';
+import 'features/home/presentation/pages/home.dart';
 import 'features/login_otp/presentation/pages/login.dart';
 
 void main() async {
@@ -59,6 +61,10 @@ class MyApp extends StatelessWidget {
           create: (builder) => KeyboardBloc(),
           child: const LoginOtp(),
         ),
+        BlocProvider(
+          create: (builder) => MapBloc(),
+          child: const Home(),
+        ),
       ],
       child: MaterialApp(
         onGenerateRoute: RouteGenerator.getRoute,
@@ -67,10 +73,10 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
-        theme:light,
+        theme: light,
         darkTheme: dark,
         // home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
-        home: CompleteProfile(),
+        home: const Home(),
       ),
     );
   }

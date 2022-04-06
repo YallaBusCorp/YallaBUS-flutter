@@ -54,6 +54,6 @@ Color setColorOfCompanyItem(
 
 Color setColorOfPin(BuildContext context) {
   return MediaQuery.of(context).platformBrightness == Brightness.dark
-      ? Colors.grey
-      : Colors.black;
+      ? ColorsManager.black2
+      : Colors.grey;
 }

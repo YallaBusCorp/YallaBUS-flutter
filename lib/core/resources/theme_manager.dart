@@ -38,7 +38,7 @@ final ThemeData light = ThemeData(
   colorScheme: const ColorScheme.light(),
   primaryColor: Colors.white,
   textTheme: textThemeEnglish,
-  backgroundColor: Colors.red,
+  backgroundColor: Colors.grey,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
     centerTitle: true,

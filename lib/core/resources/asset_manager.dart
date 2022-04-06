@@ -8,6 +8,8 @@ class AssetManager {
   static const String darkLoading = 'assets/images/dark_bus_loading.json';
   static const String lightLoading = 'assets/images/light_bus_loading.json';
   static const String completeProfileIll = 'assets/images/Mobile login-bro.svg';
+  static const String successfulPurchase =
+      'assets/images/Successful purchase-pana.svg';
   static const String companyPhoto =
       'https://cdn.dribbble.com/users/2406299/screenshots/10840967/media/8f39dd3763eb8d9e33dcb8d43e088b7c.png?compress=1&resize=1200x900&vertical=top';
   static const String darkverify =

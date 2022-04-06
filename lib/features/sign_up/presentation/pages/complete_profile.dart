@@ -5,6 +5,7 @@ import 'package:yalla_bus/core/custom_widgets/text_form.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/sign_up/presentation/widgets/drop_down_widget.dart';
@@ -18,9 +19,11 @@ class CompleteProfile extends StatefulWidget {
 
 class _CompleteProfileState extends State<CompleteProfile> {
   //Create bloc to make a call to get a list of university and towns
+  List<bool> tapped = [false, false, false, false];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: TextWidget(
             text: StringManager.compeletProfile,
@@ -57,7 +60,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
                 options: ConstantsManager.universities),
             const Spacer(),
             ButtonWidget(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(Routes.addPayment);
+              },
               child: Text('Continue to payment',
                   style: Theme.of(context).textTheme.headline6!),
             ),

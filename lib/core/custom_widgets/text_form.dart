@@ -32,13 +32,13 @@ class _TextFormWidgetState extends State<TextFormWidget> {
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(top: ValuesManager.v20),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(ValuesManager.v8),
+                borderRadius: BorderRadius.circular(ValuesManager.v16),
                 borderSide: BorderSide(
                   color: ColorsManager.orange,
                 ),
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(ValuesManager.v8),
+                borderRadius: BorderRadius.circular(ValuesManager.v16),
                 borderSide: BorderSide.none,
               ),
               hintText: widget.text,

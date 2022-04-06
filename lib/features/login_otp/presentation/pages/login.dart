@@ -79,6 +79,7 @@ class _LoginOtpState extends State<LoginOtp> {
             BlocBuilder<KeyboardBloc, KeyboardState>(
               builder: (context, state) {
                 return AuthButton(
+                  type: StringManager.login,
                   text: StringManager.sendCode.tr(),
                   onPressed: keyboard.indexOfPhoneNumber == ValuesManager.iv9
                       ? () {

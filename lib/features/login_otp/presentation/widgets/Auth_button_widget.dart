@@ -12,9 +12,15 @@ import '../bloc/Keyboard/keyboard_bloc.dart';
 import '../bloc/Login/login_bloc.dart';
 
 class AuthButton extends StatelessWidget {
+  // add type properity
+  final String type;
   final String text;
   final GestureTapCallback? onPressed;
-  const AuthButton({Key? key, required this.text, required this.onPressed})
+  const AuthButton(
+      {Key? key,
+      required this.text,
+      required this.onPressed,
+      required this.type})
       : super(key: key);
 
   @override
@@ -26,8 +32,13 @@ class AuthButton extends StatelessWidget {
           DialogWidget(context, StringManager.wait, ConstantsManager.loading);
         } else if (state is Success) {
           Navigator.of(context).pop();
-          Navigator.of(context)
-              .pushNamed(Routes.verifyOtp, arguments: keyboard.number);
+          if (type == StringManager.otp) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                Routes.completeProfile, (route) => false);
+          } else {
+            Navigator.of(context)
+                .pushNamed(Routes.verifyOtp, arguments: keyboard.number);
+          }
         } else if (state is Error) {
           Navigator.of(context).pop();
           DialogWidget(context, state.message, ConstantsManager.error);
