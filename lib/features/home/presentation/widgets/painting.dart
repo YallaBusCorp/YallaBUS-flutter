@@ -9,12 +9,12 @@ class Painting extends StatelessWidget {
     return Column(
       children: [
         CircleAvatar(
-          radius: 10,
+          radius: 5,
           backgroundColor: ColorsManager.green,
         ),
         Container(
           width: 1,
-          height: 15,
+          height: 35,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -25,7 +25,7 @@ class Painting extends StatelessWidget {
           ),
         ),
         CircleAvatar(
-          radius: 10,
+          radius: 5,
           backgroundColor: ColorsManager.blue2,
         ),
       ],

@@ -16,4 +16,7 @@ class AssetManager {
       'assets/images/Dark mode phone animation.json';
   static const String lightverify =
       'assets/images/Light mode phone animation.json';
+
+  static const String settingsIcon = 'assets/images/settings.svg';
+  static const String recenterIcon = 'assets/images/recenter.svg';
 }

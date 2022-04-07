@@ -30,7 +30,8 @@ class _CompanyItemState extends State<CompanyItem> {
         widget.bloc.add(SelectCompanyEvent(widget.index));
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: ValuesManager.v8),
+        padding: const EdgeInsets.symmetric(
+            horizontal: ValuesManager.v8, vertical: ValuesManager.v2),
         child: Container(
           decoration: BoxDecoration(
             color: setColorOfCompanyItem(widget.bloc, context, widget.index),

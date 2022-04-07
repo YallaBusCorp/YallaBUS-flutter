@@ -75,8 +75,8 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         theme: light,
         darkTheme: dark,
-        // home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
-        home: const Home(),
+        home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
+        // home: const Home(),
       ),
     );
   }

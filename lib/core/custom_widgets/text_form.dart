@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 
 import '../resources/colors_manager.dart';
@@ -51,7 +52,7 @@ class _TextFormWidgetState extends State<TextFormWidget> {
                   .headline6!
                   .copyWith(color: Colors.grey),
               filled: true,
-              fillColor: Theme.of(context).backgroundColor,
+              fillColor: setColorOfTextForm(context),
             ),
           ),
         ),

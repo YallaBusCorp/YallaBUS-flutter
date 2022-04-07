@@ -22,15 +22,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<GetMyLocation>((event, emit) async {
       final GoogleMapController con = await controller.future;
       _position = await determinePosition();
-      final CameraPosition _kLake = CameraPosition(
-          bearing: 0,
-          target: LatLng(_position.latitude, _position.longitude),
-          tilt: 0,
-          zoom: 19.151926040649414);
-      con.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-      emit(ChangePosition());
-    });
-    on<GetMarkers>((event, emit) {
       markers.add(
         Marker(
           markerId: MarkerId(
@@ -42,6 +33,17 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           icon: BitmapDescriptor.defaultMarker,
         ),
       );
+      final CameraPosition _kLake = CameraPosition(
+          bearing: 0,
+          target: LatLng(_position.latitude, _position.longitude),
+          tilt: 0,
+          zoom: 19.151926040649414);
+      con.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+      emit(ChangePosition());
     });
+    // on<GetMarkers>((event, emit) {
+      
+    //   emit(DrawMarkers( markers));
+    // });
   }
 }

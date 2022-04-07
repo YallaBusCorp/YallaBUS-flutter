@@ -9,4 +9,4 @@ abstract class MapEvent extends Equatable {
 
 class GetMyLocation extends MapEvent{}
 
-class GetMarkers extends MapEvent{}
+// class GetMarkers extends MapEvent{}

@@ -55,5 +55,13 @@ Color setColorOfCompanyItem(
 Color setColorOfPin(BuildContext context) {
   return MediaQuery.of(context).platformBrightness == Brightness.dark
       ? ColorsManager.black2
+      : Colors.white;
+}
+
+Color setColorOfTextForm(BuildContext context) {
+  return MediaQuery.of(context).platformBrightness == Brightness.dark
+      ? ColorsManager.black2
       : Colors.grey;
 }
+
+

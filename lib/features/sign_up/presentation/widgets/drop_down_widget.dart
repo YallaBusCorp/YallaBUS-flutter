@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 
+import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 
@@ -71,7 +72,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                   .headline6!
                   .copyWith(color: Colors.grey),
               filled: true,
-              fillColor: Theme.of(context).backgroundColor,
+              fillColor: setColorOfTextForm(context),
             ),
             style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 18,
