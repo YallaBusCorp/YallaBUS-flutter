@@ -16,6 +16,7 @@ import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
 import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/onBoarding/pages/onBoarding_base.dart';
+import 'package:yalla_bus/features/settings/presentation/pages/settings.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 
 import 'features/home/presentation/bloc/map_bloc.dart';
@@ -67,16 +68,21 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        // showPerformanceOverlay: true,
         onGenerateRoute: RouteGenerator.getRoute,
         localizationsDelegates: context.localizationDelegates,
         locale: context.deviceLocale,
         supportedLocales: context.supportedLocales,
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
-        theme: light,
-        darkTheme: dark,
+        theme: context.deviceLocale.languageCode == 'ar'
+            ? light.copyWith(textTheme: textThemeArabic)
+            : light,
+        darkTheme: context.deviceLocale.languageCode == 'ar'
+            ? dark.copyWith(textTheme: textThemeArabic)
+            : dark,
         home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
-        // home: const Home(),
+        // home: Settings(),
       ),
     );
   }

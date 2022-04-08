@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 
 import '../resources/colors_manager.dart';
@@ -15,10 +16,61 @@ extension ColorsExtensions on Color {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
 
-  static Color isDarkOrNot(BuildContext context) {
+  static Color setColorOfCompanyItem(
+      CompanySelectionBloc bloc, BuildContext context, int index) {
+    if (bloc.isSelected[index]) {
+      if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+        return ColorsManager.black2;
+      } else {
+        return Colors.grey;
+      }
+    } else {
+      if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+        return ColorsManager.black;
+      } else {
+        return Colors.white;
+      }
+    }
+  }
+
+  static Color setColorOfPin(BuildContext context) {
     return MediaQuery.of(context).platformBrightness == Brightness.dark
-        ? Colors.white
-        : Colors.black;
+        ? ColorsManager.black2
+        : Colors.white;
+  }
+
+  static Color setColorOfTextForm(BuildContext context) {
+    return MediaQuery.of(context).platformBrightness == Brightness.dark
+        ? ColorsManager.black2
+        : Colors.grey;
+  }
+}
+
+extension TextFormStyle on InputDecoration {
+  static InputDecoration applyDecoration(
+      String hintText, IconData icon, BuildContext context) {
+    return InputDecoration(
+      contentPadding: const EdgeInsets.only(top: ValuesManager.v20),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(ValuesManager.v16),
+        borderSide: BorderSide(
+          color: ColorsManager.orange,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(ValuesManager.v16),
+        borderSide: BorderSide.none,
+      ),
+      hintText: hintText,
+      prefixIcon: Icon(
+        icon,
+        color: Colors.grey,
+      ),
+      hintStyle:
+          Theme.of(context).textTheme.headline6!.copyWith(color: Colors.grey),
+      filled: true,
+      fillColor: ColorsExtensions.setColorOfTextForm(context),
+    );
   }
 }
 
@@ -35,33 +87,9 @@ List<BoxShadow> selectShadow(BuildContext context) {
         ];
 }
 
-Color setColorOfCompanyItem(
-    CompanySelectionBloc bloc, BuildContext context, int index) {
-  if (bloc.isSelected[index]) {
-    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-      return ColorsManager.black2;
-    } else {
-      return Colors.grey;
-    }
-  } else {
-    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-      return ColorsManager.black;
-    } else {
-      return Colors.white;
-    }
+String selectAnimationLightOrDark(BuildContext context) {
+  if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+    return AssetManager.darkverify;
   }
+  return AssetManager.lightverify;
 }
-
-Color setColorOfPin(BuildContext context) {
-  return MediaQuery.of(context).platformBrightness == Brightness.dark
-      ? ColorsManager.black2
-      : Colors.white;
-}
-
-Color setColorOfTextForm(BuildContext context) {
-  return MediaQuery.of(context).platformBrightness == Brightness.dark
-      ? ColorsManager.black2
-      : Colors.grey;
-}
-
-

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 
@@ -23,7 +24,7 @@ class PaymentScreen extends StatelessWidget {
           ),
         ],
         title: TextWidget(
-            text: StringManager.compeletProfile,
+            text: StringManager.compeletProfile.tr(),
             style: Theme.of(context).textTheme.headline5!),
       ),
       body: Center(

@@ -18,19 +18,16 @@ class CompanySelectionBloc
     StringManager.companyNo6.tr(),
     StringManager.companyNo6.tr(),
     StringManager.companyNo7.tr(),
-
   ];
 
   List<bool> isSelected = List.generate(8, (index) => false);
-
+  List<String> searchedElements = [];
   bool isClicked = false;
 
   CompanySelectionBloc() : super(CompanySelectionInitial()) {
-
     on<SelectCompanyEvent>((event, emit) {
       emit(Loading());
-      for(int i=0; i<isSelected.length;i++)
-      {
+      for (int i = 0; i < isSelected.length; i++) {
         isSelected[i] = false;
       }
       isSelected[event.indexOfCompany] = !isSelected[event.indexOfCompany];
@@ -39,6 +36,18 @@ class CompanySelectionBloc
 
     on<ConfirmationOfCompanySelectEvent>((event, emit) {
       // TODO: implement event handler
+    });
+
+    on<SearchAtCompanyEvent>((event, emit) {
+      emit(Loading());
+      searchedElements.clear();
+      searchedElements =
+          companies.where((element) => element.contains(event.word)).toList();
+      if (searchedElements.isEmpty) {
+        emit(NotFoundCompany());
+      } else {
+        emit(Success());
+      }
     });
   }
 }

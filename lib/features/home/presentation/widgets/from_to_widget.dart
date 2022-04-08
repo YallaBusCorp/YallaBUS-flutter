@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
+import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/painting.dart';
 
@@ -33,14 +35,14 @@ class FromToWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextWidget(
-                      text: 'From',
+                      text: StringManager.from.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
                           .copyWith(fontSize: ValuesManager.v16),
                     ),
                     TextWidget(
-                      text: 'Mit Ghamr',
+                      text: StringManager.companyNo5,
                       style: Theme.of(context)
                           .textTheme
                           .headline5!
@@ -54,14 +56,14 @@ class FromToWidget extends StatelessWidget {
                       ),
                     ),
                     TextWidget(
-                      text: 'To',
+                      text: StringManager.to.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
                           .copyWith(fontSize: ValuesManager.v16),
                     ),
                     TextWidget(
-                      text: 'MET',
+                      text: StringManager.met.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .headline5!

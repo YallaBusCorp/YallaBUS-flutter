@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
+import 'package:yalla_bus/core/resources/values_manager.dart';
 
 class Painting extends StatelessWidget {
   const Painting({Key? key}) : super(key: key);
@@ -9,12 +10,12 @@ class Painting extends StatelessWidget {
     return Column(
       children: [
         CircleAvatar(
-          radius: 5,
+          radius: ValuesManager.v5,
           backgroundColor: ColorsManager.green,
         ),
         Container(
-          width: 1,
-          height: 35,
+          width: ValuesManager.v1,
+          height: ValuesManager.v35,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -25,7 +26,7 @@ class Painting extends StatelessWidget {
           ),
         ),
         CircleAvatar(
-          radius: 5,
+          radius: ValuesManager.v5,
           backgroundColor: ColorsManager.blue2,
         ),
       ],

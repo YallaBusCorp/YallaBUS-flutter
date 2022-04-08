@@ -29,10 +29,21 @@ class StringManager {
   static const String verificationError = "errorVerification";
   static const String login = "login";
 
-  static const String compeletProfile = "Complete Your Profile";
-  static const String search = "Search";
-  static const String firstName = "First name";
-  static const String lastName = "Last name";
-  static const String town = "Town";
-  static const String university = "University";
+  static const String compeletProfile = "completeProfile";
+  static const String search = "search";
+  static const String firstName = "firstName";
+  static const String lastName = "lastName";
+  static const String town = "town";
+  static const String university = "university";
+  static const String companyNote = "companyNote";
+  static const String from = "from";
+  static const String to = "to";
+  static const String thankYou = "thankYou";
+  static const String finish = "finish";
+  static const String continueToPayment = "continueToPayment";
+  static const String departAt = "departAt";
+  static const String chooseRide = "chooseRide";
+  static const String met = "met";
+  static const String resendCode = "resendCode";
+  static const String settings = "settings";
 }

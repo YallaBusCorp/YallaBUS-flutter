@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 
@@ -48,7 +49,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             //   });
             // },
             hint: TextWidget(
-              text: widget.hint,
+              text: widget.hint.tr(),
               style: Theme.of(context).textTheme.headline6!,
             ),
             decoration: InputDecoration(
@@ -72,7 +73,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                   .headline6!
                   .copyWith(color: Colors.grey),
               filled: true,
-              fillColor: setColorOfTextForm(context),
+              fillColor:  ColorsExtensions.setColorOfTextForm(context),
             ),
             style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 18,

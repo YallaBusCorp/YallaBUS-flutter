@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/text_form.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
@@ -9,6 +9,8 @@ import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/sign_up/presentation/widgets/drop_down_widget.dart';
+
+import '../../../../core/extensions/extensions.dart';
 
 class CompleteProfile extends StatefulWidget {
   const CompleteProfile({Key? key}) : super(key: key);
@@ -19,6 +21,9 @@ class CompleteProfile extends StatefulWidget {
 
 class _CompleteProfileState extends State<CompleteProfile> {
   //Create bloc to make a call to get a list of university and towns
+
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
   List<bool> tapped = [false, false, false, false];
   @override
   Widget build(BuildContext context) {
@@ -43,16 +48,35 @@ class _CompleteProfileState extends State<CompleteProfile> {
               height: ValuesManager.v5,
             ),
             //Edit Widget itself
-            const TextFormWidget(
-              text: StringManager.firstName,
+            SizedBox(
               width: double.infinity,
-              icon: Icons.person,
+              height: MediaQuery.of(context).size.height / 15,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: ValuesManager.v5),
+                  child: TextFormField(
+                    controller: _firstNameController,
+                    decoration: TextFormStyle.applyDecoration(
+                        StringManager.firstName, Icons.person, context),
+                  ),
+                ),
+              ),
             ),
-            const TextFormWidget(
-              text: StringManager.lastName,
+            SizedBox(
               width: double.infinity,
-              icon: Icons.person,
+              height: MediaQuery.of(context).size.height / 15,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: ValuesManager.v5),
+                  child: TextFormField(
+                    controller: _lastNameController,
+                    decoration: TextFormStyle.applyDecoration(
+                        StringManager.lastName.tr(), Icons.person, context),
+                  ),
+                ),
+              ),
             ),
+
             const DropDownWidget(
                 hint: StringManager.town, options: ConstantsManager.towns),
             const DropDownWidget(
@@ -63,7 +87,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.addPayment);
               },
-              child: Text('Continue to payment',
+              child: Text(StringManager.continueToPayment,
                   style: Theme.of(context).textTheme.headline6!),
             ),
           ],

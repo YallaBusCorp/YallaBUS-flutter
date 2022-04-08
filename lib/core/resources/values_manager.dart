@@ -23,6 +23,8 @@ class ValuesManager {
   static const int iv9 = 9;
   static const double v10 = 10;
   static const double v12 = 12;
+  static const double v14 = 14;
+  static const double v15 = 15;
   static const double v16 = 16;
   static const double v20 = 20;
   static const double v25 = 25;

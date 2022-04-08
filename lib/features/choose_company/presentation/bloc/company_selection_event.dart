@@ -15,3 +15,9 @@ class SelectCompanyEvent extends CompanySelectionEvent {
 }
 
 class ConfirmationOfCompanySelectEvent extends CompanySelectionEvent {}
+
+class SearchAtCompanyEvent extends CompanySelectionEvent {
+  final String word;
+
+  const SearchAtCompanyEvent(this.word);
+}

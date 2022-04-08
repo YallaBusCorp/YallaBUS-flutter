@@ -24,7 +24,23 @@
     "codeSentTo" : "Code was sent to ",
     "verify" : "Verify",
     "wait" : "Wait a while ...",
-    "errorVerification" : "Wrong Verification! "
+    "errorVerification" : "Wrong Verification! ",   
+    "login" : "login", 
+    "completeProfile" : "Complete Your Profile",
+    "search" : "Search",  
+    "firstName" : "First Name",  
+    "lastName" : "Last Name",  
+    "town" : "Town",
+    "university" : "University",  
+    "companyNote" : "NOTE: If you don't have an account yet, choose the company that you want to subscibe to at",  
+    "from" : "From", 
+    "to" : "To",  
+    "thankYou" : "Thank you! Payment was Successful",  
+    "finish" : "Finish", 
+    "continueToPayment" : "Continue to payment", 
+    "met" : "MET",
+    "resendCode" : "Resend Verification Code",
+    "settings" : "Settings"
 
     
 }

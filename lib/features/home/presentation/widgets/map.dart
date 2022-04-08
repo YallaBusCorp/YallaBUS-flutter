@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/features/home/presentation/bloc/map_bloc.dart';
 
 import '../../../../core/position_locator/locator.dart';
@@ -26,7 +27,7 @@ class _MapWidgetState extends State<MapWidget> {
 
   Future _loadMapStyles() async {
     _darkMapStyle =
-        await rootBundle.loadString('assets/map_style/dark_mode.json');
+        await rootBundle.loadString(AssetManager.darkMapStyle);
   }
 
   @override

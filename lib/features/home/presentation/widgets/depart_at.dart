@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
+import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 
 class DepartAt extends StatelessWidget {
@@ -29,7 +31,7 @@ class DepartAt extends StatelessWidget {
                   child: Row(
                     children: [
                       TextWidget(
-                        text: 'Depart At:',
+                        text: StringManager.departAt.tr(),
                         style: Theme.of(context)
                             .textTheme
                             .headline6!
@@ -39,7 +41,7 @@ class DepartAt extends StatelessWidget {
                       TextButton(
                         onPressed: () {},
                         child: TextWidget(
-                          text: 'Choose Ride   ',
+                          text: StringManager.chooseRide.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .headline5!

@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:yalla_bus/core/custom_widgets/animation_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
@@ -43,8 +44,8 @@ class _LoginOtpState extends State<LoginOtp> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AuthHeader(
-              asset: AssetManager.darkverify,
+            AuthHeader(
+              asset: selectAnimationLightOrDark(context),
               header1: StringManager.enterYourNumber,
               header2: StringManager.sendYouConfirmation,
             ),

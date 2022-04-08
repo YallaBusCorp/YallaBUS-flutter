@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
+import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/features/home/presentation/bloc/map_bloc.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/map.dart';
 
@@ -31,7 +32,9 @@ class Controllers extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(Routes.settings);
+                },
                 icon: Icon(
                   Icons.settings,
                   color: Theme.of(context).iconTheme.color,

@@ -15,6 +15,7 @@ import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_layout.dar
 
 import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/custom_widgets/show_dialog.dart';
+import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/string_manager.dart';
@@ -45,19 +46,19 @@ class _VerifyScreenState extends State<VerifyScreen> {
             AuthHeader(
                 header1: StringManager.verifyYourNumber.tr(),
                 header2: StringManager.codeSentTo.tr() + keyboard.number,
-                asset: AssetManager.darkverify),
+                asset: selectAnimationLightOrDark(context)),
             const Spacer(),
             const PinCode(),
             const Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.symmetric(vertical: ValuesManager.v15),
               child: Center(
                 child: TextWidget(
-                  text: 'Resend Verification Code',
+                  text: StringManager.resendCode.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .headline5!
-                      .copyWith(fontSize: 14, color: ColorsManager.orange),
+                      .copyWith(fontSize: ValuesManager.v14, color: ColorsManager.orange),
                 ),
               ),
             ),
@@ -80,7 +81,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
               },
             ),
             const SizedBox(
-              height: 20,
+              height: ValuesManager.v20,
             ),
             const KeyboardWidget(
               type: StringManager.otp,

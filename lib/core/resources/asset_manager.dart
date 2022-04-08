@@ -19,4 +19,19 @@ class AssetManager {
 
   static const String settingsIcon = 'assets/images/settings.svg';
   static const String recenterIcon = 'assets/images/recenter.svg';
+  static const String darkMapStyle = 'assets/map_style/dark_mode.json';
+
+  static const String contactUs = 'assets/images/contact-us.svg';
+  static const String distance = 'assets/images/distance.svg';
+  static const String fag = 'assets/images/faq.svg';
+  static const String fileComplaint = 'assets/images/file-complaint.svg';
+  static const String meter = 'assets/images/meter.svg';
+  static const String newExam = 'assets/images/new.svg';
+  static const String profileAnimation =
+      'assets/images/profile-animation-illustration.json';
+  static const String reportBug = 'assets/images/report-bug.svg';
+  static const String signOut = 'assets/images/sign-out.svg';
+  static const String subscription = 'assets/images/subscription.svg';
+  static const String termsConditions =
+      'assets/images/terms-conditions.svg';
 }

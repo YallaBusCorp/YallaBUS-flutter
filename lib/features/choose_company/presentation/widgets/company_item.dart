@@ -6,6 +6,7 @@ import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/choose_company/presentation/widgets/company_information.dart';
 
@@ -34,7 +35,8 @@ class _CompanyItemState extends State<CompanyItem> {
             horizontal: ValuesManager.v8, vertical: ValuesManager.v2),
         child: Container(
           decoration: BoxDecoration(
-            color: setColorOfCompanyItem(widget.bloc, context, widget.index),
+            color: ColorsExtensions.setColorOfCompanyItem(
+                widget.bloc, context, widget.index),
             boxShadow: selectShadow(context),
             borderRadius: BorderRadius.circular(ValuesManager.v16),
           ),
@@ -59,7 +61,9 @@ class _CompanyItemState extends State<CompanyItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.bloc.companies[widget.index].tr(),
+                      widget.bloc.searchedElements.isNotEmpty
+                          ? widget.bloc.searchedElements[widget.index].tr()
+                          : widget.bloc.companies[widget.index].tr(),
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
@@ -77,7 +81,7 @@ class _CompanyItemState extends State<CompanyItem> {
                           width: ValuesManager.v5,
                         ),
                         TextWidget(
-                            text: 'Mit Ghamr',
+                            text: StringManager.companyNo6.tr(),
                             style: Theme.of(context).textTheme.caption!),
                       ],
                     ),

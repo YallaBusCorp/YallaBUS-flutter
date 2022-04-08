@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
@@ -28,7 +29,7 @@ class SuccessPayment extends StatelessWidget {
               height: 10,
             ),
             TextWidget(
-              text: 'Thank you! Payment was Successful',
+              text: StringManager.thankYou.tr(),
               style:
                   Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
             ),
@@ -41,7 +42,7 @@ class SuccessPayment extends StatelessWidget {
                     .pushNamedAndRemoveUntil(Routes.home, (route) => false);
               },
               child: TextWidget(
-                text: 'Finish',
+                text: StringManager.finish.tr(),
                 style: Theme.of(context).textTheme.headline6!,
               ),
             ),

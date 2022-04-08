@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:yalla_bus/core/custom_widgets/text_form.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
@@ -23,6 +23,7 @@ class ChooseCompany extends StatefulWidget {
 
 class _ChooseCompanyState extends State<ChooseCompany>
     with TickerProviderStateMixin {
+  TextEditingController _controller = TextEditingController();
   late AnimationController controller;
 
   @override
@@ -52,22 +53,46 @@ class _ChooseCompanyState extends State<ChooseCompany>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              //HereT
-              const TextFormWidget(
-                text: StringManager.search,
+              SizedBox(
                 width: double.infinity,
-                icon: Icons.search,
+                height: MediaQuery.of(context).size.height / 15,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: ValuesManager.v5),
+                    child: TextFormField(
+                      controller: _controller,
+                      decoration: TextFormStyle.applyDecoration(
+                          StringManager.search.tr(), Icons.search, context),
+                      onChanged: (String newValue) {
+                        bloc.add(SearchAtCompanyEvent(newValue));
+                      },
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
-                height: 20,
+                height: ValuesManager.v20,
               ),
-              BlocBuilder<CompanySelectionBloc, CompanySelectionState>(
+              BlocConsumer<CompanySelectionBloc, CompanySelectionState>(
+                listener: (context, state) {
+                  if (state is NotFoundCompany) {
+                    const Center(
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.yellow,
+                        size: ValuesManager.v60,
+                      ),
+                    );
+                  }
+                },
                 builder: (context, state) {
                   return Expanded(
                     child: SizedBox(
                       child: ListView.separated(
                         physics: const BouncingScrollPhysics(),
-                        itemCount: bloc.companies.length,
+                        itemCount: bloc.searchedElements.isNotEmpty
+                            ? bloc.searchedElements.length
+                            : bloc.companies.length,
                         separatorBuilder: (BuildContext context, int index) {
                           return const SizedBox(
                             height: ValuesManager.v10,
@@ -87,9 +112,8 @@ class _ChooseCompanyState extends State<ChooseCompany>
               const SizedBox(
                 height: ValuesManager.v10,
               ),
-
               Text(
-                'NOTE: If you don\'t have an account yet, choose the company that you want to subscipe to at',
+                StringManager.companyNote.tr(),
                 style: Theme.of(context)
                     .textTheme
                     .caption!
@@ -137,6 +161,7 @@ class _ChooseCompanyState extends State<ChooseCompany>
 
   @override
   void dispose() {
+    _controller.dispose();
     controller.dispose();
     super.dispose();
   }
