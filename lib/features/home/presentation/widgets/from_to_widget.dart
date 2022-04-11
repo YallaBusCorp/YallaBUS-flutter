@@ -23,7 +23,7 @@ class FromToWidget extends StatelessWidget {
           padding: const EdgeInsets.all(ValuesManager.v8),
           decoration: BoxDecoration(
             boxShadow: selectShadow(context),
-            color: Theme.of(context).backgroundColor,
+            color: ColorsExtensions.setColorOfContainersOverMap(context),
             borderRadius: BorderRadius.circular(ValuesManager.v16),
           ),
           child: Row(
@@ -42,7 +42,7 @@ class FromToWidget extends StatelessWidget {
                           .copyWith(fontSize: ValuesManager.v16),
                     ),
                     TextWidget(
-                      text: StringManager.companyNo5,
+                      text: StringManager.companyNo5.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .headline5!

@@ -17,6 +17,12 @@ class AssetManager {
   static const String lightverify =
       'assets/images/Light mode phone animation.json';
 
+  static const String error404 = 'assets/images/404 Error-pana.svg';
+  static const String name = 'assets/images/name.svg';
+  static const String town = 'assets/images/town.svg';
+  static const String uni = 'assets/images/uni.svg';
+  static const String dropDown = 'assets/images/dropDown.svg';
+
   static const String settingsIcon = 'assets/images/settings.svg';
   static const String recenterIcon = 'assets/images/recenter.svg';
   static const String darkMapStyle = 'assets/map_style/dark_mode.json';

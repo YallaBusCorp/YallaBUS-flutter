@@ -14,6 +14,8 @@ class SelectCompanyEvent extends CompanySelectionEvent {
   List<Object> get props => [indexOfCompany];
 }
 
+class GetCompaniesInfoEvent extends CompanySelectionEvent {}
+
 class ConfirmationOfCompanySelectEvent extends CompanySelectionEvent {}
 
 class SearchAtCompanyEvent extends CompanySelectionEvent {

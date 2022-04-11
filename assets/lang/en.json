@@ -40,7 +40,9 @@
     "continueToPayment" : "Continue to payment", 
     "met" : "MET",
     "resendCode" : "Resend Verification Code",
-    "settings" : "Settings"
+    "settings" : "Settings",
+    "departAt" : "Depart At:",
+    "chooseRide" : "Choose Ride   "
 
     
 }

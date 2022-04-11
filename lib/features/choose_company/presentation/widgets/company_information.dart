@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 
 import '../../../../core/resources/values_manager.dart';
 
-void CompanyInfo(CompanySelectionBloc bloc, BuildContext context, int index) {
+void CompanyInfo(Company company, BuildContext context, int index) {
   showModalBottomSheet(
       context: context,
       builder: (_) => Container(
@@ -30,24 +31,25 @@ void CompanyInfo(CompanySelectionBloc bloc, BuildContext context, int index) {
                       height: ValuesManager.v10,
                     ),
                     Text(
-                      bloc.companies[index],
+                      company.companyName,
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     const SizedBox(
                       height: ValuesManager.v10,
                     ),
-                    Text('Works hours : 9am to 5pm',
-                        style: Theme.of(context).textTheme.headline5),
-                    const SizedBox(
-                      height: ValuesManager.v10,
-                    ),
                     Text(
-                        'Facebook account : www: https://facebook.com/${bloc.companies[index]}',
+                      company.description,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    const SizedBox(
+                      height: ValuesManager.v10,
+                    ),
+                    Text('Facebook account : ${company.facebookUrl}',
                         style: Theme.of(context).textTheme.headline5),
                     const SizedBox(
                       height: ValuesManager.v10,
                     ),
-                    Text('Phone number : +201019035005',
+                    Text('Phone number : ${company.companyPhone}',
                         style: Theme.of(context).textTheme.headline5),
                   ]),
             ),

@@ -18,7 +18,7 @@ extension ColorsExtensions on Color {
 
   static Color setColorOfCompanyItem(
       CompanySelectionBloc bloc, BuildContext context, int index) {
-    if (bloc.isSelected[index]) {
+    if (bloc.isSelected.isNotEmpty && bloc.isSelected[index]) {
       if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
         return ColorsManager.black2;
       } else {
@@ -43,6 +43,12 @@ extension ColorsExtensions on Color {
     return MediaQuery.of(context).platformBrightness == Brightness.dark
         ? ColorsManager.black2
         : Colors.grey;
+  }
+
+  static Color setColorOfContainersOverMap(BuildContext context) {
+    return MediaQuery.of(context).platformBrightness == Brightness.dark
+        ? ColorsManager.black
+        : Colors.white;
   }
 }
 

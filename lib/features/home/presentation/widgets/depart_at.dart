@@ -23,7 +23,7 @@ class DepartAt extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(ValuesManager.v16),
                   boxShadow: selectShadow(context),
-                  color: Theme.of(context).backgroundColor,
+                  color: ColorsExtensions.setColorOfContainersOverMap(context),
                 ),
                 child: Padding(
                   padding:

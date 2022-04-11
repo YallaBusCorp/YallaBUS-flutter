@@ -26,9 +26,6 @@ class Settings extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Header(),
-            const SizedBox(
-              height: 30,
-            ),
             const UserStatistics(),
             const SizedBox(height: 20),
             Options(),

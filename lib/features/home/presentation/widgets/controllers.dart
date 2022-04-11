@@ -8,6 +8,7 @@ import 'package:yalla_bus/features/home/presentation/widgets/map.dart';
 
 import '../../../../core/custom_widgets/separtor_widget.dart';
 
+import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/values_manager.dart';
 
 class Controllers extends StatelessWidget {
@@ -24,7 +25,7 @@ class Controllers extends StatelessWidget {
         height: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(ValuesManager.v16),
-          color: Theme.of(context).backgroundColor,
+          color: ColorsExtensions.setColorOfContainersOverMap(context),
         ),
         child: Center(
           child: Column(

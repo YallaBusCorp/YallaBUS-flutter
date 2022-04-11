@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../resources/colors_manager.dart';
 
 class ButtonWidget extends StatelessWidget {
-  final GestureTapCallback onPressed;
+  final GestureTapCallback? onPressed;
   final Widget child;
   double? width;
   double? height;

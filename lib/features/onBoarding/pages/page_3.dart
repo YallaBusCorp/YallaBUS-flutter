@@ -16,18 +16,7 @@ class Page3 extends StatefulWidget {
   State<Page3> createState() => _Page3State();
 }
 
-class _Page3State extends State<Page3> with TickerProviderStateMixin {
-  late AnimationController _lottieController;
-  @override
-  void initState() {
-    _lottieController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: ValuesManager.v500.toInt()),
-    );
-
-    super.initState();
-  }
-
+class _Page3State extends State<Page3> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,7 +25,6 @@ class _Page3State extends State<Page3> with TickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AnimationWidget(
-            controller: _lottieController,
             asset: AssetManager.liveTracking,
             width: ValuesManager.v3,
             height: ValuesManager.v3,
@@ -52,11 +40,5 @@ class _Page3State extends State<Page3> with TickerProviderStateMixin {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _lottieController.dispose();
-    super.dispose();
   }
 }

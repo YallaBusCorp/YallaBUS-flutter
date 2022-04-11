@@ -16,19 +16,8 @@ class Page1 extends StatefulWidget {
   State<Page1> createState() => _Page1State();
 }
 
-class _Page1State extends State<Page1> with TickerProviderStateMixin {
-  late AnimationController _lottieController;
-
-  @override
-  void initState() {
-    _lottieController = AnimationController(
-      vsync: this,
-      upperBound: ValuesManager.vZeroPointSeven,
-      duration: Duration(milliseconds: ValuesManager.v500.toInt()),
-    );
-
-    super.initState();
-  }
+class _Page1State extends State<Page1> {
+  
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +27,7 @@ class _Page1State extends State<Page1> with TickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AnimationWidget(
-              controller: _lottieController,
+  
               asset: AssetManager.ticket,
               width: ValuesManager.v3,
               height: ValuesManager.v3),
@@ -55,9 +44,4 @@ class _Page1State extends State<Page1> with TickerProviderStateMixin {
     );
   }
 
-  @override
-  void dispose() {
-    _lottieController.dispose();
-    super.dispose();
-  }
 }

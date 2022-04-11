@@ -15,21 +15,15 @@ class Header extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(ValuesManager.v50),
-            color: ColorsManager.orange,
-            boxShadow: selectShadow(context),
-          ),
+        Positioned(
+          top: 2,
+          left: 60,
           child: Lottie.asset(
             AssetManager.profileAnimation,
-            width: 100,
-            height: 100,
+            width: 150,
+            height: 150,
             repeat: false,
           ),
-        ),
-        const SizedBox(
-          width: 10,
         ),
         Column(
           mainAxisSize: MainAxisSize.min,

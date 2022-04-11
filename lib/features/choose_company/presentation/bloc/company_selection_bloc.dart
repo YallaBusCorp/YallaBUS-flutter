@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
-
+import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
+import 'package:yalla_bus/features/choose_company/domain/use_case/get_companies_info.dart';
+import 'package:yalla_bus/core/injection/di.dart' as sl;
 import '../../../../core/resources/string_manager.dart';
 
 part 'company_selection_event.dart';
@@ -9,24 +11,22 @@ part 'company_selection_state.dart';
 
 class CompanySelectionBloc
     extends Bloc<CompanySelectionEvent, CompanySelectionState> {
-  List<String> companies = [
-    StringManager.companyNo1.tr(),
-    StringManager.companyNo2.tr(),
-    StringManager.companyNo3.tr(),
-    StringManager.companyNo4.tr(),
-    StringManager.companyNo5.tr(),
-    StringManager.companyNo6.tr(),
-    StringManager.companyNo6.tr(),
-    StringManager.companyNo7.tr(),
-  ];
+  GetCompaniesInfo useCase;
+  List<Company> companies = [];
 
-  List<bool> isSelected = List.generate(8, (index) => false);
-  List<String> searchedElements = [];
-  bool isClicked = false;
+  @override
+  void onChange(Change<CompanySelectionState> change) {
+    super.onChange(change);
+    print(change);
+  }
 
-  CompanySelectionBloc() : super(CompanySelectionInitial()) {
+  //Here
+  List<bool> isSelected = [];
+  List<Company> searchedElements = [];
+
+  CompanySelectionBloc(this.useCase) : super(CompanySelectionInitial()) {
     on<SelectCompanyEvent>((event, emit) {
-      emit(Loading());
+    emit(RefreshSelection());
       for (int i = 0; i < isSelected.length; i++) {
         isSelected[i] = false;
       }
@@ -34,19 +34,29 @@ class CompanySelectionBloc
       emit(ChangeSelection());
     });
 
-    on<ConfirmationOfCompanySelectEvent>((event, emit) {
-      // TODO: implement event handler
+    on<GetCompaniesInfoEvent>((event, emit) async {
+      emit(Loading());
+      final l = await useCase.getCompanies();
+      l.fold((failure) {
+        emit(Error(failure.message));
+      }, (allCompanies) {
+        companies = allCompanies;
+        isSelected = List.generate(allCompanies.length, (index) => false);
+        emit(Success(companies));
+      });
     });
 
     on<SearchAtCompanyEvent>((event, emit) {
-      emit(Loading());
       searchedElements.clear();
-      searchedElements =
-          companies.where((element) => element.contains(event.word)).toList();
+      searchedElements = companies
+          .where((element) => element.companyName
+              .toLowerCase()
+              .contains(event.word.toLowerCase()))
+          .toList();
       if (searchedElements.isEmpty) {
         emit(NotFoundCompany());
       } else {
-        emit(Success());
+        emit(SuccessSearched(searchedElements));
       }
     });
   }

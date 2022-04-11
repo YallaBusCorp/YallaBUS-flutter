@@ -12,11 +12,12 @@ import 'package:yalla_bus/features/choose_company/presentation/widgets/company_i
 
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../../domain/enitity/company.dart';
 
 class CompanyItem extends StatefulWidget {
   final int index;
-  final CompanySelectionBloc bloc;
-  const CompanyItem({Key? key, required this.index, required this.bloc})
+  final Company company;
+  const CompanyItem({Key? key, required this.index, required this.company})
       : super(key: key);
 
   @override
@@ -26,9 +27,10 @@ class CompanyItem extends StatefulWidget {
 class _CompanyItemState extends State<CompanyItem> {
   @override
   Widget build(BuildContext context) {
+    CompanySelectionBloc bloc = BlocProvider.of<CompanySelectionBloc>(context);
     return InkWell(
       onTap: () {
-        widget.bloc.add(SelectCompanyEvent(widget.index));
+        bloc.add(SelectCompanyEvent(widget.index));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -36,7 +38,7 @@ class _CompanyItemState extends State<CompanyItem> {
         child: Container(
           decoration: BoxDecoration(
             color: ColorsExtensions.setColorOfCompanyItem(
-                widget.bloc, context, widget.index),
+                bloc, context, widget.index),
             boxShadow: selectShadow(context),
             borderRadius: BorderRadius.circular(ValuesManager.v16),
           ),
@@ -61,9 +63,7 @@ class _CompanyItemState extends State<CompanyItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.bloc.searchedElements.isNotEmpty
-                          ? widget.bloc.searchedElements[widget.index].tr()
-                          : widget.bloc.companies[widget.index].tr(),
+                      widget.company.companyName,
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
@@ -71,17 +71,13 @@ class _CompanyItemState extends State<CompanyItem> {
                     ),
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          AssetManager.mapPinPointCompany,
-                          color: ColorsManager.orange,
-                          width: ValuesManager.v16,
-                          height: ValuesManager.v16,
-                        ),
+                        Icon(Icons.pin_drop_outlined,
+                            size: 16, color: ColorsManager.green),
                         const SizedBox(
                           width: ValuesManager.v5,
                         ),
                         TextWidget(
-                            text: StringManager.companyNo6.tr(),
+                            text: widget.company.companyLocation,
                             style: Theme.of(context).textTheme.caption!),
                       ],
                     ),
@@ -90,7 +86,7 @@ class _CompanyItemState extends State<CompanyItem> {
                 const Spacer(),
                 IconButton(
                   onPressed: () {
-                    CompanyInfo(widget.bloc, context, widget.index);
+                    CompanyInfo(widget.company, context, widget.index);
                   },
                   icon: Icon(
                     Icons.info_outline_rounded,
