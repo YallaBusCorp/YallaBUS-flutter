@@ -23,9 +23,11 @@ class _DropDownWidgetState extends State<DropDownWidget> {
   late String initalValue;
   @override
   void initState() {
-    initalValue = widget.options[0];
+   initalValue = widget.hint;
     super.initState();
+    
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +80,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 18,
                 ),
-            value: initalValue,
+          
             icon: const Padding(
               padding: EdgeInsets.only(right: ValuesManager.v10),
               child: Icon(

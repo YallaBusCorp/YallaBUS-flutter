@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
@@ -8,9 +9,12 @@ import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
+import 'package:yalla_bus/features/sign_up/domain/enitity/university.dart';
+import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/widgets/drop_down_widget.dart';
 
 import '../../../../core/extensions/extensions.dart';
+import '../../domain/enitity/town.dart';
 
 class CompleteProfile extends StatefulWidget {
   const CompleteProfile({Key? key}) : super(key: key);
@@ -21,6 +25,18 @@ class CompleteProfile extends StatefulWidget {
 
 class _CompleteProfileState extends State<CompleteProfile> {
   //Create bloc to make a call to get a list of university and towns
+  List<String> towns = [];
+  List<String> universities = [];
+
+  @override
+  void didChangeDependencies() {
+    BlocProvider.of<CompleteprofileBloc>(context)
+        .add(GetAllUniversitiesEvent());
+    BlocProvider.of<CompleteprofileBloc>(context).add(GetAllTownsEvent());
+
+  
+    super.didChangeDependencies();
+  }
 
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
@@ -31,7 +47,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: TextWidget(
-            text: StringManager.compeletProfile,
+            text: StringManager.compeletProfile.tr(),
             style: Theme.of(context).textTheme.headline5!),
       ),
       body: Padding(
@@ -57,7 +73,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                   child: TextFormField(
                     controller: _firstNameController,
                     decoration: TextFormStyle.applyDecoration(
-                        StringManager.firstName, Icons.person, context),
+                        StringManager.firstName.tr(), Icons.person, context),
                   ),
                 ),
               ),
@@ -77,22 +93,49 @@ class _CompleteProfileState extends State<CompleteProfile> {
               ),
             ),
 
-            const DropDownWidget(
-                hint: StringManager.town, options: ConstantsManager.towns),
-            const DropDownWidget(
-                hint: StringManager.university,
-                options: ConstantsManager.universities),
+            BlocConsumer<CompleteprofileBloc, CompleteprofileState>(
+              listener: (context, state) {
+                if (state is FetchTownsSuccess) {
+                  towns = state.towns.map((e) => e.townName).toList();
+                }
+              },
+              builder: (context,state){
+                return DropDownWidget(hint: StringManager.town, options: towns);
+              },
+            
+            ),
+            BlocConsumer<CompleteprofileBloc, CompleteprofileState>(
+              listener: (context, state) {
+                if (state is FetchUniSuccess) {
+                  universities =
+                      state.universities.map((e) => e.universityName).toList();
+                }
+              },
+              builder: (context,state){
+                return  DropDownWidget(
+                hint: StringManager.university, options: universities);
+              },
+            
+            ),
+           
             const Spacer(),
             ButtonWidget(
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.addPayment);
               },
-              child: Text(StringManager.continueToPayment,
+              child: Text(StringManager.continueToPayment.tr(),
                   style: Theme.of(context).textTheme.headline6!),
             ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    super.dispose();
   }
 }

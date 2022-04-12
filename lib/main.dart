@@ -22,6 +22,11 @@ import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.
 import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/onBoarding/pages/onBoarding_base.dart';
 import 'package:yalla_bus/features/settings/presentation/pages/settings.dart';
+import 'package:yalla_bus/features/sign_up/data/data_sources/remote_data_source.dart';
+import 'package:yalla_bus/features/sign_up/data/repository_implementation/company_repository_implementation.dart';
+import 'package:yalla_bus/features/sign_up/domain/use_case/get_all_towns.dart';
+import 'package:yalla_bus/features/sign_up/domain/use_case/get_all_universities.dart';
+import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 
 import 'features/choose_company/data/data_sources/remote_data_source.dart';
@@ -31,7 +36,7 @@ import 'features/login_otp/presentation/pages/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await sl.init();
+  await sl.init();
   await Firebase.initializeApp();
 
   await EasyLocalization.ensureInitialized();
@@ -46,20 +51,18 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // final SharedPreferences perfs = di<SharedPreferences>();
-  // late bool isSeen;
-  // MyApp({Key? key}) : super(key: key) {
-  //   isSeen = perfs.getBool(ConstantsManager.seenKey) ?? false;
-  // }
+  final SharedPreferences perfs = di<SharedPreferences>();
+  late bool isSeen;
+  MyApp({Key? key}) : super(key: key) {
+    isSeen = perfs.getBool(ConstantsManager.seenKey) ?? false;
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (builder) => CompanySelectionBloc(GetCompaniesInfo(
-              CompanyRepositoryImplementation(CompaniesApiClient(),
-                  NetworkInfoImplementation(Connectivity())))),
+          create: (builder) => di<CompanySelectionBloc>(),
           child: const ChooseCompany(),
         ),
         BlocProvider(
@@ -73,6 +76,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (builder) => MapBloc(),
           child: const Home(),
+        ),
+        BlocProvider(
+          create: (builder) =>di<CompleteprofileBloc>(),
+          child: const CompleteProfile(),
         ),
       ],
       child: MaterialApp(
@@ -89,8 +96,8 @@ class MyApp extends StatelessWidget {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        // home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
-        home: ChooseCompany(),
+        home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
+        // home: const ChooseCompany(),
       ),
     );
   }

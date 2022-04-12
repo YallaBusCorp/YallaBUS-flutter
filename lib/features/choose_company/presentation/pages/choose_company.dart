@@ -1,27 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
-import 'package:yalla_bus/core/resources/string_manager.dart';
-import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
-import 'package:yalla_bus/features/choose_company/presentation/widgets/company_button_widget.dart';
-import 'package:yalla_bus/features/choose_company/presentation/widgets/company_list_view.dart';
-import 'package:yalla_bus/features/choose_company/presentation/widgets/loading_bus_widget.dart';
-import 'package:yalla_bus/features/choose_company/presentation/widgets/not_found_widget.dart';
-import 'package:yalla_bus/features/choose_company/presentation/widgets/search_field.dart';
-import '../../../../core/custom_widgets/animation_widget.dart';
+
 import '../../../../core/custom_widgets/text_widget.dart';
-import '../../../../core/injection/di.dart';
-import '../../../../core/resources/colors_manager.dart';
+import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../bloc/company_selection_bloc.dart';
 import '../widgets/companies_bloc_consumer_widget.dart';
-import '../widgets/company_item.dart';
+import '../widgets/company_button_widget.dart';
+import '../widgets/search_field.dart';
 
 class ChooseCompany extends StatefulWidget {
   const ChooseCompany({Key? key}) : super(key: key);

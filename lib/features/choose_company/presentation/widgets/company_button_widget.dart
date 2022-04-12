@@ -10,10 +10,10 @@ import '../../../../core/resources/values_manager.dart';
 
 class CompanyButton extends StatelessWidget {
   const CompanyButton({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
-        CompanySelectionBloc bloc = BlocProvider.of<CompanySelectionBloc>(context);
+    CompanySelectionBloc bloc = BlocProvider.of<CompanySelectionBloc>(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ValuesManager.v30),
@@ -21,11 +21,12 @@ class CompanyButton extends StatelessWidget {
         builder: (context, state) {
           return ButtonWidget(
             //Edit
-            onPressed: bloc.isSelected.contains(true)?
-                 () {
+            onPressed: bloc.isSelected.contains(true)
+                ? () {
+                     bloc.add(ConfirmationOfCompanySelectEvent());
                     Navigator.of(context).pushNamed(Routes.loginOtp);
-                  } : null,
-                
+                  }
+                : null,
 
             child: Text(
               StringManager.next.tr(),

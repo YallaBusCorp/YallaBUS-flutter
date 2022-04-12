@@ -7,9 +7,9 @@ abstract class CompanySelectionEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SelectCompanyEvent extends CompanySelectionEvent {
+class SelectCompanyUIEvent extends CompanySelectionEvent {
   final int indexOfCompany;
-  const SelectCompanyEvent(this.indexOfCompany);
+  const SelectCompanyUIEvent(this.indexOfCompany);
   @override
   List<Object> get props => [indexOfCompany];
 }

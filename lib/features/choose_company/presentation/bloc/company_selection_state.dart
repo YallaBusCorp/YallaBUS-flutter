@@ -17,6 +17,13 @@ class NotFoundCompany extends CompanySelectionState {}
 
 class RefreshSelection extends CompanySelectionState {}
 
+class Confirmation extends CompanySelectionState {
+  final int id;
+
+  const Confirmation(this.id);
+
+}
+
 class SuccessSearched extends CompanySelectionState {
   final List<Company> searchedList;
 

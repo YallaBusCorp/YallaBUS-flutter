@@ -30,7 +30,7 @@ class _CompanyItemState extends State<CompanyItem> {
     CompanySelectionBloc bloc = BlocProvider.of<CompanySelectionBloc>(context);
     return InkWell(
       onTap: () {
-        bloc.add(SelectCompanyEvent(widget.index));
+        bloc.add(SelectCompanyUIEvent(widget.index));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(

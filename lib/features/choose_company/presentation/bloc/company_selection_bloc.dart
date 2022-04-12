@@ -24,13 +24,16 @@ class CompanySelectionBloc
   List<bool> isSelected = [];
   List<Company> searchedElements = [];
 
+  late int companyId;
+
   CompanySelectionBloc(this.useCase) : super(CompanySelectionInitial()) {
-    on<SelectCompanyEvent>((event, emit) {
-    emit(RefreshSelection());
+    on<SelectCompanyUIEvent>((event, emit) {
+      emit(RefreshSelection());
       for (int i = 0; i < isSelected.length; i++) {
         isSelected[i] = false;
       }
       isSelected[event.indexOfCompany] = !isSelected[event.indexOfCompany];
+      companyId = companies[event.indexOfCompany].id;
       emit(ChangeSelection());
     });
 
@@ -58,6 +61,10 @@ class CompanySelectionBloc
       } else {
         emit(SuccessSearched(searchedElements));
       }
+    });
+
+    on<ConfirmationOfCompanySelectEvent>((event, emit) {
+      emit(Confirmation(companyId));
     });
   }
 }

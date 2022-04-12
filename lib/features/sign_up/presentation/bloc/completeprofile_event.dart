@@ -6,3 +6,7 @@ abstract class CompleteprofileEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetAllTownsEvent extends CompleteprofileEvent {}
+
+class GetAllUniversitiesEvent extends CompleteprofileEvent {}
