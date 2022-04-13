@@ -16,14 +16,15 @@ void DialogWidget(BuildContext context, String message, String type) {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              
               type == 'Loading'
                   ? CircularProgressIndicator(
                       color: ColorsManager.orange,
                       strokeWidth: 5,
                     )
-                  : const Icon(
-                      Icons.error_rounded,
-                      color: Colors.red,
+                  :  Icon(
+                      type == 'Success' ? Icons.done : Icons.error_rounded,
+                      color: type == 'Success' ? Colors.green : Colors.red,
                       size: 50,
                     ),
               const SizedBox(

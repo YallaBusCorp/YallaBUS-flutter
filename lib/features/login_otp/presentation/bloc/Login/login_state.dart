@@ -2,28 +2,27 @@ part of 'login_bloc.dart';
 
 abstract class LoginState extends Equatable {
   const LoginState();
-  
+
   @override
   List<Object> get props => [];
 }
 
 class LoginInitial extends LoginState {}
 
-class Loading extends LoginState{}
+class Loading extends LoginState {}
 
+class SendingData extends LoginState {}
 
-class SendingData extends LoginState{}
-
-
-class Success extends LoginState{
-  final bool isSuccess;
-
-  const Success(this.isSuccess);
+class SuccessVerfication extends LoginState {
+  final String token;
+  final String number;
+  const SuccessVerfication(this.token, this.number);
 }
 
-class Error extends LoginState{
+class Success extends LoginState {}
+
+class Error extends LoginState {
   final String message;
 
   const Error(this.message);
 }
-

@@ -23,7 +23,7 @@ import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/onBoarding/pages/onBoarding_base.dart';
 import 'package:yalla_bus/features/settings/presentation/pages/settings.dart';
 import 'package:yalla_bus/features/sign_up/data/data_sources/remote_data_source.dart';
-import 'package:yalla_bus/features/sign_up/data/repository_implementation/company_repository_implementation.dart';
+import 'package:yalla_bus/features/sign_up/data/repository_implementation/complete_profile_repository_implementation.dart';
 import 'package:yalla_bus/features/sign_up/domain/use_case/get_all_towns.dart';
 import 'package:yalla_bus/features/sign_up/domain/use_case/get_all_universities.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';

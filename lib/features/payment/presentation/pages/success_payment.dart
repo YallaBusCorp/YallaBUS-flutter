@@ -22,8 +22,8 @@ class SuccessPayment extends StatelessWidget {
           children: [
             SvgPicture.asset(
               AssetManager.successfulPurchase,
-              width: ValuesManager.v500,
-              height: ValuesManager.v500,
+              width: ValuesManager.v300,
+              height: ValuesManager.v300,
             ),
             const SizedBox(
               height: 10,

@@ -3,9 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:dartz/dartz.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/features/login_otp/domain/use%20case/send_code_verification.dart';
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/network/network_info.dart';
+import '../../../../../core/resources/constants_manager.dart';
 import '../../../../../core/resources/routes_manager.dart';
 
 part 'login_event.dart';
@@ -15,6 +17,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final NetworkInfo network = di<NetworkInfo>();
   late String verificationId;
   late UserCredential user;
+  SharedPreferences perfs = di<SharedPreferences>();
 
   void onChange(Change<LoginState> change) {
     super.onChange(change);
@@ -50,7 +53,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void codeSent(String verificationId, int? resendToken) {
     this.verificationId = verificationId;
-    emit(Success(true));
+    emit(Success());
   }
 
   Future<void> submitOtp(String otpCode) async {
@@ -59,7 +62,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         verificationId: verificationId, smsCode: otpCode);
     try {
       user = await FirebaseAuth.instance.signInWithCredential(credential);
-      emit(const Success(true));
+      final userFirebase = FirebaseAuth.instance.currentUser;
+      final uid = await userFirebase!.uid;
+      final number = FirebaseAuth.instance.currentUser!.phoneNumber!;
+      perfs.setString(ConstantsManager.uid, uid);
+      perfs.setString(ConstantsManager.number, number);
+
+      emit(Success());
     } on FirebaseAuthException {
       emit(const Error('Wrong Verification!'));
     }

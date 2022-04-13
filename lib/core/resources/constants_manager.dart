@@ -15,6 +15,9 @@ class ConstantsManager {
   static const String login = 'Login';
   static const String loading = 'Loading';
   static const String error = 'Error';
+  static const String company = 'Company';
+  static const String uid = 'Uid';
+  static const String number = 'Number';
 
   static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
 

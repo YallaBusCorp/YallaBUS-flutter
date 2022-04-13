@@ -2,9 +2,9 @@ class ApiEndPoints {
   static const String baseUrl = 'https://yalla-bus.herokuapp.com';
   static const String companies = '/company/get-all';
   static const String townsByCompanyId = '/lkTown/get-by-company-id';
-  static const String universitiesByCompanyId = '/lkUniversity/get-by-company-id';
-
-
+  static const String universitiesByCompanyId =
+      '/lkUniversity/get-by-company-id';
+  static const String saveStudentInfo = '/student/save-student';
 }
 
 

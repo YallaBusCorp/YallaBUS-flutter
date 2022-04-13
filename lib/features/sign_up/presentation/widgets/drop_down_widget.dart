@@ -1,18 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
+import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../bloc/completeprofile_bloc.dart';
 
 class DropDownWidget extends StatefulWidget {
   final String hint;
   final List<String> options;
+  final List<int> ids;
   const DropDownWidget({
     Key? key,
     required this.hint,
     required this.options,
+    required this.ids,
   }) : super(key: key);
 
   @override
@@ -23,11 +28,9 @@ class _DropDownWidgetState extends State<DropDownWidget> {
   late String initalValue;
   @override
   void initState() {
-   initalValue = widget.hint;
+    initalValue = widget.hint;
     super.initState();
-    
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +55,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             // },
             hint: TextWidget(
               text: widget.hint.tr(),
-              style: Theme.of(context).textTheme.headline6!,
+              style: Theme.of(context).textTheme.headline5!,
             ),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(top: ValuesManager.v20),
@@ -75,12 +78,11 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                   .headline6!
                   .copyWith(color: Colors.grey),
               filled: true,
-              fillColor:  ColorsExtensions.setColorOfTextForm(context),
+              fillColor: ColorsExtensions.setColorOfTextForm(context),
             ),
             style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 18,
                 ),
-          
             icon: const Padding(
               padding: EdgeInsets.only(right: ValuesManager.v10),
               child: Icon(
@@ -98,6 +100,15 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             onChanged: (String? newValue) {
               setState(() {
                 initalValue = newValue.toString();
+                if (widget.hint == 'town') {
+                  BlocProvider.of<CompleteprofileBloc>(context).add(
+                      SendTownValueEvent(widget.ids
+                          .elementAt(widget.options.indexOf(initalValue))));
+                } else {
+                  BlocProvider.of<CompleteprofileBloc>(context).add(
+                      SendUniValueEvent(widget.ids
+                          .elementAt(widget.options.indexOf(initalValue))));
+                }
               });
             }),
       ),

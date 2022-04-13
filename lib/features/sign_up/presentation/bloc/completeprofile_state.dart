@@ -42,3 +42,15 @@ class FetchTownsError extends CompleteprofileState {
   @override
   List<Object> get props => [message];
 }
+
+class PostStudentDataSuccess extends CompleteprofileState {}
+
+class PostStudentDataError extends CompleteprofileState {
+  final String message;
+
+  const PostStudentDataError(this.message);
+}
+
+class ChangeTownValue extends CompleteprofileState{}
+
+class ChangeUniValue extends CompleteprofileState{}

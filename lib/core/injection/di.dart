@@ -11,9 +11,10 @@ import 'package:yalla_bus/features/login_otp/domain/repository/repository.dart';
 import 'package:yalla_bus/features/login_otp/domain/use%20case/send_code_verification.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
 import 'package:yalla_bus/features/sign_up/data/data_sources/remote_data_source.dart';
-import 'package:yalla_bus/features/sign_up/data/repository_implementation/company_repository_implementation.dart';
+import 'package:yalla_bus/features/sign_up/data/repository_implementation/complete_profile_repository_implementation.dart';
 import 'package:yalla_bus/features/sign_up/domain/repository/complete_profile_repository.dart';
 import 'package:yalla_bus/features/sign_up/domain/use_case/get_all_universities.dart';
+import 'package:yalla_bus/features/sign_up/domain/use_case/post_student_information.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 
 import '../../features/choose_company/domain/use_case/get_companies_info.dart';
@@ -41,6 +42,7 @@ Future<void> init() async {
   di.registerFactory(() => CompleteprofileBloc(di(), di(), di()));
   di.registerLazySingleton(() => GetAllUniversities(di()));
   di.registerLazySingleton(() => GetAllTowns(di()));
+  di.registerLazySingleton(() => PostStudentInformation(di()));
   di.registerLazySingleton<CompleteProfileRepository>(
       () => ComplelteProfileRepositoryImplemenation(di(), di()));
 
