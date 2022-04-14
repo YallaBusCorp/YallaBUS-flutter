@@ -1,7 +1,7 @@
-import 'package:dartz/dartz.dart';
+
 import 'package:yalla_bus/features/login_otp/domain/repository/repository.dart';
 
-import '../../../../core/failure/failure.dart';
+
 
 class SendCodeVerification {
   final Repository repository;

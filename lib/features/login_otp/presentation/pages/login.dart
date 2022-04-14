@@ -1,28 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:yalla_bus/core/custom_widgets/animation_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
+
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
+
 import 'package:yalla_bus/core/resources/constants_manager.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
+
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
-import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/Auth_button_widget.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/Auth_header_layout.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/Auth_keyboard_widget.dart';
+import 'package:yalla_bus/features/login_otp/presentation/widgets/auth_button_widget.dart';
+import 'package:yalla_bus/features/login_otp/presentation/widgets/auth_header_layout.dart';
+import 'package:yalla_bus/features/login_otp/presentation/widgets/auth_keyboard_widget.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/phone_number_widget.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import '../../../../core/custom_widgets/button_widget.dart';
-import '../../../../core/custom_widgets/loading_widget.dart';
-import '../../../../core/resources/colors_manager.dart';
+
 import '../../../../core/resources/string_manager.dart';
 
 class LoginOtp extends StatefulWidget {
@@ -93,11 +85,11 @@ class _LoginOtpState extends State<LoginOtp> {
             const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+            const Padding(
+              padding:  EdgeInsets.only(bottom: 20),
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: const KeyboardWidget(
+                child:  KeyboardWidget(
                   type: ConstantsManager.login,
                 ),
               ),

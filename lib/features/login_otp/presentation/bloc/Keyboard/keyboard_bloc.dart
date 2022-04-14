@@ -12,6 +12,7 @@ class KeyboardBloc extends Bloc<KeyboardEvent, KeyboardState> {
   int indexOfPhoneNumber = 0;
   int indexOfPinNumber = 0;
 
+  @override
   void onChange(Change<KeyboardState> change) {
     super.onChange(change);
     print(change);

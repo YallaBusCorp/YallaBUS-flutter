@@ -51,6 +51,8 @@ class PostStudentDataError extends CompleteprofileState {
   const PostStudentDataError(this.message);
 }
 
-class ChangeTownValue extends CompleteprofileState{}
+class ChangeTownValue extends CompleteprofileState {}
 
-class ChangeUniValue extends CompleteprofileState{}
+class ChangeUniValue extends CompleteprofileState {}
+
+class LoadingSendData extends CompleteprofileState {}

@@ -1,9 +1,8 @@
-import 'dart:async';
+
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
 import 'package:yalla_bus/features/sign_up/domain/enitity/university.dart';
 import 'package:yalla_bus/features/sign_up/domain/use_case/get_all_universities.dart';
@@ -30,16 +29,15 @@ class CompleteprofileBloc
   late int universityId;
   SharedPreferences perfs = di<SharedPreferences>();
 
-  @override
-  void onChange(Change<CompleteprofileState> change) {
-    super.onChange(change);
-    print(change);
-  }
+  // @override
+  // void onChange(Change<CompleteprofileState> change) {
+  //   super.onChange(change);
+  //   print(change);
+  // }
 
   CompleteprofileBloc(this.university, this.town, this.postStudent)
       : super(CompleteprofileInitial()) {
     on<CompleteprofileEvent>((event, emit) {
-      // TODO: implement event handler
     });
 
     on<SendTownValueEvent>((event, emit) {
@@ -71,6 +69,7 @@ class CompleteprofileBloc
     });
 
     on<SendStudentDataEvent>((event, emit) async {
+      emit(LoadingSendData());
       student = Student(
           code: perfs.getString(ConstantsManager.uid)!,
           stdName: event.userName,

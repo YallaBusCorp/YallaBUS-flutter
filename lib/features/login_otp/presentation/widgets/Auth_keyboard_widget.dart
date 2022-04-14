@@ -4,12 +4,10 @@ import 'package:yalla_bus/core/custom_widgets/circle_widget.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
-import '../../../../core/resources/colors_manager.dart';
-import '../../../../core/resources/constants_manager.dart';
+
 
 class KeyboardWidget extends StatelessWidget {
   final String type;

@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
 import 'package:yalla_bus/features/choose_company/domain/use_case/get_companies_info.dart';
-import 'package:yalla_bus/core/injection/di.dart' as sl;
-import '../../../../core/resources/string_manager.dart';
 
 part 'company_selection_event.dart';
 part 'company_selection_state.dart';
@@ -14,11 +11,11 @@ class CompanySelectionBloc
   GetCompaniesInfo useCase;
   List<Company> companies = [];
 
-  @override
-  void onChange(Change<CompanySelectionState> change) {
-    super.onChange(change);
-    print(change);
-  }
+  // @override
+  // void onChange(Change<CompanySelectionState> change) {
+  //   super.onChange(change);
+  //   print(change);
+  // }
 
   //Here
   List<bool> isSelected = [];

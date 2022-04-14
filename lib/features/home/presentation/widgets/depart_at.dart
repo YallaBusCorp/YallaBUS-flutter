@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
@@ -17,7 +16,7 @@ class DepartAt extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Expanded(
               child: Container(
                 decoration: BoxDecoration(

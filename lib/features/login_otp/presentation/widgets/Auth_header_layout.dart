@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../core/resources/asset_manager.dart';
-import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 
 class AuthHeader extends StatelessWidget {

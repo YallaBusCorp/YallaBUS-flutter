@@ -4,6 +4,7 @@ class AssetManager {
   static const String masterCard = 'assets/images/mastercard_animation.json';
   static const String liveTracking = 'assets/images/live_tracking.json';
   static const String chooseCompany = 'assets/images/choose_animation.json';
+  static const String unibusImage = 'assets/images/unibus_image.jpg';
   static const String mapPinPointCompany = 'assets/images/map-pinpoint.svg';
   static const String darkLoading = 'assets/images/dark_bus_loading.json';
   static const String lightLoading = 'assets/images/light_bus_loading.json';
@@ -38,6 +39,6 @@ class AssetManager {
   static const String reportBug = 'assets/images/report-bug.svg';
   static const String signOut = 'assets/images/sign-out.svg';
   static const String subscription = 'assets/images/subscription.svg';
-  static const String termsConditions =
-      'assets/images/terms-conditions.svg';
+  static const String termsConditions = 'assets/images/terms-conditions.svg';
+  static const String placeMarker = 'assets/images/Place_Marker.bmp';
 }

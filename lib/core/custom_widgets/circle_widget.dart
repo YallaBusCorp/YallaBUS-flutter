@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../resources/colors_manager.dart';
 
 class CircleButtonWidget extends StatelessWidget {
   final GestureTapCallback onPressed;

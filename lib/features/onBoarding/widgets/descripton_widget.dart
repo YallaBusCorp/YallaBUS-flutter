@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/resources/string_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class DescriptionWidget extends StatelessWidget {

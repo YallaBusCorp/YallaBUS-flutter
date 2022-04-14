@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
-import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
-
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
@@ -55,7 +53,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             // },
             hint: TextWidget(
               text: widget.hint.tr(),
-              style: Theme.of(context).textTheme.headline5!,
+              style: Theme.of(context).textTheme.headline6!,
             ),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(top: ValuesManager.v20),

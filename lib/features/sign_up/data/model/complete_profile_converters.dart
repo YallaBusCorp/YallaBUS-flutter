@@ -20,7 +20,7 @@ class UniversityModel extends University {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['universityName'] = universityName;
 
@@ -45,7 +45,7 @@ class TownModel extends Town {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data =<String, dynamic>{};
     data['id'] = id;
     data['townName'] = townName;
 
@@ -80,7 +80,7 @@ class StudentModel extends Student {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['code'] = code;
     data['stdName'] = stdName;
     data['stdPhone'] = stdPhone;
@@ -97,7 +97,7 @@ class CompanyIdModel extends CompanyId {
     return CompanyIdModel(json['id']);
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
 
     return data;
@@ -110,7 +110,7 @@ class TownIdModel extends TownId {
     return TownIdModel(json['id']);
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
 
     return data;
@@ -123,7 +123,7 @@ class UniversityIdModel extends UniversityId {
     return UniversityIdModel(json['id']);
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
 
     return data;

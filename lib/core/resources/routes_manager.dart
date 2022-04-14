@@ -36,7 +36,7 @@ class RouteGenerator {
       case Routes.successfulPayment:
         return MaterialPageRoute(builder: (_) => const SuccessPayment());
       case Routes.settings:
-        return MaterialPageRoute(builder: (_) =>  Settings());
+        return MaterialPageRoute(builder: (_) =>  const Settings());
       case Routes.verifyOtp:
         var args = settings.arguments as String;
         return MaterialPageRoute(

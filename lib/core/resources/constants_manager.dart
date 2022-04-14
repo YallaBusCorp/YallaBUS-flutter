@@ -1,6 +1,4 @@
-import 'dart:ui';
 
-import 'package:yalla_bus/core/extensions/extensions.dart';
 
 /* 
 Orange Color: 	#EB671A

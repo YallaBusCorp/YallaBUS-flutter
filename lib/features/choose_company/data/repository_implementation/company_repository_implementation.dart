@@ -1,6 +1,5 @@
 import 'package:yalla_bus/core/exceptions/exception.dart';
 import 'package:yalla_bus/core/network/network_info.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/features/choose_company/data/data_sources/remote_data_source.dart';
 import 'package:yalla_bus/features/choose_company/data/model/company_converters.dart';
 import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';

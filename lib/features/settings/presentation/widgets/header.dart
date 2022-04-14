@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
-import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/colors_manager.dart';
-import '../../../../core/resources/values_manager.dart';
 
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);
@@ -15,37 +13,43 @@ class Header extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Positioned(
-          top: 2,
-          left: 60,
+        Container(
+          width: 110,
+          height: 110,
+          decoration: BoxDecoration(
+            // color: ColorsManager.orange,
+            borderRadius: BorderRadius.circular(100),
+          ),
           child: Lottie.asset(
             AssetManager.profileAnimation,
-            width: 150,
-            height: 150,
+            fit: BoxFit.cover,
             repeat: false,
           ),
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextWidget(
-                text: 'Amr Elmoogy',
-                style: Theme.of(context).textTheme.headline5!),
-            const SizedBox(
-              height: 10,
-            ),
-            InkWell(
-              onTap: () {},
-              child: TextWidget(
-                text: 'Edit Profile',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(fontSize: 18, color: ColorsManager.orange),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextWidget(
+                  text: 'Amr Elmoogy',
+                  style: Theme.of(context).textTheme.headline5!),
+              const SizedBox(
+                height: 5,
               ),
-            ),
-          ],
+              InkWell(
+                onTap: () {},
+                child: TextWidget(
+                  text: 'Edit Profile',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(fontSize: 18, color: ColorsManager.orange),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

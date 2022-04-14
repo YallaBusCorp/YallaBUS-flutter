@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/extensions/extensions.dart';
-import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 

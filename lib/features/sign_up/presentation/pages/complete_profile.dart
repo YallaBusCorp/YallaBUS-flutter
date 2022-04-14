@@ -2,25 +2,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
-import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/university.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/widgets/drop_down_widget.dart';
 
 import '../../../../core/extensions/extensions.dart';
-import '../../../../core/injection/di.dart';
 import '../../domain/enitity/student.dart';
-import '../../domain/enitity/town.dart';
 
 class CompleteProfile extends StatefulWidget {
   const CompleteProfile({Key? key}) : super(key: key);
@@ -46,19 +39,24 @@ class _CompleteProfileState extends State<CompleteProfile> {
     super.didChangeDependencies();
   }
 
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  FocusNode textSecondFocusNode =  FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<CompleteprofileBloc, CompleteprofileState>(
       listener: (context, state) async {
         if (state is PostStudentDataSuccess) {
-          DialogWidget(context,'You have  successfully signed up!' ,'Success');
+          DialogWidget(context, 'You have  successfully signed up!', 'Success');
           await Future.delayed(const Duration(seconds: 2));
-          Navigator.of(context).pushNamed(Routes.addPayment);
+
+          // .pushNamedAndRemoveUntil(Routes.home, (route) => false);
+          Navigator.of(context).pushNamed(Routes.successfulPayment);
         } else if (state is PostStudentDataError) {
           DialogWidget(context, state.message, 'Error');
+        } else if (state is LoadingSendData) {
+          DialogWidget(context, StringManager.wait, 'Loading');
         }
       },
       child: Scaffold(
@@ -89,8 +87,12 @@ class _CompleteProfileState extends State<CompleteProfile> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: ValuesManager.v5),
                     child: TextFormField(
+                      onFieldSubmitted: (String value) {
+                        FocusScope.of(context)
+                            .requestFocus(textSecondFocusNode);
+                      },
                       style: Theme.of(context).textTheme.headline6,
-                      controller: _firstNameController,
+                      controller: firstNameController,
                       decoration: TextFormStyle.applyDecoration(
                           StringManager.firstName.tr(), Icons.person, context),
                     ),
@@ -104,8 +106,12 @@ class _CompleteProfileState extends State<CompleteProfile> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: ValuesManager.v5),
                     child: TextFormField(
+                      focusNode: textSecondFocusNode,
+                      onFieldSubmitted: (String value) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
                       style: Theme.of(context).textTheme.headline6,
-                      controller: _lastNameController,
+                      controller: lastNameController,
                       decoration: TextFormStyle.applyDecoration(
                           StringManager.lastName.tr(), Icons.person, context),
                     ),
@@ -116,7 +122,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
               BlocConsumer<CompleteprofileBloc, CompleteprofileState>(
                 listener: (context, state) {
                   if (state is FetchTownsSuccess) {
-                    
                     townsIds = state.towns.map((e) => e.id).toList();
                     towns = state.towns.map((e) => e.townName).toList();
                   }
@@ -160,7 +165,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
   void _onPressed() {
     String userName =
-        "${_firstNameController.text} ${_lastNameController.text}";
+        "${firstNameController.text} ${lastNameController.text}";
 
     BlocProvider.of<CompleteprofileBloc>(context)
         .add(SendStudentDataEvent(userName));
@@ -168,8 +173,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
     super.dispose();
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:yalla_bus/core/exceptions/exception.dart';
@@ -31,7 +30,6 @@ class CompleteProfileApiClient {
           await dio.get(ApiEndPoints.townsByCompanyId, queryParameters: {
         'id': companyId,
       });
-      print(response.data);
       return response.data;
     } on DioError {
       throw ServerException();
@@ -48,8 +46,7 @@ class CompleteProfileApiClient {
       companyId: student.companyId,
     ).toJson();
     try {
-      print(data);
-      Response response = await dio.post(
+      await dio.post(
         ApiEndPoints.saveStudentInfo,
         data: data,
         options: Options(
@@ -59,8 +56,7 @@ class CompleteProfileApiClient {
         ),
       );
       return 200;
-    } on DioError catch (e) {
-      print(e.message);
+    } on DioError  {
       throw ServerException();
     }
   }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
 
-import '../../../core/extensions/extensions.dart';
 import '../../../core/resources/colors_manager.dart';
-import '../../../core/resources/string_manager.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../../core/resources/values_manager.dart';

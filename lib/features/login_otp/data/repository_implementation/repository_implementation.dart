@@ -1,6 +1,4 @@
-import 'package:yalla_bus/core/failure/failure.dart';
-import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/core/network/network_info.dart';
+
 import 'package:yalla_bus/features/login_otp/domain/repository/repository.dart';
 
 class RepositoryImplementation extends Repository {
