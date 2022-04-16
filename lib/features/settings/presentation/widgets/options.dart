@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/to_screen.dart';
 
 import '../../../../core/resources/asset_manager.dart';
+import '../../../../core/resources/values_manager.dart';
 
 class Options extends StatelessWidget {
-   Options({Key? key}) : super(key: key);
-   final List<String> texts = [
+  Options({Key? key}) : super(key: key);
+  final List<String> texts = [
     'Rides history',
     'Subscription details',
     'FAQ',
@@ -29,10 +30,10 @@ class Options extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
-        itemCount: 8,
+        itemCount: ValuesManager.iv8,
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(
-            height: 10,
+            height: ValuesManager.v10,
           );
         },
         itemBuilder: (BuildContext context, int index) {

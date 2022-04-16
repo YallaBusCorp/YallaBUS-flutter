@@ -68,7 +68,8 @@ class _CompanyItemState extends State<CompanyItem> {
                     Row(
                       children: [
                         Icon(Icons.pin_drop_outlined,
-                            size: 16, color: ColorsManager.green),
+                            size: ValuesManager.v16,
+                            color: ColorsManager.green),
                         const SizedBox(
                           width: ValuesManager.v5,
                         ),

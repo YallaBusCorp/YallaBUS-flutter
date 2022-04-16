@@ -26,7 +26,9 @@ class ValuesManager {
   static const double v14 = 14;
   static const double v15 = 15;
   static const double v16 = 16;
+  static const double v18 = 18;
   static const double v20 = 20;
+  static const double v22 = 22;
   static const double v25 = 25;
   static const double v30 = 30;
   static const double v35 = 35;
@@ -35,14 +37,18 @@ class ValuesManager {
   static const double v50 = 50;
   static const double v55 = 55;
   static const double v60 = 60;
+  static const double v65 = 65;
   static const double v70 = 70;
   static const double v78 = 78;
   static const double v80 = 80;
   static const double v90 = 90;
   static const double v100 = 100;
+  static const double v110 = 110;
   static const double v150 = 150;
   static const double v200 = 200;
+  static const double v240 = 240;
   static const double v250 = 250;
   static const double v300 = 300;
+  static const double v350 = 350;
   static const double v500 = 500;
 }

@@ -17,26 +17,35 @@ class PhoneNumberWidget extends StatefulWidget {
 class _PhoneNumberWidgetState extends State<PhoneNumberWidget> {
   @override
   Widget build(BuildContext context) {
-     KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
+    KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           StringManager.plusOperator,
-          style: Theme.of(context).textTheme.headline5!.copyWith(fontSize: 40),
+          style: Theme.of(context)
+              .textTheme
+              .headline5!
+              .copyWith(fontSize: ValuesManager.v40),
         ),
         Text(ValuesManager.iv2.toString(),
-            style:
-                Theme.of(context).textTheme.headline5!.copyWith(fontSize: 40)),
+            style: Theme.of(context)
+                .textTheme
+                .headline5!
+                .copyWith(fontSize: ValuesManager.v40)),
         Text(ValuesManager.iv0.toString(),
-            style:
-                Theme.of(context).textTheme.headline5!.copyWith(fontSize: 40)),
+            style: Theme.of(context)
+                .textTheme
+                .headline5!
+                .copyWith(fontSize: ValuesManager.v40)),
         const SizedBox(
           width: ValuesManager.v10,
         ),
         Text(ValuesManager.iv1.toString(),
-            style:
-                Theme.of(context).textTheme.headline5!.copyWith(fontSize: 40)),
+            style: Theme.of(context)
+                .textTheme
+                .headline5!
+                .copyWith(fontSize: ValuesManager.v40)),
         SizedBox(
           height: ValuesManager.v100,
           child: ListView.builder(

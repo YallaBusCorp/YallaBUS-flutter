@@ -15,11 +15,11 @@ class FromToWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).size.height - 240,
-      left: 10,
+      top: MediaQuery.of(context).size.height - ValuesManager.v240,
+      left: ValuesManager.v10,
       child: Center(
         child: Container(
-          width: MediaQuery.of(context).size.width - 20,
+          width: MediaQuery.of(context).size.width - ValuesManager.v20,
           padding: const EdgeInsets.all(ValuesManager.v8),
           decoration: BoxDecoration(
             boxShadow: selectShadow(context),
@@ -29,7 +29,7 @@ class FromToWidget extends StatelessWidget {
           child: Row(
             children: [
               const Painting(),
-              const SizedBox(width: 10),
+              const SizedBox(width: ValuesManager.v10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,6 +7,7 @@ import 'package:yalla_bus/features/settings/presentation/widgets/options.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/user_statistics.dart';
 
 import '../../../../core/resources/string_manager.dart';
+import '../../../../core/resources/values_manager.dart';
 import '../widgets/header.dart';
 
 class Settings extends StatelessWidget {
@@ -21,13 +22,13 @@ class Settings extends StatelessWidget {
             style: Theme.of(context).textTheme.headline5!),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(ValuesManager.v16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Header(),
             const UserStatistics(),
-            const SizedBox(height: 20),
+            const SizedBox(height: ValuesManager.v20),
             Options(),
           ],
         ),

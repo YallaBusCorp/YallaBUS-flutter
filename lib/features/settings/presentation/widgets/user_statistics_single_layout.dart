@@ -26,20 +26,22 @@ class UserStatisticsSingleLayout extends StatelessWidget {
         boxShadow: selectShadow(context),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(ValuesManager.v16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SvgPicture.asset(
               asset,
-              width: 30,
-              height: 30,
+              width: ValuesManager.v30,
+              height: ValuesManager.v30,
               color: ColorsManager.orange,
             ),
             TextWidget(
               text: statisitcsNumber,
-              style:
-                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 22),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5!
+                  .copyWith(fontSize: ValuesManager.v22),
             ),
             TextWidget(
                 text: description, style: Theme.of(context).textTheme.caption!),

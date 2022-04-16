@@ -46,4 +46,11 @@ class StringManager {
   static const String met = "met";
   static const String resendCode = "resendCode";
   static const String settings = "settings";
+
+  static const String retrivingData = 'Retrieving Data';
+  static const String notFound = 'Not found!';
+  static const String go = 'Go';
+  static const String numberValidation =
+      'Number must start with 010, 011, 012 or 015';
+  static const String successMessage = 'You have  successfully signed up!';
 }

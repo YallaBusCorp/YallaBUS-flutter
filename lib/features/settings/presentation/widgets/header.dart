@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/colors_manager.dart';
+import '../../../../core/resources/values_manager.dart';
 
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);
@@ -14,11 +15,11 @@ class Header extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 110,
-          height: 110,
+          width: ValuesManager.v110,
+          height: ValuesManager.v110,
           decoration: BoxDecoration(
             // color: ColorsManager.orange,
-            borderRadius: BorderRadius.circular(100),
+            borderRadius: BorderRadius.circular(ValuesManager.v100),
           ),
           child: Lottie.asset(
             AssetManager.profileAnimation,
@@ -27,7 +28,7 @@ class Header extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: ValuesManager.v10),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +37,7 @@ class Header extends StatelessWidget {
                   text: 'Amr Elmoogy',
                   style: Theme.of(context).textTheme.headline5!),
               const SizedBox(
-                height: 5,
+                height: ValuesManager.v5,
               ),
               InkWell(
                 onTap: () {},
@@ -45,7 +46,7 @@ class Header extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headline6!
-                      .copyWith(fontSize: 18, color: ColorsManager.orange),
+                      .copyWith(fontSize: ValuesManager.v18, color: ColorsManager.orange),
                 ),
               ),
             ],

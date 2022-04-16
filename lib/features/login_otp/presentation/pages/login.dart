@@ -59,11 +59,13 @@ class _LoginOtpState extends State<LoginOtp> {
                         keyboard.phoneNumber[0] != 5
                     ? Center(
                         child: TextWidget(
-                          text: 'Number must start with 010, 011, 012 or 015',
+                          text: StringManager.numberValidation,
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
-                              .copyWith(fontSize: 14, color: Colors.red),
+                              .copyWith(
+                                  fontSize: ValuesManager.v14,
+                                  color: Colors.red),
                         ),
                       )
                     : Container();
@@ -83,13 +85,13 @@ class _LoginOtpState extends State<LoginOtp> {
               },
             ),
             const SizedBox(
-              height: 20,
+              height: ValuesManager.v20,
             ),
             const Padding(
-              padding:  EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: ValuesManager.v20),
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child:  KeyboardWidget(
+                child: KeyboardWidget(
                   type: ConstantsManager.login,
                 ),
               ),

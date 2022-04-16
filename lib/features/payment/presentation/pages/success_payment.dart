@@ -26,15 +26,17 @@ class SuccessPayment extends StatelessWidget {
               height: ValuesManager.v300,
             ),
             const SizedBox(
-              height: 10,
+              height: ValuesManager.v10,
             ),
             TextWidget(
               text: StringManager.thankYou.tr(),
-              style:
-                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontSize: ValuesManager.v18),
             ),
             const SizedBox(
-              height: 10,
+              height: ValuesManager.v10,
             ),
             ButtonWidget(
               onPressed: () {

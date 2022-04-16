@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:yalla_bus/core/custom_widgets/circle_widget.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
@@ -14,6 +15,7 @@ import 'package:yalla_bus/features/onBoarding/pages/page_2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:yalla_bus/core/injection/di.dart';
 import '../../../core/resources/colors_manager.dart';
+import '../widgets/indicator.dart';
 import 'page_3.dart';
 
 class OnBoardingBase extends StatefulWidget {
@@ -67,30 +69,10 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
                 ],
               ),
             ),
-            SmoothPageIndicator(
-              controller: controller,
-              count: ValuesManager.iv3,
-              effect: WormEffect(
-                dotWidth: ValuesManager.v9,
-                activeDotColor:
-                    MediaQuery.of(context).platformBrightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
-                dotHeight: ValuesManager.v9,
-                spacing: ValuesManager.v4,
-                radius: ValuesManager.v10,
-                dotColor: Colors.grey,
-              ),
-            ),
             const SizedBox(height: ValuesManager.v30),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: ColorsManager.orange,
-                maximumSize: const Size(ValuesManager.v78, ValuesManager.v78),
-                shape: const CircleBorder(),
-              ),
+            CircleButtonWidget(
               onPressed: () {
-                if (index == 2) {
+                if (index == ValuesManager.v2) {
                   seeOnBoarding();
                 }
                 controller.nextPage(
@@ -106,6 +88,9 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
                   height: ValuesManager.v35,
                 ),
               ),
+            ),
+            Indicator(
+              controller: controller,
             ),
           ],
         ),

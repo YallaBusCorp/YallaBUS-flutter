@@ -10,19 +10,21 @@ abstract class CompleteprofileState extends Equatable {
 class CompleteprofileInitial extends CompleteprofileState {}
 
 class FetchUniSuccess extends CompleteprofileState {
-  final List<University> universities;
+  final List<String> universities;
+  final List<int> universitiesId;
 
-  const FetchUniSuccess(this.universities);
+  const FetchUniSuccess(this.universities, this.universitiesId);
   @override
-  List<Object> get props => [universities];
+  List<Object> get props => [universities, universitiesId];
 }
 
 class FetchTownsSuccess extends CompleteprofileState {
-  final List<Town> towns;
+  final List<String> towns;
+  final List<int> townsId;
 
-  const FetchTownsSuccess(this.towns);
+  const FetchTownsSuccess(this.towns, this.townsId);
   @override
-  List<Object> get props => [towns];
+  List<Object> get props => [towns, townsId];
 }
 
 class FetchUniError extends CompleteprofileState {

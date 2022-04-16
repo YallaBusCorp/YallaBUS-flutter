@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/user_statistics_single_layout.dart';
 
 import '../../../../core/resources/asset_manager.dart';
+import '../../../../core/resources/values_manager.dart';
 
 class UserStatistics extends StatelessWidget {
   const UserStatistics({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class UserStatistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: ValuesManager.v10),
       child: Row(
         children: const [
           Expanded(
@@ -19,7 +20,7 @@ class UserStatistics extends StatelessWidget {
                 description: 'Total Kilometers'),
           ),
           SizedBox(
-            width: 10,
+            width: ValuesManager.v10,
           ),
           Expanded(
             child: UserStatisticsSingleLayout(

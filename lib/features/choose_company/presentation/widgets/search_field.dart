@@ -23,7 +23,7 @@ class _SearchFieldState extends State<SearchField> {
     CompanySelectionBloc bloc = BlocProvider.of<CompanySelectionBloc>(context);
     return SizedBox(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height / 15,
+      height: MediaQuery.of(context).size.height / ValuesManager.v15,
       child: Center(
         child: Padding(
           padding: const EdgeInsets.only(top: ValuesManager.v5),

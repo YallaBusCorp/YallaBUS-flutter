@@ -6,6 +6,7 @@ import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
@@ -23,7 +24,6 @@ class CompleteProfile extends StatefulWidget {
 }
 
 class _CompleteProfileState extends State<CompleteProfile> {
-  //Create bloc to make a call to get a list of university and towns
   List<String> towns = [];
   List<String> universities = [];
   List<int> townsIds = [];
@@ -41,22 +41,23 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
-  FocusNode textSecondFocusNode =  FocusNode();
+  FocusNode textSecondFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<CompleteprofileBloc, CompleteprofileState>(
       listener: (context, state) async {
         if (state is PostStudentDataSuccess) {
-          DialogWidget(context, 'You have  successfully signed up!', 'Success');
-          await Future.delayed(const Duration(seconds: 2));
+          DialogWidget(
+              context, StringManager.successMessage, ConstantsManager.success);
+          await Future.delayed(const Duration(seconds: ValuesManager.iv2));
 
           // .pushNamedAndRemoveUntil(Routes.home, (route) => false);
           Navigator.of(context).pushNamed(Routes.successfulPayment);
         } else if (state is PostStudentDataError) {
-          DialogWidget(context, state.message, 'Error');
+          DialogWidget(context, state.message, ConstantsManager.error);
         } else if (state is LoadingSendData) {
-          DialogWidget(context, StringManager.wait, 'Loading');
+          DialogWidget(context, StringManager.wait, ConstantsManager.loading);
         }
       },
       child: Scaffold(
@@ -82,7 +83,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
               //Edit Widget itself
               SizedBox(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height / 15,
+                height: MediaQuery.of(context).size.height / ValuesManager.v15,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: ValuesManager.v5),
@@ -101,7 +102,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
               ),
               SizedBox(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height / 15,
+                height: MediaQuery.of(context).size.height / ValuesManager.v15,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: ValuesManager.v5),
@@ -122,8 +123,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
               BlocConsumer<CompleteprofileBloc, CompleteprofileState>(
                 listener: (context, state) {
                   if (state is FetchTownsSuccess) {
-                    townsIds = state.towns.map((e) => e.id).toList();
-                    towns = state.towns.map((e) => e.townName).toList();
+                    townsIds = state.townsId;
+                    towns = state.towns;
                   }
                 },
                 builder: (context, state) {
@@ -134,11 +135,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
               BlocConsumer<CompleteprofileBloc, CompleteprofileState>(
                 listener: (context, state) {
                   if (state is FetchUniSuccess) {
-                    universitiesIds =
-                        state.universities.map((e) => e.id).toList();
-                    universities = state.universities
-                        .map((e) => e.universityName)
-                        .toList();
+                    universitiesIds = state.universitiesId;
+                    universities = state.universities;
                   }
                 },
                 builder: (context, state) {
@@ -164,8 +162,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
   }
 
   void _onPressed() {
-    String userName =
-        "${firstNameController.text} ${lastNameController.text}";
+    String userName = "${firstNameController.text} ${lastNameController.text}";
 
     BlocProvider.of<CompleteprofileBloc>(context)
         .add(SendStudentDataEvent(userName));

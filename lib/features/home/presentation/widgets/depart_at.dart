@@ -12,11 +12,11 @@ class DepartAt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).size.height - 110,
+      top: MediaQuery.of(context).size.height - ValuesManager.v110,
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(ValuesManager.v10),
             child: Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -34,9 +34,9 @@ class DepartAt extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .headline6!
-                            .copyWith(fontSize: 18),
+                            .copyWith(fontSize: ValuesManager.v18),
                       ),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: ValuesManager.v10),
                       TextButton(
                         onPressed: () {},
                         child: TextWidget(
@@ -44,7 +44,7 @@ class DepartAt extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
-                              .copyWith(fontSize: 18),
+                              .copyWith(fontSize: ValuesManager.v18),
                         ),
                       ),
                     ],
@@ -54,13 +54,15 @@ class DepartAt extends StatelessWidget {
             ),
           ),
           ButtonWidget(
-            width: 65,
-            height: 50,
+            width: ValuesManager.v65,
+            height: ValuesManager.v50,
             onPressed: () {},
             child: TextWidget(
-              text: 'Go',
-              style:
-                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 25),
+              text: StringManager.go,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5!
+                  .copyWith(fontSize: ValuesManager.v25),
             ),
           ),
         ],
