@@ -28,7 +28,7 @@ class CompanyButton extends StatelessWidget {
                 ? () {
                     prefs.setInt(ConstantsManager.company, bloc.companyId);
                     bloc.add(ConfirmationOfCompanySelectEvent());
-                    Navigator.of(context).pushNamed(Routes.loginOtp);
+                    Navigator.of(context).pushNamed(Routes.completeProfile);
                   }
                 : null,
 

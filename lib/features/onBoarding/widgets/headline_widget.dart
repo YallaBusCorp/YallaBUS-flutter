@@ -24,7 +24,7 @@ class HeadlineWidget extends StatelessWidget {
         ),
         ConstrainedBox(
           constraints: const BoxConstraints(
-            maxWidth: ValuesManager.v90,
+            maxWidth: ValuesManager.v100,
             minHeight: ValuesManager.v30,
             minWidth: ValuesManager.v30,
             maxHeight: ValuesManager.v70,

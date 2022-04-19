@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/injection/di.dart' as sl;
 import 'package:yalla_bus/core/injection/di.dart';
+import 'package:yalla_bus/core/lanuch_first_screen/lanuch_first.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/theme_manager.dart';
@@ -18,7 +19,7 @@ import 'package:yalla_bus/features/onBoarding/pages/onboarding_base.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 
-import 'features/home/presentation/bloc/map_bloc.dart';
+import 'features/home/presentation/bloc/map/map_bloc.dart';
 import 'features/home/presentation/pages/home.dart';
 import 'features/login_otp/presentation/pages/login.dart';
 
@@ -62,11 +63,11 @@ class MyApp extends StatelessWidget {
           child: const LoginOtp(),
         ),
         BlocProvider(
-          create: (builder) => MapBloc(),
+          create: (builder) => di<MapBloc>(),
           child: const Home(),
         ),
         BlocProvider(
-          create: (builder) =>di<CompleteprofileBloc>(),
+          create: (builder) => di<CompleteprofileBloc>(),
           child: const CompleteProfile(),
         ),
       ],
@@ -84,8 +85,7 @@ class MyApp extends StatelessWidget {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: isSeen ? const ChooseCompany() : const OnBoardingBase(),
-        // home: const SuccessPayment(),
+        home: const Settings(),
       ),
     );
   }

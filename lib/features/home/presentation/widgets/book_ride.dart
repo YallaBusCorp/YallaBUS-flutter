@@ -1,0 +1,116 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
+import 'package:yalla_bus/core/resources/colors_manager.dart';
+import 'package:yalla_bus/core/resources/values_manager.dart';
+import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
+import 'package:yalla_bus/features/home/presentation/widgets/bus_times.dart';
+import 'package:yalla_bus/features/home/presentation/widgets/static_map.dart';
+import 'package:yalla_bus/features/home/presentation/widgets/switch_button.dart';
+
+class BookRide extends StatefulWidget {
+  const BookRide({Key? key}) : super(key: key);
+
+  @override
+  State<BookRide> createState() => _BookRideState();
+}
+
+class _BookRideState extends State<BookRide> {
+  bool switchColor = false;
+
+  @override
+  Widget build(BuildContext context) {
+    MapBloc bloc = BlocProvider.of<MapBloc>(context);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: ColorsExtensions.setColorOfContainersOverMap(context),
+        borderRadius: BorderRadius.circular(ValuesManager.v16),
+        boxShadow: selectShadow(context),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: ValuesManager.v16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BlocBuilder<MapBloc, MapState>(
+              builder: (context, state) {
+                return Align(
+                  alignment: Alignment.topRight,
+                  child: TextButton(
+                    onPressed: bloc.timeOfSelectedRides != 'Choose Ride'
+                        ? () {
+                            Navigator.of(context).pop();
+                          }
+                        : null,
+                    child: TextWidget(
+                      text: 'Done',
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                          color: ColorsManager.orange, fontSize: 18),
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextWidget(
+                text: 'Depart At',
+                style: Theme.of(context).textTheme.headline5!),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextWidget(
+                    text: 'Round-trip',
+                    style: Theme.of(context).textTheme.headline6!),
+                FlutterSwitch(
+                  activeColor: ColorsManager.orange,
+                  inactiveColor: Colors.grey,
+                  width: 50,
+                  height: 30,
+                  value: switchColor,
+                  onToggle: (e) {
+                    setState(() => switchColor = !switchColor);
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            const StaticMap(),
+            const SizedBox(
+              height: 10,
+            ),
+            BlocBuilder<MapBloc, MapState>(
+              builder: (context, state) {
+                return BusTimes(
+                  times: bloc.amRides,
+                  amOrPm: 'AM',
+                );
+              },
+            ),
+            BlocBuilder<MapBloc, MapState>(
+              builder: (context, state) {
+                return Visibility(
+                  visible: switchColor,
+                  child: BusTimes(
+                    times: bloc.pmRides,
+                    amOrPm: 'PM',
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

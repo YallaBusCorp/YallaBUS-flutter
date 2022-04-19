@@ -36,7 +36,7 @@ void DialogWidget(BuildContext context, String message, String type) {
                     child: ButtonWidget(
                       onPressed: () {
                         Navigator.of(context).pop();
-                        // Navigator.of(context).pop();
+                        Navigator.of(context).pop();
                       },
                       child: Text('Close',
                           style: Theme.of(context).textTheme.headline6),

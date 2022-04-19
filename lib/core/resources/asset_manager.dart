@@ -41,4 +41,5 @@ class AssetManager {
   static const String subscription = 'assets/images/subscription.svg';
   static const String termsConditions = 'assets/images/terms-conditions.svg';
   static const String placeMarker = 'assets/images/Place_Marker.bmp';
+  static const String busStationMarker = 'assets/images/bus_station.bmp';
 }

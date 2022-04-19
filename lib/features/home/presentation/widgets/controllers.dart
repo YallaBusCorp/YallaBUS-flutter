@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:yalla_bus/core/resources/routes_manager.dart';
-import 'package:yalla_bus/features/home/presentation/bloc/map_bloc.dart';
+import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
 
 import '../../../../core/custom_widgets/separtor_widget.dart';
 

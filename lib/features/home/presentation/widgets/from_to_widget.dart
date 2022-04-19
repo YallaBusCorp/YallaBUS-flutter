@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
@@ -8,6 +9,7 @@ import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/painting.dart';
 
 import '../../../../core/custom_widgets/separtor_widget.dart';
+import '../bloc/map/map_bloc.dart';
 
 class FromToWidget extends StatelessWidget {
   const FromToWidget({Key? key}) : super(key: key);
@@ -41,12 +43,20 @@ class FromToWidget extends StatelessWidget {
                           .headline6!
                           .copyWith(fontSize: ValuesManager.v16),
                     ),
-                    TextWidget(
-                      text: StringManager.companyNo5.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5!
-                          .copyWith(fontSize: ValuesManager.v20),
+                    InkWell(
+                      onTap: () {
+                        BlocProvider.of<MapBloc>(context)
+                            .add(GetPickUpPointsEvent());
+                        BlocProvider.of<MapBloc>(context)
+                            .add(CameraPositionOfPickUpPoints());
+                      },
+                      child: TextWidget(
+                        text: StringManager.companyNo5.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(fontSize: ValuesManager.v20),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -62,12 +72,20 @@ class FromToWidget extends StatelessWidget {
                           .headline6!
                           .copyWith(fontSize: ValuesManager.v16),
                     ),
-                    TextWidget(
-                      text: StringManager.met.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5!
-                          .copyWith(fontSize: ValuesManager.v20),
+                    InkWell(
+                      onTap: () {
+                        BlocProvider.of<MapBloc>(context)
+                            .add(GetDropOffPointsEvent());
+                        BlocProvider.of<MapBloc>(context)
+                            .add(CameraPositionOfDropOffPoints());
+                      },
+                      child: TextWidget(
+                        text: StringManager.met.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(fontSize: ValuesManager.v20),
+                      ),
                     ),
                   ],
                 ),

@@ -45,7 +45,7 @@ class TownModel extends Town {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =<String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['townName'] = townName;
 
@@ -55,14 +55,14 @@ class TownModel extends Town {
 
 class StudentModel extends Student {
   StudentModel(
-      {required String code,
+      {required String stdUid,
       required String stdName,
       required String stdPhone,
       required CompanyId companyId,
       required TownId townId,
       required UniversityId universityId})
       : super(
-            code: code,
+            stdUid: stdUid,
             stdName: stdName,
             stdPhone: stdPhone,
             companyId: companyId,
@@ -71,7 +71,7 @@ class StudentModel extends Student {
 
   factory StudentModel.fromJson(Map<String, dynamic> json) {
     return StudentModel(
-        code: json['code'],
+        stdUid: json['uid'],
         stdName: json['stdName'],
         stdPhone: json['stdPhone'],
         companyId: CompanyIdModel.fromJson(json['company']),
@@ -81,7 +81,7 @@ class StudentModel extends Student {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['code'] = code;
+    data['stdUid'] = stdUid;
     data['stdName'] = stdName;
     data['stdPhone'] = stdPhone;
     data['company'] = CompanyIdModel(companyId.id).toJson();

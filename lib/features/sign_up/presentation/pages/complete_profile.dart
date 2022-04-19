@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
@@ -14,6 +15,7 @@ import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_blo
 import 'package:yalla_bus/features/sign_up/presentation/widgets/drop_down_widget.dart';
 
 import '../../../../core/extensions/extensions.dart';
+import '../../../../core/injection/di.dart';
 import '../../domain/enitity/student.dart';
 
 class CompleteProfile extends StatefulWidget {
@@ -34,8 +36,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
     BlocProvider.of<CompleteprofileBloc>(context)
         .add(GetAllUniversitiesEvent());
     BlocProvider.of<CompleteprofileBloc>(context).add(GetAllTownsEvent());
-    townsIds.clear();
-    universitiesIds.clear();
     super.didChangeDependencies();
   }
 
@@ -51,13 +51,17 @@ class _CompleteProfileState extends State<CompleteProfile> {
           DialogWidget(
               context, StringManager.successMessage, ConstantsManager.success);
           await Future.delayed(const Duration(seconds: ValuesManager.iv2));
-
-          // .pushNamedAndRemoveUntil(Routes.home, (route) => false);
           Navigator.of(context).pushNamed(Routes.successfulPayment);
         } else if (state is PostStudentDataError) {
           DialogWidget(context, state.message, ConstantsManager.error);
         } else if (state is LoadingSendData) {
           DialogWidget(context, StringManager.wait, ConstantsManager.loading);
+        } else if (state is FetchTownsSuccess) {
+          towns = state.towns;
+          townsIds = state.townsId;
+        } else if (state is FetchUniSuccess) {
+          universities = state.universities;
+          universitiesIds = state.universitiesId;
         }
       },
       child: Scaffold(
@@ -119,34 +123,19 @@ class _CompleteProfileState extends State<CompleteProfile> {
                   ),
                 ),
               ),
-
-              BlocConsumer<CompleteprofileBloc, CompleteprofileState>(
-                listener: (context, state) {
-                  if (state is FetchTownsSuccess) {
-                    townsIds = state.townsId;
-                    towns = state.towns;
-                  }
-                },
-                builder: (context, state) {
-                  return DropDownWidget(
-                      hint: StringManager.town, options: towns, ids: townsIds);
-                },
-              ),
-              BlocConsumer<CompleteprofileBloc, CompleteprofileState>(
-                listener: (context, state) {
-                  if (state is FetchUniSuccess) {
-                    universitiesIds = state.universitiesId;
-                    universities = state.universities;
-                  }
-                },
-                builder: (context, state) {
-                  return DropDownWidget(
-                    hint: StringManager.university,
-                    options: universities,
-                    ids: universitiesIds,
-                  );
-                },
-              ),
+              BlocBuilder<CompleteprofileBloc, CompleteprofileState>(
+                  builder: (context, state) {
+                return DropDownWidget(
+                    hint: StringManager.town, options: towns, ids: townsIds);
+              }),
+              BlocBuilder<CompleteprofileBloc, CompleteprofileState>(
+                  builder: (context, state) {
+                return DropDownWidget(
+                  hint: StringManager.university,
+                  options: universities,
+                  ids: universitiesIds,
+                );
+              }),
 
               const Spacer(),
               ButtonWidget(
@@ -162,8 +151,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
   }
 
   void _onPressed() {
+    SharedPreferences perfs = di<SharedPreferences>();
     String userName = "${firstNameController.text} ${lastNameController.text}";
-
+    perfs.setString(ConstantsManager.name, userName);
     BlocProvider.of<CompleteprofileBloc>(context)
         .add(SendStudentDataEvent(userName));
   }

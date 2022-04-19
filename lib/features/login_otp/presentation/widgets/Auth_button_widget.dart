@@ -34,7 +34,7 @@ class AuthButton extends StatelessWidget {
           Navigator.of(context).pop();
           if (type == StringManager.otp) {
             Navigator.of(context).pushNamedAndRemoveUntil(
-                Routes.completeProfile, (route) => false);
+                Routes.chooseCompany, (route) => false);
           } else {
             Navigator.of(context)
                 .pushNamed(Routes.verifyOtp, arguments: keyboard.number);

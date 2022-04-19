@@ -1,5 +1,5 @@
 class Student {
-  final String code;
+  final String stdUid;
   final String stdName;
   final String stdPhone;
   final CompanyId companyId;
@@ -7,7 +7,7 @@ class Student {
   final UniversityId universityId;
 
   Student(
-      {required this.code,
+      {required this.stdUid,
       required this.stdName,
       required this.stdPhone,
       required this.companyId,
@@ -32,18 +32,3 @@ class UniversityId {
 
   UniversityId(this.id);
 }
-// {
-//   "id": null,
-//   "code": "97641616215615612as",
-//   "stdName": "ابراهيم عيد",
-//   "stdPhone": "01068504066",
-//   "company": {
-//     "id": 2
-//   },
-//   "town": {
-//     "id": 4
-//   },
-//   "university": {
-//     "id": 3
-//   }
-// }

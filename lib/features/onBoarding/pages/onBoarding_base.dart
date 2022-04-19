@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:yalla_bus/core/custom_widgets/circle_widget.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
@@ -43,7 +42,7 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
               style: Theme.of(context)
                   .textTheme
                   .headline5!
-                  .copyWith(color: Colors.grey),
+                  .copyWith(color: Colors.grey, fontSize: 18),
             ),
           ),
         ],
@@ -69,10 +68,15 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
                 ],
               ),
             ),
-            const SizedBox(height: ValuesManager.v30),
-            CircleButtonWidget(
+            const SizedBox(height: ValuesManager.v10),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: ColorsManager.orange,
+                maximumSize: const Size(ValuesManager.v78, ValuesManager.v78),
+                shape: const CircleBorder(),
+              ),
               onPressed: () {
-                if (index == ValuesManager.v2) {
+                if (index == 2) {
                   seeOnBoarding();
                 }
                 controller.nextPage(
@@ -88,6 +92,9 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
                   height: ValuesManager.v35,
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Indicator(
               controller: controller,
@@ -106,6 +113,6 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
 
   void seeOnBoarding() {
     perfs.setBool(ConstantsManager.seenKey, true);
-    Navigator.of(context).pushReplacementNamed(Routes.chooseCompany);
+    Navigator.of(context).pushReplacementNamed(Routes.loginOtp);
   }
 }

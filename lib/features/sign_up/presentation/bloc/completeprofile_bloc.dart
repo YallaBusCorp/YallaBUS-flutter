@@ -22,8 +22,8 @@ class CompleteprofileBloc
   PostStudentInformation postStudent;
   List<University> allUniversities = [];
   List<Town> allTowns = [];
-   List<String> names = [];
-   List<int> ids = [];
+  List<String> names = [];
+  List<int> ids = [];
   late int companyId;
   late Student student;
   late int townId;
@@ -57,8 +57,7 @@ class CompleteprofileBloc
         emit(FetchUniError(failure.message));
       }, (r) {
         allUniversities = r;
-        names.clear();
-        ids.clear();
+
         ids = allUniversities.map((e) => e.id).toList();
         names = allUniversities.map((e) => e.universityName).toList();
         emit(FetchUniSuccess(names, ids));
@@ -71,8 +70,7 @@ class CompleteprofileBloc
         emit(FetchTownsError(failure.message));
       }, (r) {
         allTowns = r;
-        names.clear();
-        ids.clear();
+
         ids = allTowns.map((e) => e.id).toList();
         names = allTowns.map((e) => e.townName).toList();
         emit(FetchTownsSuccess(names, ids));
@@ -82,7 +80,7 @@ class CompleteprofileBloc
     on<SendStudentDataEvent>((event, emit) async {
       emit(LoadingSendData());
       student = Student(
-          code: perfs.getString(ConstantsManager.uid)!,
+          stdUid: perfs.getString(ConstantsManager.uid)!,
           stdName: event.userName,
           stdPhone: perfs.getString(ConstantsManager.number)!,
           companyId: CompanyId(perfs.getInt(ConstantsManager.company)!),

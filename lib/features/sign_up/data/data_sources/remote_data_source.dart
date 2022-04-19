@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:yalla_bus/core/exceptions/exception.dart';
 import 'package:yalla_bus/core/resources/endpoints_manager.dart';
@@ -38,7 +37,7 @@ class CompleteProfileApiClient {
 
   Future<int> postStudentInfo(Student student) async {
     final data = StudentModel(
-      code: student.code,
+      stdUid: student.stdUid,
       stdName: student.stdName,
       stdPhone: student.stdPhone,
       townId: student.townId,
@@ -56,7 +55,8 @@ class CompleteProfileApiClient {
         ),
       );
       return 200;
-    } on DioError  {
+    } on DioError catch (e) {
+      print(e.message);
       throw ServerException();
     }
   }

@@ -1,5 +1,3 @@
-
-
 /* 
 Orange Color: 	#EB671A
 Blue Color:	#48B2FF
@@ -17,6 +15,9 @@ class ConstantsManager {
   static const String company = 'Company';
   static const String uid = 'Uid';
   static const String number = 'Number';
+  static const String name = 'Name';
+  static const String arabic = 'ar';
+  static const String english = 'en';
 
   static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
 

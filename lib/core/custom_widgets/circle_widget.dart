@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../resources/colors_manager.dart';
-import '../resources/values_manager.dart';
-
 class CircleButtonWidget extends StatelessWidget {
   final GestureTapCallback onPressed;
   final Widget child;
@@ -17,10 +14,10 @@ class CircleButtonWidget extends StatelessWidget {
       child: child,
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        minimumSize: const Size(ValuesManager.v78, ValuesManager.v78),
-        primary: ColorsManager.orange,
+        minimumSize: const Size(60, 60),
+        primary: Theme.of(context).backgroundColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(ValuesManager.v50),
+          borderRadius: BorderRadius.circular(50),
         ),
       ),
     );
