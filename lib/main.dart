@@ -16,12 +16,15 @@ import 'package:yalla_bus/features/choose_company/presentation/pages/choose_comp
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
 import 'package:yalla_bus/features/onBoarding/pages/onboarding_base.dart';
+import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 
 import 'features/home/presentation/bloc/map/map_bloc.dart';
 import 'features/home/presentation/pages/home.dart';
 import 'features/login_otp/presentation/pages/login.dart';
+import 'features/settings/presentation/pages/settings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,6 +73,10 @@ class MyApp extends StatelessWidget {
           create: (builder) => di<CompleteprofileBloc>(),
           child: const CompleteProfile(),
         ),
+        BlocProvider(
+          create: (builder) => SettingsBloc(),
+          child: const Settings(),
+        ),
       ],
       child: MaterialApp(
         // showPerformanceOverlay: true,
@@ -85,7 +92,7 @@ class MyApp extends StatelessWidget {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: const Settings(),
+        home: OnBoardingBase(),
       ),
     );
   }

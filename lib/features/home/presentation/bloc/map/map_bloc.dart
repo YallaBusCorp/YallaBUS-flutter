@@ -34,9 +34,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   String timeOfSelectedRides = 'Choose Ride';
 
-  
   CameraPosition kGooglePlex = const CameraPosition(
-      target: LatLng(31.046399336407333, 31.349177483660732), zoom:12);
+      target: LatLng(31.046399336407333, 31.349177483660732), zoom: 12);
   bool switchButtonValue = false;
   CameraPosition kGooglePlex2 = const CameraPosition(
     target: LatLng(31.056840273761154, 31.488563605540325),
@@ -59,6 +58,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     LatLng(31.044890281535398, 31.352871305627136),
     LatLng(31.07003276429378, 31.38887818181026),
   ];
+
+  // List<LatLng> polylineCoords = [];
+
+  // Set<Polyline> polylineSet = <Polyline>{};
 
   @override
   void onChange(Change<MapState> change) {
@@ -209,6 +212,16 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           onTap: () {},
         ),
       );
+
+      // polylineCoords.add(const LatLng(30.85389579312156, 31.268433318547288));
+      // polylineCoords.add(const LatLng(31.016335114429555, 31.378602195301422));
+
+      // polylineSet.add(
+      //   Polyline(
+      //       polylineId: const PolylineId('test'),
+      //       points: polylineCoords,
+      //       color: Colors.red),
+      // );
       emit(PickUpPointsMarkersChanged());
     });
 
@@ -271,7 +284,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     on<CameraPositionOfDropOffPoints>((event, emit) async {
       final GoogleMapController con = await controller.future;
-      
+
       double avgOfLat =
           (31.016335114429555 + 31.044890281535398 + 31.07006630857465) / 3;
       double avgOfLong =

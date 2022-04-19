@@ -6,7 +6,7 @@ import '../../../../core/resources/values_manager.dart';
 
 void CompanyInfo(Company company, BuildContext context, int index) {
   showModalBottomSheet(
-      clipBehavior: Clip.hardEdge,
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
       builder: (_) => Container(

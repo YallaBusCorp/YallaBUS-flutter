@@ -3,6 +3,7 @@ import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/payment/presentation/pages/add_payment.dart';
 import 'package:yalla_bus/features/payment/presentation/pages/success_payment.dart';
 import 'package:yalla_bus/features/settings/presentation/pages/settings.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
 
 import '../../features/choose_company/presentation/pages/choose_company.dart';
 import '../../features/home/presentation/pages/home.dart';
@@ -18,6 +19,7 @@ class Routes {
   static const String addPayment = '/addPayment';
   static const String successfulPayment = '/successfulPayment';
   static const String settings = '/settings';
+  static const String goodBye = '/goodBye';
 }
 
 class RouteGenerator {
@@ -36,7 +38,9 @@ class RouteGenerator {
       case Routes.successfulPayment:
         return MaterialPageRoute(builder: (_) => const SuccessPayment());
       case Routes.settings:
-        return MaterialPageRoute(builder: (_) =>  const Settings());
+        return MaterialPageRoute(builder: (_) => const Settings());
+      case Routes.goodBye:
+        return MaterialPageRoute(builder: (_) => const GoodBye());
       case Routes.verifyOtp:
         var args = settings.arguments as String;
         return MaterialPageRoute(

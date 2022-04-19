@@ -14,21 +14,17 @@ class HeadlineWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width / ValuesManager.v3,
-          color: ColorsManager.blue,
-          height: ValuesManager.v2,
+        Expanded(
+          child: Container(
+            width: MediaQuery.of(context).size.width / ValuesManager.v3,
+            color: ColorsManager.blue,
+            height: ValuesManager.v2,
+          ),
         ),
         const SizedBox(
           width: ValuesManager.v8,
         ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: ValuesManager.v100,
-            minHeight: ValuesManager.v30,
-            minWidth: ValuesManager.v30,
-            maxHeight: ValuesManager.v70,
-          ),
+        Expanded(
           child: Text(
             headline.tr(),
             textAlign: TextAlign.center,

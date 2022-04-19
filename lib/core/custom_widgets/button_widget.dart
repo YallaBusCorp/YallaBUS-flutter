@@ -7,12 +7,14 @@ import '../resources/colors_manager.dart';
 class ButtonWidget extends StatelessWidget {
   final GestureTapCallback? onPressed;
   final Widget child;
+  final Color? color;
   double? width;
   double? height;
   ButtonWidget(
       {Key? key,
       required this.onPressed,
       required this.child,
+      this.color,
       this.width,
       this.height})
       : super(key: key);
@@ -20,17 +22,15 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-    
       onPressed: onPressed,
       child: child,
       style: ElevatedButton.styleFrom(
         minimumSize:
             Size(width ?? MediaQuery.of(context).size.width - 50, height ?? 46),
-        primary: ColorsManager.orange,
+        primary: color?? ColorsManager.orange,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        
       ),
     );
   }

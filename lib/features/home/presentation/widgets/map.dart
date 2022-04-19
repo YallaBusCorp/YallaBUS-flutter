@@ -13,13 +13,14 @@ class MapWidget extends StatefulWidget {
   State<MapWidget> createState() => _MapWidgetState();
 }
 
-class _MapWidgetState extends State<MapWidget> {
+class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   late String _darkMapStyle;
 
   @override
   void initState() {
-    super.initState();
     _loadMapStyles();
+    WidgetsBinding.instance!.addObserver(this);
+    super.initState();
   }
 
   Future _loadMapStyles() async {
@@ -27,10 +28,19 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    MapBloc bloc = BlocProvider.of<MapBloc>(context);
+    if (state == AppLifecycleState.resumed) {
+      final GoogleMapController controller = await bloc.controller.future;
+      controller.setMapStyle(_darkMapStyle);
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
   void didChangeDependencies() {
     BlocProvider.of<MapBloc>(context).add(GetAmAppoinmentsEvent());
     BlocProvider.of<MapBloc>(context).add(GetPmAppoinmentsEvent());
-    // BlocProvider.of<MapBloc>(context).add(CameraPositionOfPickUpPoints());
     super.didChangeDependencies();
   }
 
@@ -50,19 +60,16 @@ class _MapWidgetState extends State<MapWidget> {
       },
       builder: (context, state) {
         return GoogleMap(
-          
           zoomControlsEnabled: false,
           markers: markers,
+        
           initialCameraPosition: map.kGooglePlex,
-          
           onMapCreated: (GoogleMapController controller) {
             map.controller.complete(controller);
             if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
               controller.setMapStyle(_darkMapStyle);
-     
             }
           },
-          
         );
       },
     );

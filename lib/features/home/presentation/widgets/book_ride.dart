@@ -48,19 +48,21 @@ class _BookRideState extends State<BookRide> {
                         : null,
                     child: TextWidget(
                       text: 'Done',
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color: ColorsManager.orange, fontSize: 18),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(color: ColorsManager.orange, fontSize: 18),
                     ),
                   ),
                 );
               },
             ),
-            const SizedBox(
-              height: 10,
-            ),
             TextWidget(
                 text: 'Depart At',
-                style: Theme.of(context).textTheme.headline5!),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .copyWith(fontSize: 30)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

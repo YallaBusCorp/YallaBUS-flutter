@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 
 import '../../../../core/custom_widgets/show_dialog.dart';
+import '../../../../core/injection/di.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/resources/string_manager.dart';
@@ -25,6 +27,7 @@ class AuthButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SharedPreferences perfs = di<SharedPreferences>();
     KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
@@ -33,8 +36,13 @@ class AuthButton extends StatelessWidget {
         } else if (state is Success) {
           Navigator.of(context).pop();
           if (type == StringManager.otp) {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                Routes.chooseCompany, (route) => false);
+            if (perfs.getInt(ConstantsManager.company) == null) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  Routes.chooseCompany, (route) => false);
+            } else {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(Routes.home, (route) => false);
+            }
           } else {
             Navigator.of(context)
                 .pushNamed(Routes.verifyOtp, arguments: keyboard.number);

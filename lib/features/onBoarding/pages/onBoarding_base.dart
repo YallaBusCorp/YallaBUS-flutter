@@ -94,7 +94,7 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 25,
             ),
             Indicator(
               controller: controller,

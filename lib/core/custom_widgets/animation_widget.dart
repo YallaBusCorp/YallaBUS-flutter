@@ -25,6 +25,7 @@ class _AnimationWidgetState extends State<AnimationWidget> {
       widget.asset,
       width: MediaQuery.of(context).size.height / widget.width,
       height: MediaQuery.of(context).size.height / widget.height,
+      frameRate: FrameRate.max,
     );
   }
 }
