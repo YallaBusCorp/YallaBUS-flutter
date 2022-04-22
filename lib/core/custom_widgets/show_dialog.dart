@@ -17,7 +17,9 @@ void DialogWidget(BuildContext context, String message, String type) {
                       strokeWidth: 5,
                     )
                   : Icon(
-                      type == 'Success' ? Icons.done : Icons.error_rounded,
+                      type == 'Success'
+                          ? Icons.done_rounded
+                          : Icons.error_rounded,
                       color: type == 'Success' ? Colors.green : Colors.red,
                       size: 50,
                     ),

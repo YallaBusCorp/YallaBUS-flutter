@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: OnBoardingBase(),
+        home: launchFirst(),
       ),
     );
   }

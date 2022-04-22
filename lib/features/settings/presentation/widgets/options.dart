@@ -33,7 +33,7 @@ class Options extends StatelessWidget {
         itemCount: ValuesManager.iv8,
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(
-            height: ValuesManager.v10,
+            height: ValuesManager.v18,
           );
         },
         itemBuilder: (BuildContext context, int index) {

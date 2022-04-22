@@ -5,10 +5,9 @@ import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_layout.dar
 
 import '../../../../core/resources/values_manager.dart';
 
-
 class PinCode extends StatelessWidget {
-  const PinCode({Key? key}) : super(key: key);
-
+  PinCode({Key? key}) : super(key: key);
+  final List<String> pins = List.generate(6, (index) => '');
   @override
   Widget build(BuildContext context) {
     KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);

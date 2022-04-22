@@ -34,8 +34,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   String timeOfSelectedRides = 'Choose Ride';
 
+  String from = 'Choose your pick up point';
+  String to = 'Choose your drop off point';
   CameraPosition kGooglePlex = const CameraPosition(
-      target: LatLng(31.046399336407333, 31.349177483660732), zoom: 12);
+      target: LatLng((30.85389579312156 + 30.750389209369917 + 30.95670425388353) / 3, (31.268433318547288 + 31.260458997797773 + 31.30646424602145) / 3), zoom: 12);
   bool switchButtonValue = false;
   CameraPosition kGooglePlex2 = const CameraPosition(
     target: LatLng(31.056840273761154, 31.488563605540325),
@@ -51,12 +53,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     LatLng(30.85389579312156, 31.268433318547288),
     LatLng(30.750389209369917, 31.260458997797773),
     LatLng(30.95670425388353, 31.30646424602145),
+    LatLng(30.71580116574968, 31.271124467644803),
   ];
 
   List<dynamic> dropOff = const [
     LatLng(31.016335114429555, 31.378602195301422),
     LatLng(31.044890281535398, 31.352871305627136),
     LatLng(31.07003276429378, 31.38887818181026),
+    LatLng(30.71580116574968, 31.271124467644803),
   ];
 
   // List<LatLng> polylineCoords = [];
@@ -66,7 +70,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   @override
   void onChange(Change<MapState> change) {
     super.onChange(change);
-    print(change);
+    print(change.nextState);
   }
 
   MapBloc(this.appointmentOfAm, this.appointmentOfPm) : super(MapInitial()) {
@@ -179,6 +183,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         const ImageConfiguration(),
         AssetManager.busStationMarker,
       );
+      BitmapDescriptor markerLocation = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(),
+        AssetManager.placeMarker,
+      );
+
+      pickUpMarkers.add(
+        Marker(
+          markerId: MarkerId(
+            pickUps[3].toString(),
+          ),
+          position: pickUps[3], //position of marker
+
+          icon: markerLocation,
+        ),
+      );
       pickUpMarkers.add(
         Marker(
             markerId: MarkerId(
@@ -187,18 +206,25 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             position: pickUps[0], //position of marker
 
             icon: markerbitmap,
-            onTap: () {}),
+            onTap: () {
+              from = 'Tunnamil';
+              emit(SelectPickUpFromPlace(from));
+            }),
       );
 
       pickUpMarkers.add(
         Marker(
-            markerId: MarkerId(
-              pickUps[1].toString(),
-            ),
-            position: pickUps[1], //position of marker
+          markerId: MarkerId(
+            pickUps[1].toString(),
+          ),
+          position: pickUps[1], //position of marker
 
-            icon: markerbitmap,
-            onTap: () {}),
+          icon: markerbitmap,
+          // onTap: () {
+          //   from = 'Beshla';
+          //   emit(SelectPickUpFromPlace(from));
+          // }),
+        ),
       );
 
       pickUpMarkers.add(
@@ -209,19 +235,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           position: pickUps[2], //position of marker
 
           icon: markerbitmap,
-          onTap: () {},
+          // onTap: () {
+          //   from = 'Aga';
+          //   emit(SelectPickUpFromPlace(from));
+          // },
         ),
       );
 
-      // polylineCoords.add(const LatLng(30.85389579312156, 31.268433318547288));
-      // polylineCoords.add(const LatLng(31.016335114429555, 31.378602195301422));
-
-      // polylineSet.add(
-      //   Polyline(
-      //       polylineId: const PolylineId('test'),
-      //       points: polylineCoords,
-      //       color: Colors.red),
-      // );
       emit(PickUpPointsMarkersChanged());
     });
 
@@ -230,26 +250,49 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         const ImageConfiguration(),
         AssetManager.busStationMarker,
       );
+      BitmapDescriptor markerLocation = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(),
+        AssetManager.placeMarker,
+      );
       dropOffMarkers.add(
         Marker(
-            markerId: MarkerId(
-              dropOff[0].toString(),
-            ),
-            position: dropOff[0], //position of marker
+          markerId: MarkerId(
+            dropOff[3].toString(),
+          ),
+          position: dropOff[3], //position of marker
 
-            icon: markerbitmap,
-            onTap: () {}),
+          icon: markerLocation,
+        ),
       );
 
       dropOffMarkers.add(
         Marker(
-            markerId: MarkerId(
-              dropOff[1].toString(),
-            ),
-            position: dropOff[1], //position of marker
+          markerId: MarkerId(
+            dropOff[0].toString(),
+          ),
+          position: dropOff[0], //position of marker
 
-            icon: markerbitmap,
-            onTap: () {}),
+          icon: markerbitmap,
+          // onTap: () {
+          //   to = 'MET';
+          //   emit(SelectDropOffFromPlace(to));
+          // },
+        ),
+      );
+
+      dropOffMarkers.add(
+        Marker(
+          markerId: MarkerId(
+            dropOff[1].toString(),
+          ),
+          position: dropOff[1], //position of marker
+
+          icon: markerbitmap,
+          // onTap: () {
+          //   to = 'Mansoura University';
+          //   emit(SelectDropOffFromPlace(to));
+          // },
+        ),
       );
 
       dropOffMarkers.add(
@@ -260,7 +303,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           position: dropOff[2], //position of marker
 
           icon: markerbitmap,
-          onTap: () {},
+          // onTap: () {
+          //   to = 'Delta';
+          //   emit(SelectDropOffFromPlace(to));
+          // },
         ),
       );
       emit(DropOffPointsMarkersChanged());
@@ -292,11 +338,16 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       dynamic cameraPositionOfDropOff = LatLng(avgOfLat, avgOfLong);
       kGooglePlex = CameraPosition(
         target: cameraPositionOfDropOff,
-        zoom: 11,
+        zoom: 13,
       );
       CameraUpdate update = CameraUpdate.newCameraPosition(kGooglePlex);
       con.animateCamera(update);
       emit(ChangeMapViewForPickUpPoints());
+    });
+
+    on<AddMarkerTitleToTexts>((event, emit) {
+      emit(SelectDropOffFromPlace(from));
+      emit(SelectPickUpFromPlace(to));
     });
   }
 }

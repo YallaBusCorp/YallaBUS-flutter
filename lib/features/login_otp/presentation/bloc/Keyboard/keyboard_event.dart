@@ -22,3 +22,5 @@ class WritePinCodeEvent extends KeyboardEvent {
 }
 
 class RemovePinNumberEvent extends KeyboardEvent {}
+
+class InitalizeVariablesEvent extends KeyboardEvent {}

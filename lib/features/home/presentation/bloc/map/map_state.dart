@@ -52,6 +52,18 @@ class ChangeMapViewForPickUpPoints extends MapState {}
 class PickUpPointsMarkersChanged extends MapState {}
 
 class DropOffPointsMarkersChanged extends MapState {}
+
+class SelectDropOffFromPlace extends MapState {
+  final String place;
+
+  const SelectDropOffFromPlace(this.place);
+}
+
+class SelectPickUpFromPlace extends MapState {
+  final String place;
+
+  const SelectPickUpFromPlace(this.place);
+}
  
 
 

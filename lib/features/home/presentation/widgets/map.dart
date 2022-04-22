@@ -32,16 +32,10 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
     MapBloc bloc = BlocProvider.of<MapBloc>(context);
     if (state == AppLifecycleState.resumed) {
       final GoogleMapController controller = await bloc.controller.future;
+
       controller.setMapStyle(_darkMapStyle);
     }
     super.didChangeAppLifecycleState(state);
-  }
-
-  @override
-  void didChangeDependencies() {
-    BlocProvider.of<MapBloc>(context).add(GetAmAppoinmentsEvent());
-    BlocProvider.of<MapBloc>(context).add(GetPmAppoinmentsEvent());
-    super.didChangeDependencies();
   }
 
   Set<Marker> markers = <Marker>{};
@@ -57,15 +51,22 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         if (state is DropOffPointsMarkersChanged) {
           markers = map.dropOffMarkers;
         }
+        if (state is ChangePosition) {
+          markers = map.markers;
+        }
       },
       builder: (context, state) {
         return GoogleMap(
           zoomControlsEnabled: false,
           markers: markers,
-        
+          myLocationButtonEnabled: false,
+          compassEnabled: false,
+          mapToolbarEnabled: false,
           initialCameraPosition: map.kGooglePlex,
           onMapCreated: (GoogleMapController controller) {
-            map.controller.complete(controller);
+            if (!map.controller.isCompleted) {
+              map.controller.complete(controller);
+            }
             if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
               controller.setMapStyle(_darkMapStyle);
             }

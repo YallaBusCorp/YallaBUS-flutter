@@ -24,11 +24,11 @@ class _StaticMapState extends State<StaticMap> {
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    BlocProvider.of<MapBloc>(context).add(InitializeStaticMapEvent());
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   BlocProvider.of<MapBloc>(context).add(InitializeStaticMapEvent());
+  //   super.didChangeDependencies();
+  // }
 
   Future _loadMapStyles() async {
     _darkMapStyle = await rootBundle.loadString(AssetManager.darkMapStyle);
@@ -39,19 +39,15 @@ class _StaticMapState extends State<StaticMap> {
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
         return SizedBox(
-          height: ValuesManager.v150,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(ValuesManager.v16),
-              boxShadow: selectShadow(context),
-            ),
+          height: ValuesManager.v100,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
             child: GoogleMap(
               scrollGesturesEnabled: false,
               rotateGesturesEnabled: false,
               zoomGesturesEnabled: false,
               zoomControlsEnabled: false,
-              markers: BlocProvider.of<MapBloc>(context).markers2,
+              // markers: BlocProvider.of<MapBloc>(context).markers2,
               initialCameraPosition:
                   BlocProvider.of<MapBloc>(context).kGooglePlex2,
               onMapCreated: (GoogleMapController controller) {

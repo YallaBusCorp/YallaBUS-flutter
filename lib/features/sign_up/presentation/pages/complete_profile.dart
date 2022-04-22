@@ -16,6 +16,7 @@ import 'package:yalla_bus/features/sign_up/presentation/widgets/drop_down_widget
 
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/injection/di.dart';
+import '../../../../core/resources/colors_manager.dart';
 import '../../domain/enitity/student.dart';
 
 class CompleteProfile extends StatefulWidget {
@@ -51,7 +52,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
           DialogWidget(
               context, StringManager.successMessage, ConstantsManager.success);
           await Future.delayed(const Duration(seconds: ValuesManager.iv2));
-          Navigator.of(context).pushNamed(Routes.successfulPayment);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            Routes.successfulPayment,
+            (route) => false,
+          );
         } else if (state is PostStudentDataError) {
           DialogWidget(context, state.message, ConstantsManager.error);
         } else if (state is LoadingSendData) {
@@ -97,6 +101,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                             .requestFocus(textSecondFocusNode);
                       },
                       style: Theme.of(context).textTheme.headline6,
+                      cursorColor: ColorsManager.orange,
                       controller: firstNameController,
                       decoration: TextFormStyle.applyDecoration(
                           StringManager.firstName.tr(), Icons.person, context),
@@ -112,6 +117,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                     padding: const EdgeInsets.only(top: ValuesManager.v5),
                     child: TextFormField(
                       focusNode: textSecondFocusNode,
+                      cursorColor: ColorsManager.orange,
                       onFieldSubmitted: (String value) {
                         FocusManager.instance.primaryFocus?.unfocus();
                       },

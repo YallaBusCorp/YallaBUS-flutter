@@ -7,17 +7,18 @@ part 'keyboard_state.dart';
 class KeyboardBloc extends Bloc<KeyboardEvent, KeyboardState> {
   List<int> phoneNumber = List.generate(9, (index) => 0);
   List<String> pins = List.generate(6, (index) => '');
-  String number = "+201";
-  String pinCode = "";
-  int indexOfPhoneNumber = 0;
-  int indexOfPinNumber = 0;
+  late String number = "+201";
+  late String pinCode = "";
+  late int indexOfPhoneNumber = 0;
+  late int indexOfPinNumber = 0;
+  // int i = 0;
 
   @override
   void onChange(Change<KeyboardState> change) {
     super.onChange(change);
     print(change);
   }
-  
+
   KeyboardBloc() : super(KeyboardInitial()) {
     on<WritePhoneNumberEvent>((event, emit) {
       emit(Loading());

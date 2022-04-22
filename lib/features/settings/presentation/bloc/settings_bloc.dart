@@ -11,9 +11,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsEvent>((event, emit) {
       // TODO: implement event handler
     });
-    
-    on<SignOutEvent>((event, emit) async {
 
+    on<SignOutEvent>((event, emit) async {
+      
       try {
         await FirebaseAuth.instance.signOut();
         emit(SignOutSuccess());

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
+import 'package:yalla_bus/core/injection/di.dart' as sl;
+import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
+import '../../../../core/injection/di.dart';
 import '../../../../core/resources/values_manager.dart';
 
 class GoodBye extends StatefulWidget {
@@ -17,6 +20,7 @@ class _GoodByeState extends State<GoodBye> {
   @override
   void didChangeDependencies() {
     Future.delayed(const Duration(seconds: 3), () {
+  
       Navigator.of(context)
           .pushNamedAndRemoveUntil(Routes.loginOtp, (route) => false);
     });

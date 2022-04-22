@@ -11,9 +11,14 @@ import 'package:yalla_bus/features/home/presentation/widgets/painting.dart';
 import '../../../../core/custom_widgets/separtor_widget.dart';
 import '../bloc/map/map_bloc.dart';
 
-class FromToWidget extends StatelessWidget {
+class FromToWidget extends StatefulWidget {
   const FromToWidget({Key? key}) : super(key: key);
 
+  @override
+  State<FromToWidget> createState() => _FromToWidgetState();
+}
+
+class _FromToWidgetState extends State<FromToWidget> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -43,20 +48,24 @@ class FromToWidget extends StatelessWidget {
                           .headline6!
                           .copyWith(fontSize: ValuesManager.v16),
                     ),
-                    InkWell(
-                      onTap: () {
-                        BlocProvider.of<MapBloc>(context)
-                            .add(GetPickUpPointsEvent());
-                        BlocProvider.of<MapBloc>(context)
-                            .add(CameraPositionOfPickUpPoints());
+                    BlocBuilder<MapBloc, MapState>(
+                      builder: (context, state) {
+                        return InkWell(
+                          onTap: () {
+                            BlocProvider.of<MapBloc>(context)
+                                .add(GetPickUpPointsEvent());
+                            BlocProvider.of<MapBloc>(context)
+                                .add(CameraPositionOfPickUpPoints());
+                          },
+                          child: TextWidget(
+                            text: 'Beshla',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(fontSize: ValuesManager.v20),
+                          ),
+                        );
                       },
-                      child: TextWidget(
-                        text: StringManager.companyNo5.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5!
-                            .copyWith(fontSize: ValuesManager.v20),
-                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -72,20 +81,24 @@ class FromToWidget extends StatelessWidget {
                           .headline6!
                           .copyWith(fontSize: ValuesManager.v16),
                     ),
-                    InkWell(
-                      onTap: () {
-                        BlocProvider.of<MapBloc>(context)
-                            .add(GetDropOffPointsEvent());
-                        BlocProvider.of<MapBloc>(context)
-                            .add(CameraPositionOfDropOffPoints());
+                    BlocBuilder<MapBloc, MapState>(
+                      builder: (context, state) {
+                        return InkWell(
+                          onTap: () {
+                            BlocProvider.of<MapBloc>(context)
+                                .add(GetDropOffPointsEvent());
+                            BlocProvider.of<MapBloc>(context)
+                                .add(CameraPositionOfDropOffPoints());
+                          },
+                          child: TextWidget(
+                            text: 'MET',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(fontSize: ValuesManager.v20),
+                          ),
+                        );
                       },
-                      child: TextWidget(
-                        text: StringManager.met.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5!
-                            .copyWith(fontSize: ValuesManager.v20),
-                      ),
                     ),
                   ],
                 ),

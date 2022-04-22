@@ -22,6 +22,7 @@ import '../../features/home/data/repository_implementation/company_repository_im
 import '../../features/home/domain/repository/map_repository.dart';
 import '../../features/home/domain/use_case/get_appoinments_of_pm.dart';
 import '../../features/home/presentation/bloc/map/map_bloc.dart';
+import '../../features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 import '../../features/sign_up/domain/use_case/get_all_towns.dart';
 
 GetIt di = GetIt.instance;
@@ -30,6 +31,8 @@ Future<void> init() async {
   di.registerLazySingleton(() => perfs);
 
   di.registerFactory(() => LoginBloc());
+
+  di.registerFactory(() => KeyboardBloc());
 
   di.registerLazySingleton(() => SendCodeVerification(di()));
 
@@ -58,4 +61,8 @@ Future<void> init() async {
   di.registerLazySingleton<MapRepository>(
       () => MapRepositoryImplementation(di(), di()));
   di.registerLazySingleton(() => MapApiClient());
+}
+
+Future<void> resetAllInstances() async {
+  await di.reset();
 }

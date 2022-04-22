@@ -15,6 +15,7 @@ import 'package:yalla_bus/features/login_otp/presentation/widgets/auth_header_la
 import 'package:yalla_bus/features/login_otp/presentation/widgets/auth_keyboard_widget.dart';
 import 'package:yalla_bus/features/login_otp/presentation/widgets/phone_number_widget.dart';
 
+import '../../../../core/injection/di.dart';
 import '../../../../core/resources/string_manager.dart';
 
 class LoginOtp extends StatefulWidget {
@@ -25,10 +26,21 @@ class LoginOtp extends StatefulWidget {
 }
 
 class _LoginOtpState extends State<LoginOtp> {
+  
+  @override
+  void didChangeDependencies() {
+    KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
+    for (int i = 0; i < 9; i++) {
+      bloc.add(RemovePhoneNumberEvent());
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
     KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
+    // keyboard.phoneNumber = List.generate(9, (index) => 0);
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -45,9 +57,7 @@ class _LoginOtpState extends State<LoginOtp> {
             BlocBuilder<KeyboardBloc, KeyboardState>(
               builder: (context, state) {
                 return Center(
-                  child: PhoneNumberWidget(
-                    num: keyboard.phoneNumber,
-                  ),
+                  child: PhoneNumberWidget(num: keyboard.phoneNumber),
                 );
               },
             ),

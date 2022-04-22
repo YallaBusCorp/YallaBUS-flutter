@@ -38,3 +38,8 @@ class GetDropOffPointsEvent extends MapEvent {}
 class CameraPositionOfPickUpPoints extends MapEvent{}
 
 class CameraPositionOfDropOffPoints extends MapEvent{}
+
+class AddMarkerTitleToTexts extends MapEvent{}
+
+
+

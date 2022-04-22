@@ -22,6 +22,13 @@ class _BookRideState extends State<BookRide> {
   bool switchColor = false;
 
   @override
+  void didChangeDependencies() {
+    BlocProvider.of<MapBloc>(context).add(GetAmAppoinmentsEvent());
+    BlocProvider.of<MapBloc>(context).add(GetPmAppoinmentsEvent());
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     MapBloc bloc = BlocProvider.of<MapBloc>(context);
     return DecoratedBox(

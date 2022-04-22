@@ -17,7 +17,7 @@ class SignOutDialogButtons extends StatelessWidget {
       listener: (context, state) {
         if (state is SignOutSuccess) {
           Navigator.of(context).pop();
-          Navigator.of(context).pushReplacementNamed(Routes.goodBye);
+          Navigator.of(context).pushNamedAndRemoveUntil(Routes.goodBye, (route) => false);
         }
       },
       child: Row(

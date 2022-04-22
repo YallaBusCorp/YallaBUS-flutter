@@ -20,3 +20,4 @@ class VerifyCodeVerificationEvent extends LoginEvent {
 
   const VerifyCodeVerificationEvent(this.otpCode);
 }
+

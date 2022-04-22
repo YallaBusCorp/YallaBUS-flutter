@@ -9,6 +9,7 @@ import 'package:yalla_bus/features/login_otp/presentation/widgets/auth_header_la
 import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_code.dart';
 
 import '../../../../core/extensions/extensions.dart';
+import '../../../../core/injection/di.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../bloc/Login/login_bloc.dart';
@@ -24,9 +25,19 @@ class VerifyScreen extends StatefulWidget {
 
 class _VerifyScreenState extends State<VerifyScreen> {
   @override
+  void didChangeDependencies() {
+    KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
+    for (int i = 0; i < 9; i++) {
+      bloc.add(RemovePinNumberEvent());
+    }
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
     KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
+
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -39,17 +50,15 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 header2: StringManager.codeSentTo.tr() + keyboard.number,
                 asset: selectAnimationLightOrDark(context)),
             const Spacer(),
-            const PinCode(),
+            PinCode(),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: ValuesManager.v15),
               child: Center(
                 child: TextWidget(
                   text: StringManager.resendCode.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5!
-                      .copyWith(fontSize: ValuesManager.v14, color: ColorsManager.orange),
+                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                      fontSize: ValuesManager.v14, color: ColorsManager.orange),
                 ),
               ),
             ),

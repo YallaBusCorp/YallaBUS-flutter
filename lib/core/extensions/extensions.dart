@@ -97,3 +97,5 @@ String selectAnimationLightOrDark(BuildContext context) {
   }
   return AssetManager.lightverify;
 }
+
+
