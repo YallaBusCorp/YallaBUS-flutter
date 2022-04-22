@@ -43,4 +43,7 @@ class AssetManager {
   static const String placeMarker = 'assets/images/Place_Marker.bmp';
   static const String busStationMarker = 'assets/images/bus_station.bmp';
   static const String guyWaving = 'assets/images/swinging-sad-emoji.json';
+  static const String loading = 'assets/images/loading_anim.json';
+  static const String done = 'assets/images/correct.png';
+  static const String cancel = 'assets/images/cancel.png';
 }

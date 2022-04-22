@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
+import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
+import 'package:yalla_bus/core/custom_widgets/success_dialog.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
@@ -13,7 +14,7 @@ import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/widgets/drop_down_widget.dart';
-
+import '../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/colors_manager.dart';
@@ -49,17 +50,38 @@ class _CompleteProfileState extends State<CompleteProfile> {
     return BlocListener<CompleteprofileBloc, CompleteprofileState>(
       listener: (context, state) async {
         if (state is PostStudentDataSuccess) {
-          DialogWidget(
-              context, StringManager.successMessage, ConstantsManager.success);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => const Dialog(
+              backgroundColor: Colors.transparent,
+              child: SuccessDialog(
+                message: StringManager.successMessage,
+              ),
+            ),
+          );
           await Future.delayed(const Duration(seconds: ValuesManager.iv2));
           Navigator.of(context).pushNamedAndRemoveUntil(
             Routes.successfulPayment,
             (route) => false,
           );
         } else if (state is PostStudentDataError) {
-          DialogWidget(context, state.message, ConstantsManager.error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => Dialog(
+              backgroundColor: Colors.transparent,
+              child: ErrorDialog(
+                message: state.message,
+              ),
+            ),
+          );
         } else if (state is LoadingSendData) {
-          DialogWidget(context, StringManager.wait, ConstantsManager.loading);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => const Dialog(
+              backgroundColor: Colors.transparent,
+              child: LoadingDialog(),
+            ),
+          );
         } else if (state is FetchTownsSuccess) {
           towns = state.towns;
           townsIds = state.townsId;

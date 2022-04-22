@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/show_dialog.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/choose_company/presentation/widgets/company_list_view.dart';
 import 'package:yalla_bus/features/choose_company/presentation/widgets/loading_bus_widget.dart';
@@ -16,7 +15,15 @@ class CompaniesView extends StatelessWidget {
     return BlocConsumer<CompanySelectionBloc, CompanySelectionState>(
       listener: (context, state) {
         if (state is Error) {
-          DialogWidget(context, state.message, ConstantsManager.error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => const Dialog(
+              backgroundColor: Colors.transparent,
+              child: ErrorDialog(
+                message: 'Try again in another time!',
+              ),
+            ),
+          );
         }
       },
       builder: (context, state) {

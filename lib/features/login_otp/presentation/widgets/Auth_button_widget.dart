@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
-
-import '../../../../core/custom_widgets/show_dialog.dart';
+import '../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/routes_manager.dart';
@@ -32,7 +32,13 @@ class AuthButton extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is SendingData) {
-          DialogWidget(context, StringManager.wait, ConstantsManager.loading);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => const Dialog(
+              backgroundColor: Colors.transparent,
+              child: LoadingDialog(),
+            ),
+          );
         } else if (state is Success) {
           Navigator.of(context).pop();
           if (type == StringManager.otp) {
@@ -49,7 +55,15 @@ class AuthButton extends StatelessWidget {
           }
         } else if (state is Error) {
           Navigator.of(context).pop();
-          DialogWidget(context, state.message, ConstantsManager.error);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => const Dialog(
+              backgroundColor: Colors.transparent,
+              child: ErrorDialog(
+                message: 'Try again in another time!',
+              ),
+            ),
+          );
         }
       },
       builder: (context, state) {

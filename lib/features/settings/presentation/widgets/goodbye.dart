@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
+import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
+import 'package:yalla_bus/core/custom_widgets/success_dialog.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/injection/di.dart' as sl;
+import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 
+import '../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/values_manager.dart';
@@ -19,11 +24,10 @@ class GoodBye extends StatefulWidget {
 class _GoodByeState extends State<GoodBye> {
   @override
   void didChangeDependencies() {
-    Future.delayed(const Duration(seconds: 3), () {
-  
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(Routes.loginOtp, (route) => false);
-    });
+    // Future.delayed(const Duration(seconds: 3), () {
+    //   Navigator.of(context)
+    //       .pushNamedAndRemoveUntil(Routes.loginOtp, (route) => false);
+    // });
     super.didChangeDependencies();
   }
 
@@ -41,6 +45,46 @@ class _GoodByeState extends State<GoodBye> {
             TextWidget(
               text: 'GoodBye! We wish to see you again!',
               style: Theme.of(context).textTheme.headline6!,
+            ),
+            ButtonWidget(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const Dialog(
+                    backgroundColor: Colors.transparent,
+                    child: LoadingDialog(),
+                  ),
+                );
+              },
+              child: const Text('Loading Dialog'),
+            ),
+            ButtonWidget(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const Dialog(
+                    backgroundColor: Colors.transparent,
+                    child: ErrorDialog(
+                      message: 'Try again in another time!',
+                    ),
+                  ),
+                );
+              },
+              child: Text('Error Dialog'),
+            ),
+            ButtonWidget(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const Dialog(
+                    backgroundColor: Colors.transparent,
+                    child: SuccessDialog(
+                      message: StringManager.successMessage,
+                    ),
+                  ),
+                );
+              },
+              child: Text('Error Dialog'),
             ),
           ],
         ),

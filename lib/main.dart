@@ -29,7 +29,7 @@ import 'features/settings/presentation/pages/settings.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await sl.init();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   await EasyLocalization.ensureInitialized();
   runApp(
@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: launchFirst(),
+        home: const GoodBye(),
       ),
     );
   }
