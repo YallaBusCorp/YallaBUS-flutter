@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/custom_widgets/separtor_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
+import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 
 class ErrorDialog extends StatelessWidget {
-  const ErrorDialog({Key? key, required this.message}) : super(key: key);
+  final GestureTapCallback? onTap;
+  const ErrorDialog({Key? key, required this.message, required this.onTap})
+      : super(key: key);
   final String message;
   @override
   Widget build(BuildContext context) {
@@ -18,11 +21,12 @@ class ErrorDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(ValuesManager.v16),
-            child: Icon(
-              Icons.error,
-              color: ColorsManager.orange,
+          const Padding(
+            padding: EdgeInsets.all(ValuesManager.v16),
+            child: Image(
+              image: AssetImage(AssetManager.cancel),
+              width: 50,
+              height: 50,
             ),
           ),
           const SizedBox(
@@ -50,7 +54,7 @@ class ErrorDialog extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(ValuesManager.v16),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: onTap,
                     child: Center(
                       child: TextWidget(
                         text: StringManager.retry,

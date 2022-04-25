@@ -4,10 +4,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/injection/di.dart' as sl;
 import 'package:yalla_bus/core/injection/di.dart';
 import 'package:yalla_bus/core/lanuch_first_screen/lanuch_first.dart';
+import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/theme_manager.dart';
@@ -29,7 +31,16 @@ import 'features/settings/presentation/pages/settings.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await sl.init();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
+  await Future.wait([
+    precachePicture(
+      ExactAssetPicture(
+        SvgPicture.svgStringDecoderOutsideViewBoxBuilder, // See UPDATE below!
+        AssetManager.successfulPurchase,
+      ),
+      null,
+    ),
+  ]);
 
   await EasyLocalization.ensureInitialized();
   runApp(
@@ -92,7 +103,7 @@ class MyApp extends StatelessWidget {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: const GoodBye(),
+        home: const Home(),
       ),
     );
   }

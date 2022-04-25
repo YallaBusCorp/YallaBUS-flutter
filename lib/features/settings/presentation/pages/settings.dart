@@ -2,22 +2,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
 
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
+import 'package:yalla_bus/core/custom_widgets/yes_no_dialog.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
 import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
 
 import 'package:yalla_bus/features/settings/presentation/widgets/options.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/user_statistics.dart';
 
+import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 import '../widgets/header.dart';
-import '../widgets/sign_out_dialog_body.dart';
-import '../widgets/sign_out_dialog_buttons.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
@@ -34,13 +32,18 @@ class Settings extends StatelessWidget {
           InkWell(
             onTap: () {
               showDialog(
-                  context: context,
-                  builder: (BuildContext context) => const AlertDialog(
-                        content: SignOutDialogBody(),
-                        actions: [
-                          SignOutDialogButtons(),
-                        ],
-                      ));
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) => Dialog(
+                  backgroundColor: Colors.transparent,
+                  child: YesNoDialog(
+                      message: 'Are you sure you want to sign out ?',
+                      onTap: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            Routes.goodBye, (route) => false);
+                      }),
+                ),
+              );
             },
             child: Padding(
               padding: const EdgeInsets.all(16),

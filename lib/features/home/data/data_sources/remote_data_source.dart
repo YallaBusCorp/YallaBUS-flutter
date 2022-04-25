@@ -13,11 +13,11 @@ class MapApiClient {
 
   Future<List<dynamic>> getAppointmentsAM(int id) async {
     try {
-      Response response = await dio.get(ApiEndPoints.appointmentAm, queryParameters: {
-        'id' : id,
+      Response response =
+          await dio.get(ApiEndPoints.appointmentAm, queryParameters: {
+        'id': id,
       });
-     
-      
+
       return response.data;
     } on DioError {
       throw ServerException();
@@ -26,8 +26,35 @@ class MapApiClient {
 
   Future<List<dynamic>> getAppointmentsPM(int id) async {
     try {
-       Response response = await dio.get(ApiEndPoints.appointmentPm, queryParameters: {
-        'id' : id,
+      Response response =
+          await dio.get(ApiEndPoints.appointmentPm, queryParameters: {
+        'id': id,
+      });
+
+      return response.data;
+    } on DioError {
+      throw ServerException();
+    }
+  }
+
+  Future<List<dynamic>> getMapPickUpPoints(int id) async {
+    try {
+      Response response =
+          await dio.get(ApiEndPoints.mapPointsPickUp, queryParameters: {
+        'id': id,
+      });
+      print(response.data);
+      return response.data;
+    } on DioError {
+      throw ServerException();
+    }
+  }
+
+  Future<List<dynamic>> getMapDropDownPoints(int id) async {
+    try {
+      Response response =
+          await dio.get(ApiEndPoints.mapPointsDropDown, queryParameters: {
+        'id': id,
       });
       print(response.data);
       return response.data;

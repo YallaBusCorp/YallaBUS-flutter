@@ -18,7 +18,7 @@ import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_blo
 
 import '../../features/choose_company/domain/use_case/get_companies_info.dart';
 import '../../features/home/data/data_sources/remote_data_source.dart';
-import '../../features/home/data/repository_implementation/company_repository_implementation.dart';
+import '../../features/home/data/repository_implementation/map_repository_implementation.dart';
 import '../../features/home/domain/repository/map_repository.dart';
 import '../../features/home/domain/use_case/get_appoinments_of_pm.dart';
 import '../../features/home/presentation/bloc/map/map_bloc.dart';

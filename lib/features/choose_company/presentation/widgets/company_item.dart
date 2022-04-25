@@ -25,6 +25,7 @@ class _CompanyItemState extends State<CompanyItem> {
   Widget build(BuildContext context) {
     CompanySelectionBloc bloc = BlocProvider.of<CompanySelectionBloc>(context);
     return InkWell(
+      splashFactory: NoSplash.splashFactory,
       onTap: () {
         bloc.add(SelectCompanyUIEvent(widget.index));
       },

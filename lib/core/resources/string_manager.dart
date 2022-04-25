@@ -55,4 +55,6 @@ class StringManager {
   static const String successMessage = 'You have successfully signed up!';
   static const String close = 'Close';
   static const String retry = 'Retry';
+  static const String yes = 'Yes';
+  static const String no = 'No';
 }

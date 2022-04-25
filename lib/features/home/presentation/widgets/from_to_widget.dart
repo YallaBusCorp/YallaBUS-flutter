@@ -19,6 +19,14 @@ class FromToWidget extends StatefulWidget {
 }
 
 class _FromToWidgetState extends State<FromToWidget> {
+  late MapBloc bloc;
+
+  @override
+  void didChangeDependencies() {
+    bloc = BlocProvider.of<MapBloc>(context);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -52,13 +60,11 @@ class _FromToWidgetState extends State<FromToWidget> {
                       builder: (context, state) {
                         return InkWell(
                           onTap: () {
-                            BlocProvider.of<MapBloc>(context)
-                                .add(GetPickUpPointsEvent());
-                            BlocProvider.of<MapBloc>(context)
-                                .add(CameraPositionOfPickUpPoints());
+                            bloc.add(GetPickUpPointsEvent());
+                            bloc.add(CameraPositionOfPickUpPoints());
                           },
                           child: TextWidget(
-                            text: 'Beshla',
+                            text: bloc.from,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5!
@@ -85,13 +91,11 @@ class _FromToWidgetState extends State<FromToWidget> {
                       builder: (context, state) {
                         return InkWell(
                           onTap: () {
-                            BlocProvider.of<MapBloc>(context)
-                                .add(GetDropOffPointsEvent());
-                            BlocProvider.of<MapBloc>(context)
-                                .add(CameraPositionOfDropOffPoints());
+                            bloc.add(GetDropOffPointsEvent());
+                            bloc.add(CameraPositionOfDropOffPoints());
                           },
                           child: TextWidget(
-                            text: 'MET',
+                            text: bloc.to,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5!

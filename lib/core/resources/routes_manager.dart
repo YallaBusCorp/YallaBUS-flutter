@@ -38,16 +38,46 @@ class RouteGenerator {
       case Routes.successfulPayment:
         return MaterialPageRoute(builder: (_) => const SuccessPayment());
       case Routes.settings:
-        return MaterialPageRoute(builder: (_) => const Settings());
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const Settings(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(0.0, 1.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+            final tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            final offsetAnimation = animation.drive(tween);
+
+            return SlideTransition(
+              position: offsetAnimation,
+              child: child,
+            );
+          },
+        );
       case Routes.goodBye:
         return MaterialPageRoute(builder: (_) => const GoodBye());
       case Routes.verifyOtp:
         var args = settings.arguments as String;
-        return MaterialPageRoute(
-          builder: (_) => VerifyScreen(
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => VerifyScreen(
             number: args,
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(0.0, 1.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+            final tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            final offsetAnimation = animation.drive(tween);
+
+            return SlideTransition(
+              position: offsetAnimation,
+              child: child,
+            );
+          },
         );
+
       default:
         return unDefainedRoute();
     }

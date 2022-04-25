@@ -20,6 +20,7 @@ class SuccessPayment extends StatelessWidget {
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            
             SvgPicture.asset(
               AssetManager.successfulPurchase,
               width: ValuesManager.v300,
@@ -35,9 +36,7 @@ class SuccessPayment extends StatelessWidget {
                   .headline6!
                   .copyWith(fontSize: ValuesManager.v18),
             ),
-            const SizedBox(
-              height: ValuesManager.v10,
-            ),
+            const Spacer(),
             ButtonWidget(
               onPressed: () {
                 Navigator.of(context)

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/to_screen.dart';
 
 import '../../../../core/resources/asset_manager.dart';
@@ -29,16 +30,26 @@ class Options extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.separated(
-        itemCount: ValuesManager.iv8,
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(
-            height: ValuesManager.v18,
-          );
-        },
-        itemBuilder: (BuildContext context, int index) {
-          return ToScreen(asset: images[index], text: texts[index]);
-        },
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(ValuesManager.v10),
+          boxShadow: selectShadow(context),
+          color: Theme.of(context).backgroundColor,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: ListView.separated(
+            itemCount: ValuesManager.iv8,
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: ValuesManager.v15,
+              );
+            },
+            itemBuilder: (BuildContext context, int index) {
+              return ToScreen(asset: images[index], text: texts[index]);
+            },
+          ),
+        ),
       ),
     );
   }

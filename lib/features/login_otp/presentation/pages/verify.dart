@@ -39,7 +39,9 @@ class _VerifyScreenState extends State<VerifyScreen> {
     KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        toolbarHeight: 40,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(ValuesManager.v16),
         child: Column(

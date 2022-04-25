@@ -71,6 +71,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
               backgroundColor: Colors.transparent,
               child: ErrorDialog(
                 message: state.message,
+                onTap: _onPressed,
               ),
             ),
           );

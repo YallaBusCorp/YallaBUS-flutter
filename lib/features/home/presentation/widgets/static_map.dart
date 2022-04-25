@@ -17,18 +17,18 @@ class StaticMap extends StatefulWidget {
 
 class _StaticMapState extends State<StaticMap> {
   late String _darkMapStyle;
-
+  late MapBloc map;
   @override
   void initState() {
     _loadMapStyles();
     super.initState();
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   BlocProvider.of<MapBloc>(context).add(InitializeStaticMapEvent());
-  //   super.didChangeDependencies();
-  // }
+  @override
+  void didChangeDependencies() {
+    map = BlocProvider.of<MapBloc>(context);
+    super.didChangeDependencies();
+  }
 
   Future _loadMapStyles() async {
     _darkMapStyle = await rootBundle.loadString(AssetManager.darkMapStyle);
@@ -41,7 +41,7 @@ class _StaticMapState extends State<StaticMap> {
         return SizedBox(
           height: ValuesManager.v100,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(10),
             child: GoogleMap(
               scrollGesturesEnabled: false,
               rotateGesturesEnabled: false,
@@ -51,6 +51,9 @@ class _StaticMapState extends State<StaticMap> {
               initialCameraPosition:
                   BlocProvider.of<MapBloc>(context).kGooglePlex2,
               onMapCreated: (GoogleMapController controller) {
+                if (!map.controller2.isCompleted) {
+                  map.controller2.complete(controller);
+                }
                 if (MediaQuery.of(context).platformBrightness ==
                     Brightness.dark) {
                   controller.setMapStyle(_darkMapStyle);

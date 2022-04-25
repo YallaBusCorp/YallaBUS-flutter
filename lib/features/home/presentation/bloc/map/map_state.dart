@@ -54,15 +54,17 @@ class PickUpPointsMarkersChanged extends MapState {}
 class DropOffPointsMarkersChanged extends MapState {}
 
 class SelectDropOffFromPlace extends MapState {
-  final String place;
-
-  const SelectDropOffFromPlace(this.place);
+  final String title;
+  const SelectDropOffFromPlace(this.title);
+  @override
+  List<Object> get props => [title];
 }
 
 class SelectPickUpFromPlace extends MapState {
-  final String place;
-
-  const SelectPickUpFromPlace(this.place);
+  final String title;
+  const SelectPickUpFromPlace(this.title);
+  @override
+  List<Object> get props => [title];
 }
  
 

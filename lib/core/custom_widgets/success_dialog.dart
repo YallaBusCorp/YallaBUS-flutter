@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/custom_widgets/separtor_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
+import 'package:yalla_bus/core/resources/asset_manager.dart';
 
 import '../resources/colors_manager.dart';
 import '../resources/string_manager.dart';
@@ -20,11 +21,14 @@ class SuccessDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(ValuesManager.v16),
-            child: Icon(
-              Icons.done,
-              color: ColorsManager.orange,
+          const Padding(
+            padding: EdgeInsets.all(ValuesManager.v16),
+            child: Image(
+              image: AssetImage(
+                AssetManager.done,
+              ),
+              width: 50,
+              height: 50,
             ),
           ),
           const SizedBox(

@@ -46,4 +46,5 @@ class AssetManager {
   static const String loading = 'assets/images/loading_anim.json';
   static const String done = 'assets/images/correct.png';
   static const String cancel = 'assets/images/cancel.png';
+  static const String question = 'assets/images/quest.png';
 }

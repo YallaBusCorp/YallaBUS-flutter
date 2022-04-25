@@ -37,7 +37,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   String from = 'Choose your pick up point';
   String to = 'Choose your drop off point';
   CameraPosition kGooglePlex = const CameraPosition(
-      target: LatLng((30.85389579312156 + 30.750389209369917 + 30.95670425388353) / 3, (31.268433318547288 + 31.260458997797773 + 31.30646424602145) / 3), zoom: 12);
+      target: LatLng(
+          (30.85389579312156 + 30.750389209369917 + 30.95670425388353) / 3,
+          (31.268433318547288 + 31.260458997797773 + 31.30646424602145) / 3),
+      zoom: 12);
   bool switchButtonValue = false;
   CameraPosition kGooglePlex2 = const CameraPosition(
     target: LatLng(31.056840273761154, 31.488563605540325),
@@ -208,7 +211,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             icon: markerbitmap,
             onTap: () {
               from = 'Tunnamil';
-              emit(SelectPickUpFromPlace(from));
+              add(const AddPickUpMarkerTitleToTexts('Tunnamil'));
             }),
       );
 
@@ -220,10 +223,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           position: pickUps[1], //position of marker
 
           icon: markerbitmap,
-          // onTap: () {
-          //   from = 'Beshla';
-          //   emit(SelectPickUpFromPlace(from));
-          // }),
+          onTap: () {
+            from = 'Beshla';
+            add(const AddPickUpMarkerTitleToTexts('Beshla'));
+          },
         ),
       );
 
@@ -235,10 +238,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           position: pickUps[2], //position of marker
 
           icon: markerbitmap,
-          // onTap: () {
-          //   from = 'Aga';
-          //   emit(SelectPickUpFromPlace(from));
-          // },
+          onTap: () {
+            from = 'Aga';
+            add(const AddPickUpMarkerTitleToTexts('Aga'));
+          },
         ),
       );
 
@@ -273,10 +276,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           position: dropOff[0], //position of marker
 
           icon: markerbitmap,
-          // onTap: () {
-          //   to = 'MET';
-          //   emit(SelectDropOffFromPlace(to));
-          // },
+          onTap: () {
+            to = 'MET';
+            add(const AddDropOffMarkerTitleToTexts('MET'));
+          },
         ),
       );
 
@@ -288,10 +291,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           position: dropOff[1], //position of marker
 
           icon: markerbitmap,
-          // onTap: () {
-          //   to = 'Mansoura University';
-          //   emit(SelectDropOffFromPlace(to));
-          // },
+          onTap: () {
+            to = 'Mansoura University';
+            add(const AddDropOffMarkerTitleToTexts('Mansoura University'));
+          },
         ),
       );
 
@@ -303,10 +306,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           position: dropOff[2], //position of marker
 
           icon: markerbitmap,
-          // onTap: () {
-          //   to = 'Delta';
-          //   emit(SelectDropOffFromPlace(to));
-          // },
+          onTap: () {
+            to = 'Delta';
+            add(const AddDropOffMarkerTitleToTexts('Delta'));
+          },
         ),
       );
       emit(DropOffPointsMarkersChanged());
@@ -345,9 +348,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       emit(ChangeMapViewForPickUpPoints());
     });
 
-    on<AddMarkerTitleToTexts>((event, emit) {
-      emit(SelectDropOffFromPlace(from));
-      emit(SelectPickUpFromPlace(to));
+    on<AddPickUpMarkerTitleToTexts>((event, emit) {
+      emit(SelectPickUpFromPlace(event.title));
+    });
+    on<AddDropOffMarkerTitleToTexts>((event, emit) {
+      emit(SelectDropOffFromPlace(event.title));
     });
   }
 }

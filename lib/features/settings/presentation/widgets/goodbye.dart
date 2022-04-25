@@ -24,10 +24,10 @@ class GoodBye extends StatefulWidget {
 class _GoodByeState extends State<GoodBye> {
   @override
   void didChangeDependencies() {
-    // Future.delayed(const Duration(seconds: 3), () {
-    //   Navigator.of(context)
-    //       .pushNamedAndRemoveUntil(Routes.loginOtp, (route) => false);
-    // });
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(Routes.loginOtp, (route) => false);
+    });
     super.didChangeDependencies();
   }
 
@@ -45,46 +45,6 @@ class _GoodByeState extends State<GoodBye> {
             TextWidget(
               text: 'GoodBye! We wish to see you again!',
               style: Theme.of(context).textTheme.headline6!,
-            ),
-            ButtonWidget(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => const Dialog(
-                    backgroundColor: Colors.transparent,
-                    child: LoadingDialog(),
-                  ),
-                );
-              },
-              child: const Text('Loading Dialog'),
-            ),
-            ButtonWidget(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => const Dialog(
-                    backgroundColor: Colors.transparent,
-                    child: ErrorDialog(
-                      message: 'Try again in another time!',
-                    ),
-                  ),
-                );
-              },
-              child: Text('Error Dialog'),
-            ),
-            ButtonWidget(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => const Dialog(
-                    backgroundColor: Colors.transparent,
-                    child: SuccessDialog(
-                      message: StringManager.successMessage,
-                    ),
-                  ),
-                );
-              },
-              child: Text('Error Dialog'),
             ),
           ],
         ),

@@ -17,10 +17,13 @@ class CompaniesView extends StatelessWidget {
         if (state is Error) {
           showDialog(
             context: context,
-            builder: (BuildContext context) => const Dialog(
+            builder: (BuildContext context) => Dialog(
               backgroundColor: Colors.transparent,
               child: ErrorDialog(
                 message: 'Try again in another time!',
+                onTap: () {
+                  bloc.add(GetCompaniesInfoEvent());
+                },
               ),
             ),
           );

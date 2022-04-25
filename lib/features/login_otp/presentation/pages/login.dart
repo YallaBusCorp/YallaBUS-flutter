@@ -26,7 +26,6 @@ class LoginOtp extends StatefulWidget {
 }
 
 class _LoginOtpState extends State<LoginOtp> {
-  
   @override
   void didChangeDependencies() {
     KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
@@ -42,7 +41,9 @@ class _LoginOtpState extends State<LoginOtp> {
     KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
     // keyboard.phoneNumber = List.generate(9, (index) => 0);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        toolbarHeight: 1,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(ValuesManager.v16),
         child: Column(

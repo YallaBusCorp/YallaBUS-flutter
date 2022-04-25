@@ -16,13 +16,13 @@ class Controllers extends StatelessWidget {
   Widget build(BuildContext context) {
     MapBloc map = BlocProvider.of<MapBloc>(context);
     return Positioned(
-      top: MediaQuery.of(context).size.height / ValuesManager.v9,
+      bottom: MediaQuery.of(context).size.height - 180,
       right: MediaQuery.of(context).size.width - ValuesManager.v350,
       child: Container(
         width: ValuesManager.v50,
         height: ValuesManager.v100,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(ValuesManager.v16),
+          borderRadius: BorderRadius.circular(ValuesManager.v10),
           color: ColorsExtensions.setColorOfContainersOverMap(context),
         ),
         child: Center(

@@ -35,11 +35,22 @@ class GetPickUpPointsEvent extends MapEvent {}
 
 class GetDropOffPointsEvent extends MapEvent {}
 
-class CameraPositionOfPickUpPoints extends MapEvent{}
+class CameraPositionOfPickUpPoints extends MapEvent {}
 
-class CameraPositionOfDropOffPoints extends MapEvent{}
+class CameraPositionOfDropOffPoints extends MapEvent {}
 
-class AddMarkerTitleToTexts extends MapEvent{}
+class AddPickUpMarkerTitleToTexts extends MapEvent {
+  final String title;
 
+  const AddPickUpMarkerTitleToTexts(this.title);
+  @override
+  List<Object> get props => [title];
+}
 
+class AddDropOffMarkerTitleToTexts extends MapEvent {
+  final String title;
 
+  const AddDropOffMarkerTitleToTexts(this.title);
+  @override
+  List<Object> get props => [title];
+}

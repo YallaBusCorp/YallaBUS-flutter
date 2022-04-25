@@ -44,6 +44,7 @@ class AuthButton extends StatelessWidget {
           if (type == StringManager.otp) {
             if (perfs.getInt(ConstantsManager.company) == null) {
               Navigator.of(context).pushNamedAndRemoveUntil(
+                
                   Routes.chooseCompany, (route) => false);
             } else {
               Navigator.of(context)
@@ -51,16 +52,17 @@ class AuthButton extends StatelessWidget {
             }
           } else {
             Navigator.of(context)
-                .pushNamed(Routes.verifyOtp, arguments: keyboard.number);
+                .pushNamed(Routes.verifyOtp ,arguments: keyboard.number);
           }
         } else if (state is Error) {
           Navigator.of(context).pop();
           showDialog(
             context: context,
-            builder: (BuildContext context) => const Dialog(
+            builder: (BuildContext context) => Dialog(
               backgroundColor: Colors.transparent,
               child: ErrorDialog(
                 message: 'Try again in another time!',
+                onTap: onPressed,
               ),
             ),
           );
