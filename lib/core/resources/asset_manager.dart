@@ -47,4 +47,8 @@ class AssetManager {
   static const String done = 'assets/images/correct.png';
   static const String cancel = 'assets/images/cancel.png';
   static const String question = 'assets/images/quest.png';
+  static const String driver = 'assets/images/driver.svg';
+  static const String cancelIcon = 'assets/images/cancel.svg';
+  static const String scan = 'assets/images/qr.svg';
+  static const String reschedule = 'assets/images/reschedule.svg';
 }

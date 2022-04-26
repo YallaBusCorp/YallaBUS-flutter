@@ -41,7 +41,7 @@ class _StaticMapState extends State<StaticMap> {
         return SizedBox(
           height: ValuesManager.v100,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(ValuesManager.v10),
             child: GoogleMap(
               scrollGesturesEnabled: false,
               rotateGesturesEnabled: false,

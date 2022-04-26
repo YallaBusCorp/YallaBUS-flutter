@@ -7,6 +7,7 @@ import 'package:yalla_bus/features/home/presentation/widgets/controllers.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/depart_at.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/from_to_widget.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/map.dart';
+import 'package:yalla_bus/features/home/presentation/widgets/ride_booked.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class _HomeState extends State<Home> {
           MapWidget(),
           Controllers(),
           FromToWidget(),
+          // RideBooked(),
           DepartAt(),
         ],
       ),
