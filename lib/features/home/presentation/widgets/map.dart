@@ -39,7 +39,6 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   }
 
   Set<Marker> markers = <Marker>{};
-
   @override
   Widget build(BuildContext context) {
     MapBloc map = BlocProvider.of<MapBloc>(context);

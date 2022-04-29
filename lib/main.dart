@@ -40,6 +40,13 @@ void main() async {
       ),
       null,
     ),
+    precachePicture(
+      ExactAssetPicture(
+        SvgPicture.svgStringDecoderOutsideViewBoxBuilder, // See UPDATE below!
+        AssetManager.error404,
+      ),
+      null,
+    ),
   ]);
 
   await EasyLocalization.ensureInitialized();
@@ -103,7 +110,7 @@ class MyApp extends StatelessWidget {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: const Home(),
+        home: launchFirst(),
       ),
     );
   }

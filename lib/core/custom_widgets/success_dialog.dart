@@ -3,6 +3,7 @@ import 'package:yalla_bus/core/custom_widgets/separtor_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 
+import '../extensions/extensions.dart';
 import '../resources/colors_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
@@ -44,12 +45,12 @@ class SuccessDialog extends StatelessWidget {
           const SizedBox(
             height: ValuesManager.v20,
           ),
-          const Separtor(
-            color: [
-              Color.fromARGB(255, 97, 93, 93),
-              Color.fromARGB(255, 97, 93, 93)
-            ],
-          ),
+          Separtor(
+              color: [
+                Colors.grey.shade800,
+                Colors.grey.shade800,
+              ],
+            ),
           Padding(
             padding: const EdgeInsets.all(ValuesManager.v16),
             child: InkWell(

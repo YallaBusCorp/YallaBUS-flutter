@@ -11,11 +11,12 @@ const TextTheme textThemeEnglish = TextTheme(
     fontFamily: FontFamily.nunitoBold,
   ),
   headline4: TextStyle(
-    fontFamily: FontFamily.nunitoExtraBold,
+    fontFamily: FontFamily.nunitoLight,
   ),
   caption: TextStyle(
     fontFamily: FontFamily.nunitoRegular,
   ),
+  
 );
 
 //Not Completed

@@ -6,6 +6,8 @@ import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 
+import '../extensions/extensions.dart';
+
 class ErrorDialog extends StatelessWidget {
   final GestureTapCallback? onTap;
   const ErrorDialog({Key? key, required this.message, required this.onTap})
@@ -36,16 +38,16 @@ class ErrorDialog extends StatelessWidget {
             text: message,
             style: Theme.of(context)
                 .textTheme
-                .headline6!
+                .headline4!
                 .copyWith(fontWeight: FontWeight.normal),
           ),
           const SizedBox(
             height: ValuesManager.v20,
           ),
-          const Separtor(
+          Separtor(
             color: [
-              Color.fromARGB(255, 97, 93, 93),
-              Color.fromARGB(255, 97, 93, 93)
+              Colors.grey.shade800,
+              Colors.grey.shade800,
             ],
           ),
           Row(

@@ -6,15 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/core/lanuch_first_screen/lanuch_first.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/features/home/domain/enitity/appoinment.dart';
+import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/features/home/domain/use_case/get_appoinments_of_am.dart';
+import 'package:yalla_bus/features/home/domain/use_case/get_map_pick_up_points.dart';
 
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/position_locator/locator.dart';
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../domain/use_case/get_appoinments_of_pm.dart';
+import '../../../domain/use_case/get_map_drop_down_points.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';
@@ -22,6 +23,8 @@ part 'map_state.dart';
 class MapBloc extends Bloc<MapEvent, MapState> {
   final GetAppoinmentOfAM appointmentOfAm;
   final GetAppoinmentOfPM appointmentOfPm;
+  final GetMapDropDownPoints dropOff;
+  final GetMapPickUpPoints pickUp;
 
   Completer<GoogleMapController> controller = Completer();
   Completer<GoogleMapController> controller2 = Completer();
@@ -32,10 +35,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final Set<Marker> dropOffMarkers = <Marker>{};
   final Set<Marker> pickUpMarkers = <Marker>{};
 
-  String timeOfSelectedRides = 'Choose Ride';
-
-  String from = 'Choose your pick up point';
-  String to = 'Choose your drop off point';
+  String timeOfSelectedRides = StringManager.timeOfSelectedRides;
+  String from = StringManager.pickUpPoint;
+  String to = StringManager.dropOffPoint;
   CameraPosition kGooglePlex = const CameraPosition(
       target: LatLng(
           (30.85389579312156 + 30.750389209369917 + 30.95670425388353) / 3,
@@ -51,24 +53,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   SharedPreferences perfs = di<SharedPreferences>();
   List<String> amRides = [];
   List<String> pmRides = [];
+  List<String> titlesOfPickUp = [];
+  List<String> titlesOfDropOff = [];
+  List<dynamic> pickUps = const [];
 
-  List<dynamic> pickUps = const [
-    LatLng(30.85389579312156, 31.268433318547288),
-    LatLng(30.750389209369917, 31.260458997797773),
-    LatLng(30.95670425388353, 31.30646424602145),
-    LatLng(30.71580116574968, 31.271124467644803),
-  ];
-
-  List<dynamic> dropOff = const [
-    LatLng(31.016335114429555, 31.378602195301422),
-    LatLng(31.044890281535398, 31.352871305627136),
-    LatLng(31.07003276429378, 31.38887818181026),
-    LatLng(30.71580116574968, 31.271124467644803),
-  ];
-
-  // List<LatLng> polylineCoords = [];
-
-  // Set<Polyline> polylineSet = <Polyline>{};
+  List<dynamic> dropOffs = const [];
 
   @override
   void onChange(Change<MapState> change) {
@@ -76,7 +65,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     print(change.nextState);
   }
 
-  MapBloc(this.appointmentOfAm, this.appointmentOfPm) : super(MapInitial()) {
+  MapBloc(this.appointmentOfAm, this.appointmentOfPm, this.pickUp, this.dropOff)
+      : super(MapInitial()) {
     on<GetMyLocation>((event, emit) async {
       final GoogleMapController con = await controller.future;
       _position = await determinePosition();
@@ -141,12 +131,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
 
     on<SelectAMTripEvent>((event, emit) {
+      timeOfSelectedRides = "";
       timeOfSelectedRides = event.timeOfTrip;
       emit(AMTripSelected());
     });
 
     on<SelectPMTripEvent>((event, emit) {
-      timeOfSelectedRides += ' - ';
+      if (timeOfSelectedRides == StringManager.timeOfSelectedRides) {
+        timeOfSelectedRides = "";
+      } else {
+        timeOfSelectedRides += ' - ';
+      }
+
+      if (timeOfSelectedRides.length == 12) {
+        timeOfSelectedRides = "";
+      }
       timeOfSelectedRides += event.timeOfTrip;
       emit(PMTripSelected());
     });
@@ -186,65 +185,32 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         const ImageConfiguration(),
         AssetManager.busStationMarker,
       );
-      BitmapDescriptor markerLocation = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(),
-        AssetManager.placeMarker,
-      );
 
-      pickUpMarkers.add(
-        Marker(
-          markerId: MarkerId(
-            pickUps[3].toString(),
-          ),
-          position: pickUps[3], //position of marker
-
-          icon: markerLocation,
-        ),
-      );
-      pickUpMarkers.add(
-        Marker(
-            markerId: MarkerId(
-              pickUps[0].toString(),
+      (await pickUp.getMapPickUpPoints(
+        perfs.getInt(ConstantsManager.company)!,
+      ))
+          .fold((failure) {
+        emit(GetPickUpPointsError(failure.message));
+      }, (pick) {
+        titlesOfPickUp = pick.map((e) => e.mapPointTitleEn).toList();
+        pickUps = pick.map((e) => LatLng(e.latitude, e.longitude)).toList();
+        for (int i = 0; i < pickUps.length; i++) {
+          pickUpMarkers.add(
+            Marker(
+              markerId: MarkerId(
+                pickUps[i].toString(),
+              ),
+              onTap: () {
+                from = titlesOfPickUp[i];
+                add(AddPickUpMarkerTitleToTexts(from));
+              },
+              position: pickUps[i], //position of marker
+              icon: markerbitmap,
             ),
-            position: pickUps[0], //position of marker
-
-            icon: markerbitmap,
-            onTap: () {
-              from = 'Tunnamil';
-              add(const AddPickUpMarkerTitleToTexts('Tunnamil'));
-            }),
-      );
-
-      pickUpMarkers.add(
-        Marker(
-          markerId: MarkerId(
-            pickUps[1].toString(),
-          ),
-          position: pickUps[1], //position of marker
-
-          icon: markerbitmap,
-          onTap: () {
-            from = 'Beshla';
-            add(const AddPickUpMarkerTitleToTexts('Beshla'));
-          },
-        ),
-      );
-
-      pickUpMarkers.add(
-        Marker(
-          markerId: MarkerId(
-            pickUps[2].toString(),
-          ),
-          position: pickUps[2], //position of marker
-
-          icon: markerbitmap,
-          onTap: () {
-            from = 'Aga';
-            add(const AddPickUpMarkerTitleToTexts('Aga'));
-          },
-        ),
-      );
-
+          );
+        }
+      });
+      add(CameraPositionOfPickUpPoints());
       emit(PickUpPointsMarkersChanged());
     });
 
@@ -253,78 +219,46 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         const ImageConfiguration(),
         AssetManager.busStationMarker,
       );
-      BitmapDescriptor markerLocation = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(),
-        AssetManager.placeMarker,
-      );
-      dropOffMarkers.add(
-        Marker(
-          markerId: MarkerId(
-            dropOff[3].toString(),
-          ),
-          position: dropOff[3], //position of marker
 
-          icon: markerLocation,
-        ),
-      );
-
-      dropOffMarkers.add(
-        Marker(
-          markerId: MarkerId(
-            dropOff[0].toString(),
-          ),
-          position: dropOff[0], //position of marker
-
-          icon: markerbitmap,
-          onTap: () {
-            to = 'MET';
-            add(const AddDropOffMarkerTitleToTexts('MET'));
-          },
-        ),
-      );
-
-      dropOffMarkers.add(
-        Marker(
-          markerId: MarkerId(
-            dropOff[1].toString(),
-          ),
-          position: dropOff[1], //position of marker
-
-          icon: markerbitmap,
-          onTap: () {
-            to = 'Mansoura University';
-            add(const AddDropOffMarkerTitleToTexts('Mansoura University'));
-          },
-        ),
-      );
-
-      dropOffMarkers.add(
-        Marker(
-          markerId: MarkerId(
-            dropOff[2].toString(),
-          ),
-          position: dropOff[2], //position of marker
-
-          icon: markerbitmap,
-          onTap: () {
-            to = 'Delta';
-            add(const AddDropOffMarkerTitleToTexts('Delta'));
-          },
-        ),
-      );
+      (await dropOff.getMapDropDownPoints(
+        perfs.getInt(ConstantsManager.company)!,
+      ))
+          .fold((failure) {
+        emit(GetDropOffPointsError(failure.message));
+      }, (drop) {
+        titlesOfDropOff = drop.map((e) => e.mapPointTitleEn).toList();
+        dropOffs = drop.map((e) => LatLng(e.latitude, e.longitude)).toList();
+        for (int i = 0; i < dropOffs.length; i++) {
+          dropOffMarkers.add(
+            Marker(
+              markerId: MarkerId(
+                dropOffs[i].toString(),
+              ),
+              onTap: () {
+                to = titlesOfDropOff[i];
+                add(AddDropOffMarkerTitleToTexts(to));
+              },
+              position: dropOffs[i], //position of marker
+              icon: markerbitmap,
+            ),
+          );
+        }
+        add(CameraPositionOfDropOffPoints());
+      });
       emit(DropOffPointsMarkersChanged());
     });
 
     on<CameraPositionOfPickUpPoints>((event, emit) async {
       final GoogleMapController con = await controller.future;
-      double avgOfLat =
-          (30.85389579312156 + 30.750389209369917 + 30.95670425388353) / 3;
-      double avgOfLong =
-          (31.268433318547288 + 31.260458997797773 + 31.30646424602145) / 3;
+      LatLng location1 = pickUps[0];
+      LatLng location2 = pickUps[pickUps.length - 1];
+
+      double avgOfLat = (location1.latitude + location2.latitude) / 2;
+      double avgOfLong = (location1.longitude + location2.longitude) / 2;
       dynamic cameraPositionOfPickUp = LatLng(avgOfLat, avgOfLong);
       kGooglePlex = CameraPosition(
         target: cameraPositionOfPickUp,
-        zoom: 11,
+        zoom: 12,
       );
       CameraUpdate update = CameraUpdate.newCameraPosition(kGooglePlex);
       con.animateCamera(update);
@@ -334,10 +268,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<CameraPositionOfDropOffPoints>((event, emit) async {
       final GoogleMapController con = await controller.future;
 
-      double avgOfLat =
-          (31.016335114429555 + 31.044890281535398 + 31.07006630857465) / 3;
-      double avgOfLong =
-          (31.378602195301422 + 31.352871305627136 + 31.38895182554876) / 3;
+      LatLng location1 = dropOffs[0];
+      LatLng location2 = dropOffs[dropOffs.length - 1];
+
+      double avgOfLat = (location1.latitude + location2.latitude) / 2;
+      double avgOfLong = (location1.longitude + location2.longitude) / 2;
       dynamic cameraPositionOfDropOff = LatLng(avgOfLat, avgOfLong);
       kGooglePlex = CameraPosition(
         target: cameraPositionOfDropOff,

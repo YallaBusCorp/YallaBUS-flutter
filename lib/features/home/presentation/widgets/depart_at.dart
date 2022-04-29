@@ -9,9 +9,14 @@ import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/book_ride.dart';
 
-class DepartAt extends StatelessWidget {
+class DepartAt extends StatefulWidget {
   const DepartAt({Key? key}) : super(key: key);
 
+  @override
+  State<DepartAt> createState() => _DepartAtState();
+}
+
+class _DepartAtState extends State<DepartAt> {
   @override
   Widget build(BuildContext context) {
     MapBloc bloc = BlocProvider.of<MapBloc>(context);
@@ -57,8 +62,13 @@ class DepartAt extends StatelessWidget {
                                 .textTheme
                                 .headline5!
                                 .copyWith(
-                                    fontSize:
-                                        perferedSize(bloc.timeOfSelectedRides)),
+                                  fontSize: perferedSize(
+                                    bloc.timeOfSelectedRides,
+                                  ),
+                                  color: ColorsExtensions.checkSelectedOrNot(
+                                      bloc.timeOfSelectedRides,
+                                      StringManager.timeOfSelectedRides),
+                                ),
                           ),
                         );
                       },
@@ -68,17 +78,21 @@ class DepartAt extends StatelessWidget {
               ),
             ),
           ),
-          ButtonWidget(
-            width: ValuesManager.v65,
-            height: ValuesManager.v50,
-            onPressed: () {},
-            child: TextWidget(
-              text: StringManager.go,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5!
-                  .copyWith(fontSize: ValuesManager.v25),
-            ),
+          BlocBuilder<MapBloc, MapState>(
+            builder: (context, state) {
+              return ButtonWidget(
+                width: ValuesManager.v65,
+                height: ValuesManager.v50,
+                onPressed: checkValidation() == true ? () {} : null,
+                child: TextWidget(
+                  text: StringManager.go,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(fontSize: ValuesManager.v25),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -91,5 +105,15 @@ class DepartAt extends StatelessWidget {
     } else {
       return 12;
     }
+  }
+
+  bool checkValidation() {
+    if (BlocProvider.of<MapBloc>(context).timeOfSelectedRides !=
+            StringManager.timeOfSelectedRides &&
+        BlocProvider.of<MapBloc>(context).from != StringManager.pickUpPoint &&
+        BlocProvider.of<MapBloc>(context).to != StringManager.to) {
+      return true;
+    }
+    return false;
   }
 }

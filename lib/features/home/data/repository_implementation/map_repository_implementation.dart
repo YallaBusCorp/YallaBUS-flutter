@@ -62,9 +62,9 @@ class MapRepositoryImplementation extends MapRepository {
   Future<Either<Failure, List<MapPoint>>> getMapDropDownPoints(int id) async {
     if (await info.isConnected()) {
       try {
-        result = await client.getMapPickUpPoints(id);
-        pickUpPoints = result.map((e) => MapPointsModel.fromJson(e)).toList();
-        return Right(pickUpPoints);
+        result = await client.getMapDropDownPoints(id);
+        dropDownPoints = result.map((e) => MapPointsModel.fromJson(e)).toList();
+        return Right(dropDownPoints);
       } on ServerException {
         return Left(Failure('Try Again in another time'));
       }
@@ -77,9 +77,9 @@ class MapRepositoryImplementation extends MapRepository {
   Future<Either<Failure, List<MapPoint>>> getMapPickUpPoints(int id) async {
     if (await info.isConnected()) {
       try {
-        result = await client.getMapDropDownPoints(id);
-        dropDownPoints = result.map((e) => MapPointsModel.fromJson(e)).toList();
-        return Right(dropDownPoints);
+        result = await client.getMapPickUpPoints(id);
+        pickUpPoints = result.map((e) => MapPointsModel.fromJson(e)).toList();
+        return Right(pickUpPoints);
       } on ServerException {
         return Left(Failure('Try Again in another time'));
       }

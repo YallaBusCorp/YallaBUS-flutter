@@ -59,6 +59,7 @@ class AuthButton extends StatelessWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) => Dialog(
+              insetPadding: const EdgeInsets.all(25),
               backgroundColor: Colors.transparent,
               child: ErrorDialog(
                 message: 'Try again in another time!',

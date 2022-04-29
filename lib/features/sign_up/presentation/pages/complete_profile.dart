@@ -53,6 +53,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
           showDialog(
             context: context,
             builder: (BuildContext context) => const Dialog(
+              insetPadding: const EdgeInsets.all(25),
               backgroundColor: Colors.transparent,
               child: SuccessDialog(
                 message: StringManager.successMessage,
@@ -68,6 +69,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
           showDialog(
             context: context,
             builder: (BuildContext context) => Dialog(
+              insetPadding: const EdgeInsets.all(25),
               backgroundColor: Colors.transparent,
               child: ErrorDialog(
                 message: state.message,
@@ -168,7 +170,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
               const Spacer(),
               ButtonWidget(
-                onPressed: _onPressed,
+                onPressed: checkValidation() == true ? _onPressed : null,
                 child: Text(StringManager.continueToPayment.tr(),
                     style: Theme.of(context).textTheme.headline6!),
               ),
@@ -192,5 +194,15 @@ class _CompleteProfileState extends State<CompleteProfile> {
     firstNameController.dispose();
     lastNameController.dispose();
     super.dispose();
+  }
+
+  bool checkValidation() {
+    if (firstNameController.text.isNotEmpty &&
+        lastNameController.text.isNotEmpty &&
+        BlocProvider.of<CompleteprofileBloc>(context).townId != 0 &&
+        BlocProvider.of<CompleteprofileBloc>(context).universityId != 0) {
+      return true;
+    }
+    return false;
   }
 }

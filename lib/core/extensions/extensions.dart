@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
@@ -47,6 +46,11 @@ extension ColorsExtensions on Color {
     return MediaQuery.of(context).platformBrightness == Brightness.dark
         ? ColorsManager.black
         : Colors.white;
+  }
+
+  static Color checkSelectedOrNot(String a, String b) {
+    if (a == b) return Colors.grey;
+    return Colors.white;
   }
 }
 
@@ -97,5 +101,3 @@ String selectAnimationLightOrDark(BuildContext context) {
   }
   return AssetManager.lightverify;
 }
-
-

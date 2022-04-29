@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/custom_widgets/separtor_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
 
 import '../resources/asset_manager.dart';
 import '../resources/colors_manager.dart';
@@ -21,11 +22,10 @@ class YesNoDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(ValuesManager.v16),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            
             TextWidget(
               text: message,
               style: Theme.of(context)
@@ -38,8 +38,8 @@ class YesNoDialog extends StatelessWidget {
             ),
             Separtor(
               color: [
-                Colors.grey.shade200,
-                Colors.grey.shade200,
+                Colors.grey.shade800,
+                Colors.grey.shade800,
               ],
             ),
             Row(
@@ -64,7 +64,7 @@ class YesNoDialog extends StatelessWidget {
                 Container(
                   width: ValuesManager.v1,
                   height: ValuesManager.v15,
-                  color: Colors.grey.shade300,
+                  color: Colors.grey.shade800,
                 ),
                 Expanded(
                   child: Padding(

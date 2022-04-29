@@ -35,6 +35,7 @@ class Settings extends StatelessWidget {
                 context: context,
                 barrierDismissible: false,
                 builder: (BuildContext context) => Dialog(
+                  insetPadding: const EdgeInsets.all(25),
                   backgroundColor: Colors.transparent,
                   child: YesNoDialog(
                       message: 'Are you sure you want to sign out ?',

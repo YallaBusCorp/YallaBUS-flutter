@@ -57,4 +57,8 @@ class StringManager {
   static const String retry = 'Retry';
   static const String yes = 'Yes';
   static const String no = 'No';
+  static const String timeOfSelectedRides = 'Choose Ride';
+
+  static const String pickUpPoint = 'Pick up point';
+  static const String dropOffPoint = 'Drop off point';
 }

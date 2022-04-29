@@ -66,6 +66,18 @@ class SelectPickUpFromPlace extends MapState {
   @override
   List<Object> get props => [title];
 }
+
+class GetPickUpPointsError extends MapState {
+  final String message;
+
+  const GetPickUpPointsError(this.message);
+}
+
+class GetDropOffPointsError extends MapState {
+  final String message;
+
+  const GetDropOffPointsError(this.message);
+}
  
 
 

@@ -7,7 +7,6 @@ import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/painting.dart';
-
 import '../../../../core/custom_widgets/separtor_widget.dart';
 import '../bloc/map/map_bloc.dart';
 
@@ -30,7 +29,7 @@ class _FromToWidgetState extends State<FromToWidget> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).size.height - ValuesManager.v240,
+      top: MediaQuery.of(context).size.height - ValuesManager.v220,
       left: ValuesManager.v10,
       child: Center(
         child: Container(
@@ -51,24 +50,25 @@ class _FromToWidgetState extends State<FromToWidget> {
                   children: [
                     TextWidget(
                       text: StringManager.from.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(fontSize: ValuesManager.v16),
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontSize: ValuesManager.v16,
+                          ),
                     ),
                     BlocBuilder<MapBloc, MapState>(
                       builder: (context, state) {
                         return InkWell(
                           onTap: () {
                             bloc.add(GetPickUpPointsEvent());
-                            bloc.add(CameraPositionOfPickUpPoints());
                           },
                           child: TextWidget(
                             text: bloc.from,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5!
-                                .copyWith(fontSize: ValuesManager.v20),
+                                .copyWith(
+                                    fontSize: ValuesManager.v20,
+                                    color: ColorsExtensions.checkSelectedOrNot(
+                                        bloc.from, StringManager.pickUpPoint)),
                           ),
                         );
                       },
@@ -92,14 +92,20 @@ class _FromToWidgetState extends State<FromToWidget> {
                         return InkWell(
                           onTap: () {
                             bloc.add(GetDropOffPointsEvent());
-                            bloc.add(CameraPositionOfDropOffPoints());
                           },
-                          child: TextWidget(
-                            text: bloc.to,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline5!
-                                .copyWith(fontSize: ValuesManager.v20),
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: TextWidget(
+                              text: bloc.to,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(
+                                    fontSize: ValuesManager.v20,
+                                    color: ColorsExtensions.checkSelectedOrNot(
+                                        bloc.to, StringManager.dropOffPoint),
+                                  ),
+                            ),
                           ),
                         );
                       },

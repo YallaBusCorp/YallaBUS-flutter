@@ -82,6 +82,9 @@ flutter:
     - family: Nunito_Regular
       fonts:
         - asset: assets/fonts/Nunito/Nunito-Regular.ttf
+    - family : Nunito_Light 
+      fonts: 
+        - asset : assets/fonts/Nunito/Nunito-Light.ttf
     - family: Nunito_Bold
       fonts:
         - asset: assets/fonts/Nunito/Nunito-Bold.ttf

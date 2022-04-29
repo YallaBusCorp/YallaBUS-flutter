@@ -26,8 +26,8 @@ class CompleteprofileBloc
   List<int> ids = [];
   late int companyId;
   late Student student;
-  late int townId;
-  late int universityId;
+  int townId = 0;
+  int universityId = 0;
   SharedPreferences perfs = di<SharedPreferences>();
 
   // @override

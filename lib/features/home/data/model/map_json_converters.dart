@@ -32,14 +32,16 @@ class AppointmentModel extends Appoinment {
 }
 
 class MapPointsModel extends MapPoint {
-  MapPointsModel(
-      {required int id,
-      required String mapPointTitle,
-      required double longitude,
-      required double latitude})
-      : super(
+  MapPointsModel({
+    required int id,
+    required double longitude,
+    required double latitude,
+    required String mapPointTitleEn,
+    required String mapPointTitleAr,
+  }) : super(
             id: id,
-            mapPointTitle: mapPointTitle,
+            mapPointTitleEn: mapPointTitleEn,
+            mapPointTitleAr: mapPointTitleAr,
             longitude: longitude,
             latitude: latitude);
   factory MapPointsModel.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class MapPointsModel extends MapPoint {
         id: json['id'],
         latitude: json['latitude'],
         longitude: json['longitude'],
-        mapPointTitle: json['mapPointTitle']);
+        mapPointTitleEn: json['mapPointTitleEn'],
+        mapPointTitleAr: json['mapPointTitleAr']);
   }
 }

@@ -7,6 +7,8 @@ import 'package:yalla_bus/features/choose_company/data/repository_implementation
 import 'package:yalla_bus/features/choose_company/domain/repository/company_repository.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/home/domain/use_case/get_appoinments_of_am.dart';
+import 'package:yalla_bus/features/home/domain/use_case/get_map_drop_down_points.dart';
+import 'package:yalla_bus/features/home/domain/use_case/get_map_pick_up_points.dart';
 import 'package:yalla_bus/features/login_otp/domain/use%20case/send_code_verification.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
 import 'package:yalla_bus/features/sign_up/data/data_sources/remote_data_source.dart';
@@ -54,9 +56,11 @@ Future<void> init() async {
       () => ComplelteProfileRepositoryImplemenation(di(), di()));
   di.registerLazySingleton(() => CompleteProfileApiClient());
 
-  di.registerFactory(() => MapBloc(di(), di()));
+  di.registerFactory(() => MapBloc(di(), di(), di(), di()));
   di.registerLazySingleton(() => GetAppoinmentOfAM(di()));
   di.registerLazySingleton(() => GetAppoinmentOfPM(di()));
+  di.registerLazySingleton(() => GetMapPickUpPoints(di()));
+  di.registerLazySingleton(() => GetMapDropDownPoints(di()));
   // di.registerLazySingleton(() => Ma(di()));
   di.registerLazySingleton<MapRepository>(
       () => MapRepositoryImplementation(di(), di()));
