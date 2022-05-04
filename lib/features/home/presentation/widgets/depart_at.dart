@@ -9,6 +9,8 @@ import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/book_ride.dart';
 
+import '../../../../core/custom_widgets/loading_dialog.dart';
+
 class DepartAt extends StatefulWidget {
   const DepartAt({Key? key}) : super(key: key);
 
@@ -20,82 +22,104 @@ class _DepartAtState extends State<DepartAt> {
   @override
   Widget build(BuildContext context) {
     MapBloc bloc = BlocProvider.of<MapBloc>(context);
-    return Positioned(
-      top: MediaQuery.of(context).size.height - ValuesManager.v110,
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(ValuesManager.v10),
-            child: Container(
-              width: MediaQuery.of(context).size.width - 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(ValuesManager.v16),
-                boxShadow: selectShadow(context),
-                color: ColorsExtensions.setColorOfContainersOverMap(context),
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: ValuesManager.v16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    TextWidget(
-                      text: StringManager.departAt.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(fontSize: ValuesManager.v18),
+    return BlocBuilder<MapBloc, MapState>(
+      builder: (context, state) {
+        return Visibility(
+          visible: !(bloc.perfs.getBool('Booked') ?? false),
+          child: Positioned(
+            top: MediaQuery.of(context).size.height - ValuesManager.v110,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(ValuesManager.v10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(ValuesManager.v16),
+                      boxShadow: selectShadow(context),
+                      color:
+                          ColorsExtensions.setColorOfContainersOverMap(context),
                     ),
-                    BlocBuilder<MapBloc, MapState>(
-                      builder: (context, state) {
-                        return TextButton(
-                          onPressed: () {
-                            showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                context: context,
-                                builder: (builder) => const BookRide());
-                          },
-                          child: TextWidget(
-                            text: bloc.timeOfSelectedRides,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline5!
-                                .copyWith(
-                                  fontSize: perferedSize(
-                                    bloc.timeOfSelectedRides,
-                                  ),
-                                  color: ColorsExtensions.checkSelectedOrNot(
-                                      bloc.timeOfSelectedRides,
-                                      StringManager.timeOfSelectedRides),
-                                ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: ValuesManager.v16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          TextWidget(
+                            text: StringManager.departAt.tr(),
+                            style:
+                                Theme.of(context).textTheme.headline6!.copyWith(
+                                      fontSize: ValuesManager.v18,
+                                    ),
                           ),
-                        );
-                      },
+                          BlocBuilder<MapBloc, MapState>(
+                            builder: (context, state) {
+                              return TextButton(
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (builder) => const BookRide());
+                                },
+                                child: TextWidget(
+                                  text: bloc.timeOfSelectedRides,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline5!
+                                      .copyWith(
+                                        color:
+                                            ColorsExtensions.checkSelectedOrNot(
+                                                bloc.timeOfSelectedRides,
+                                                StringManager
+                                                    .timeOfSelectedRides,
+                                                context),
+                                        fontSize: perferedSize(
+                                            bloc.timeOfSelectedRides),
+                                      ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                BlocBuilder<MapBloc, MapState>(
+                  builder: (context, state) {
+                    return ButtonWidget(
+                      width: ValuesManager.v65,
+                      height: ValuesManager.v50,
+                      onPressed: checkValidation() == true
+                          ? () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => const Dialog(
+                                  backgroundColor: Colors.transparent,
+                                  child: LoadingDialog(),
+                                ),
+                              );
+                              Future.delayed(const Duration(seconds: 2));
+                              bloc.add(SaveInSharedPerfsEvent());
+                            }
+                          : null,
+                      child: TextWidget(
+                        text: StringManager.go,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(fontSize: ValuesManager.v25),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
-          BlocBuilder<MapBloc, MapState>(
-            builder: (context, state) {
-              return ButtonWidget(
-                width: ValuesManager.v65,
-                height: ValuesManager.v50,
-                onPressed: checkValidation() == true ? () {} : null,
-                child: TextWidget(
-                  text: StringManager.go,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5!
-                      .copyWith(fontSize: ValuesManager.v25),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

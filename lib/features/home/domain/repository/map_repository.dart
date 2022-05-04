@@ -8,5 +8,5 @@ abstract class MapRepository {
   Future<Either<Failure, List<Appoinment>>> getAppoinmentsOfAM(int id);
   Future<Either<Failure, List<Appoinment>>> getAppoinmentsOfPM(int id);
   Future<Either<Failure, List<MapPoint>>> getMapPickUpPoints(int id);
-  Future<Either<Failure, List<MapPoint>>> getMapDropDownPoints(int id);
+  Future<Either<Failure, List<MapPoint>>> getMapDropOffPoints(int id);
 }

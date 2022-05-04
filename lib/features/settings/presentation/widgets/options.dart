@@ -13,8 +13,8 @@ class Options extends StatelessWidget {
     'FAQ',
     'Terms and Conditions',
     'Contact us',
-    'Report a bug',
-    'File a complaint',
+    'Report a problem',
+    'Complaints',
     'Fill Exam Schedule',
   ];
   final List<String> images = [
@@ -46,7 +46,11 @@ class Options extends StatelessWidget {
               );
             },
             itemBuilder: (BuildContext context, int index) {
-              return ToScreen(asset: images[index], text: texts[index]);
+              return ToScreen(
+                asset: images[index],
+                text: texts[index],
+                index: index,
+              );
             },
           ),
         ),

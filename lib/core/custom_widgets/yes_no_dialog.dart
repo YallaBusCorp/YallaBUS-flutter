@@ -21,74 +21,75 @@ class YesNoDialog extends StatelessWidget {
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(ValuesManager.v16),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextWidget(
-              text: message,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 0),
+            child: Text(
+              message,
               style: Theme.of(context)
                   .textTheme
                   .headline6!
                   .copyWith(fontWeight: FontWeight.normal),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(
-              height: ValuesManager.v20,
-            ),
-            Separtor(
-              color: [
-                Colors.grey.shade800,
-                Colors.grey.shade800,
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(ValuesManager.v16),
-                    child: InkWell(
-                      onTap: onTap,
-                      child: Center(
-                        child: TextWidget(
-                          text: StringManager.yes,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(color: ColorsManager.orange),
-                        ),
+          ),
+          const SizedBox(
+            height: ValuesManager.v20,
+          ),
+          Separtor(
+            color: [
+              Colors.grey.shade800,
+              Colors.grey.shade800,
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(ValuesManager.v16),
+                  child: InkWell(
+                    onTap: onTap,
+                    child: Center(
+                      child: TextWidget(
+                        text: StringManager.returnStatement,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: Colors.blue[900]),
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  width: ValuesManager.v1,
-                  height: ValuesManager.v15,
-                  color: Colors.grey.shade800,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(ValuesManager.v16),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Center(
-                        child: TextWidget(
-                          text: StringManager.no,
-                          style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
-                                    color: ColorsManager.orange,
-                                  ),
-                        ),
+              ),
+              Container(
+                width: ValuesManager.v1,
+                height: ValuesManager.v15,
+                color: Colors.grey.shade800,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(ValuesManager.v16),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Center(
+                      child: TextWidget(
+                        text: StringManager.signOut,
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                              color: Colors.red[900],
+                            ),
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

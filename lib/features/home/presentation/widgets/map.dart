@@ -50,14 +50,11 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         if (state is DropOffPointsMarkersChanged) {
           markers = map.dropOffMarkers;
         }
-        if (state is ChangePosition) {
-          markers = map.markers;
-        }
       },
       builder: (context, state) {
         return GoogleMap(
           zoomControlsEnabled: false,
-          markers: markers,
+          markers: markers.union(map.markers),
           myLocationButtonEnabled: false,
           compassEnabled: false,
           mapToolbarEnabled: false,
@@ -65,6 +62,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
           onMapCreated: (GoogleMapController controller) {
             if (!map.controller.isCompleted) {
               map.controller.complete(controller);
+              map.add(GetMyLocation());
             }
             if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
               controller.setMapStyle(_darkMapStyle);

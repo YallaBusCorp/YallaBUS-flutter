@@ -54,3 +54,8 @@ class AddDropOffMarkerTitleToTexts extends MapEvent {
   @override
   List<Object> get props => [title];
 }
+
+class SaveInSharedPerfsEvent extends MapEvent {}
+
+class CancelRideEvent extends MapEvent{}
+

@@ -50,7 +50,7 @@ class MapApiClient {
     }
   }
 
-  Future<List<dynamic>> getMapDropDownPoints(int id) async {
+  Future<List<dynamic>> getMapDropOffPoints(int id) async {
     try {
       Response response =
           await dio.get(ApiEndPoints.mapPointsDropDown, queryParameters: {

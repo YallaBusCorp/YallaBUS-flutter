@@ -78,6 +78,10 @@ class GetDropOffPointsError extends MapState {
 
   const GetDropOffPointsError(this.message);
 }
+
+class Saved extends MapState {}
+
+class CancelRide extends MapState{}
  
 
 

@@ -3,7 +3,9 @@ import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/payment/presentation/pages/add_payment.dart';
 import 'package:yalla_bus/features/payment/presentation/pages/success_payment.dart';
 import 'package:yalla_bus/features/settings/presentation/pages/settings.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/complaints.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/ride_history.dart';
 
 import '../../features/choose_company/presentation/pages/choose_company.dart';
 import '../../features/home/presentation/pages/home.dart';
@@ -20,6 +22,8 @@ class Routes {
   static const String successfulPayment = '/successfulPayment';
   static const String settings = '/settings';
   static const String goodBye = '/goodBye';
+  static const String complaints = '/complaints';
+  static const String rideHistory = '/rideHistory';
 }
 
 class RouteGenerator {
@@ -38,46 +42,20 @@ class RouteGenerator {
       case Routes.successfulPayment:
         return MaterialPageRoute(builder: (_) => const SuccessPayment());
       case Routes.settings:
-        return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const Settings(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(0.0, 1.0);
-            const end = Offset.zero;
-            const curve = Curves.ease;
-            final tween =
-                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-            final offsetAnimation = animation.drive(tween);
-
-            return SlideTransition(
-              position: offsetAnimation,
-              child: child,
-            );
-          },
-        );
+        return MaterialPageRoute(builder: (_) => const Settings());
+      case Routes.complaints:
+        return MaterialPageRoute(builder: (_) => const Complaints());
+      case Routes.rideHistory:
+        return MaterialPageRoute(builder: (_) => const RidesHistory());
       case Routes.goodBye:
         return MaterialPageRoute(builder: (_) => const GoodBye());
       case Routes.verifyOtp:
         var args = settings.arguments as String;
-        return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => VerifyScreen(
+        return MaterialPageRoute(
+          builder: (_) => VerifyScreen(
             number: args,
           ),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(0.0, 1.0);
-            const end = Offset.zero;
-            const curve = Curves.ease;
-            final tween =
-                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-            final offsetAnimation = animation.drive(tween);
-
-            return SlideTransition(
-              position: offsetAnimation,
-              child: child,
-            );
-          },
         );
-
       default:
         return unDefainedRoute();
     }

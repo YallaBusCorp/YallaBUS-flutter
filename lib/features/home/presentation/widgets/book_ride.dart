@@ -88,10 +88,7 @@ class _BookRideState extends State<BookRide> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 15,
-            ),
-            const StaticMap(),
+            
             const SizedBox(
               height: 10,
             ),

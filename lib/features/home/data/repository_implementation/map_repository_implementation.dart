@@ -59,10 +59,10 @@ class MapRepositoryImplementation extends MapRepository {
   }
 
   @override
-  Future<Either<Failure, List<MapPoint>>> getMapDropDownPoints(int id) async {
+  Future<Either<Failure, List<MapPoint>>> getMapDropOffPoints(int id) async {
     if (await info.isConnected()) {
       try {
-        result = await client.getMapDropDownPoints(id);
+        result = await client.getMapDropOffPoints(id);
         dropDownPoints = result.map((e) => MapPointsModel.fromJson(e)).toList();
         return Right(dropDownPoints);
       } on ServerException {

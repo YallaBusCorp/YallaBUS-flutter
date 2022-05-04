@@ -47,6 +47,7 @@ class ValuesManager {
   static const double v110 = 110;
   static const double v150 = 150;
   static const double v200 = 200;
+  static const double v220 = 220;
   static const double v240 = 240;
   static const double v250 = 250;
   static const double v300 = 300;

@@ -48,9 +48,11 @@ extension ColorsExtensions on Color {
         : Colors.white;
   }
 
-  static Color checkSelectedOrNot(String a, String b) {
+  static Color checkSelectedOrNot(String a, String b, BuildContext context) {
     if (a == b) return Colors.grey;
-    return Colors.white;
+    return MediaQuery.of(context).platformBrightness == Brightness.dark
+        ? Colors.white
+        : ColorsManager.black;
   }
 }
 

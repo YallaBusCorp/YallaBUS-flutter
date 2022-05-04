@@ -53,12 +53,12 @@ class StringManager {
   static const String numberValidation =
       'Number must start with 010, 011, 012 or 015';
   static const String successMessage = 'You have successfully signed up!';
-  static const String close = 'Close';
+  static const String cancel = 'Cancel';
   static const String retry = 'Retry';
-  static const String yes = 'Yes';
-  static const String no = 'No';
+  static const String returnStatement = 'Return';
+  static const String signOut = 'Sign Out';
   static const String timeOfSelectedRides = 'Choose Ride';
 
-  static const String pickUpPoint = 'Pick up point';
-  static const String dropOffPoint = 'Drop off point';
+  static const String pickUpPoint = 'Choose pick up point';
+  static const String dropOffPoint = 'Choose drop off point';
 }

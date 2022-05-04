@@ -23,7 +23,7 @@ class SuccessDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Padding(
-            padding: EdgeInsets.all(ValuesManager.v16),
+            padding:  EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 0),
             child: Image(
               image: AssetImage(
                 AssetManager.done,
@@ -59,11 +59,11 @@ class SuccessDialog extends StatelessWidget {
               },
               child: Center(
                 child: TextWidget(
-                  text: StringManager.close,
+                  text: StringManager.cancel,
                   style: Theme.of(context)
                       .textTheme
                       .headline6!
-                      .copyWith(color: ColorsManager.orange),
+                      .copyWith(color: Colors.blue[900]),
                 ),
               ),
             ),

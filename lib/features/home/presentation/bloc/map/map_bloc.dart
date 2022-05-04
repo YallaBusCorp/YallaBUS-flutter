@@ -15,7 +15,7 @@ import '../../../../../core/injection/di.dart';
 import '../../../../../core/position_locator/locator.dart';
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../domain/use_case/get_appoinments_of_pm.dart';
-import '../../../domain/use_case/get_map_drop_down_points.dart';
+import '../../../domain/use_case/get_map_drop_off_points.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';
@@ -23,7 +23,7 @@ part 'map_state.dart';
 class MapBloc extends Bloc<MapEvent, MapState> {
   final GetAppoinmentOfAM appointmentOfAm;
   final GetAppoinmentOfPM appointmentOfPm;
-  final GetMapDropDownPoints dropOff;
+  final GetMapDropOffPoints dropOff;
   final GetMapPickUpPoints pickUp;
 
   Completer<GoogleMapController> controller = Completer();
@@ -31,7 +31,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   late Position _position;
   final Set<Marker> markers = <Marker>{};
-  final Set<Marker> markers2 = <Marker>{};
   final Set<Marker> dropOffMarkers = <Marker>{};
   final Set<Marker> pickUpMarkers = <Marker>{};
 
@@ -105,28 +104,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         const ImageConfiguration(),
         AssetManager.busStationMarker,
       );
-      markers2.add(
-        Marker(
-          markerId: MarkerId(
-            const LatLng(31.016408673053103, 31.378623652973157).toString(),
-          ),
-          position: const LatLng(
-              31.016408673053103, 31.378623652973157), //position of marker
-
-          icon: markerbitmap,
-        ),
-      );
-      markers2.add(
-        Marker(
-          markerId: MarkerId(
-            const LatLng(30.73786543468305, 30.73786543468305).toString(),
-          ),
-          position: const LatLng(
-              30.73786543468305, 30.73786543468305), //position of marker
-
-          icon: markerbitmap,
-        ),
-      );
       emit(InitializedMarkersOfStaticMap());
     });
 
@@ -137,14 +114,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
 
     on<SelectPMTripEvent>((event, emit) {
-      if (timeOfSelectedRides == StringManager.timeOfSelectedRides) {
+      if (timeOfSelectedRides.length > 10) {
         timeOfSelectedRides = "";
       } else {
         timeOfSelectedRides += ' - ';
-      }
-
-      if (timeOfSelectedRides.length == 12) {
-        timeOfSelectedRides = "";
       }
       timeOfSelectedRides += event.timeOfTrip;
       emit(PMTripSelected());
@@ -220,7 +193,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         AssetManager.busStationMarker,
       );
 
-      (await dropOff.getMapDropDownPoints(
+      (await dropOff.getMapDropOffPoints(
         perfs.getInt(ConstantsManager.company)!,
       ))
           .fold((failure) {
@@ -286,8 +259,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<AddPickUpMarkerTitleToTexts>((event, emit) {
       emit(SelectPickUpFromPlace(event.title));
     });
+
     on<AddDropOffMarkerTitleToTexts>((event, emit) {
       emit(SelectDropOffFromPlace(event.title));
+    });
+
+    on<SaveInSharedPerfsEvent>((event, emit) {
+      perfs.setBool(ConstantsManager.booked, true);
+      perfs.setString(ConstantsManager.pickUp, from);
+      perfs.setString(ConstantsManager.dropOff, to);
+      emit(Saved());
+    });
+
+    on<CancelRideEvent>((event, emit) {
+      perfs.setBool(ConstantsManager.booked, false);
+      emit(CancelRide());
     });
   }
 }

@@ -7,11 +7,11 @@ import 'package:yalla_bus/features/home/domain/repository/map_repository.dart';
 
 import '../../../../core/failure/failure.dart';
 
-class GetMapDropDownPoints {
+class GetMapDropOffPoints {
   final MapRepository repo;
 
-  GetMapDropDownPoints(this.repo);
-  Future<Either<Failure, List<MapPoint>>> getMapDropDownPoints(int id) async {
-    return await repo.getMapDropDownPoints(id);
+  GetMapDropOffPoints(this.repo);
+  Future<Either<Failure, List<MapPoint>>> getMapDropOffPoints(int id) async {
+    return await repo.getMapDropOffPoints(id);
   }
 }

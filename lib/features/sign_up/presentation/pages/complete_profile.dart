@@ -53,7 +53,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
           showDialog(
             context: context,
             builder: (BuildContext context) => const Dialog(
-              insetPadding: const EdgeInsets.all(25),
+              insetPadding:  EdgeInsets.all(25),
               backgroundColor: Colors.transparent,
               child: SuccessDialog(
                 message: StringManager.successMessage,

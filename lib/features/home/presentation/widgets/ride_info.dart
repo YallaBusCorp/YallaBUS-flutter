@@ -34,7 +34,7 @@ class RideInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
-                    text: 'From Aga',
+                    text: 'From ${bloc.perfs.getString('PickUp')}',
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
@@ -42,7 +42,7 @@ class RideInfo extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   TextWidget(
-                    text: 'To MET',
+                    text: 'To ${bloc.perfs.getString('DropOff')}',
                     style: Theme.of(context)
                         .textTheme
                         .headline6!

@@ -18,20 +18,9 @@ class ConstantsManager {
   static const String name = 'Name';
   static const String arabic = 'ar';
   static const String english = 'en';
+  static const String pickUp = 'PickUp';
+  static const String dropOff = 'DropOff';
+  static const String booked = 'Booked';
 
   static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
-
-  static const List<String> universities = <String>[
-    'MET Academy',
-    'Mansoura University',
-    'Delta Academy',
-    'Nile Academy',
-  ];
-
-  static const List<String> towns = [
-    'Mit Ghamr',
-    'Maynet Elnasr',
-    'El-Darkasa',
-    'Samnod',
-  ];
 }
