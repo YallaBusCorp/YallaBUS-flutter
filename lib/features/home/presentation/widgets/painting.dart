@@ -14,10 +14,12 @@ class Painting extends StatelessWidget {
           backgroundColor: ColorsManager.green,
         ),
         Container(
-          width: ValuesManager.v1,
+          width: ValuesManager.v3,
           height: ValuesManager.v35,
           decoration: BoxDecoration(
             gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
               colors: [
                 ColorsManager.green,
                 ColorsManager.blue2,

@@ -88,7 +88,6 @@ class _BookRideState extends State<BookRide> {
                 ),
               ],
             ),
-            
             const SizedBox(
               height: 10,
             ),
@@ -110,9 +109,6 @@ class _BookRideState extends State<BookRide> {
                   ),
                 );
               },
-            ),
-            const SizedBox(
-              height: 10,
             ),
           ],
         ),

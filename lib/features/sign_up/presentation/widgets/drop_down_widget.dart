@@ -37,20 +37,9 @@ class _DropDownWidgetState extends State<DropDownWidget> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(ValuesManager.v16),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: ColorsManager.orange,
-          //     blurRadius: 2,
-          //   )
-          // ],
         ),
         child: DropdownButtonFormField<String>(
             isExpanded: true,
-            // onTap: () {
-            //   setState(() {
-            //     widget.tapped = widget.tapped;
-            //   });
-            // },
             hint: TextWidget(
               text: widget.hint.tr(),
               style: Theme.of(context).textTheme.headline6!,

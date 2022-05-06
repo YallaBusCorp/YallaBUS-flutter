@@ -12,6 +12,11 @@ enum Resonses { answered, inQueue }
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   Color replyOrNot = Colors.red;
+  List<String> dropDownOptions = [
+    'Driver issues',
+    'Subscription issues',
+    'Other',
+  ];
   SettingsBloc() : super(SettingsInitial()) {
     on<SettingsEvent>((event, emit) {
       // TODO: implement event handler

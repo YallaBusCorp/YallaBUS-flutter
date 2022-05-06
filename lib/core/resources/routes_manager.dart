@@ -4,6 +4,7 @@ import 'package:yalla_bus/features/payment/presentation/pages/add_payment.dart';
 import 'package:yalla_bus/features/payment/presentation/pages/success_payment.dart';
 import 'package:yalla_bus/features/settings/presentation/pages/settings.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/complaints.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/file_complaint.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/ride_history.dart';
 
@@ -24,6 +25,7 @@ class Routes {
   static const String goodBye = '/goodBye';
   static const String complaints = '/complaints';
   static const String rideHistory = '/rideHistory';
+  static const String fileComplaint = '/fileComplaint';
 }
 
 class RouteGenerator {
@@ -49,6 +51,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const RidesHistory());
       case Routes.goodBye:
         return MaterialPageRoute(builder: (_) => const GoodBye());
+      case Routes.fileComplaint:
+        return MaterialPageRoute(builder: (_) => const FileComplaint());
       case Routes.verifyOtp:
         var args = settings.arguments as String;
         return MaterialPageRoute(

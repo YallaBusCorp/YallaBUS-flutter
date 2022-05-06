@@ -46,13 +46,6 @@ class _DepartAtState extends State<DepartAt> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          TextWidget(
-                            text: StringManager.departAt.tr(),
-                            style:
-                                Theme.of(context).textTheme.headline6!.copyWith(
-                                      fontSize: ValuesManager.v18,
-                                    ),
-                          ),
                           BlocBuilder<MapBloc, MapState>(
                             builder: (context, state) {
                               return TextButton(
@@ -67,7 +60,7 @@ class _DepartAtState extends State<DepartAt> {
                                   text: bloc.timeOfSelectedRides,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline5!
+                                      .headline6!
                                       .copyWith(
                                         color:
                                             ColorsExtensions.checkSelectedOrNot(
@@ -75,8 +68,6 @@ class _DepartAtState extends State<DepartAt> {
                                                 StringManager
                                                     .timeOfSelectedRides,
                                                 context),
-                                        fontSize: perferedSize(
-                                            bloc.timeOfSelectedRides),
                                       ),
                                 ),
                               );
@@ -121,14 +112,6 @@ class _DepartAtState extends State<DepartAt> {
         );
       },
     );
-  }
-
-  double perferedSize(String v) {
-    if (v.length < 12) {
-      return 18;
-    } else {
-      return 12;
-    }
   }
 
   bool checkValidation() {

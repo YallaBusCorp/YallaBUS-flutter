@@ -30,12 +30,6 @@ class CompleteprofileBloc
   int universityId = 0;
   SharedPreferences perfs = di<SharedPreferences>();
 
-  // @override
-  // void onChange(Change<CompleteprofileState> change) {
-  //   super.onChange(change);
-  //   print(change);
-  // }
-
   CompleteprofileBloc(this.university, this.town, this.postStudent)
       : super(CompleteprofileInitial()) {
     on<CompleteprofileEvent>((event, emit) {});

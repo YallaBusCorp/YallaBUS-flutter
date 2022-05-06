@@ -58,7 +58,7 @@ extension ColorsExtensions on Color {
 
 extension TextFormStyle on InputDecoration {
   static InputDecoration applyDecoration(
-      String hintText, IconData icon, BuildContext context) {
+      String hintText, IconData? icon, BuildContext context) {
     return InputDecoration(
       contentPadding: const EdgeInsets.only(top: ValuesManager.v20),
       focusedBorder: OutlineInputBorder(

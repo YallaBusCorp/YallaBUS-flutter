@@ -6,7 +6,6 @@ import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/from_to_body.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/painting.dart';
 import '../../../../core/custom_widgets/separtor_widget.dart';
 import '../../../../core/injection/di.dart';
@@ -39,7 +38,89 @@ class _FromToWidgetState extends State<FromToWidget> {
                   color: ColorsExtensions.setColorOfContainersOverMap(context),
                   borderRadius: BorderRadius.circular(ValuesManager.v16),
                 ),
-                child: const FromToBody(),
+                child: Row(
+                  children: [
+                    const Painting(),
+                    const SizedBox(width: ValuesManager.v10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextWidget(
+                            text: StringManager.from.tr(),
+                            style:
+                                Theme.of(context).textTheme.headline6!.copyWith(
+                                      fontSize: ValuesManager.v16,
+                                    ),
+                          ),
+                          BlocBuilder<MapBloc, MapState>(
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  bloc.add(GetPickUpPointsEvent());
+                                  
+                                },
+                                child: TextWidget(
+                                  text: bloc.from,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline5!
+                                      .copyWith(
+                                          fontSize: ValuesManager.v20,
+                                          color: ColorsExtensions
+                                              .checkSelectedOrNot(
+                                                  bloc.from,
+                                                  StringManager.pickUpPoint,
+                                                  context)),
+                                ),
+                              );
+                            },
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: ValuesManager.v8),
+                            child: Separtor(
+                              color: [ColorsManager.blue2, ColorsManager.green],
+                            ),
+                          ),
+                          TextWidget(
+                            text: StringManager.to.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(fontSize: ValuesManager.v16),
+                          ),
+                          BlocBuilder<MapBloc, MapState>(
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  bloc.add(GetDropOffPointsEvent());
+                                },
+                                child: FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: TextWidget(
+                                    text: bloc.to,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline5!
+                                        .copyWith(
+                                          fontSize: ValuesManager.v20,
+                                          color: ColorsExtensions
+                                              .checkSelectedOrNot(
+                                                  bloc.to,
+                                                  StringManager.dropOffPoint,
+                                                  context),
+                                        ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/complaint_body.dart';
 
 import '../../../../core/resources/colors_manager.dart';
@@ -16,7 +17,9 @@ class Complaints extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(Routes.fileComplaint);
+            },
             icon: const Icon(Icons.add),
             iconSize: 30,
             color: ColorsManager.orange,

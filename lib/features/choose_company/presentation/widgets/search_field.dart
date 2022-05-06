@@ -9,7 +9,7 @@ import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 
 class SearchField extends StatefulWidget {
-  SearchField({Key? key}) : super(key: key);
+  const SearchField({Key? key}) : super(key: key);
 
   @override
   State<SearchField> createState() => _SearchFieldState();
