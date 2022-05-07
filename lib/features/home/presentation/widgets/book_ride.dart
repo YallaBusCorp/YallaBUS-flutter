@@ -8,7 +8,6 @@ import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/bus_times.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/static_map.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/switch_button.dart';
 
 class BookRide extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/to_screen.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/settings_item.dart';
 
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/values_manager.dart';

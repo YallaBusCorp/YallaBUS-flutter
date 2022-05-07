@@ -44,7 +44,7 @@ class _FileComplaintState extends State<FileComplaint> {
             ),
             const DropDownComplaintWidget(),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             TextWidget(
                 text: 'Please tell us what happened in detail.',

@@ -27,12 +27,12 @@ class _DepartAtState extends State<DepartAt> {
         return Visibility(
           visible: !(bloc.perfs.getBool('Booked') ?? false),
           child: Positioned(
-            top: MediaQuery.of(context).size.height - ValuesManager.v110,
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(ValuesManager.v10),
-                  child: Container(
+            top: MediaQuery.of(context).size.height - 80,
+            child: SizedBox(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
                     width: MediaQuery.of(context).size.width - 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(ValuesManager.v16),
@@ -43,70 +43,68 @@ class _DepartAtState extends State<DepartAt> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: ValuesManager.v16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          BlocBuilder<MapBloc, MapState>(
-                            builder: (context, state) {
-                              return TextButton(
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (builder) => const BookRide());
-                                },
-                                child: TextWidget(
-                                  text: bloc.timeOfSelectedRides,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6!
-                                      .copyWith(
-                                        color:
-                                            ColorsExtensions.checkSelectedOrNot(
-                                                bloc.timeOfSelectedRides,
-                                                StringManager
-                                                    .timeOfSelectedRides,
-                                                context),
-                                      ),
-                                ),
-                              );
+                      child: BlocBuilder<MapBloc, MapState>(
+                        builder: (context, state) {
+                          return TextButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (builder) => const BookRide());
                             },
-                          ),
-                        ],
+                            child: TextWidget(
+                              text: bloc.timeOfSelectedRides,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    color: ColorsExtensions.checkSelectedOrNot(
+                                        bloc.timeOfSelectedRides,
+                                        StringManager.timeOfSelectedRides,
+                                        context),
+                                    fontSize: 18,
+                                  ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
-                ),
-                BlocBuilder<MapBloc, MapState>(
-                  builder: (context, state) {
-                    return ButtonWidget(
-                      width: ValuesManager.v65,
-                      height: ValuesManager.v50,
-                      onPressed: checkValidation() == true
-                          ? () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => const Dialog(
-                                  backgroundColor: Colors.transparent,
-                                  child: LoadingDialog(),
-                                ),
-                              );
-                              Future.delayed(const Duration(seconds: 2));
-                              bloc.add(SaveInSharedPerfsEvent());
-                            }
-                          : null,
-                      child: TextWidget(
-                        text: StringManager.go,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5!
-                            .copyWith(fontSize: ValuesManager.v25),
-                      ),
-                    );
-                  },
-                ),
-              ],
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  BlocBuilder<MapBloc, MapState>(
+                    builder: (context, state) {
+                      return ButtonWidget(
+                        width: ValuesManager.v65,
+                        height: ValuesManager.v50,
+                        onPressed: checkValidation() == true
+                            ? () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      const Dialog(
+                                    backgroundColor: Colors.transparent,
+                                    child: LoadingDialog(),
+                                  ),
+                                );
+                                Future.delayed(const Duration(seconds: 2));
+                                bloc.add(SaveInSharedPerfsEvent());
+                              }
+                            : null,
+                        child: TextWidget(
+                          text: StringManager.go,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(fontSize: ValuesManager.v25),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         );

@@ -14,20 +14,24 @@ class ComplaintBody extends StatelessWidget {
       onTap: () {},
       child: DecorationBoxWidget(
         child: Padding(
-          padding: const EdgeInsets.all(25),
+          padding:
+              const EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 10),
           child: Column(
             children: [
               Row(
                 children: [
                   CircleAvatar(
                     backgroundColor: bloc.replyOrNot,
-                    radius: 15,
+                    radius: 10,
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   Text('3053252362626',
-                      style: Theme.of(context).textTheme.headline6!),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: 18)),
                 ],
               ),
               const SizedBox(

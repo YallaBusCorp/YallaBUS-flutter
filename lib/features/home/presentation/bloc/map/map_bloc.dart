@@ -27,7 +27,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final GetMapPickUpPoints pickUp;
 
   Completer<GoogleMapController> controller = Completer();
-  Completer<GoogleMapController> controller2 = Completer();
 
   late Position _position;
   final Set<Marker> markers = <Marker>{};
@@ -114,10 +113,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
 
     on<SelectPMTripEvent>((event, emit) {
-      if (timeOfSelectedRides.length > 10) {
+      if (timeOfSelectedRides.contains('-')) {
         timeOfSelectedRides = "";
-      } else {
-        timeOfSelectedRides += ' - ';
+      } else if (timeOfSelectedRides.isNotEmpty) {
+        timeOfSelectedRides += " - ";
       }
       timeOfSelectedRides += event.timeOfTrip;
       emit(PMTripSelected());
