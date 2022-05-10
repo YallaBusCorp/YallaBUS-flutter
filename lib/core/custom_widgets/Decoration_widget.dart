@@ -5,7 +5,9 @@ import 'package:yalla_bus/core/resources/values_manager.dart';
 class DecorationBoxWidget extends StatelessWidget {
   final Widget child;
   final Color? color;
-  const DecorationBoxWidget({Key? key, required this.child, this.color})
+  final BorderRadius? radius;
+  const DecorationBoxWidget(
+      {Key? key, required this.child, this.color, this.radius})
       : super(key: key);
 
   @override
@@ -14,7 +16,7 @@ class DecorationBoxWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? Theme.of(context).backgroundColor,
         boxShadow: selectShadow(context),
-        borderRadius: BorderRadius.circular(ValuesManager.v16),
+        borderRadius: radius ?? BorderRadius.circular(ValuesManager.v16),
       ),
       child: child,
     );

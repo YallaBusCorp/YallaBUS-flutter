@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/complaints/complaint_response.dart';
 
 class ComplaintBody extends StatelessWidget {
   const ComplaintBody({Key? key}) : super(key: key);
@@ -11,7 +12,12 @@ class ComplaintBody extends StatelessWidget {
   Widget build(BuildContext context) {
     SettingsBloc bloc = BlocProvider.of<SettingsBloc>(context);
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        showModalBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent,
+            builder: (BuildContext context) => const ComplaintResponse());
+      },
       child: DecorationBoxWidget(
         child: Padding(
           padding:

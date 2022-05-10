@@ -27,6 +27,7 @@ class AssetManager {
   static const String settingsIcon = 'assets/images/settings.svg';
   static const String recenterIcon = 'assets/images/recenter.svg';
   static const String darkMapStyle = 'assets/map_style/dark_mode.json';
+  static const String lightMapStyle = 'assets/map_style/light-mode-map.json';
 
   static const String contactUs = 'assets/images/contact-us.svg';
   static const String distance = 'assets/images/distance.svg';
@@ -51,4 +52,8 @@ class AssetManager {
   static const String cancelIcon = 'assets/images/cancel.svg';
   static const String scan = 'assets/images/qr.svg';
   static const String reschedule = 'assets/images/reschedule.svg';
+  static const String visa = 'assets/images/visa.svg';
+  static const String cash = 'assets/images/cash.svg';
+  static const String subsctiptionIcon = 'assets/images/subscription_icon.svg';
+  static const String arrowAnimation = 'assets/images/arrow.json';
 }

@@ -15,6 +15,7 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   late String _darkMapStyle;
+  late String _lightMapStyle;
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
 
   Future _loadMapStyles() async {
     _darkMapStyle = await rootBundle.loadString(AssetManager.darkMapStyle);
+    _lightMapStyle = await rootBundle.loadString(AssetManager.lightMapStyle);
   }
 
   @override
@@ -32,8 +34,11 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
     MapBloc bloc = BlocProvider.of<MapBloc>(context);
     if (state == AppLifecycleState.resumed) {
       final GoogleMapController controller = await bloc.controller.future;
-
-      controller.setMapStyle(_darkMapStyle);
+      if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+        controller.setMapStyle(_darkMapStyle);
+      } else {
+        controller.setMapStyle(_lightMapStyle);
+      }
     }
     super.didChangeAppLifecycleState(state);
   }
@@ -66,6 +71,8 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
             }
             if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
               controller.setMapStyle(_darkMapStyle);
+            } else {
+              controller.setMapStyle(_lightMapStyle);
             }
           },
         );

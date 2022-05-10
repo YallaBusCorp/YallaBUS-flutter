@@ -3,10 +3,11 @@ import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/payment/presentation/pages/add_payment.dart';
 import 'package:yalla_bus/features/payment/presentation/pages/success_payment.dart';
 import 'package:yalla_bus/features/settings/presentation/pages/settings.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/complaints.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/file_complaint.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/complaints/complaints.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/complaints/file_complaint.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/ride_history.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/ride_history/ride_history.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/subscription_details/subscription_details.dart';
 
 import '../../features/choose_company/presentation/pages/choose_company.dart';
 import '../../features/home/presentation/pages/home.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String complaints = '/complaints';
   static const String rideHistory = '/rideHistory';
   static const String fileComplaint = '/fileComplaint';
+  static const String subscriptionDetails = '/subscriptionDetails';
 }
 
 class RouteGenerator {
@@ -53,6 +55,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const GoodBye());
       case Routes.fileComplaint:
         return MaterialPageRoute(builder: (_) => const FileComplaint());
+      case Routes.subscriptionDetails:
+        return MaterialPageRoute(builder: (_) => const SubscriptionDetails());
       case Routes.verifyOtp:
         var args = settings.arguments as String;
         return MaterialPageRoute(

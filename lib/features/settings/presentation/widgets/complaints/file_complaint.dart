@@ -5,10 +5,10 @@ import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
 import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/drop_down_widget.dart';
 
-import '../../../../core/extensions/extensions.dart';
-import '../../../../core/resources/colors_manager.dart';
-import '../../../../core/resources/string_manager.dart';
-import '../../../../core/resources/values_manager.dart';
+import '../../../../../core/extensions/extensions.dart';
+import '../../../../../core/resources/colors_manager.dart';
+import '../../../../../core/resources/string_manager.dart';
+import '../../../../../core/resources/values_manager.dart';
 
 class FileComplaint extends StatefulWidget {
   const FileComplaint({Key? key}) : super(key: key);
@@ -18,10 +18,9 @@ class FileComplaint extends StatefulWidget {
 }
 
 class _FileComplaintState extends State<FileComplaint> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    SettingsBloc bloc = BlocProvider.of<SettingsBloc>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -56,7 +55,7 @@ class _FileComplaintState extends State<FileComplaint> {
               height: 10,
             ),
             TextFormField(
-              keyboardType: TextInputType.multiline,
+              keyboardType: TextInputType.datetime,
               maxLines: 5,
               style: Theme.of(context).textTheme.headline6,
               cursorColor: ColorsManager.orange,

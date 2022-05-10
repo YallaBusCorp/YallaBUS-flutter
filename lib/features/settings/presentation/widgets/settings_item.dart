@@ -22,6 +22,9 @@ class ToScreen extends StatelessWidget {
           case 0:
             Navigator.of(context).pushNamed(Routes.rideHistory);
             break;
+          case 1:
+            Navigator.of(context).pushNamed(Routes.subscriptionDetails);
+            break;
           case 6:
             Navigator.of(context).pushNamed(Routes.complaints);
             break;

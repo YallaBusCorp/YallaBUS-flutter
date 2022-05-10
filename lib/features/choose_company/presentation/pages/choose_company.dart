@@ -55,7 +55,7 @@ class _ChooseCompanyState extends State<ChooseCompany>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SearchField(),
+              const SearchField(),
               const SizedBox(
                 height: ValuesManager.v20,
               ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/complaint_body.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/complaints/complaint_body.dart';
 
-import '../../../../core/resources/colors_manager.dart';
+import '../../../../../core/resources/colors_manager.dart';
 
 class Complaints extends StatelessWidget {
   const Complaints({Key? key}) : super(key: key);

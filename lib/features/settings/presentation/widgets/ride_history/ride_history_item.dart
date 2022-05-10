@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
 
-import '../../../../core/custom_widgets/separtor_widget.dart';
-import '../../../../core/resources/colors_manager.dart';
+import '../../../../../core/custom_widgets/separtor_widget.dart';
+import '../../../../../core/resources/colors_manager.dart';
 
 class RideHistoryItem extends StatelessWidget {
   const RideHistoryItem({Key? key}) : super(key: key);
