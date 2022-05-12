@@ -5,6 +5,7 @@ import 'package:yalla_bus/features/payment/presentation/pages/success_payment.da
 import 'package:yalla_bus/features/settings/presentation/pages/settings.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/complaints/complaints.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/complaints/file_complaint.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/edit_profile/edit_profile.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/ride_history/ride_history.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/subscription_details/subscription_details.dart';
@@ -28,6 +29,7 @@ class Routes {
   static const String rideHistory = '/rideHistory';
   static const String fileComplaint = '/fileComplaint';
   static const String subscriptionDetails = '/subscriptionDetails';
+  static const String editProfile = '/editProfile';
 }
 
 class RouteGenerator {
@@ -57,6 +59,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const FileComplaint());
       case Routes.subscriptionDetails:
         return MaterialPageRoute(builder: (_) => const SubscriptionDetails());
+      case Routes.editProfile:
+        return MaterialPageRoute(builder: (_) => const EditProfile());
       case Routes.verifyOtp:
         var args = settings.arguments as String;
         return MaterialPageRoute(

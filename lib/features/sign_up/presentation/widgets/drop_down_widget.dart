@@ -8,6 +8,7 @@ import '../../../../core/resources/values_manager.dart';
 import '../bloc/completeprofile_bloc.dart';
 
 class DropDownWidget extends StatefulWidget {
+  final bool type;
   final String hint;
   final List<String> options;
   final List<int> ids;
@@ -16,6 +17,7 @@ class DropDownWidget extends StatefulWidget {
     required this.hint,
     required this.options,
     required this.ids,
+    required this.type,
   }) : super(key: key);
 
   @override
@@ -47,13 +49,13 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(top: ValuesManager.v20),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(ValuesManager.v16),
+                borderRadius: BorderRadius.circular(ValuesManager.v8),
                 borderSide: BorderSide(
                   color: ColorsManager.orange,
                 ),
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(ValuesManager.v16),
+                borderRadius: BorderRadius.circular(ValuesManager.v8),
                 borderSide: BorderSide.none,
               ),
               prefixIcon: const Icon(
@@ -87,14 +89,18 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             onChanged: (String? newValue) {
               setState(() {
                 initalValue = newValue.toString();
-                if (widget.hint == 'town') {
-                  BlocProvider.of<CompleteprofileBloc>(context).add(
-                      SendTownValueEvent(widget.ids
-                          .elementAt(widget.options.indexOf(initalValue))));
+                if (widget.type == true) {
+                  BlocProvider.of<CompleteprofileBloc>(context)
+                      .add(SendTownValueEvent(
+                    widget.ids.elementAt(widget.options.indexOf(initalValue)),
+                    initalValue,
+                  ));
                 } else {
                   BlocProvider.of<CompleteprofileBloc>(context).add(
-                      SendUniValueEvent(widget.ids
-                          .elementAt(widget.options.indexOf(initalValue))));
+                      SendUniValueEvent(
+                          widget.ids
+                              .elementAt(widget.options.indexOf(initalValue)),
+                          initalValue));
                 }
               });
             }),

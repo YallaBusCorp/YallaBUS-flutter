@@ -19,12 +19,13 @@ class SendStudentDataEvent extends CompleteprofileEvent {
 
 class SendTownValueEvent extends CompleteprofileEvent {
   final int value;
+  final String town;
 
-  const SendTownValueEvent(this.value);
+  const SendTownValueEvent(this.value, this.town);
 }
 
 class SendUniValueEvent extends CompleteprofileEvent {
   final int value;
-
-  const SendUniValueEvent(this.value);
+  final String university;
+  const SendUniValueEvent(this.value, this.university);
 }

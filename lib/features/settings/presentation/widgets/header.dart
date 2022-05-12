@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/core/resources/routes_manager.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/injection/di.dart';
@@ -44,12 +45,13 @@ class Header extends StatelessWidget {
                 height: ValuesManager.v5,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(Routes.editProfile);
+                },
                 child: TextWidget(
                   text: 'Edit Profile',
                   style: Theme.of(context).textTheme.headline6!.copyWith(
-                      fontSize: ValuesManager.v18,
-                      color: ColorsManager.orange),
+                      fontSize: ValuesManager.v18, color: ColorsManager.orange),
                 ),
               ),
             ],

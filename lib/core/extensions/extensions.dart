@@ -62,13 +62,13 @@ extension TextFormStyle on InputDecoration {
     return InputDecoration(
       contentPadding: const EdgeInsets.only(top: ValuesManager.v20),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(ValuesManager.v16),
+        borderRadius: BorderRadius.circular(ValuesManager.v8),
         borderSide: BorderSide(
           color: ColorsManager.orange,
         ),
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(ValuesManager.v16),
+        borderRadius: BorderRadius.circular(ValuesManager.v8),
         borderSide: BorderSide.none,
       ),
       hintText: hintText,

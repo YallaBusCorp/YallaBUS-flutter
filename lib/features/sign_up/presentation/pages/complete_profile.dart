@@ -157,11 +157,12 @@ class _CompleteProfileState extends State<CompleteProfile> {
               BlocBuilder<CompleteprofileBloc, CompleteprofileState>(
                   builder: (context, state) {
                 return DropDownWidget(
-                    hint: StringManager.town, options: towns, ids: townsIds);
+                    type : true,hint: StringManager.town, options: towns, ids: townsIds);
               }),
               BlocBuilder<CompleteprofileBloc, CompleteprofileState>(
                   builder: (context, state) {
                 return DropDownWidget(
+                  type : false,
                   hint: StringManager.university,
                   options: universities,
                   ids: universitiesIds,

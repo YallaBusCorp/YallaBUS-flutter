@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
           child: const CompleteProfile(),
         ),
         BlocProvider(
-          create: (builder) => SettingsBloc(),
+          create: (builder) => di<SettingsBloc>(),
           child: const Settings(),
         ),
       ],

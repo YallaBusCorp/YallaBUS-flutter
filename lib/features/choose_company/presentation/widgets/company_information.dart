@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
 import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 
-void CompanyInfo(Company company, BuildContext context, int index) {
-  showModalBottomSheet(
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    context: context,
-    builder: (_) => Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(ValuesManager.v16),
-        color: Theme.of(context).backgroundColor,
+class CompanyInfo extends StatelessWidget {
+  final Company company;
+  const CompanyInfo({Key? key, required this.company}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DecorationBoxWidget(
+      radius: const BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+        bottomLeft: Radius.circular(0),
+        bottomRight: Radius.circular(0),
       ),
       child: Padding(
         padding: const EdgeInsets.all(ValuesManager.v16),
@@ -132,8 +136,8 @@ void CompanyInfo(Company company, BuildContext context, int index) {
               //     style: Theme.of(context).textTheme.headline5),
             ]),
       ),
-    ),
-  );
+    );
+  }
 }
 
 Future<void> launchUrl(String link, String name) async {

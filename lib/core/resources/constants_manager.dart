@@ -21,6 +21,8 @@ class ConstantsManager {
   static const String pickUp = 'PickUp';
   static const String dropOff = 'DropOff';
   static const String booked = 'Booked';
+  static const String townName = 'TownName';
+  static const String universityName = 'UniversityName';
 
   static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
 }

@@ -17,3 +17,41 @@ class SignOutError extends SettingsState {
 
   const SignOutError(this.message);
 }
+
+class GetTownsSuccess extends SettingsState {
+  final List<String> name;
+  final List<int> id;
+
+  const GetTownsSuccess(this.name, this.id);
+}
+
+class GetUniversitiesSuccess extends SettingsState {
+  final List<String> name;
+  final List<int> id;
+
+  const GetUniversitiesSuccess(this.name, this.id);
+}
+
+class FetchTownsError extends SettingsState {
+  final String name;
+
+  const FetchTownsError(this.name);
+}
+
+class FetchUniError extends SettingsState {
+  final String name;
+
+  const FetchUniError(this.name);
+}
+
+class GetCompanySuccess extends SettingsState {
+  final Company company;
+
+  const GetCompanySuccess(this.company);
+}
+
+class GetCompanyError extends SettingsState {
+  final String message;
+
+  GetCompanyError(this.message);
+}

@@ -36,7 +36,6 @@ class SubscriptionDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         DecorationBoxWidget(
@@ -72,6 +71,7 @@ class SubscriptionDetails extends StatelessWidget {
                             ),
                           ],
                         ),
+                        const Spacer(),
                         Text(
                           '120 EGP',
                           style: Theme.of(context)
@@ -80,6 +80,9 @@ class SubscriptionDetails extends StatelessWidget {
                               .copyWith(fontSize: 18),
                         ),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Align(
                       alignment: Alignment.center,
@@ -92,6 +95,9 @@ class SubscriptionDetails extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             Text(
               'Payment history',
               style: Theme.of(context)
@@ -99,11 +105,13 @@ class SubscriptionDetails extends StatelessWidget {
                   .headline6!
                   .copyWith(color: Colors.grey, fontSize: 18),
             ),
+            const SizedBox(
+              height: 10,
+            ),
             DecorationBoxWidget(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     DecorationBoxWidget(
@@ -134,11 +142,12 @@ class SubscriptionDetails extends StatelessWidget {
                               .copyWith(fontSize: 18),
                         ),
                         Text(
-                          '18 May, 2018',
+                          '18 April, 2018',
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ],
                     ),
+                    const Spacer(),
                     Text(
                       '120 EGP',
                       style: Theme.of(context)
@@ -150,11 +159,13 @@ class SubscriptionDetails extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
             DecorationBoxWidget(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     DecorationBoxWidget(
@@ -185,11 +196,12 @@ class SubscriptionDetails extends StatelessWidget {
                               .copyWith(fontSize: 18),
                         ),
                         Text(
-                          '18 May, 2018',
+                          '18 March, 2018',
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ],
                     ),
+                    const Spacer(),
                     Text(
                       '120 EGP',
                       style: Theme.of(context)

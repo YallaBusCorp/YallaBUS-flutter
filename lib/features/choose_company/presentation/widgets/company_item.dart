@@ -84,7 +84,14 @@ class _CompanyItemState extends State<CompanyItem> {
                 const Spacer(),
                 IconButton(
                   onPressed: () {
-                    CompanyInfo(widget.company, context, widget.index);
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (_) => CompanyInfo(
+                        company: widget.company,
+                      ),
+                    );
                   },
                   icon: Icon(
                     Icons.info_outline_rounded,

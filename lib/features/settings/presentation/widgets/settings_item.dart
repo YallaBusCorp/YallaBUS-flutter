@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/contact_us/contact_us.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/resources/colors_manager.dart';
@@ -24,6 +25,13 @@ class ToScreen extends StatelessWidget {
             break;
           case 1:
             Navigator.of(context).pushNamed(Routes.subscriptionDetails);
+            break;
+          case 4:
+            showModalBottomSheet(
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                context: context,
+                builder: (_) => ContactUs());
             break;
           case 6:
             Navigator.of(context).pushNamed(Routes.complaints);

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
+
+import '../../../../../core/resources/colors_manager.dart';
 
 class ComplaintResponse extends StatelessWidget {
   const ComplaintResponse({Key? key}) : super(key: key);
@@ -7,6 +10,7 @@ class ComplaintResponse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecorationBoxWidget(
+      color: ColorsExtensions.setColorOfContainersOverMap(context),
       radius: const BorderRadius.only(
         topLeft: Radius.circular(16),
         topRight: Radius.circular(16),
@@ -16,30 +20,28 @@ class ComplaintResponse extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+         
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Align(
-                    alignment: Alignment.topCenter,
-                    child: Text('Complaints',
-                        style: Theme.of(context).textTheme.headline5)),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Done',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontSize: 18),
-                  ),
+            InkWell(
+              onTap: () {},
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Text(
+                  'Done',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(fontSize: 18, color: ColorsManager.orange),
                 ),
-              ],
+              ),
             ),
+            Align(
+                alignment: Alignment.center,
+                child: Text('Complaints',
+                    style: Theme.of(context).textTheme.headline5)),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             DecorationBoxWidget(
               radius: const BorderRadius.only(
@@ -49,7 +51,7 @@ class ComplaintResponse extends StatelessWidget {
                 bottomRight: Radius.circular(5),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(16),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -66,6 +68,9 @@ class ComplaintResponse extends StatelessWidget {
                   '08:20 AM 12 March',
                   style: Theme.of(context).textTheme.caption,
                 ),
+                const SizedBox(
+                  width: 5,
+                ),
                 Text(
                   'You',
                   style: Theme.of(context)
@@ -73,8 +78,11 @@ class ComplaintResponse extends StatelessWidget {
                       .headline6!
                       .copyWith(fontSize: 18),
                 ),
+                const SizedBox(
+                  width: 5,
+                ),
                 const CircleAvatar(
-                  radius: 5,
+                  radius: 10,
                   backgroundColor: Colors.green,
                 ),
               ],
@@ -89,33 +97,45 @@ class ComplaintResponse extends StatelessWidget {
                 bottomLeft: Radius.circular(5),
                 bottomRight: Radius.circular(16),
               ),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'Thyhk Trab ya ghaly',
-                  style: Theme.of(context).textTheme.headline6,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Thyhk Trab ya ghaly',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                 ),
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const CircleAvatar(
-                  radius: 5,
-                  backgroundColor: Colors.green,
+                  radius: 10,
+                  backgroundColor: Colors.blue,
+                ),
+                const SizedBox(
+                  width: 5,
                 ),
                 Text(
-                  'You',
+                  'Unibus',
                   style: Theme.of(context)
                       .textTheme
                       .headline6!
                       .copyWith(fontSize: 18),
+                ),
+                const SizedBox(
+                  width: 5,
                 ),
                 Text(
                   '08:20 AM 12 March',
                   style: Theme.of(context).textTheme.caption,
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 40,
             ),
           ],
         ),

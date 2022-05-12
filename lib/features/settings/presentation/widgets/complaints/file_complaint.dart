@@ -55,7 +55,7 @@ class _FileComplaintState extends State<FileComplaint> {
               height: 10,
             ),
             TextFormField(
-              keyboardType: TextInputType.datetime,
+              keyboardType: TextInputType.multiline,
               maxLines: 5,
               style: Theme.of(context).textTheme.headline6,
               cursorColor: ColorsManager.orange,
@@ -96,7 +96,7 @@ class _FileComplaintState extends State<FileComplaint> {
                 onPressed: () {},
                 child: Text(
                   'Submit Complaint',
-                  style: Theme.of(context).textTheme.headline6!,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
               ),
             ),
