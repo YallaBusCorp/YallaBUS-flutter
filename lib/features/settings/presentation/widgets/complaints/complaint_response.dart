@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
+import '../../../../../core/custom_widgets/Decoration_widget.dart';
+import '../../../../../core/extensions/extensions.dart';
 
 import '../../../../../core/resources/colors_manager.dart';
 

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:yalla_bus/core/resources/endpoints_manager.dart';
+import '../../../../core/resources/endpoints_manager.dart';
 
 class SettingsApiClient {
   Dio dio = Dio(

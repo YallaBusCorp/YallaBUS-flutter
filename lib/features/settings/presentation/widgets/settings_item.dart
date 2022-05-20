@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/contact_us/contact_us.dart';
+import '../../../../core/resources/routes_manager.dart';
+import 'contact_us/contact_us.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/resources/colors_manager.dart';

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
-import 'package:yalla_bus/features/choose_company/domain/repository/company_repository.dart';
+import '../../../../core/states/state.dart';
+import '../enitity/company.dart';
+import '../repository/company_repository.dart';
 
-import '../../../../core/failure/failure.dart';
 
 class GetCompaniesInfo {
   final CompanyRepository repo;

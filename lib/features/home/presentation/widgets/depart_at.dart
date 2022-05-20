@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/string_manager.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
-import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/book_ride.dart';
+import '../../../../core/custom_widgets/button_widget.dart';
+import '../../../../core/custom_widgets/text_widget.dart';
+import '../../../../core/extensions/extensions.dart';
+import '../../../../core/resources/string_manager.dart';
+import '../../../../core/resources/values_manager.dart';
+import '../bloc/map/map_bloc.dart';
+import 'book_ride.dart';
 
 import '../../../../core/custom_widgets/loading_dialog.dart';
 

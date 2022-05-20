@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
+import '../../../../core/resources/routes_manager.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/resources/string_manager.dart';

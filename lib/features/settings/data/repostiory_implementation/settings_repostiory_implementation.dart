@@ -1,10 +1,10 @@
-import 'package:yalla_bus/core/network/network_info.dart';
-import 'package:yalla_bus/features/choose_company/data/model/company_converters.dart';
-import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
-import 'package:yalla_bus/core/failure/failure.dart';
+import '../../../../core/network/network_info.dart';
+import '../../../choose_company/data/model/company_converters.dart';
+import '../../../choose_company/domain/enitity/company.dart';
+import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/settings/data/data_sources/settings_remote_data_source.dart';
-import 'package:yalla_bus/features/settings/domain/repostiory/settings_repostiory.dart';
+import '../data_sources/settings_remote_data_source.dart';
+import '../../domain/repostiory/settings_repostiory.dart';
 
 class SettingsRepostioryImplementation extends SettingsRepostiory {
   late Map<String, dynamic> result;

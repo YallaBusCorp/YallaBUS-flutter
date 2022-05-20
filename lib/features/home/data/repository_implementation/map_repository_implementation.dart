@@ -1,16 +1,10 @@
-import 'package:yalla_bus/core/exceptions/exception.dart';
-import 'package:yalla_bus/core/network/network_info.dart';
-import 'package:yalla_bus/features/choose_company/data/data_sources/remote_data_source.dart';
-import 'package:yalla_bus/features/choose_company/data/model/company_converters.dart';
-import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
-import 'package:yalla_bus/core/failure/failure.dart';
+import '../../../../core/exceptions/exception.dart';
+import '../../../../core/network/network_info.dart';
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/choose_company/domain/repository/company_repository.dart';
-import 'package:yalla_bus/features/home/data/model/map_json_converters.dart';
-import 'package:yalla_bus/features/home/domain/enitity/appoinment.dart';
-import 'package:yalla_bus/features/home/domain/enitity/map_point.dart';
-import 'package:yalla_bus/features/home/domain/use_case/get_appoinments_of_am.dart';
-
+import '../../../../core/states/state.dart';
+import '../model/map_json_converters.dart';
+import '../../domain/enitity/appoinment.dart';
+import '../../domain/enitity/map_point.dart';
 import '../../domain/repository/map_repository.dart';
 import '../data_sources/remote_data_source.dart';
 
@@ -86,5 +80,11 @@ class MapRepositoryImplementation extends MapRepository {
     } else {
       return Left(Failure("You don't have access to internet!"));
     }
+  }
+
+  @override
+  Future<Either<Failure, Success>> bookRide(int id) {
+    
+    throw UnimplementedError();
   }
 }

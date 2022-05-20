@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
-import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
-import 'package:yalla_bus/features/choose_company/presentation/widgets/company_list_view.dart';
-import 'package:yalla_bus/features/choose_company/presentation/widgets/loading_bus_widget.dart';
-import 'package:yalla_bus/features/choose_company/presentation/widgets/not_found_widget.dart';
+import '../../../../core/custom_widgets/error_dialog.dart';
+import '../bloc/company_selection_bloc.dart';
+import 'company_list_view.dart';
+import 'loading_bus_widget.dart';
+import 'not_found_widget.dart';
 
 class CompaniesView extends StatelessWidget {
   const CompaniesView({Key? key}) : super(key: key);

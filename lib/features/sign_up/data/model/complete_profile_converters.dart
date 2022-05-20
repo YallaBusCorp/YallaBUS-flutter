@@ -1,4 +1,4 @@
-import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
+import '../../domain/enitity/student.dart';
 
 import '../../domain/enitity/town.dart';
 import '../../domain/enitity/university.dart';

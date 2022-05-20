@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
-import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/drop_down_widget.dart';
-import 'package:yalla_bus/features/sign_up/presentation/widgets/drop_down_widget.dart';
+import '../../../../../core/custom_widgets/Decoration_widget.dart';
+import '../../../../../core/custom_widgets/button_widget.dart';
+import '../../../../../core/extensions/extensions.dart';
+import '../../../../../core/resources/asset_manager.dart';
+import '../../../../../core/resources/colors_manager.dart';
+import '../../../../../core/resources/constants_manager.dart';
+import '../../../../../core/resources/routes_manager.dart';
+import '../../bloc/settings_bloc.dart';
+import '../drop_down_widget.dart';
+import '../../../../sign_up/presentation/widgets/drop_down_widget.dart';
 
 import '../../../../../core/custom_widgets/separtor_widget.dart';
 

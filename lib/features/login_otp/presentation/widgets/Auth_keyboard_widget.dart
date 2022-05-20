@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/circle_widget.dart';
-import 'package:yalla_bus/core/resources/string_manager.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
+
+import '../../../../core/custom_widgets/circle_widget.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../bloc/Keyboard/keyboard_bloc.dart';
 
 
 class KeyboardWidget extends StatelessWidget {

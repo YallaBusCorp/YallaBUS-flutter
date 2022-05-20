@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
-import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/driver_info.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/ride_controllers.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/ride_info.dart';
+import '../../../../core/extensions/extensions.dart';
+import '../../../../core/resources/values_manager.dart';
+import '../bloc/map/map_bloc.dart';
+import 'driver_info.dart';
+import 'ride_controllers.dart';
+import 'ride_info.dart';
 
 import '../../../../core/injection/di.dart';
 

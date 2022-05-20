@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/features/login_otp/presentation/pages/verify.dart';
-import 'package:yalla_bus/features/payment/presentation/pages/add_payment.dart';
-import 'package:yalla_bus/features/payment/presentation/pages/success_payment.dart';
-import 'package:yalla_bus/features/settings/presentation/pages/settings.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/complaints/complaints.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/complaints/file_complaint.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/edit_profile/edit_profile.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/ride_history/ride_history.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/subscription_details/subscription_details.dart';
+import '../../features/login_otp/presentation/pages/verify.dart';
+import '../../features/payment/presentation/pages/add_payment.dart';
+import '../../features/payment/presentation/pages/success_payment.dart';
+import '../../features/settings/presentation/pages/settings.dart';
+import '../../features/settings/presentation/widgets/complaints/complaints.dart';
+import '../../features/settings/presentation/widgets/complaints/file_complaint.dart';
+import '../../features/settings/presentation/widgets/edit_profile/edit_profile.dart';
+import '../../features/settings/presentation/widgets/goodbye.dart';
+import '../../features/settings/presentation/widgets/ride_history/ride_history.dart';
+import '../../features/settings/presentation/widgets/subscription_details/subscription_details.dart';
 
 import '../../features/choose_company/presentation/pages/choose_company.dart';
 import '../../features/home/presentation/pages/home.dart';

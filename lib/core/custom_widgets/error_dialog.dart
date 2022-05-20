@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/custom_widgets/separtor_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/core/resources/string_manager.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
+import 'separtor_widget.dart';
+import 'text_widget.dart';
+import '../resources/asset_manager.dart';
+import '../resources/colors_manager.dart';
+import '../resources/string_manager.dart';
+import '../resources/values_manager.dart';
 
 import '../extensions/extensions.dart';
 

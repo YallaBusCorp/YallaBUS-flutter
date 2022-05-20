@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/string_manager.dart';
-import 'package:yalla_bus/features/home/domain/use_case/get_appoinments_of_am.dart';
-import 'package:yalla_bus/features/home/domain/use_case/get_map_pick_up_points.dart';
+import '../../../../../core/resources/asset_manager.dart';
+import '../../../../../core/resources/string_manager.dart';
+import '../../../domain/use_case/get_appoinments_of_am.dart';
+import '../../../domain/use_case/get_map_pick_up_points.dart';
 
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/position_locator/locator.dart';

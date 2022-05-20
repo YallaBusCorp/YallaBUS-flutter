@@ -1,5 +1,5 @@
 
-import 'package:yalla_bus/features/login_otp/domain/repository/repository.dart';
+import '../../domain/repository/repository.dart';
 
 class RepositoryImplementation extends Repository {
   // final NetworkInfo network;

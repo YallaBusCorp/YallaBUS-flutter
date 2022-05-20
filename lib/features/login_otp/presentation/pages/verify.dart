@@ -1,19 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/auth_button_widget.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/auth_header_layout.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_code.dart';
 
+import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/extensions/extensions.dart';
-import '../../../../core/injection/di.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/string_manager.dart';
+import '../../../../core/resources/values_manager.dart';
+import '../bloc/Keyboard/keyboard_bloc.dart';
 import '../bloc/Login/login_bloc.dart';
+import '../widgets/auth_button_widget.dart';
+import '../widgets/auth_header_layout.dart';
 import '../widgets/auth_keyboard_widget.dart';
+import '../widgets/pin_code.dart';
 
 class VerifyScreen extends StatefulWidget {
   final String number;

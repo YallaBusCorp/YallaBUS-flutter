@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
-import 'package:yalla_bus/features/choose_company/domain/use_case/get_companies_info.dart';
+import '../../domain/enitity/company.dart';
+import '../../domain/use_case/get_companies_info.dart';
 
 part 'company_selection_event.dart';
 part 'company_selection_state.dart';

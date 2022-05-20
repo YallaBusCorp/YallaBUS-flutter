@@ -1,11 +1,11 @@
-import 'package:yalla_bus/core/exceptions/exception.dart';
-import 'package:yalla_bus/core/network/network_info.dart';
-import 'package:yalla_bus/features/choose_company/data/data_sources/remote_data_source.dart';
-import 'package:yalla_bus/features/choose_company/data/model/company_converters.dart';
-import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
-import 'package:yalla_bus/core/failure/failure.dart';
+import '../../../../core/exceptions/exception.dart';
+import '../../../../core/network/network_info.dart';
+import '../../../../core/states/state.dart';
+import '../data_sources/remote_data_source.dart';
+import '../model/company_converters.dart';
+import '../../domain/enitity/company.dart';
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/choose_company/domain/repository/company_repository.dart';
+import '../../domain/repository/company_repository.dart';
 
 class CompanyRepositoryImplementation extends CompanyRepository {
   late List<dynamic> result;

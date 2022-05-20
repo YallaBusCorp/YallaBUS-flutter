@@ -18,3 +18,5 @@ class NetworkFailure extends Failure {
 class VerificationFailure extends Failure {
   VerificationFailure({String? message}) : super(message!);
 }
+
+class Success {}

@@ -1,5 +1,5 @@
-import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
-import 'package:yalla_bus/features/home/domain/enitity/appoinment.dart';
+import '../../../choose_company/domain/enitity/company.dart';
+import '../../domain/enitity/appoinment.dart';
 
 import '../../domain/enitity/map_point.dart';
 

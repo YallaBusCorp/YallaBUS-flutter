@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
-import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/book_ride.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/qr_view.dart';
+import '../../../../core/custom_widgets/button_widget.dart';
+import '../../../../core/custom_widgets/text_widget.dart';
+import '../../../../core/resources/asset_manager.dart';
+import '../../../../core/resources/constants_manager.dart';
+import '../bloc/map/map_bloc.dart';
+import 'book_ride.dart';
+import 'qr_view.dart';
 
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/injection/di.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
+import '../resources/asset_manager.dart';
+import '../../features/choose_company/presentation/bloc/company_selection_bloc.dart';
 
 import '../resources/colors_manager.dart';
 import '../resources/values_manager.dart';

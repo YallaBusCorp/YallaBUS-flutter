@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
+import '../../../../core/resources/colors_manager.dart';
+import '../../../../core/resources/values_manager.dart';
 
 class Painting extends StatelessWidget {
   const Painting({Key? key}) : super(key: key);

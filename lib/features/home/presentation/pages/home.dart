@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/controllers.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/depart_at.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/from_to_widget.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/map.dart';
+import '../widgets/controllers.dart';
+import '../widgets/depart_at.dart';
+import '../widgets/from_to_widget.dart';
+import '../widgets/map.dart';
 
 import '../widgets/ride_booked.dart';
 

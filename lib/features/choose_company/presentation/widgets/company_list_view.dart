@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/features/choose_company/presentation/widgets/company_item.dart';
+import 'company_item.dart';
 
 import '../../../../core/resources/values_manager.dart';
 import '../../domain/enitity/company.dart';

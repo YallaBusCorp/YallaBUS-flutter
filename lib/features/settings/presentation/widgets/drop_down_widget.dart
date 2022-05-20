@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
-import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
+import '../../../../core/custom_widgets/text_widget.dart';
+import '../bloc/settings_bloc.dart';
 
 import '../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../core/extensions/extensions.dart';

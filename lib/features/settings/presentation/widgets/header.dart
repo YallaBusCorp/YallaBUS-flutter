@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
+import '../../../../core/resources/routes_manager.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/injection/di.dart';

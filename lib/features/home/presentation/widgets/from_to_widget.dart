@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/core/resources/string_manager.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/painting.dart';
+import '../../../../core/custom_widgets/text_widget.dart';
+import '../../../../core/extensions/extensions.dart';
+import '../../../../core/resources/colors_manager.dart';
+import '../../../../core/resources/string_manager.dart';
+import '../../../../core/resources/values_manager.dart';
+import 'painting.dart';
 import '../../../../core/custom_widgets/separtor_widget.dart';
 import '../bloc/map/map_bloc.dart';
 

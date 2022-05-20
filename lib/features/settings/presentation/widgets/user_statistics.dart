@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/user_statistics_single_layout.dart';
+import 'user_statistics_single_layout.dart';
 
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/values_manager.dart';

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
-import 'package:yalla_bus/core/custom_widgets/success_dialog.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
-import 'package:yalla_bus/core/injection/di.dart' as sl;
-import 'package:yalla_bus/core/resources/string_manager.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
+import '../../../../core/custom_widgets/button_widget.dart';
+import '../../../../core/custom_widgets/loading_dialog.dart';
+import '../../../../core/custom_widgets/success_dialog.dart';
+import '../../../../core/resources/asset_manager.dart';
+import '../../../../core/resources/routes_manager.dart';
+import '../../../../core/injection/di.dart' as sl;
+import '../../../../core/resources/string_manager.dart';
+import '../../../login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 
 import '../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../core/custom_widgets/text_widget.dart';

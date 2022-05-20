@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:yalla_bus/core/exceptions/exception.dart';
-import 'package:yalla_bus/core/resources/endpoints_manager.dart';
-import 'package:yalla_bus/features/sign_up/data/model/complete_profile_converters.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
+import '../../../../core/exceptions/exception.dart';
+import '../../../../core/resources/endpoints_manager.dart';
+import '../model/complete_profile_converters.dart';
+import '../../domain/enitity/student.dart';
 
 class CompleteProfileApiClient {
   late Dio dio;

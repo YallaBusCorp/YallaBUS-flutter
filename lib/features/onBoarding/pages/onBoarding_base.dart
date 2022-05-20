@@ -1,9 +1,10 @@
 // ignore_for_file: file_names
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:yalla_bus/core/injection/di.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
@@ -11,8 +12,7 @@ import 'package:yalla_bus/core/resources/string_manager.dart';
 import 'package:yalla_bus/core/resources/values_manager.dart';
 import 'package:yalla_bus/features/onBoarding/pages/page_1.dart';
 import 'package:yalla_bus/features/onBoarding/pages/page_2.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:yalla_bus/core/injection/di.dart';
+
 import '../../../core/resources/colors_manager.dart';
 import '../widgets/indicator.dart';
 import 'page_3.dart';

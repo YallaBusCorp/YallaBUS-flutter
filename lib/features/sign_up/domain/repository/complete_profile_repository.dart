@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/core/failure/failure.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/university.dart';
+import '../../../../core/failure/failure.dart';
+import '../enitity/student.dart';
+import '../enitity/university.dart';
 
 import '../enitity/town.dart';
 

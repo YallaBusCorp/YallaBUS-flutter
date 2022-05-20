@@ -1,4 +1,4 @@
-import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
+import '../../domain/enitity/company.dart';
 
 class CompanyModel extends Company {
   CompanyModel(

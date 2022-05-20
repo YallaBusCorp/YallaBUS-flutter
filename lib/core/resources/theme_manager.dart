@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/core/resources/fonts_family.dart';
+import 'colors_manager.dart';
+import 'fonts_family.dart';
 
 const TextTheme textThemeEnglish = TextTheme(
   headline6: TextStyle(

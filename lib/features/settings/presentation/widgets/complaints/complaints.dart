@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/complaints/complaint_body.dart';
+import '../../../../../core/resources/routes_manager.dart';
+import 'complaint_body.dart';
 
 import '../../../../../core/resources/colors_manager.dart';
 

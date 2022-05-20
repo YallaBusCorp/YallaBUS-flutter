@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
-import 'package:yalla_bus/features/choose_company/domain/enitity/company.dart';
+import '../../../../core/custom_widgets/Decoration_widget.dart';
+import '../../domain/enitity/company.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/values_manager.dart';

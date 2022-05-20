@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
-import 'package:yalla_bus/features/sign_up/domain/use_case/get_all_universities.dart';
-import 'package:yalla_bus/features/sign_up/domain/use_case/post_student_information.dart';
+import '../../domain/enitity/student.dart';
+import '../../domain/use_case/get_all_universities.dart';
+import '../../domain/use_case/post_student_information.dart';
 
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/constants_manager.dart';

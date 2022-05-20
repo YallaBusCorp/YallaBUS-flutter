@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/pin_layout.dart';
+import '../bloc/Keyboard/keyboard_bloc.dart';
+import 'pin_layout.dart';
 
 import '../../../../core/resources/values_manager.dart';
 

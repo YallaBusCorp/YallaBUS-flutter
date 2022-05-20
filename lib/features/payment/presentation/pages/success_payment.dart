@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
+import '../../../../core/custom_widgets/button_widget.dart';
+import '../../../../core/resources/asset_manager.dart';
+import '../../../../core/resources/routes_manager.dart';
+import '../../../../core/resources/values_manager.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/resources/string_manager.dart';

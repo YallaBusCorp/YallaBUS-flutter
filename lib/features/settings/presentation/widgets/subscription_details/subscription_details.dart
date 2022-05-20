@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
+import '../../../../../core/custom_widgets/Decoration_widget.dart';
+import '../../../../../core/extensions/extensions.dart';
+import '../../../../../core/resources/asset_manager.dart';
 
 class SubscriptionDetails extends StatelessWidget {
   const SubscriptionDetails({Key? key}) : super(key: key);

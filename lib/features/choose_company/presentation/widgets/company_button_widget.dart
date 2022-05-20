@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
+import '../../../../core/resources/colors_manager.dart';
+import '../bloc/company_selection_bloc.dart';
 
 import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/injection/di.dart';

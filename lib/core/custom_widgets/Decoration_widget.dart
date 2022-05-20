@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
+import '../extensions/extensions.dart';
+import '../resources/values_manager.dart';
 
 class DecorationBoxWidget extends StatelessWidget {
   final Widget child;

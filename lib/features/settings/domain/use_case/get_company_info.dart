@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/settings/domain/repostiory/settings_repostiory.dart';
+import '../repostiory/settings_repostiory.dart';
 
 import '../../../../core/failure/failure.dart';
 import '../../../choose_company/domain/enitity/company.dart';

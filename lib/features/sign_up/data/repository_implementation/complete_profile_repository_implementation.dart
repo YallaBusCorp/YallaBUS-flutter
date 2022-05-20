@@ -1,13 +1,13 @@
-import 'package:yalla_bus/core/exceptions/exception.dart';
-import 'package:yalla_bus/core/network/network_info.dart';
-import 'package:yalla_bus/core/failure/failure.dart';
+import '../../../../core/exceptions/exception.dart';
+import '../../../../core/network/network_info.dart';
+import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/sign_up/data/data_sources/remote_data_source.dart';
-import 'package:yalla_bus/features/sign_up/data/model/complete_profile_converters.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/university.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/town.dart';
-import 'package:yalla_bus/features/sign_up/domain/repository/complete_profile_repository.dart';
+import '../data_sources/remote_data_source.dart';
+import '../model/complete_profile_converters.dart';
+import '../../domain/enitity/student.dart';
+import '../../domain/enitity/university.dart';
+import '../../domain/enitity/town.dart';
+import '../../domain/repository/complete_profile_repository.dart';
 
 class ComplelteProfileRepositoryImplemenation
     extends CompleteProfileRepository {

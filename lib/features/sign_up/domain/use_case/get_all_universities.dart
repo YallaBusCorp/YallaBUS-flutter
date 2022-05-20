@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/university.dart';
-import 'package:yalla_bus/features/sign_up/domain/repository/complete_profile_repository.dart';
+import '../enitity/university.dart';
+import '../repository/complete_profile_repository.dart';
 
 import '../../../../core/failure/failure.dart';
 

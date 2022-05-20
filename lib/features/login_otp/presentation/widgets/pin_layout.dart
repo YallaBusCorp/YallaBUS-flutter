@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
+import '../../../../core/extensions/extensions.dart';
 
 import '../../../../core/resources/values_manager.dart';
 

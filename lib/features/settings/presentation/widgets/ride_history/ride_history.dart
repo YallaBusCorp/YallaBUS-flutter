@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/ride_history/ride_history_item.dart';
+import 'ride_history_item.dart';
 
 class RidesHistory extends StatelessWidget {
   const RidesHistory({Key? key}) : super(key: key);

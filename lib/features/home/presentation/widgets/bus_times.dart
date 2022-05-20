@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/resources/values_manager.dart';
+import '../../../../core/resources/values_manager.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/resources/colors_manager.dart';

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:yalla_bus/core/custom_widgets/text_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/yes_no_dialog.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
+import '../../../../core/custom_widgets/text_widget.dart';
+import '../../../../core/custom_widgets/yes_no_dialog.dart';
+import '../../../../core/resources/asset_manager.dart';
+import '../../../../core/resources/colors_manager.dart';
+import '../bloc/settings_bloc.dart';
 
-import 'package:yalla_bus/features/settings/presentation/widgets/options.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/user_statistics.dart';
+import '../widgets/options.dart';
+import '../widgets/user_statistics.dart';
 
 import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/resources/string_manager.dart';
