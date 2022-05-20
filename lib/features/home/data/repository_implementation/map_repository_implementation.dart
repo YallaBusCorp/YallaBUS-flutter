@@ -2,6 +2,7 @@ import '../../../../core/exceptions/exception.dart';
 import '../../../../core/network/network_info.dart';
 import 'package:dartz/dartz.dart';
 import '../../../../core/states/state.dart';
+import '../../domain/enitity/ride.dart';
 import '../model/map_json_converters.dart';
 import '../../domain/enitity/appoinment.dart';
 import '../../domain/enitity/map_point.dart';
@@ -83,8 +84,30 @@ class MapRepositoryImplementation extends MapRepository {
   }
 
   @override
-  Future<Either<Failure, Success>> bookRide(int id) {
-    
-    throw UnimplementedError();
+  Future<Either<Failure, Success>> bookRide(Ride ride) async {
+    if (await info.isConnected()) {
+      try {
+        await client.bookRide(ride);
+        return Right(Success());
+      } on ServerException {
+        return Left(Failure('Try Again in another time'));
+      }
+    } else {
+      return Left(Failure("You don't have access to internet!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getStudentId(String uid) async {
+     if (await info.isConnected()) {
+      try {
+        int id = await client.getStudentId(uid);
+        return Right(id);
+      } on ServerException {
+        return Left(Failure('Try Again in another time'));
+      }
+    } else {
+      return Left(Failure("You don't have access to internet!"));
+    }
   }
 }

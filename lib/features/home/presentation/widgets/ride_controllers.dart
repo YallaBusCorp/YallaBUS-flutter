@@ -69,7 +69,7 @@ class RideControllers extends StatelessWidget {
                   isScrollControlled: true,
                   backgroundColor: Colors.transparent,
                   context: context,
-                  builder: (builder) => const BookRide(),
+                  builder: (builder) => const BookRideScreen(),
                 );
               },
               child: SvgPicture.asset(

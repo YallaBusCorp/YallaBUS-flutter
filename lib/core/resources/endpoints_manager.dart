@@ -11,5 +11,7 @@ class ApiEndPoints {
   static const String mapPointsPickUp = '/mapPoint/company/active/get-all-pick';
   static const String mapPointsDropDown =
       '/mapPoint/company/active/get-all-drop';
-  
+
+  static const String bookRide = '/txBooking/save-txBooking';
+  static const String getStudentByUID = '/student/get-by-uid';
 }

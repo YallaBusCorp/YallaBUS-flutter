@@ -1,11 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
+import 'package:yalla_bus/core/custom_widgets/success_dialog.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/features/home/data/model/map_json_converters.dart';
+import 'package:yalla_bus/features/home/domain/enitity/ride.dart';
 import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../../domain/use_case/book_ride.dart';
 import '../bloc/map/map_bloc.dart';
 import 'book_ride.dart';
 
@@ -22,7 +28,40 @@ class _DepartAtState extends State<DepartAt> {
   @override
   Widget build(BuildContext context) {
     MapBloc bloc = BlocProvider.of<MapBloc>(context);
-    return BlocBuilder<MapBloc, MapState>(
+    return BlocConsumer<MapBloc, MapState>(
+      listener: (context, state) {
+        if (state is Loading) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => const Dialog(
+              backgroundColor: Colors.transparent,
+              child: LoadingDialog(),
+            ),
+          );
+        } else if (state is BookRideSuccess) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => const Dialog(
+              backgroundColor: Colors.transparent,
+              child: SuccessDialog(
+                message: 'You have booked a ride !',
+              ),
+            ),
+          );
+          bloc.add(SaveInSharedPerfsEvent());
+        } else if (state is BookRideError) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => Dialog(
+              backgroundColor: Colors.transparent,
+              child: ErrorDialog(
+                message: 'Server Error',
+                onTap: () {},
+              ),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         return Visibility(
           visible: !(bloc.perfs.getBool('Booked') ?? false),
@@ -51,7 +90,7 @@ class _DepartAtState extends State<DepartAt> {
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
                                   context: context,
-                                  builder: (builder) => const BookRide());
+                                  builder: (builder) => const BookRideScreen());
                             },
                             child: TextWidget(
                               text: bloc.timeOfSelectedRides,
@@ -81,16 +120,15 @@ class _DepartAtState extends State<DepartAt> {
                         height: ValuesManager.v50,
                         onPressed: checkValidation() == true
                             ? () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      const Dialog(
-                                    backgroundColor: Colors.transparent,
-                                    child: LoadingDialog(),
-                                  ),
-                                );
-                                Future.delayed(const Duration(seconds: 2));
-                                bloc.add(SaveInSharedPerfsEvent());
+                                bloc.add(GetStudentIDEvent(bloc.perfs
+                                    .getString(ConstantsManager.uid)!));
+                                bloc.add(BookRideEvent(Ride(
+                                    'qrCode',
+                                    PickUpPoint(bloc.pickUpID),
+                                    DropOffPoint(bloc.dropOffID),
+                                    Appointments(bloc.amTimeAndID[
+                                        bloc.timeOfSelectedRides]!),
+                                    StudentID(bloc.std))));
                               }
                             : null,
                         child: TextWidget(

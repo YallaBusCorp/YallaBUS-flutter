@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/resources/endpoints_manager.dart';
+import '../../domain/enitity/ride.dart';
 
 class MapApiClient {
   late Dio dio;
@@ -43,7 +44,7 @@ class MapApiClient {
           await dio.get(ApiEndPoints.mapPointsPickUp, queryParameters: {
         'id': id,
       });
-      print(response.data);
+
       return response.data;
     } on DioError {
       throw ServerException();
@@ -56,8 +57,37 @@ class MapApiClient {
           await dio.get(ApiEndPoints.mapPointsDropDown, queryParameters: {
         'id': id,
       });
-      print(response.data);
       return response.data;
+    } on DioError {
+      throw ServerException();
+    }
+  }
+
+  Future<int> bookRide(Ride ride) async {
+    final data = Ride(ride.qrCode, ride.pickupPoint, ride.dropOffPoint,
+        ride.appointment, ride.std);
+    try {
+      Response response = await dio.post(
+        ApiEndPoints.bookRide,
+        data: data,
+      );
+      print(response.data);
+      return 200;
+    } on DioError {
+      throw ServerException();
+    }
+  }
+
+  Future<int> getStudentId(String uid) async {
+    try {
+      Response response = await dio.get(
+        ApiEndPoints.getStudentByUID,
+        queryParameters: {
+          'stdUid': uid,
+        },
+      );
+      print(response.data['id']);
+      return response.data['id'];
     } on DioError {
       throw ServerException();
     }

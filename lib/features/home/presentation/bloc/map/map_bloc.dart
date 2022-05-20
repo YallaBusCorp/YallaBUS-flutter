@@ -1,13 +1,15 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/string_manager.dart';
+import '../../../domain/enitity/ride.dart';
+import '../../../domain/use_case/book_ride.dart';
 import '../../../domain/use_case/get_appoinments_of_am.dart';
 import '../../../domain/use_case/get_map_pick_up_points.dart';
 
@@ -16,6 +18,7 @@ import '../../../../../core/position_locator/locator.dart';
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../domain/use_case/get_appoinments_of_pm.dart';
 import '../../../domain/use_case/get_map_drop_off_points.dart';
+import '../../../domain/use_case/get_studentId.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';
@@ -25,6 +28,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final GetAppoinmentOfPM appointmentOfPm;
   final GetMapDropOffPoints dropOff;
   final GetMapPickUpPoints pickUp;
+  final BookRide bookRide;
+  final GetStudentId studentID;
 
   Completer<GoogleMapController> controller = Completer();
 
@@ -36,6 +41,18 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   String timeOfSelectedRides = StringManager.timeOfSelectedRides;
   String from = StringManager.pickUpPoint;
   String to = StringManager.dropOffPoint;
+  List<int> pickUpIDs = [];
+  List<int> dropOffIDs = [];
+  List<String> amTitle = [];
+  List<String> pmTitle = [];
+  Map<String, int> amTimeAndID = {};
+  Map<String, int> pmTimeAndID = {};
+  late int pickUpID;
+  late int dropOffID;
+  late int amID;
+  late int pmID;
+  late int std;
+
   CameraPosition kGooglePlex = const CameraPosition(
       target: LatLng(
           (30.85389579312156 + 30.750389209369917 + 30.95670425388353) / 3,
@@ -63,7 +80,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     print(change.nextState);
   }
 
-  MapBloc(this.appointmentOfAm, this.appointmentOfPm, this.pickUp, this.dropOff)
+  MapBloc(this.appointmentOfAm, this.appointmentOfPm, this.pickUp, this.dropOff,
+      this.bookRide, this.studentID)
       : super(MapInitial()) {
     on<GetMyLocation>((event, emit) async {
       final GoogleMapController con = await controller.future;
@@ -98,17 +116,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       emit(ChangeSwitchButtonColor());
     });
 
-    on<InitializeStaticMapEvent>((event, emit) async {
-      BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(),
-        AssetManager.busStationMarker,
-      );
-      emit(InitializedMarkersOfStaticMap());
-    });
-
     on<SelectAMTripEvent>((event, emit) {
       timeOfSelectedRides = "";
       timeOfSelectedRides = event.timeOfTrip;
+      amID = amTimeAndID[timeOfSelectedRides]!;
       emit(AMTripSelected());
     });
 
@@ -119,6 +130,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         timeOfSelectedRides += " - ";
       }
       timeOfSelectedRides += event.timeOfTrip;
+      pmID = pmTimeAndID[timeOfSelectedRides]!;
       emit(PMTripSelected());
     });
 
@@ -128,11 +140,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           .fold((failure) {
         emit(GetAppoinmentAmError(failure.message));
       }, (appointments) {
-        amRides = appointments
-            .map((e) =>
-                '${e.appointmentStartTime.substring(0, 5)} ${e.appointmentType}')
-            .toList();
-        amRides.sort();
+        for (var e in appointments) {
+          amTimeAndID.addEntries([
+            MapEntry(
+                '${e.appointmentStartTime.substring(0, 5)} ${e.appointmentType}',
+                e.id)
+          ]);
+        }
+        amTitle = amTimeAndID.keys.toList()..sort();
+        amTitle.sort();
         emit(GetAppoinmentAmSuccess(amRides));
       });
     });
@@ -143,11 +159,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           .fold((failure) {
         emit(GetAppoinmentPmError(failure.message));
       }, (appointments) {
-        pmRides = appointments
-            .map((e) =>
-                '${e.appointmentStartTime.substring(0, 5)} ${e.appointmentType}')
-            .toList();
-        pmRides.sort();
+        for (var e in appointments) {
+          pmTimeAndID.addEntries([
+            MapEntry(
+                '${e.appointmentStartTime.substring(0, 5)} ${e.appointmentType}',
+                e.id)
+          ]);
+        }
+        pmTitle = pmTimeAndID.keys.toList()..sort();
+        pmTitle.sort();
         emit(GetAppoinmentPmSuccess(pmRides));
       });
     });
@@ -166,6 +186,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       }, (pick) {
         titlesOfPickUp = pick.map((e) => e.mapPointTitleEn).toList();
         pickUps = pick.map((e) => LatLng(e.latitude, e.longitude)).toList();
+        pickUpIDs = pick.map((e) => e.id).toList();
         for (int i = 0; i < pickUps.length; i++) {
           pickUpMarkers.add(
             Marker(
@@ -174,7 +195,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               ),
               onTap: () {
                 from = titlesOfPickUp[i];
-                add(AddPickUpMarkerTitleToTexts(from));
+                pickUpID = pickUpIDs[i];
+                add(AddPickUpMarkerTitleToTexts(from, pickUpIDs[i]));
               },
               position: pickUps[i], //position of marker
               icon: markerbitmap,
@@ -200,6 +222,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       }, (drop) {
         titlesOfDropOff = drop.map((e) => e.mapPointTitleEn).toList();
         dropOffs = drop.map((e) => LatLng(e.latitude, e.longitude)).toList();
+        dropOffIDs = drop.map((e) => e.id).toList();
         for (int i = 0; i < dropOffs.length; i++) {
           dropOffMarkers.add(
             Marker(
@@ -208,7 +231,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               ),
               onTap: () {
                 to = titlesOfDropOff[i];
-                add(AddDropOffMarkerTitleToTexts(to));
+                add(AddDropOffMarkerTitleToTexts(to, dropOffIDs[i]));
               },
               position: dropOffs[i], //position of marker
               icon: markerbitmap,
@@ -273,6 +296,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<CancelRideEvent>((event, emit) {
       perfs.setBool(ConstantsManager.booked, false);
       emit(CancelRide());
+    });
+
+    on<BookRideEvent>((event, emit) async {
+      emit(Loading());
+      (await bookRide.bookRide(event.ride)).fold((l) {
+        emit(BookRideError(l.message));
+      }, (r) {
+        emit(BookRideSuccess());
+      });
+    });
+
+    on<GetStudentIDEvent>((event, emit) async {
+      (await studentID.getStudentId(event.uid)).fold((l) {}, (r) {
+        std = r;
+      });
     });
   }
 }

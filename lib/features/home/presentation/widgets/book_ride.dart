@@ -10,14 +10,14 @@ import '../bloc/map/map_bloc.dart';
 import 'bus_times.dart';
 import 'switch_button.dart';
 
-class BookRide extends StatefulWidget {
-  const BookRide({Key? key}) : super(key: key);
+class BookRideScreen extends StatefulWidget {
+  const BookRideScreen({Key? key}) : super(key: key);
 
   @override
-  State<BookRide> createState() => _BookRideState();
+  State<BookRideScreen> createState() => _BookRideScreenState();
 }
 
-class _BookRideState extends State<BookRide> {
+class _BookRideScreenState extends State<BookRideScreen> {
   bool switchColor = false;
 
   @override

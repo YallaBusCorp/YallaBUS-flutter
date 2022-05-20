@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
+import '../../../../core/states/state.dart';
 import '../repository/complete_profile_repository.dart';
 
-import '../../../../core/failure/failure.dart';
 import '../enitity/town.dart';
 
 class GetAllTowns{

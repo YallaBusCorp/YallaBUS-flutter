@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/failure/failure.dart';
+import '../../../../core/states/state.dart';
 import '../enitity/student.dart';
 import '../enitity/university.dart';
 

@@ -41,21 +41,33 @@ class CameraPositionOfDropOffPoints extends MapEvent {}
 
 class AddPickUpMarkerTitleToTexts extends MapEvent {
   final String title;
-
-  const AddPickUpMarkerTitleToTexts(this.title);
+  final int id;
+  const AddPickUpMarkerTitleToTexts(this.title, this.id);
   @override
   List<Object> get props => [title];
 }
 
 class AddDropOffMarkerTitleToTexts extends MapEvent {
   final String title;
+  final int id;
 
-  const AddDropOffMarkerTitleToTexts(this.title);
+  const AddDropOffMarkerTitleToTexts(this.title, this.id);
   @override
   List<Object> get props => [title];
 }
 
 class SaveInSharedPerfsEvent extends MapEvent {}
 
-class CancelRideEvent extends MapEvent{}
+class CancelRideEvent extends MapEvent {}
 
+class BookRideEvent extends MapEvent {
+  final Ride ride;
+
+  const BookRideEvent(this.ride);
+}
+
+class GetStudentIDEvent extends MapEvent {
+  final String uid;
+
+  const GetStudentIDEvent(this.uid);
+}

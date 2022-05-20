@@ -1,7 +1,7 @@
 import '../../../../core/network/network_info.dart';
+import '../../../../core/states/state.dart';
 import '../../../choose_company/data/model/company_converters.dart';
 import '../../../choose_company/domain/enitity/company.dart';
-import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
 import '../data_sources/settings_remote_data_source.dart';
 import '../../domain/repostiory/settings_repostiory.dart';

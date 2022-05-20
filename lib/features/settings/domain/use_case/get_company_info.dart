@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
+import '../../../../core/states/state.dart';
 import '../repostiory/settings_repostiory.dart';
-
-import '../../../../core/failure/failure.dart';
 import '../../../choose_company/domain/enitity/company.dart';
 
 class GetCompanyInfo {

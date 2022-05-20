@@ -9,6 +9,8 @@ abstract class MapState extends Equatable {
 
 class MapInitial extends MapState {}
 
+class Loading extends MapState {}
+
 class ChangePosition extends MapState {}
 
 class BookRideInitial extends MapState {}
@@ -81,8 +83,15 @@ class GetDropOffPointsError extends MapState {
 
 class Saved extends MapState {}
 
-class CancelRide extends MapState{}
- 
+class CancelRide extends MapState {}
+
+class BookRideSuccess extends MapState {}
+
+class BookRideError extends MapState {
+  final String error;
+
+  const BookRideError(this.error);
+}
 
 
 

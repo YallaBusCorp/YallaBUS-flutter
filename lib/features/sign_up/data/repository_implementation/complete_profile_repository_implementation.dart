@@ -1,7 +1,7 @@
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/network/network_info.dart';
-import '../../../../core/failure/failure.dart';
 import 'package:dartz/dartz.dart';
+import '../../../../core/states/state.dart';
 import '../data_sources/remote_data_source.dart';
 import '../model/complete_profile_converters.dart';
 import '../../domain/enitity/student.dart';
