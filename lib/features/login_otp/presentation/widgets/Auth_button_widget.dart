@@ -15,14 +15,16 @@ import '../bloc/Login/login_bloc.dart';
 
 class AuthButton extends StatelessWidget {
   // add type properity
+  String? edit;
   final String type;
   final String text;
   final GestureTapCallback? onPressed;
-  const AuthButton(
+  AuthButton(
       {Key? key,
       required this.text,
       required this.onPressed,
-      required this.type})
+      required this.type,
+      this.edit})
       : super(key: key);
 
   @override
@@ -42,9 +44,14 @@ class AuthButton extends StatelessWidget {
         } else if (state is Success) {
           Navigator.of(context).pop();
           if (type == StringManager.otp) {
-            if (perfs.getInt(ConstantsManager.company) == null) {
+            if (edit != Null) {
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+  
+            }
+            else if (perfs.getInt(ConstantsManager.company) == null) {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                
                   Routes.chooseCompany, (route) => false);
             } else {
               Navigator.of(context)
@@ -52,7 +59,7 @@ class AuthButton extends StatelessWidget {
             }
           } else {
             Navigator.of(context)
-                .pushNamed(Routes.verifyOtp ,arguments: keyboard.number);
+                .pushNamed(Routes.verifyOtp, arguments: keyboard.number);
           }
         } else if (state is Error) {
           Navigator.of(context).pop();

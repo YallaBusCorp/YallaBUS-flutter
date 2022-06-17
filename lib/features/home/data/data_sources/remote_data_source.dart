@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:yalla_bus/features/home/data/model/map_json_converters.dart';
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/resources/endpoints_manager.dart';
 import '../../domain/enitity/ride.dart';
@@ -64,8 +65,8 @@ class MapApiClient {
   }
 
   Future<int> bookRide(Ride ride) async {
-    final data = Ride(ride.qrCode, ride.pickupPoint, ride.dropOffPoint,
-        ride.appointment, ride.std);
+    final data = RideModel(ride.qrCode, ride.pickupPoint, ride.dropOffPoint,
+        ride.appointment, ride.std).toJson();
     try {
       Response response = await dio.post(
         ApiEndPoints.bookRide,
@@ -73,7 +74,8 @@ class MapApiClient {
       );
       print(response.data);
       return 200;
-    } on DioError {
+    } on DioError catch (e) {
+      print(e.message);
       throw ServerException();
     }
   }

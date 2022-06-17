@@ -36,8 +36,8 @@ final ThemeData light = ThemeData(
   colorScheme: const ColorScheme.light(),
   primaryColor: Colors.white,
   textTheme: textThemeEnglish,
-  backgroundColor: Colors.white,
-  scaffoldBackgroundColor: Colors.white,
+  backgroundColor: ColorsManager.offGrey,
+  scaffoldBackgroundColor: ColorsManager.offGrey,
   iconTheme: const IconThemeData(
     color: Colors.black,
     size: 30,
@@ -49,10 +49,10 @@ final ThemeData light = ThemeData(
     ),
     color: Colors.white,
     elevation: 0,
-    systemOverlayStyle: const SystemUiOverlayStyle(
+    systemOverlayStyle: SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
       statusBarIconBrightness: Brightness.dark,
-      statusBarColor: Colors.white,
+      statusBarColor: ColorsManager.offGrey,
     ),
   ),
 );

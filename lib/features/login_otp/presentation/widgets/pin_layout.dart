@@ -14,7 +14,7 @@ class PinLayout extends StatelessWidget {
       height: ValuesManager.v55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(ValuesManager.v8),
-        boxShadow: selectShadow(context),
+    
         color:  ColorsExtensions.setColorOfPin(context),
       ),
       child: Center(

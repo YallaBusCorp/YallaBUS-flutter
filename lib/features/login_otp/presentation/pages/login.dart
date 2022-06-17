@@ -19,7 +19,8 @@ import '../../../../core/injection/di.dart';
 import '../../../../core/resources/string_manager.dart';
 
 class LoginOtp extends StatefulWidget {
-  const LoginOtp({Key? key}) : super(key: key);
+  String? editFlag;
+  LoginOtp({Key? key, this.editFlag}) : super(key: key);
 
   @override
   State<LoginOtp> createState() => _LoginOtpState();
@@ -42,7 +43,7 @@ class _LoginOtpState extends State<LoginOtp> {
     // keyboard.phoneNumber = List.generate(9, (index) => 0);
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 1,
+        toolbarHeight: 10,
       ),
       body: Padding(
         padding: const EdgeInsets.all(ValuesManager.v16),
@@ -85,6 +86,7 @@ class _LoginOtpState extends State<LoginOtp> {
             BlocBuilder<KeyboardBloc, KeyboardState>(
               builder: (context, state) {
                 return AuthButton(
+                  edit: widget.editFlag,
                   type: StringManager.login,
                   text: StringManager.sendCode.tr(),
                   onPressed: keyboard.indexOfPhoneNumber == ValuesManager.iv9

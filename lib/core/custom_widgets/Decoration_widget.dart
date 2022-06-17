@@ -15,7 +15,7 @@ class DecorationBoxWidget extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: color ?? Theme.of(context).backgroundColor,
-        boxShadow: selectShadow(context),
+       
         borderRadius: radius ?? BorderRadius.circular(ValuesManager.v16),
       ),
       child: child,

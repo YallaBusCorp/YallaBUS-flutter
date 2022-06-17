@@ -3,6 +3,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/asset_manager.dart';
 import '../bloc/map/map_bloc.dart';
@@ -21,9 +22,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   @override
   void initState() {
     _loadMapStyles();
-
     WidgetsBinding.instance!.addObserver(this);
-
     super.initState();
   }
 

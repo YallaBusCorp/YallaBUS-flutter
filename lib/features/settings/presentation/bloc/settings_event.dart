@@ -14,3 +14,16 @@ class GetCompanyInfoEvent extends SettingsEvent {
 
   GetCompanyInfoEvent(this.companyId);
 }
+
+class SelectFaqQuestionEvent extends SettingsEvent {
+  final int index;
+  final bool open;
+
+  SelectFaqQuestionEvent(this.index, this.open);
+}
+
+class UpdateStudentInfoEvent extends SettingsEvent {
+  final Student student;
+
+  UpdateStudentInfoEvent(this.student);
+}

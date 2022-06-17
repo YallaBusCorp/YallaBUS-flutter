@@ -36,7 +36,7 @@ class _CompanyItemState extends State<CompanyItem> {
           decoration: BoxDecoration(
             color: ColorsExtensions.setColorOfCompanyItem(
                 bloc, context, widget.index),
-            boxShadow: selectShadow(context),
+    
             borderRadius: BorderRadius.circular(ValuesManager.v16),
           ),
           child: Padding(

@@ -26,6 +26,9 @@ class ToScreen extends StatelessWidget {
           case 1:
             Navigator.of(context).pushNamed(Routes.subscriptionDetails);
             break;
+          case 2 : 
+             Navigator.of(context).pushNamed(Routes.faqs);
+            break;
           case 4:
             showModalBottomSheet(
                 backgroundColor: Colors.transparent,

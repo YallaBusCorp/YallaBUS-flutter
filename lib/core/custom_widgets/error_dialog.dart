@@ -38,7 +38,7 @@ class ErrorDialog extends StatelessWidget {
             text: message,
             style: Theme.of(context)
                 .textTheme
-                .headline4!
+                .headline6!
                 .copyWith(fontWeight: FontWeight.normal),
           ),
           const SizedBox(

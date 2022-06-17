@@ -59,13 +59,26 @@ class MapPointsModel extends MapPoint {
 class RideModel extends Ride {
   RideModel(String qrCode, PickUpPoint pickupPoint, DropOffPoint dropOffPoint,
       Appointments appointment, StudentID std)
-      : super(qrCode, pickupPoint, dropOffPoint, appointment, std);
+      : super(
+            qrCode: qrCode,
+            pickupPoint: pickupPoint,
+            dropOffPoint: dropOffPoint,
+            appointment: appointment,
+            std: std);
 
+  factory RideModel.fromJson(Map<String, dynamic> json) {
+    return RideModel(
+        json['qrCode'],
+        PickUpPointModel.fromJson(json['pickupPoint']),
+        DropOffPointModel.fromJson(json['dropoffPoint']),
+        AppointmentsModel.fromJson(json['appointment']),
+        json['std']);
+  }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['qrCode'] = qrCode;
     data['pickupPoint'] = PickUpPointModel(pickupPoint.id).toJson();
-    data['dropOffPoint'] = DropOffPointModel(dropOffPoint.id).toJson();
+    data['dropoffPoint'] = DropOffPointModel(dropOffPoint.id).toJson();
     data['appointment'] = AppointmentsModel(appointment.id).toJson();
     data['std'] = StudentIdModel(std.id).toJson();
     return data;
@@ -74,6 +87,9 @@ class RideModel extends Ride {
 
 class PickUpPointModel extends PickUpPoint {
   PickUpPointModel(int id) : super(id);
+  factory PickUpPointModel.fromJson(Map<String, dynamic> json) {
+    return PickUpPointModel(json['id']);
+  }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -83,6 +99,9 @@ class PickUpPointModel extends PickUpPoint {
 
 class DropOffPointModel extends DropOffPoint {
   DropOffPointModel(int id) : super(id);
+  factory DropOffPointModel.fromJson(Map<String, dynamic> json) {
+    return DropOffPointModel(json['id']);
+  }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -92,6 +111,9 @@ class DropOffPointModel extends DropOffPoint {
 
 class AppointmentsModel extends Appointments {
   AppointmentsModel(int id) : super(id);
+  factory AppointmentsModel.fromJson(Map<String, dynamic> json) {
+    return AppointmentsModel(json['id']);
+  }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -101,6 +123,9 @@ class AppointmentsModel extends Appointments {
 
 class StudentIdModel extends StudentID {
   StudentIdModel(int id) : super(id);
+  factory StudentIdModel.fromJson(Map<String, dynamic> json) {
+    return StudentIdModel(json['id']);
+  }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

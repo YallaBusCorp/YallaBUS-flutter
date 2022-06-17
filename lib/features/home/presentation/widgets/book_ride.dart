@@ -34,7 +34,7 @@ class _BookRideScreenState extends State<BookRideScreen> {
       decoration: BoxDecoration(
         color: ColorsExtensions.setColorOfContainersOverMap(context),
         borderRadius: BorderRadius.circular(ValuesManager.v16),
-        boxShadow: selectShadow(context),
+     
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: ValuesManager.v16),
@@ -93,7 +93,7 @@ class _BookRideScreenState extends State<BookRideScreen> {
             BlocBuilder<MapBloc, MapState>(
               builder: (context, state) {
                 return BusTimes(
-                  times: bloc.amRides,
+                  times: bloc.amTitle,
                   amOrPm: 'AM',
                 );
               },
@@ -103,7 +103,7 @@ class _BookRideScreenState extends State<BookRideScreen> {
                 return Visibility(
                   visible: switchColor,
                   child: BusTimes(
-                    times: bloc.pmRides,
+                    times: bloc.pmTitle,
                     amOrPm: 'PM',
                   ),
                 );

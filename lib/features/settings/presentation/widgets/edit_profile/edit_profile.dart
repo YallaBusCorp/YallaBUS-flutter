@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
+import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../../core/custom_widgets/button_widget.dart';
+import '../../../../../core/custom_widgets/error_dialog.dart';
+import '../../../../../core/custom_widgets/loading_dialog.dart';
+import '../../../../../core/custom_widgets/success_dialog.dart';
 import '../../../../../core/extensions/extensions.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
@@ -34,6 +39,8 @@ class _EditProfileState extends State<EditProfile> {
     bloc = BlocProvider.of<SettingsBloc>(context);
     bloc.add(GetTownsOfCompanyEvent());
     bloc.add(GetUniversitiesOfCompanyEvent());
+    firstNameController.text = bloc.firstName;
+    secondNameController.text = bloc.secondName;
     super.didChangeDependencies();
   }
 
@@ -52,9 +59,49 @@ class _EditProfileState extends State<EditProfile> {
             if (state is GetTownsSuccess) {
               towns = state.name;
               townsIds = state.id;
-            } else if (state is GetUniversitiesSuccess) {
+            }
+            if (state is GetUniversitiesSuccess) {
               universities = state.name;
               universitiesIds = state.id;
+            }
+            if (state is Loading) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => const Dialog(
+                  backgroundColor: Colors.transparent,
+                  child: LoadingDialog(),
+                ),
+              );
+            }
+            if (state is UpdateStudentInfoSuccess) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => const Dialog(
+                  backgroundColor: Colors.transparent,
+                  child: SuccessDialog(
+                    message: 'You have updated your account !',
+                  ),
+                ),
+              );
+              Future.delayed(
+                  const Duration(
+                    seconds: 2,
+                  ), () {
+                Navigator.of(context).pop();
+              });
+            }
+
+            if (state is UpdateStudentInfoError) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => Dialog(
+                  backgroundColor: Colors.transparent,
+                  child: ErrorDialog(
+                    message: 'Server Error',
+                    onTap: () {},
+                  ),
+                ),
+              );
             }
           },
           child: Column(
@@ -64,9 +111,7 @@ class _EditProfileState extends State<EditProfile> {
               TextFormField(
                 controller: firstNameController,
                 decoration: TextFormStyle.applyDecoration(
-                    bloc.perfs.getString(ConstantsManager.name)!,
-                    Icons.person,
-                    context),
+                    firstNameController.text, Icons.person, context),
               ),
               const SizedBox(
                 height: 5,
@@ -74,9 +119,7 @@ class _EditProfileState extends State<EditProfile> {
               TextFormField(
                 controller: secondNameController,
                 decoration: TextFormStyle.applyDecoration(
-                    bloc.perfs.getString(ConstantsManager.name)!,
-                    Icons.person,
-                    context),
+                    secondNameController.text, Icons.person, context),
               ),
               const SizedBox(
                 height: 10,
@@ -108,7 +151,8 @@ class _EditProfileState extends State<EditProfile> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed(Routes.loginOtp);
+                        Navigator.of(context)
+                            .pushNamed(Routes.loginOtp, arguments: 'Edit');
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8),
@@ -139,7 +183,8 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed(Routes.chooseCompany);
+                        Navigator.of(context)
+                            .pushNamed(Routes.chooseCompany, arguments: 'Edit');
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8),
@@ -200,7 +245,22 @@ class _EditProfileState extends State<EditProfile> {
               Align(
                 alignment: Alignment.center,
                 child: ButtonWidget(
-                  onPressed: () {},
+                  onPressed: () {
+                    bloc.add(
+                      UpdateStudentInfoEvent(
+                        Student(
+                          stdUid: bloc.perfs.getString(ConstantsManager.uid)!,
+                          stdName: firstNameController.text +
+                              ' ' +
+                              secondNameController.text,
+                          stdPhone: bloc.number.user.user!.phoneNumber!,
+                          companyId: CompanyId(bloc.companyName.companyId),
+                          townId: TownId(2),
+                          universityId: UniversityId(4),
+                        ),
+                      ),
+                    );
+                  },
                   child: Text('Save',
                       style: Theme.of(context).textTheme.headline6!),
                 ),

@@ -23,7 +23,7 @@ class KeyboardWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(ValuesManager.v16),
-        boxShadow: selectShadow(context),
+ 
       ),
       child: Padding(
         padding: const EdgeInsets.all(ValuesManager.v16),

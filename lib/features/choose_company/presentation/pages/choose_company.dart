@@ -11,7 +11,8 @@ import '../widgets/company_button_widget.dart';
 import '../widgets/search_field.dart';
 
 class ChooseCompany extends StatefulWidget {
-  const ChooseCompany({Key? key}) : super(key: key);
+  String? editFlag;
+  ChooseCompany({Key? key, this.editFlag}) : super(key: key);
 
   @override
   State<ChooseCompany> createState() => _ChooseCompanyState();
@@ -73,7 +74,7 @@ class _ChooseCompanyState extends State<ChooseCompany>
               const SizedBox(
                 height: ValuesManager.v10,
               ),
-              const CompanyButton(),
+              CompanyButton(editFlag: widget.editFlag,),
             ],
           ),
         ),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../../core/custom_widgets/button_widget.dart';
-import '../../../../core/custom_widgets/text_widget.dart';
-import '../../../../core/resources/asset_manager.dart';
-import '../../../../core/resources/constants_manager.dart';
-import '../bloc/map/map_bloc.dart';
-import 'book_ride.dart';
+import '../../../../../core/custom_widgets/button_widget.dart';
+import '../../../../../core/custom_widgets/text_widget.dart';
+import '../../../../../core/resources/asset_manager.dart';
+import '../../../../../core/resources/constants_manager.dart';
+import '../../bloc/map/map_bloc.dart';
+import '../book_ride.dart';
 import 'qr_view.dart';
 
-import '../../../../core/extensions/extensions.dart';
-import '../../../../core/injection/di.dart';
-import '../../../../core/resources/values_manager.dart';
+import '../../../../../core/extensions/extensions.dart';
+import '../../../../../core/injection/di.dart';
+import '../../../../../core/resources/values_manager.dart';
 
 class RideControllers extends StatelessWidget {
   const RideControllers({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class RideControllers extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(ValuesManager.v16),
-        boxShadow: selectShadow(context),
+      
         color: Theme.of(context).backgroundColor,
       ),
       child: Padding(

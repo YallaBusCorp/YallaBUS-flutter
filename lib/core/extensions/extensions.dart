@@ -84,18 +84,6 @@ extension TextFormStyle on InputDecoration {
   }
 }
 
-List<BoxShadow> selectShadow(BuildContext context) {
-  return MediaQuery.of(context).platformBrightness == Brightness.light
-      ? [
-          const BoxShadow(
-            color: Colors.grey,
-            blurRadius: ValuesManager.v5,
-          ),
-        ]
-      : [
-          const BoxShadow(blurRadius: ValuesManager.v0),
-        ];
-}
 
 String selectAnimationLightOrDark(BuildContext context) {
   if (MediaQuery.of(context).platformBrightness == Brightness.dark) {

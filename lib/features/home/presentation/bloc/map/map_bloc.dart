@@ -18,7 +18,6 @@ import '../../../../../core/position_locator/locator.dart';
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../domain/use_case/get_appoinments_of_pm.dart';
 import '../../../domain/use_case/get_map_drop_off_points.dart';
-import '../../../domain/use_case/get_studentId.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';
@@ -29,7 +28,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final GetMapDropOffPoints dropOff;
   final GetMapPickUpPoints pickUp;
   final BookRide bookRide;
-  final GetStudentId studentID;
 
   Completer<GoogleMapController> controller = Completer();
 
@@ -81,7 +79,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   MapBloc(this.appointmentOfAm, this.appointmentOfPm, this.pickUp, this.dropOff,
-      this.bookRide, this.studentID)
+      this.bookRide)
       : super(MapInitial()) {
     on<GetMyLocation>((event, emit) async {
       final GoogleMapController con = await controller.future;
@@ -147,7 +145,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
                 e.id)
           ]);
         }
-        amTitle = amTimeAndID.keys.toList()..sort();
+        amTitle = amTimeAndID.keys.toList();
         amTitle.sort();
         emit(GetAppoinmentAmSuccess(amRides));
       });
@@ -166,7 +164,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
                 e.id)
           ]);
         }
-        pmTitle = pmTimeAndID.keys.toList()..sort();
+        pmTitle = pmTimeAndID.keys.toList();
         pmTitle.sort();
         emit(GetAppoinmentPmSuccess(pmRides));
       });
@@ -279,10 +277,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
 
     on<AddPickUpMarkerTitleToTexts>((event, emit) {
+      pickUpID = event.id;
       emit(SelectPickUpFromPlace(event.title));
     });
 
     on<AddDropOffMarkerTitleToTexts>((event, emit) {
+      dropOffID = event.id;
       emit(SelectDropOffFromPlace(event.title));
     });
 
@@ -304,12 +304,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         emit(BookRideError(l.message));
       }, (r) {
         emit(BookRideSuccess());
-      });
-    });
-
-    on<GetStudentIDEvent>((event, emit) async {
-      (await studentID.getStudentId(event.uid)).fold((l) {}, (r) {
-        std = r;
       });
     });
   }

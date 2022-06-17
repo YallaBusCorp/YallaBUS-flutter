@@ -13,7 +13,8 @@ import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 
 class CompanyButton extends StatelessWidget {
-  const CompanyButton({Key? key}) : super(key: key);
+  String? editFlag;
+  CompanyButton({Key? key, this.editFlag}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,12 @@ class CompanyButton extends StatelessWidget {
                 ? () {
                     prefs.setInt(ConstantsManager.company, bloc.companyId);
                     bloc.add(ConfirmationOfCompanySelectEvent());
-                    Navigator.of(context).pushNamed(Routes.completeProfile);
+                    if (editFlag != null) {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    } else {
+                      Navigator.of(context).pushNamed(Routes.completeProfile);
+                    }
                   }
                 : null,
             child: Text(

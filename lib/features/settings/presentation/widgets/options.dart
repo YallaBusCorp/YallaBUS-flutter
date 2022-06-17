@@ -33,7 +33,7 @@ class Options extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(ValuesManager.v10),
-          boxShadow: selectShadow(context),
+  
           color: Theme.of(context).backgroundColor,
         ),
         child: Padding(

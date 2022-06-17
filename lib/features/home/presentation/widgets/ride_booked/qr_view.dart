@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-import '../../../../core/custom_widgets/separtor_widget.dart';
-import '../../../../core/custom_widgets/text_widget.dart';
-import '../../../../core/resources/string_manager.dart';
-import '../../../../core/resources/values_manager.dart';
+import '../../../../../core/custom_widgets/separtor_widget.dart';
+import '../../../../../core/custom_widgets/text_widget.dart';
+import '../../../../../core/resources/string_manager.dart';
+import '../../../../../core/resources/values_manager.dart';
 
 class QRView extends StatelessWidget {
   const QRView({Key? key}) : super(key: key);

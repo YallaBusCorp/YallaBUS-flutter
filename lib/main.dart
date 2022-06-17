@@ -73,15 +73,15 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (builder) => di<CompanySelectionBloc>(),
-          child: const ChooseCompany(),
+          child: ChooseCompany(),
         ),
         BlocProvider(
           create: (builder) => LoginBloc(),
-          child: const LoginOtp(),
+          child: LoginOtp(),
         ),
         BlocProvider(
           create: (builder) => KeyboardBloc(),
-          child: const LoginOtp(),
+          child: LoginOtp(),
         ),
         BlocProvider(
           create: (builder) => di<MapBloc>(),

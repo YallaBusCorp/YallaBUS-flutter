@@ -75,7 +75,7 @@ class _DepartAtState extends State<DepartAt> {
                     width: MediaQuery.of(context).size.width - 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(ValuesManager.v16),
-                      boxShadow: selectShadow(context),
+                    
                       color:
                           ColorsExtensions.setColorOfContainersOverMap(context),
                     ),
@@ -120,15 +120,20 @@ class _DepartAtState extends State<DepartAt> {
                         height: ValuesManager.v50,
                         onPressed: checkValidation() == true
                             ? () {
-                                bloc.add(GetStudentIDEvent(bloc.perfs
-                                    .getString(ConstantsManager.uid)!));
-                                bloc.add(BookRideEvent(Ride(
-                                    'qrCode',
-                                    PickUpPoint(bloc.pickUpID),
-                                    DropOffPoint(bloc.dropOffID),
-                                    Appointments(bloc.amTimeAndID[
-                                        bloc.timeOfSelectedRides]!),
-                                    StudentID(bloc.std))));
+                                bloc.add(
+                                  BookRideEvent(
+                                    Ride(
+                                      qrCode: 'pickUp2218dd',
+                                      pickupPoint: PickUpPoint(bloc.pickUpID),
+                                      dropOffPoint:
+                                          DropOffPoint(bloc.dropOffID),
+                                      appointment: Appointments(
+                                          bloc.amTimeAndID[
+                                              bloc.timeOfSelectedRides]!),
+                                      std: StudentID(174),
+                                    ),
+                                  ),
+                                );
                               }
                             : null,
                         child: TextWidget(

@@ -93,6 +93,8 @@ class BookRideError extends MapState {
   const BookRideError(this.error);
 }
 
+class GetStudentID extends MapState {}
+
 
 
 

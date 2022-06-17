@@ -23,7 +23,7 @@ class UserStatisticsSingleLayout extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(ValuesManager.v25),
         color: Theme.of(context).backgroundColor,
-        boxShadow: selectShadow(context),
+       
       ),
       child: Padding(
         padding: const EdgeInsets.all(ValuesManager.v16),

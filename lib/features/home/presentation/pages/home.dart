@@ -4,7 +4,7 @@ import '../widgets/depart_at.dart';
 import '../widgets/from_to_widget.dart';
 import '../widgets/map.dart';
 
-import '../widgets/ride_booked.dart';
+import '../widgets/ride_booked/ride_booked.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

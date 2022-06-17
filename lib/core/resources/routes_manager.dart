@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/faqs/fags.dart';
 import '../../features/login_otp/presentation/pages/verify.dart';
 import '../../features/payment/presentation/pages/add_payment.dart';
 import '../../features/payment/presentation/pages/success_payment.dart';
@@ -30,15 +31,23 @@ class Routes {
   static const String fileComplaint = '/fileComplaint';
   static const String subscriptionDetails = '/subscriptionDetails';
   static const String editProfile = '/editProfile';
+  static const String faqs = '/faqs';
 }
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.chooseCompany:
-        return MaterialPageRoute(builder: (_) => const ChooseCompany());
+        var args = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) => 
+         ChooseCompany(
+          editFlag: args,
+        ));
       case Routes.loginOtp:
-        return MaterialPageRoute(builder: (_) => const LoginOtp());
+        var args = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) => LoginOtp(
+          editFlag: args,
+        ));
       case Routes.home:
         return MaterialPageRoute(builder: (_) => const Home());
       case Routes.completeProfile:
@@ -61,6 +70,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SubscriptionDetails());
       case Routes.editProfile:
         return MaterialPageRoute(builder: (_) => const EditProfile());
+      case Routes.faqs:
+        return MaterialPageRoute(builder: (_) => FAQs());
       case Routes.verifyOtp:
         var args = settings.arguments as String;
         return MaterialPageRoute(

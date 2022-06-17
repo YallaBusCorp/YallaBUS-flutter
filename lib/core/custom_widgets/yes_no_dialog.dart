@@ -31,7 +31,7 @@ class YesNoDialog extends StatelessWidget {
               message,
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .headline5!
                   .copyWith(fontWeight: FontWeight.normal),
               textAlign: TextAlign.center,
             ),
@@ -80,7 +80,7 @@ class YesNoDialog extends StatelessWidget {
                         text: StringManager.signOut,
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .headline5!
                             .copyWith(color: Colors.red[900]),
                       ),
                     ),

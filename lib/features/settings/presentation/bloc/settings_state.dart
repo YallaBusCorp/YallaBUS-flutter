@@ -55,3 +55,9 @@ class GetCompanyError extends SettingsState {
 
   GetCompanyError(this.message);
 }
+
+class FAQsChange extends SettingsState {}
+
+class UpdateStudentInfoSuccess extends SettingsState {}
+
+class UpdateStudentInfoError extends SettingsState {}

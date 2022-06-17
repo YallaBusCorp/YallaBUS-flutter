@@ -5,8 +5,12 @@ class Ride {
   final Appointments appointment;
   final StudentID std;
 
-  Ride(this.qrCode, this.pickupPoint, this.dropOffPoint, this.appointment,
-      this.std);
+  Ride(
+      {required this.qrCode,
+      required this.pickupPoint,
+      required this.dropOffPoint,
+      required this.appointment,
+      required this.std});
 }
 
 class PickUpPoint {

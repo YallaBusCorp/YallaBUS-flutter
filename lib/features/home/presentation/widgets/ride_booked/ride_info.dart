@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/map/map_bloc.dart';
-import 'painting.dart';
+import '../../bloc/map/map_bloc.dart';
+import '../painting.dart';
 
-import '../../../../core/custom_widgets/button_widget.dart';
-import '../../../../core/custom_widgets/text_widget.dart';
-import '../../../../core/extensions/extensions.dart';
-import '../../../../core/resources/values_manager.dart';
+import '../../../../../core/custom_widgets/button_widget.dart';
+import '../../../../../core/custom_widgets/text_widget.dart';
+import '../../../../../core/extensions/extensions.dart';
+import '../../../../../core/resources/values_manager.dart';
 
 class RideInfo extends StatelessWidget {
   const RideInfo({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class RideInfo extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(ValuesManager.v16),
-        boxShadow: selectShadow(context),
+       
         color: Theme.of(context).backgroundColor,
       ),
       child: Padding(
