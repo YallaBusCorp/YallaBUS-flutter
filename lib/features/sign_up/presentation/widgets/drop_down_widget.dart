@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/extensions/extensions.dart';
+import '../../../../core/injection/di.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 import '../bloc/completeprofile_bloc.dart';
@@ -27,9 +29,11 @@ class DropDownWidget extends StatefulWidget {
 
 class _DropDownWidgetState extends State<DropDownWidget> {
   late String initalValue;
+  late CompleteprofileBloc bloc;
   @override
   void initState() {
     initalValue = widget.hint;
+    bloc = di<CompleteprofileBloc>();
     super.initState();
   }
 
@@ -91,12 +95,15 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               setState(() {
                 initalValue = newValue.toString();
                 if (widget.type == true) {
+                  bloc.perfs.setString(ConstantsManager.townName, initalValue);
                   BlocProvider.of<CompleteprofileBloc>(context)
                       .add(SendTownValueEvent(
                     widget.ids.elementAt(widget.options.indexOf(initalValue)),
                     initalValue,
                   ));
                 } else {
+                  bloc.perfs
+                      .setString(ConstantsManager.universityName, initalValue);
                   BlocProvider.of<CompleteprofileBloc>(context).add(
                       SendUniValueEvent(
                           widget.ids

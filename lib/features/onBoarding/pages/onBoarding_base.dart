@@ -113,6 +113,7 @@ class _OnBoardingBaseState extends State<OnBoardingBase> {
 
   void seeOnBoarding() {
     perfs.setBool(ConstantsManager.seenKey, true);
-    Navigator.of(context).pushReplacementNamed(Routes.loginOtp);
+    Navigator.of(context).pushReplacementNamed(Routes.loginOtp,
+        arguments: ConstantsManager.register);
   }
 }

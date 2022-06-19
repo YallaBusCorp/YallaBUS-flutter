@@ -39,7 +39,9 @@ class Header extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextWidget(
-                  text: perfs.getString(ConstantsManager.name)!,
+                  text: perfs.getString(ConstantsManager.firstName)! +
+                      ' ' +
+                      perfs.getString(ConstantsManager.secondName)!,
                   style: Theme.of(context).textTheme.headline5!),
               const SizedBox(
                 height: ValuesManager.v5,

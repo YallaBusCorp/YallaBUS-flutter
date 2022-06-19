@@ -95,7 +95,9 @@ class BookRideError extends MapState {
 
 class GetStudentID extends MapState {}
 
+class ChangeMapViewAfterBooking extends MapState {}
 
+class ChangeBusCoordinate extends MapState {}
 
 
 

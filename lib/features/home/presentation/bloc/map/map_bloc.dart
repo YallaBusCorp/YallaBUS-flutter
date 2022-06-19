@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -37,10 +38,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final Set<Marker> pickUpMarkers = <Marker>{};
 
   String timeOfSelectedRides = StringManager.timeOfSelectedRides;
+
+  SharedPreferences perfs = di<SharedPreferences>();
   String from = StringManager.pickUpPoint;
   String to = StringManager.dropOffPoint;
   List<int> pickUpIDs = [];
   List<int> dropOffIDs = [];
+  late LatLng pickUpSelectedPosition;
+  late LatLng dropOffSelectedPosition;
   List<String> amTitle = [];
   List<String> pmTitle = [];
   Map<String, int> amTimeAndID = {};
@@ -63,7 +68,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   );
 
   bool switchColor = false;
-  SharedPreferences perfs = di<SharedPreferences>();
   List<String> amRides = [];
   List<String> pmRides = [];
   List<String> titlesOfPickUp = [];
@@ -88,6 +92,33 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         const ImageConfiguration(),
         AssetManager.placeMarker,
       );
+      BitmapDescriptor markerbitmap2 = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(),
+        AssetManager.busStationMarker,
+      );
+
+      if (perfs.getBool('Booked') != null && perfs.getBool('Booked')!) {
+        markers.add(
+          Marker(
+            markerId: MarkerId(
+              pickUpSelectedPosition.toString(),
+            ),
+            position: pickUpSelectedPosition, //position of marker
+
+            icon: markerbitmap2,
+          ),
+        );
+        markers.add(
+          Marker(
+            markerId: MarkerId(
+              dropOffSelectedPosition.toString(),
+            ),
+            position: dropOffSelectedPosition, //position of marker
+
+            icon: markerbitmap2,
+          ),
+        );
+      }
 
       markers.add(
         Marker(
@@ -192,6 +223,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
                 pickUps[i].toString(),
               ),
               onTap: () {
+                pickUpSelectedPosition = pickUps[i];
                 from = titlesOfPickUp[i];
                 pickUpID = pickUpIDs[i];
                 add(AddPickUpMarkerTitleToTexts(from, pickUpIDs[i]));
@@ -228,6 +260,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
                 dropOffs[i].toString(),
               ),
               onTap: () {
+                dropOffSelectedPosition = dropOffs[i];
                 to = titlesOfDropOff[i];
                 add(AddDropOffMarkerTitleToTexts(to, dropOffIDs[i]));
               },
@@ -304,7 +337,49 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         emit(BookRideError(l.message));
       }, (r) {
         emit(BookRideSuccess());
+        add(CameraPositionAfterBookingEvent());
       });
+    });
+
+    on<CameraPositionAfterBookingEvent>((event, emit) async {
+      final GoogleMapController con = await controller.future;
+      LatLng location1 = pickUpSelectedPosition;
+      LatLng location2 = dropOffSelectedPosition;
+
+      double avgOfLat = (location1.latitude + location2.latitude) / 2;
+      double avgOfLong = (location1.longitude + location2.longitude) / 2;
+      dynamic cameraPosition = LatLng(avgOfLat, avgOfLong);
+      kGooglePlex = CameraPosition(
+        target: cameraPosition,
+        zoom: 13,
+      );
+      CameraUpdate update = CameraUpdate.newCameraPosition(kGooglePlex);
+      con.animateCamera(update);
+      emit(ChangeMapViewAfterBooking());
+    });
+
+    on<RefreshBusCoordinateEvent>((event, emit) async {
+      // BitmapDescriptor busIcon = await BitmapDescriptor.fromAssetImage(
+      //   const ImageConfiguration(),
+      //   AssetManager.busIconTracking,
+      // );
+      BitmapDescriptor markerbitmap2 = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(),
+        AssetManager.busStationMarker,
+      );
+     
+      markers.add(
+        Marker(
+          markerId: MarkerId(
+            LatLng(event.point.latitude, event.point.longitude).toString(),
+          ),
+          position: LatLng(
+              event.point.latitude, event.point.longitude), //position of marker
+
+          icon: markerbitmap2,
+        ),
+      );
+      emit(ChangeBusCoordinate());
     });
   }
 }

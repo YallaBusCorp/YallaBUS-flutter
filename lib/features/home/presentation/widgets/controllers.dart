@@ -46,7 +46,7 @@ class Controllers extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   map.add(GetMyLocation());
-                  // map.add(GetMarkers());
+                  // printPoints();
                 },
                 icon: Icon(
                   Icons.gps_fixed,

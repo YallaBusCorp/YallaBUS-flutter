@@ -14,13 +14,11 @@ import '../widgets/auth_button_widget.dart';
 import '../widgets/auth_header_layout.dart';
 import '../widgets/auth_keyboard_widget.dart';
 import '../widgets/phone_number_widget.dart';
-
-import '../../../../core/injection/di.dart';
 import '../../../../core/resources/string_manager.dart';
 
 class LoginOtp extends StatefulWidget {
-  String? editFlag;
-  LoginOtp({Key? key, this.editFlag}) : super(key: key);
+  String? editOrRegister;
+  LoginOtp({Key? key, this.editOrRegister}) : super(key: key);
 
   @override
   State<LoginOtp> createState() => _LoginOtpState();
@@ -86,7 +84,7 @@ class _LoginOtpState extends State<LoginOtp> {
             BlocBuilder<KeyboardBloc, KeyboardState>(
               builder: (context, state) {
                 return AuthButton(
-                  edit: widget.editFlag,
+                  edit: widget.editOrRegister,
                   type: StringManager.login,
                   text: StringManager.sendCode.tr(),
                   onPressed: keyboard.indexOfPhoneNumber == ValuesManager.iv9

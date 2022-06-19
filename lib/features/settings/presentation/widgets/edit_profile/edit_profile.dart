@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../../core/custom_widgets/button_widget.dart';
@@ -9,6 +8,7 @@ import '../../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../../core/custom_widgets/success_dialog.dart';
 import '../../../../../core/extensions/extensions.dart';
+import '../../../../../core/injection/di.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
 import '../../../../../core/resources/constants_manager.dart';
@@ -28,20 +28,19 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController secondNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   late SettingsBloc bloc;
-  List<String> towns = [];
-  List<String> universities = [];
-  List<int> townsIds = [];
-  List<int> universitiesIds = [];
+
   @override
-  void didChangeDependencies() {
-    bloc = BlocProvider.of<SettingsBloc>(context);
+  void initState() {
+    bloc = di<SettingsBloc>();
     bloc.add(GetTownsOfCompanyEvent());
     bloc.add(GetUniversitiesOfCompanyEvent());
-    firstNameController.text = bloc.firstName;
-    secondNameController.text = bloc.secondName;
-    super.didChangeDependencies();
+    firstNameController.text =
+        bloc.perfs.getString(ConstantsManager.firstName)!;
+    lastNameController.text =
+        bloc.perfs.getString(ConstantsManager.secondName)!;
+    super.initState();
   }
 
   @override
@@ -56,14 +55,6 @@ class _EditProfileState extends State<EditProfile> {
         padding: const EdgeInsets.all(16),
         child: BlocListener<SettingsBloc, SettingsState>(
           listener: (context, state) {
-            if (state is GetTownsSuccess) {
-              towns = state.name;
-              townsIds = state.id;
-            }
-            if (state is GetUniversitiesSuccess) {
-              universities = state.name;
-              universitiesIds = state.id;
-            }
             if (state is Loading) {
               showDialog(
                 context: context,
@@ -117,9 +108,9 @@ class _EditProfileState extends State<EditProfile> {
                 height: 5,
               ),
               TextFormField(
-                controller: secondNameController,
+                controller: lastNameController,
                 decoration: TextFormStyle.applyDecoration(
-                    secondNameController.text, Icons.person, context),
+                    lastNameController.text, Icons.person, context),
               ),
               const SizedBox(
                 height: 10,
@@ -129,8 +120,8 @@ class _EditProfileState extends State<EditProfile> {
                   return DropDownWidget(
                       type: true,
                       hint: bloc.perfs.getString(ConstantsManager.townName)!,
-                      options: towns,
-                      ids: townsIds);
+                      ids: bloc.towns.values.toList(),
+                      options: bloc.towns.keys.toList());
                 },
               ),
               const SizedBox(
@@ -139,8 +130,8 @@ class _EditProfileState extends State<EditProfile> {
               DropDownWidget(
                   type: false,
                   hint: bloc.perfs.getString(ConstantsManager.universityName)!,
-                  options: universities,
-                  ids: universitiesIds),
+                  ids: bloc.universities.values.toList(),
+                  options: bloc.universities.keys.toList()),
               const SizedBox(
                 height: 10,
               ),
@@ -252,9 +243,9 @@ class _EditProfileState extends State<EditProfile> {
                           stdUid: bloc.perfs.getString(ConstantsManager.uid)!,
                           stdName: firstNameController.text +
                               ' ' +
-                              secondNameController.text,
-                          stdPhone: bloc.number.user.user!.phoneNumber!,
-                          companyId: CompanyId(bloc.companyName.companyId),
+                              lastNameController.text,
+                          stdPhone: bloc.perfs.getString(ConstantsManager.number)!,
+                          companyId: CompanyId(bloc.perfs.getInt(ConstantsManager.company)!),
                           townId: TownId(2),
                           universityId: UniversityId(4),
                         ),

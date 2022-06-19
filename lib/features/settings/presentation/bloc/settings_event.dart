@@ -27,3 +27,4 @@ class UpdateStudentInfoEvent extends SettingsEvent {
 
   UpdateStudentInfoEvent(this.student);
 }
+

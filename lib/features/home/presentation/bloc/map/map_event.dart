@@ -71,3 +71,11 @@ class GetStudentIDEvent extends MapEvent {
 
   const GetStudentIDEvent(this.uid);
 }
+
+class CameraPositionAfterBookingEvent extends MapEvent {}
+
+class RefreshBusCoordinateEvent extends MapEvent {
+  final GeoPoint point;
+
+  const RefreshBusCoordinateEvent(this.point);
+}

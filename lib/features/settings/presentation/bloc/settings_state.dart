@@ -19,17 +19,11 @@ class SignOutError extends SettingsState {
 }
 
 class GetTownsSuccess extends SettingsState {
-  final List<String> name;
-  final List<int> id;
-
-  const GetTownsSuccess(this.name, this.id);
+  const GetTownsSuccess();
 }
 
 class GetUniversitiesSuccess extends SettingsState {
-  final List<String> name;
-  final List<int> id;
-
-  const GetUniversitiesSuccess(this.name, this.id);
+  const GetUniversitiesSuccess();
 }
 
 class FetchTownsError extends SettingsState {
@@ -57,6 +51,8 @@ class GetCompanyError extends SettingsState {
 }
 
 class FAQsChange extends SettingsState {}
+
+class Loading extends SettingsState{}
 
 class UpdateStudentInfoSuccess extends SettingsState {}
 

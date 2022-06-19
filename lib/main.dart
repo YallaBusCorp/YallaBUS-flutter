@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable
-
+import 'package:alice/alice.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +11,7 @@ import 'package:yalla_bus/core/injection/di.dart';
 import 'package:yalla_bus/core/lanuch_first_screen/lanuch_first.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/core/resources/debugger_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/theme_manager.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
@@ -63,6 +64,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   final SharedPreferences perfs = di<SharedPreferences>();
   late bool isSeen;
+ 
   MyApp({Key? key}) : super(key: key) {
     isSeen = perfs.getBool(ConstantsManager.seenKey) ?? false;
   }
@@ -98,6 +100,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         // showPerformanceOverlay: true,
+        navigatorKey: DebuggerManager.alice.getNavigatorKey(),
         onGenerateRoute: RouteGenerator.getRoute,
         localizationsDelegates: context.localizationDelegates,
         locale: context.deviceLocale,

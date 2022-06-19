@@ -44,19 +44,18 @@ class AuthButton extends StatelessWidget {
         } else if (state is Success) {
           Navigator.of(context).pop();
           if (type == StringManager.otp) {
-            if (edit != Null) {
+            if (edit == ConstantsManager.edit) {
               Navigator.of(context).pop();
               Navigator.of(context).pop();
               Navigator.of(context).pop();
-  
-            }
-            else if (perfs.getInt(ConstantsManager.company) == null) {
+            } else if (perfs.getInt(ConstantsManager.company) == null) {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                  Routes.chooseCompany, (route) => false);
-            } else {
+                  Routes.chooseCompany, (route) => false,
+                  arguments: ConstantsManager.register);
+            } else if (perfs.getInt(ConstantsManager.company) != null) {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil(Routes.home, (route) => false);
-            }
+            } else {}
           } else {
             Navigator.of(context)
                 .pushNamed(Routes.verifyOtp, arguments: keyboard.number);

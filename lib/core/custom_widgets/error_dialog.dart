@@ -34,12 +34,14 @@ class ErrorDialog extends StatelessWidget {
           const SizedBox(
             width: ValuesManager.v10,
           ),
-          TextWidget(
-            text: message,
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(fontWeight: FontWeight.normal),
+          Center(
+            child: TextWidget(
+              text: message,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontWeight: FontWeight.normal),
+            ),
           ),
           const SizedBox(
             height: ValuesManager.v20,

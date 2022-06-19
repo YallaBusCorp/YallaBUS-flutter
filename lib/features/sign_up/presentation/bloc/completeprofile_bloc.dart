@@ -21,8 +21,6 @@ class CompleteprofileBloc
   List<int> ids = [];
   late int companyId;
   late Student student;
-  late String townName;
-  late String universityName;
   int townId = 0;
   int universityId = 0;
   SharedPreferences perfs = di<SharedPreferences>();
@@ -33,13 +31,13 @@ class CompleteprofileBloc
 
     on<SendTownValueEvent>((event, emit) {
       townId = event.value;
-      townName = event.town;
+
       emit(ChangeTownValue());
     });
 
     on<SendUniValueEvent>((event, emit) {
       universityId = event.value;
-      universityName = event.university;
+
       emit(ChangeTownValue());
     });
 
@@ -68,8 +66,7 @@ class CompleteprofileBloc
 
     on<SendStudentDataEvent>((event, emit) async {
       emit(LoadingSendData());
-      perfs.setString(ConstantsManager.townName, townName);
-      perfs.setString(ConstantsManager.universityName, universityName);
+
       student = Student(
           stdUid: perfs.getString(ConstantsManager.uid)!,
           stdName: event.userName,

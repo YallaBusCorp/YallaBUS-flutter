@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:yalla_bus/core/resources/debugger_manager.dart';
 import 'package:yalla_bus/features/home/data/model/map_json_converters.dart';
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/resources/endpoints_manager.dart';
@@ -11,6 +12,7 @@ class MapApiClient {
     dio = Dio(BaseOptions(
       baseUrl: ApiEndPoints.baseUrl,
     ));
+    dio.interceptors.add(DebuggerManager.alice.getDioInterceptor());
   }
 
   Future<List<dynamic>> getAppointmentsAM(int id) async {
@@ -66,7 +68,8 @@ class MapApiClient {
 
   Future<int> bookRide(Ride ride) async {
     final data = RideModel(ride.qrCode, ride.pickupPoint, ride.dropOffPoint,
-        ride.appointment, ride.std).toJson();
+            ride.appointment, ride.std)
+        .toJson();
     try {
       Response response = await dio.post(
         ApiEndPoints.bookRide,

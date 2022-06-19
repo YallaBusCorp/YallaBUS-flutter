@@ -15,7 +15,7 @@ Widget launchFirst() {
   if (perfs.getBool(ConstantsManager.seenKey) != null) {
     if (FirebaseAuth.instance.currentUser != null) {
       if (perfs.getInt(ConstantsManager.company) != null) {
-        if (perfs.getString(ConstantsManager.name) != null) {
+        if (perfs.getString(ConstantsManager.firstName) != null) {
           return const Home();
         } else {
           return const CompleteProfile();

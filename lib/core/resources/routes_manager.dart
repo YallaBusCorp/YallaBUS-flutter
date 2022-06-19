@@ -39,15 +39,16 @@ class RouteGenerator {
     switch (settings.name) {
       case Routes.chooseCompany:
         var args = settings.arguments as String;
-        return MaterialPageRoute(builder: (_) => 
-         ChooseCompany(
-          editFlag: args,
-        ));
+        return MaterialPageRoute(
+            builder: (_) => ChooseCompany(
+                  edit: args,
+                ));
       case Routes.loginOtp:
         var args = settings.arguments as String;
-        return MaterialPageRoute(builder: (_) => LoginOtp(
-          editFlag: args,
-        ));
+        return MaterialPageRoute(
+            builder: (_) => LoginOtp(
+                  editOrRegister: args,
+                ));
       case Routes.home:
         return MaterialPageRoute(builder: (_) => const Home());
       case Routes.completeProfile:

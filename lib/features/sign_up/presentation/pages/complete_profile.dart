@@ -50,10 +50,11 @@ class _CompleteProfileState extends State<CompleteProfile> {
     return BlocListener<CompleteprofileBloc, CompleteprofileState>(
       listener: (context, state) async {
         if (state is PostStudentDataSuccess) {
+          Navigator.of(context).pop();
           showDialog(
             context: context,
             builder: (BuildContext context) => const Dialog(
-              insetPadding:  EdgeInsets.all(25),
+              insetPadding: EdgeInsets.all(25),
               backgroundColor: Colors.transparent,
               child: SuccessDialog(
                 message: StringManager.successMessage,
@@ -66,6 +67,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
             (route) => false,
           );
         } else if (state is PostStudentDataError) {
+          Navigator.of(context).pop();
           showDialog(
             context: context,
             builder: (BuildContext context) => Dialog(
@@ -157,12 +159,15 @@ class _CompleteProfileState extends State<CompleteProfile> {
               BlocBuilder<CompleteprofileBloc, CompleteprofileState>(
                   builder: (context, state) {
                 return DropDownWidget(
-                    type : true,hint: StringManager.town, options: towns, ids: townsIds);
+                    type: true,
+                    hint: StringManager.town,
+                    options: towns,
+                    ids: townsIds);
               }),
               BlocBuilder<CompleteprofileBloc, CompleteprofileState>(
                   builder: (context, state) {
                 return DropDownWidget(
-                  type : false,
+                  type: false,
                   hint: StringManager.university,
                   options: universities,
                   ids: universitiesIds,
@@ -185,7 +190,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
   void _onPressed() {
     SharedPreferences perfs = di<SharedPreferences>();
     String userName = "${firstNameController.text} ${lastNameController.text}";
-    perfs.setString(ConstantsManager.name, userName);
+    perfs.setString(ConstantsManager.firstName, firstNameController.text);
+    perfs.setString(ConstantsManager.secondName, lastNameController.text);
     BlocProvider.of<CompleteprofileBloc>(context)
         .add(SendStudentDataEvent(userName));
   }

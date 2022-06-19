@@ -15,7 +15,8 @@ class ConstantsManager {
   static const String company = 'Company';
   static const String uid = 'Uid';
   static const String number = 'Number';
-  static const String name = 'Name';
+  static const String firstName = 'FirstName';
+  static const String secondName = 'SecondName';
   static const String arabic = 'ar';
   static const String english = 'en';
   static const String pickUp = 'PickUp';
@@ -23,6 +24,9 @@ class ConstantsManager {
   static const String booked = 'Booked';
   static const String townName = 'TownName';
   static const String universityName = 'UniversityName';
+  static const String edit = 'EditMode';
+  static const String register = 'RegisterMode';
+
 
   static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
 }

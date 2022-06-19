@@ -39,16 +39,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   late Company companyItem;
   List<String> names = [];
   List<int> ids = [];
+  Map<String, int> towns = {};
+  Map<String, int> universities = {};
   SharedPreferences perfs = di<SharedPreferences>();
-  late String firstName;
-  late String secondName;
   SettingsBloc(this.town, this.university, this.company, this.updateStudentInfo)
       : super(SettingsInitial()) {
-    on<SettingsEvent>((event, emit) {
-      final names = perfs.getString(ConstantsManager.name)!.split(' ');
-      firstName = names[0];
-      secondName = names[1];
-    });
+    on<SettingsEvent>((event, emit) {});
 
     on<SignOutEvent>((event, emit) async {
       try {
@@ -64,9 +60,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           (failure) {
         emit(FetchTownsError(failure.message));
       }, (r) {
-        ids = r.map((e) => e.id).toList();
-        names = r.map((e) => e.townName).toList();
-        emit(GetTownsSuccess(names, ids));
+        for (var e in r) {
+          towns.addEntries([
+            MapEntry(e.townName, e.id),
+          ]);
+        }
+        emit(const GetTownsSuccess());
       });
     });
 
@@ -76,9 +75,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           .fold((failure) {
         emit(FetchUniError(failure.message));
       }, (r) {
-        ids = r.map((e) => e.id).toList();
-        names = r.map((e) => e.universityName).toList();
-        emit(GetUniversitiesSuccess(names, ids));
+        for (var e in r) {
+          universities.addEntries([
+            MapEntry(e.universityName, e.id),
+          ]);
+        }
+        emit(const GetUniversitiesSuccess());
       });
     });
 
@@ -97,10 +99,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     });
 
     on<UpdateStudentInfoEvent>((event, emit) async {
+    
       (await updateStudentInfo.update(event.student)).fold((l) {
-        perfs.setString(ConstantsManager.name, event.student.stdName);
-        // perfs.setString(ConstantsManager.tow, event.student.stdName);
-        // perfs.setString(ConstantsManager.name, event.student.stdName);
+        final names = event.student.stdName.split(' ');
+        perfs.setString(ConstantsManager.firstName, names[0]);
+        perfs.setString(ConstantsManager.secondName, names[1]);
+        perfs.setInt(ConstantsManager.company, companyName.companyId);
         perfs.setString(ConstantsManager.number, event.student.stdPhone);
         emit(UpdateStudentInfoSuccess());
       }, (r) {

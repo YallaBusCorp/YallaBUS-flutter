@@ -18,7 +18,7 @@ class RideBooked extends StatelessWidget {
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
         return Visibility(
-          visible: bloc.perfs.getBool('Booked') ?? true,
+          visible: bloc.perfs.getBool('Booked') ?? false,
           child: Positioned(
             bottom: MediaQuery.of(context).size.height - 720,
             child: Container(

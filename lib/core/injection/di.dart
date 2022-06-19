@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/features/home/domain/use_case/book_ride.dart';
+import 'package:yalla_bus/features/settings/domain/use_case/update_student.dart';
 import '../network/network_info.dart';
 import '../../features/choose_company/data/data_sources/remote_data_source.dart';
 import '../../features/choose_company/data/repository_implementation/company_repository_implementation.dart';
@@ -41,7 +42,6 @@ Future<void> init() async {
 
   di.registerFactory(() => KeyboardBloc());
 
-
   di.registerLazySingleton<NetworkInfo>(() => NetworkInfoImplementation(di()));
 
   di.registerLazySingleton(() => Connectivity());
@@ -60,7 +60,13 @@ Future<void> init() async {
       () => ComplelteProfileRepositoryImplemenation(di(), di()));
   di.registerLazySingleton(() => CompleteProfileApiClient());
 
-  di.registerFactory(() => MapBloc(di(), di(), di(), di(), di(),));
+  di.registerFactory(() => MapBloc(
+        di(),
+        di(),
+        di(),
+        di(),
+        di(),
+      ));
   di.registerLazySingleton(() => GetAppoinmentOfAM(di()));
   di.registerLazySingleton(() => GetAppoinmentOfPM(di()));
   di.registerLazySingleton(() => GetMapPickUpPoints(di()));
@@ -70,8 +76,10 @@ Future<void> init() async {
       () => MapRepositoryImplementation(di(), di()));
   di.registerLazySingleton(() => MapApiClient());
 
-  di.registerFactory(() => SettingsBloc(di(), di(), di()));
+  di.registerFactory(() => SettingsBloc(di(), di(), di(), di()));
+
   di.registerLazySingleton(() => GetCompanyInfo(di()));
+  di.registerLazySingleton(() => UpdateStudentInfo(di()));
   di.registerLazySingleton<SettingsRepostiory>(
       () => SettingsRepostioryImplementation(di(), di()));
   di.registerLazySingleton(() => SettingsApiClient());

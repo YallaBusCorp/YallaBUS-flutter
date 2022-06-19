@@ -27,7 +27,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  alice: ^0.2.5
   bloc: ^8.0.3
+  cloud_firestore: ^3.1.18
   connectivity_plus: ^2.2.1
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
