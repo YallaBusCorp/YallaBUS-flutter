@@ -58,7 +58,7 @@ class RouteGenerator {
       case Routes.successfulPayment:
         return MaterialPageRoute(builder: (_) => const SuccessPayment());
       case Routes.settings:
-        return MaterialPageRoute(builder: (_) => const Settings());
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
       case Routes.complaints:
         return MaterialPageRoute(builder: (_) => const Complaints());
       case Routes.rideHistory:

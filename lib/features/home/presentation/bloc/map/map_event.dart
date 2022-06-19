@@ -76,6 +76,7 @@ class CameraPositionAfterBookingEvent extends MapEvent {}
 
 class RefreshBusCoordinateEvent extends MapEvent {
   final GeoPoint point;
+  final GeoPoint point2;
 
-  const RefreshBusCoordinateEvent(this.point);
+  const RefreshBusCoordinateEvent(this.point, this.point2);
 }

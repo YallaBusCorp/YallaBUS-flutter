@@ -17,8 +17,8 @@ import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 import '../widgets/header.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

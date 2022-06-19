@@ -1,5 +1,12 @@
+import 'dart:async';
+import 'dart:math';
+
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/core/resources/notification_manager.dart';
 
 import '../../../../core/resources/routes_manager.dart';
 import '../bloc/map/map_bloc.dart';
@@ -9,12 +16,23 @@ import '../../../../core/custom_widgets/separtor_widget.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/values_manager.dart';
 
-class Controllers extends StatelessWidget {
+class Controllers extends StatefulWidget {
   const Controllers({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<Controllers> createState() => _ControllersState();
+}
+
+class _ControllersState extends State<Controllers> {
+  @override
+  void initState() {
     MapBloc map = BlocProvider.of<MapBloc>(context);
+    
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Positioned(
       bottom: MediaQuery.of(context).size.height - 180,
       right: MediaQuery.of(context).size.width - ValuesManager.v350,
@@ -45,9 +63,9 @@ class Controllers extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  map.add(GetMyLocation());
-                  // printPoints();
+                  // map.add(GetMyLocation());
                 },
+                // printPoints();
                 icon: Icon(
                   Icons.gps_fixed,
                   color: Theme.of(context).iconTheme.color,
@@ -60,4 +78,6 @@ class Controllers extends StatelessWidget {
       ),
     );
   }
+
+ 
 }

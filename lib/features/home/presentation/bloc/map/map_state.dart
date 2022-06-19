@@ -99,6 +99,12 @@ class ChangeMapViewAfterBooking extends MapState {}
 
 class ChangeBusCoordinate extends MapState {}
 
+class ChangeMarkersOfBus extends MapState{
+  final Set<Marker> m;
+
+  ChangeMarkersOfBus(this.m);
+}
+
 
 
 // class DrawMarkers extends MapState {

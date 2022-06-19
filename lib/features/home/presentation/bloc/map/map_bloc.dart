@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
@@ -6,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
+import 'package:yalla_bus/core/resources/map_manager.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/string_manager.dart';
 import '../../../domain/enitity/ride.dart';
@@ -30,15 +29,23 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final GetMapPickUpPoints pickUp;
   final BookRide bookRide;
 
-  Completer<GoogleMapController> controller = Completer();
-
-  late Position _position;
-  final Set<Marker> markers = <Marker>{};
-  final Set<Marker> dropOffMarkers = <Marker>{};
-  final Set<Marker> pickUpMarkers = <Marker>{};
-
   String timeOfSelectedRides = StringManager.timeOfSelectedRides;
-
+  Set<Marker> markersOfBus = {};
+  // List<GeoPoint> points =  [
+  
+  //   GeoPoint(30.74247473924697, 31.261134493008118),
+  //   GeoPoint(30.743878358850573, 31.261797951021475),
+  //   GeoPoint(30.745457406458065, 31.262155197644052),
+  //   GeoPoint(30.747124150850247, 31.261746915789676),
+  //   GeoPoint(30.74979965390514,  31.26154277486249),
+  //   GeoPoint(30.75295752916673, 31.261185528229856),
+  //   GeoPoint(30.753132963699226, 31.261134492985253),
+  //   GeoPoint(30.757387151852857, 31.260828281594474),
+  //   GeoPoint(30.761027184314887, 31.26047103495726),
+  //   GeoPoint(30.76400927693074, 31.260062753102893),
+    
+  // ];
+  // List<GeoPoint> l =  [GeoPoint(30.766333491051945, 31.25980757691648)];
   SharedPreferences perfs = di<SharedPreferences>();
   String from = StringManager.pickUpPoint;
   String to = StringManager.dropOffPoint;
@@ -55,18 +62,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   late int amID;
   late int pmID;
   late int std;
-
-  CameraPosition kGooglePlex = const CameraPosition(
-      target: LatLng(
-          (30.85389579312156 + 30.750389209369917 + 30.95670425388353) / 3,
-          (31.268433318547288 + 31.260458997797773 + 31.30646424602145) / 3),
-      zoom: 12);
   bool switchButtonValue = false;
-  CameraPosition kGooglePlex2 = const CameraPosition(
-    target: LatLng(31.056840273761154, 31.488563605540325),
-    zoom: 9,
-  );
-
   bool switchColor = false;
   List<String> amRides = [];
   List<String> pmRides = [];
@@ -86,57 +82,26 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       this.bookRide)
       : super(MapInitial()) {
     on<GetMyLocation>((event, emit) async {
-      final GoogleMapController con = await controller.future;
-      _position = await determinePosition();
-      BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(),
-        AssetManager.placeMarker,
-      );
-      BitmapDescriptor markerbitmap2 = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(),
-        AssetManager.busStationMarker,
-      );
+      final GoogleMapController con = await MapManager.controller.future;
+      MapManager.position = await determinePosition();
 
       if (perfs.getBool('Booked') != null && perfs.getBool('Booked')!) {
-        markers.add(
-          Marker(
-            markerId: MarkerId(
-              pickUpSelectedPosition.toString(),
-            ),
-            position: pickUpSelectedPosition, //position of marker
-
-            icon: markerbitmap2,
-          ),
-        );
-        markers.add(
-          Marker(
-            markerId: MarkerId(
-              dropOffSelectedPosition.toString(),
-            ),
-            position: dropOffSelectedPosition, //position of marker
-
-            icon: markerbitmap2,
-          ),
-        );
+        MapManager.addMarker(
+            latlng: pickUpSelectedPosition,
+            icon: await MapManager.stationIcon(),
+            marker: MapManager.markers);
+        MapManager.addMarker(
+            latlng: dropOffSelectedPosition,
+            icon: await MapManager.stationIcon(),
+            marker: MapManager.markers);
       }
-
-      markers.add(
-        Marker(
-          markerId: MarkerId(
-            LatLng(_position.latitude, _position.longitude).toString(),
-          ),
-          position: LatLng(
-              _position.latitude, _position.longitude), //position of marker
-
-          icon: markerbitmap,
-        ),
-      );
-      final CameraPosition _kLake = CameraPosition(
-          bearing: 0,
-          target: LatLng(_position.latitude, _position.longitude),
-          tilt: 0,
-          zoom: 19.151926040649414);
-      con.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+      MapManager.addMarker(
+          latlng: LatLng(
+              MapManager.position.latitude, MapManager.position.longitude),
+          icon: await MapManager.positionIcon(),
+          marker: MapManager.markers);
+      con.animateCamera(
+          CameraUpdate.newCameraPosition(MapManager.cameraPosition));
       emit(ChangePosition());
     });
 
@@ -202,36 +167,26 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
 
     on<GetPickUpPointsEvent>((event, emit) async {
-      BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(),
-        AssetManager.busStationMarker,
-      );
-
       (await pickUp.getMapPickUpPoints(
         perfs.getInt(ConstantsManager.company)!,
       ))
           .fold((failure) {
         emit(GetPickUpPointsError(failure.message));
-      }, (pick) {
+      }, (pick) async {
         titlesOfPickUp = pick.map((e) => e.mapPointTitleEn).toList();
         pickUps = pick.map((e) => LatLng(e.latitude, e.longitude)).toList();
         pickUpIDs = pick.map((e) => e.id).toList();
         for (int i = 0; i < pickUps.length; i++) {
-          pickUpMarkers.add(
-            Marker(
-              markerId: MarkerId(
-                pickUps[i].toString(),
-              ),
+          MapManager.addMarker(
+              marker: MapManager.pickUpMarkers,
+              latlng: pickUps[i],
+              icon: await MapManager.stationIcon(),
               onTap: () {
                 pickUpSelectedPosition = pickUps[i];
                 from = titlesOfPickUp[i];
                 pickUpID = pickUpIDs[i];
                 add(AddPickUpMarkerTitleToTexts(from, pickUpIDs[i]));
-              },
-              position: pickUps[i], //position of marker
-              icon: markerbitmap,
-            ),
-          );
+              });
         }
       });
       add(CameraPositionOfPickUpPoints());
@@ -249,25 +204,20 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       ))
           .fold((failure) {
         emit(GetDropOffPointsError(failure.message));
-      }, (drop) {
+      }, (drop) async {
         titlesOfDropOff = drop.map((e) => e.mapPointTitleEn).toList();
         dropOffs = drop.map((e) => LatLng(e.latitude, e.longitude)).toList();
         dropOffIDs = drop.map((e) => e.id).toList();
         for (int i = 0; i < dropOffs.length; i++) {
-          dropOffMarkers.add(
-            Marker(
-              markerId: MarkerId(
-                dropOffs[i].toString(),
-              ),
+          MapManager.addMarker(
+              marker: MapManager.dropOffMarkers,
+              latlng: dropOffSelectedPosition,
+              icon: await MapManager.stationIcon(),
               onTap: () {
                 dropOffSelectedPosition = dropOffs[i];
                 to = titlesOfDropOff[i];
                 add(AddDropOffMarkerTitleToTexts(to, dropOffIDs[i]));
-              },
-              position: dropOffs[i], //position of marker
-              icon: markerbitmap,
-            ),
-          );
+              });
         }
         add(CameraPositionOfDropOffPoints());
       });
@@ -275,24 +225,25 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
 
     on<CameraPositionOfPickUpPoints>((event, emit) async {
-      final GoogleMapController con = await controller.future;
+      final GoogleMapController con = await MapManager.controller.future;
       LatLng location1 = pickUps[0];
       LatLng location2 = pickUps[pickUps.length - 1];
 
       double avgOfLat = (location1.latitude + location2.latitude) / 2;
       double avgOfLong = (location1.longitude + location2.longitude) / 2;
       dynamic cameraPositionOfPickUp = LatLng(avgOfLat, avgOfLong);
-      kGooglePlex = CameraPosition(
+      MapManager.kGooglePlex = CameraPosition(
         target: cameraPositionOfPickUp,
         zoom: 12,
       );
-      CameraUpdate update = CameraUpdate.newCameraPosition(kGooglePlex);
+      CameraUpdate update =
+          CameraUpdate.newCameraPosition(MapManager.kGooglePlex);
       con.animateCamera(update);
       emit(ChangeMapViewForPickUpPoints());
     });
 
     on<CameraPositionOfDropOffPoints>((event, emit) async {
-      final GoogleMapController con = await controller.future;
+      final GoogleMapController con = await MapManager.controller.future;
 
       LatLng location1 = dropOffs[0];
       LatLng location2 = dropOffs[dropOffs.length - 1];
@@ -300,11 +251,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       double avgOfLat = (location1.latitude + location2.latitude) / 2;
       double avgOfLong = (location1.longitude + location2.longitude) / 2;
       dynamic cameraPositionOfDropOff = LatLng(avgOfLat, avgOfLong);
-      kGooglePlex = CameraPosition(
+      MapManager.kGooglePlex = CameraPosition(
         target: cameraPositionOfDropOff,
         zoom: 13,
       );
-      CameraUpdate update = CameraUpdate.newCameraPosition(kGooglePlex);
+      CameraUpdate update =
+          CameraUpdate.newCameraPosition(MapManager.kGooglePlex);
       con.animateCamera(update);
       emit(ChangeMapViewForPickUpPoints());
     });
@@ -342,43 +294,45 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
 
     on<CameraPositionAfterBookingEvent>((event, emit) async {
-      final GoogleMapController con = await controller.future;
+      final GoogleMapController con = await MapManager.controller.future;
       LatLng location1 = pickUpSelectedPosition;
       LatLng location2 = dropOffSelectedPosition;
 
       double avgOfLat = (location1.latitude + location2.latitude) / 2;
       double avgOfLong = (location1.longitude + location2.longitude) / 2;
       dynamic cameraPosition = LatLng(avgOfLat, avgOfLong);
-      kGooglePlex = CameraPosition(
+      MapManager.kGooglePlex = CameraPosition(
         target: cameraPosition,
         zoom: 13,
       );
-      CameraUpdate update = CameraUpdate.newCameraPosition(kGooglePlex);
+      CameraUpdate update =
+          CameraUpdate.newCameraPosition(MapManager.kGooglePlex);
       con.animateCamera(update);
       emit(ChangeMapViewAfterBooking());
     });
 
     on<RefreshBusCoordinateEvent>((event, emit) async {
-      // BitmapDescriptor busIcon = await BitmapDescriptor.fromAssetImage(
-      //   const ImageConfiguration(),
-      //   AssetManager.busIconTracking,
-      // );
-      BitmapDescriptor markerbitmap2 = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(),
-        AssetManager.busStationMarker,
+      final GoogleMapController con = await MapManager.controller.future;
+      markersOfBus.clear();
+      MapManager.addMarker(
+          marker: markersOfBus,
+          latlng: LatLng(event.point.latitude, event.point.longitude),
+          icon: await MapManager.busIcon(),
+          rotation: MapManager.bearingBetweenLocations(
+              LatLng(event.point.latitude, event.point.longitude),
+              LatLng(event.point2.latitude, event.point2.longitude)),
+          anchor: const Offset(0.5, 0.5));
+      emit(ChangeMarkersOfBus(markersOfBus));
+      MapManager.kGooglePlex = CameraPosition(
+        bearing: 0,
+        tilt : 0,
+        target: LatLng(event.point.latitude, event.point.longitude),
+        zoom: 16,
       );
-     
-      markers.add(
-        Marker(
-          markerId: MarkerId(
-            LatLng(event.point.latitude, event.point.longitude).toString(),
-          ),
-          position: LatLng(
-              event.point.latitude, event.point.longitude), //position of marker
+      CameraUpdate update =
+          CameraUpdate.newCameraPosition(MapManager.kGooglePlex);
+      con.animateCamera(update);
 
-          icon: markerbitmap2,
-        ),
-      );
       emit(ChangeBusCoordinate());
     });
   }

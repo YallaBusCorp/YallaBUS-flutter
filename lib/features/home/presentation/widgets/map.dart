@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
@@ -6,9 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/core/resources/map_manager.dart';
 import '../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/asset_manager.dart';
+import '../../../../core/resources/notification_manager.dart';
+import '../../../../core/resources/routes_manager.dart';
 import '../bloc/map/map_bloc.dart';
 
 class MapWidget extends StatefulWidget {
@@ -23,11 +27,17 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   late String _lightMapStyle;
   late List<dynamic> geoPoints;
   late GeoPoint point;
+  late MapBloc bloc;
+  
 
   @override
   void initState() {
     _loadMapStyles();
+
     WidgetsBinding.instance!.addObserver(this);
+    bloc = BlocProvider.of<MapBloc>(context);
+    
+ 
     super.initState();
   }
 
@@ -38,9 +48,9 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    MapBloc bloc = BlocProvider.of<MapBloc>(context);
+    
     if (state == AppLifecycleState.resumed) {
-      final GoogleMapController controller = await bloc.controller.future;
+      final GoogleMapController controller = await MapManager.controller.future;
       if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
         controller.setMapStyle(_darkMapStyle);
       } else {
@@ -65,38 +75,41 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         stream: tracking,
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-              
-          //Two Errors :
-          //1 - Points and geoPoints you want to fill them when snapshot is done 
-          //2- bus marker is repeated in map??! 
-          if(snapshot.data!=null)
-          {
-            geoPoints = snapshot.data!.get('location');
-            point = geoPoints.last;
-          }
           
-          map.add(RefreshBusCoordinateEvent(point));
+          if (snapshot.data != null) {
+            geoPoints = snapshot.data!.get('location');
+            int size = geoPoints.length;
+            point = geoPoints[size - 1];
+            GeoPoint point2 =  point;
+            if (size > 1) point2 = geoPoints[size - 2];
+            map.add(RefreshBusCoordinateEvent(point,point2));
+          }
+
           return BlocConsumer<MapBloc, MapState>(
             listener: (context, state) {
               if (state is PickUpPointsMarkersChanged) {
-                markers = map.pickUpMarkers;
+                markers = MapManager.pickUpMarkers;
               }
               if (state is DropOffPointsMarkersChanged) {
-                markers = map.dropOffMarkers;
+                markers = MapManager.dropOffMarkers;
+              }
+              if(state is ChangeMarkersOfBus)
+              {
+                markers = map.markersOfBus;
               }
             },
             builder: (conetxt, state) {
               return GoogleMap(
                 zoomControlsEnabled: false,
-                markers: markers.union(map.markers),
+                markers: markers.union(MapManager.markers),
                 myLocationButtonEnabled: false,
                 compassEnabled: false,
                 mapToolbarEnabled: false,
-                initialCameraPosition: map.kGooglePlex,
+                initialCameraPosition: MapManager.kGooglePlex,
                 onMapCreated: (GoogleMapController controller) {
-                  if (!map.controller.isCompleted) {
-                    map.controller.complete(controller);
-                    map.add(GetMyLocation());
+                  if (!MapManager.controller.isCompleted) {
+                    MapManager.controller.complete(controller);
+                    // map.add(GetMyLocation());
                   }
                   if (MediaQuery.of(context).platformBrightness ==
                       Brightness.dark) {
@@ -109,5 +122,11 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
             },
           );
         });
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    AwesomeNotifications().actionSink.close();
+    AwesomeNotifications().createdSink.close();
   }
 }

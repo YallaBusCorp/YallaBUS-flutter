@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable
-import 'package:alice/alice.dart';
+import 'dart:async';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +27,7 @@ import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 
+import 'core/resources/notification_manager.dart';
 import 'features/home/presentation/bloc/map/map_bloc.dart';
 import 'features/home/presentation/pages/home.dart';
 import 'features/login_otp/presentation/pages/login.dart';
@@ -51,6 +55,20 @@ void main() async {
   ]);
 
   await EasyLocalization.ensureInitialized();
+  AwesomeNotifications().initialize(
+      // set the icon to null if you want to use the default app icon
+      null,
+      [
+        NotificationChannel(
+          channelKey: 'scheduled_channel',
+          channelName: 'Scheduled notifications',
+          channelDescription: 'Notification channel for Scheduled tests',
+          defaultColor: Color(0xFF9D50DD),
+          defaultRingtoneType: DefaultRingtoneType.Notification,
+        ),
+      ],
+      debug: true);
+
   runApp(
     EasyLocalization(
       child: MyApp(),
@@ -61,13 +79,33 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
-  final SharedPreferences perfs = di<SharedPreferences>();
+class MyApp extends StatefulWidget {
   late bool isSeen;
- 
+
   MyApp({Key? key}) : super(key: key) {
     isSeen = perfs.getBool(ConstantsManager.seenKey) ?? false;
   }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late MapBloc bloc;
+  @override
+  void initState() {
+    AwesomeNotifications().actionStream.listen((event) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(Routes.home, (route) => route.isFirst);
+
+      NotificationManager.createScheduleNotifi(
+        DateTime(2022, 6, 19, 23, 48),
+      );
+    });
+    super.initState();
+  }
+
+  final SharedPreferences perfs = di<SharedPreferences>();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +133,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (builder) => di<SettingsBloc>(),
-          child: const Settings(),
+          child: const SettingsScreen(),
         ),
       ],
       child: MaterialApp(

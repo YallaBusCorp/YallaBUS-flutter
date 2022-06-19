@@ -56,5 +56,5 @@ class AssetManager {
   static const String cash = 'assets/images/cash.svg';
   static const String subsctiptionIcon = 'assets/images/subscription_icon.svg';
   static const String arrowAnimation = 'assets/images/arrow.json';
-  static const String busIconTracking = 'assets/images/bus-icon.bmp';
+  static const String busIconTracking = 'assets/images/bus_icon.bmp';
 }
