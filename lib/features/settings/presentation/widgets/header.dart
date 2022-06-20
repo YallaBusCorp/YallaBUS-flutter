@@ -32,31 +32,34 @@ class Header extends StatelessWidget {
             repeat: false,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: ValuesManager.v10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextWidget(
-                  text: perfs.getString(ConstantsManager.firstName)! +
-                      ' ' +
-                      perfs.getString(ConstantsManager.secondName)!,
-                  style: Theme.of(context).textTheme.headline5!),
-              const SizedBox(
-                height: ValuesManager.v5,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(Routes.editProfile);
-                },
-                child: TextWidget(
-                  text: 'Edit Profile',
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                      fontSize: ValuesManager.v18, color: ColorsManager.orange),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(top: ValuesManager.v10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextWidget(
+                    text: perfs.getString(ConstantsManager.firstName)! +
+                        ' ' +
+                        perfs.getString(ConstantsManager.secondName)!,
+                    style: Theme.of(context).textTheme.headline5!),
+                const SizedBox(
+                  height: ValuesManager.v5,
                 ),
-              ),
-            ],
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(Routes.editProfile);
+                  },
+                  child: TextWidget(
+                    text: 'Edit Profile',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                        fontSize: ValuesManager.v18,
+                        color: ColorsManager.orange),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

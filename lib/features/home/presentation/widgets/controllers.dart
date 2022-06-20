@@ -24,10 +24,11 @@ class Controllers extends StatefulWidget {
 }
 
 class _ControllersState extends State<Controllers> {
+  late MapBloc map;
   @override
   void initState() {
-    MapBloc map = BlocProvider.of<MapBloc>(context);
-    
+    map = BlocProvider.of<MapBloc>(context);
+
     super.initState();
   }
 
@@ -63,7 +64,7 @@ class _ControllersState extends State<Controllers> {
               ),
               IconButton(
                 onPressed: () {
-                  // map.add(GetMyLocation());
+                  map.add(GetMyLocation());
                 },
                 // printPoints();
                 icon: Icon(
@@ -78,6 +79,4 @@ class _ControllersState extends State<Controllers> {
       ),
     );
   }
-
- 
 }

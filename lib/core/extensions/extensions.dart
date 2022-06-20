@@ -45,7 +45,7 @@ extension ColorsExtensions on Color {
   static Color setColorOfContainersOverMap(BuildContext context) {
     return MediaQuery.of(context).platformBrightness == Brightness.dark
         ? ColorsManager.black
-        : Colors.white;
+        : ColorsManager.offGrey;
   }
 
   static Color checkSelectedOrNot(String a, String b, BuildContext context) {
@@ -83,7 +83,6 @@ extension TextFormStyle on InputDecoration {
     );
   }
 }
-
 
 String selectAnimationLightOrDark(BuildContext context) {
   if (MediaQuery.of(context).platformBrightness == Brightness.dark) {

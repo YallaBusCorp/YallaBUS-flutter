@@ -29,7 +29,8 @@ class _FromToWidgetState extends State<FromToWidget> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible:!(bloc.perfs.getBool('Booked') ?? false),
+      // visible: !(bloc.perfs.getBool('Booked') ?? false),
+      visible: false,
       child: Positioned(
         top: MediaQuery.of(context).size.height - ValuesManager.v220,
         left: ValuesManager.v10,
@@ -38,7 +39,6 @@ class _FromToWidgetState extends State<FromToWidget> {
             width: MediaQuery.of(context).size.width - ValuesManager.v20,
             padding: const EdgeInsets.all(ValuesManager.v8),
             decoration: BoxDecoration(
-             
               color: ColorsExtensions.setColorOfContainersOverMap(context),
               borderRadius: BorderRadius.circular(ValuesManager.v16),
             ),
@@ -69,10 +69,11 @@ class _FromToWidgetState extends State<FromToWidget> {
                                   .headline5!
                                   .copyWith(
                                       fontSize: ValuesManager.v18,
-                                      color: ColorsExtensions.checkSelectedOrNot(
-                                          bloc.from,
-                                          StringManager.pickUpPoint,
-                                          context)),
+                                      color:
+                                          ColorsExtensions.checkSelectedOrNot(
+                                              bloc.from,
+                                              StringManager.pickUpPoint,
+                                              context)),
                             ),
                           );
                         },
@@ -106,10 +107,11 @@ class _FromToWidgetState extends State<FromToWidget> {
                                     .headline5!
                                     .copyWith(
                                       fontSize: ValuesManager.v18,
-                                      color: ColorsExtensions.checkSelectedOrNot(
-                                          bloc.to,
-                                          StringManager.dropOffPoint,
-                                          context),
+                                      color:
+                                          ColorsExtensions.checkSelectedOrNot(
+                                              bloc.to,
+                                              StringManager.dropOffPoint,
+                                              context),
                                     ),
                               ),
                             ),

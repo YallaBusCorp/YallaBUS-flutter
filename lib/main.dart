@@ -94,14 +94,14 @@ class _MyAppState extends State<MyApp> {
   late MapBloc bloc;
   @override
   void initState() {
-    AwesomeNotifications().actionStream.listen((event) {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(Routes.home, (route) => route.isFirst);
+    // AwesomeNotifications().actionStream.listen((event) {
+    //   Navigator.of(context)
+    //       .pushNamedAndRemoveUntil(Routes.home, (route) => route.isFirst);
 
-      NotificationManager.createScheduleNotifi(
-        DateTime(2022, 6, 19, 23, 48),
-      );
-    });
+    //   NotificationManager.createScheduleNotifi(
+    //     DateTime(2022, 6, 19, 23, 48),
+    //   );
+    // });
     super.initState();
   }
 

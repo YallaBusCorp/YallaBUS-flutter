@@ -17,7 +17,6 @@ class RideInfo extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(ValuesManager.v16),
-       
         color: Theme.of(context).backgroundColor,
       ),
       child: Padding(
@@ -33,43 +32,29 @@ class RideInfo extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWidget(
-                    text: 'From ${bloc.perfs.getString('PickUp')}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontSize: 18),
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: TextWidget(
+                      text: 'From Mit Ghamr',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: 18),
+                    ),
                   ),
                   const SizedBox(height: 10),
-                  TextWidget(
-                    text: 'To ${bloc.perfs.getString('DropOff')}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontSize: 18),
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: TextWidget(
+                      text: 'To Elslab',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: 18),
+                    ),
                   ),
                 ],
               ),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.ideographic,
-              children: [
-                TextWidget(
-                  text: '22',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5!
-                      .copyWith(fontSize: 45),
-                ),
-                TextWidget(
-                  text: 'Km',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5!
-                      .copyWith(fontSize: 18),
-                ),
-              ],
             ),
           ],
         ),

@@ -49,7 +49,7 @@ class AssetManager {
   static const String cancel = 'assets/images/cancel.png';
   static const String question = 'assets/images/quest.png';
   static const String driver = 'assets/images/driver.svg';
-  static const String cancelIcon = 'assets/images/cancel.svg';
+  static const String cancelSVG = 'assets/images/cancel.svg';
   static const String scan = 'assets/images/qr.svg';
   static const String reschedule = 'assets/images/reschedule.svg';
   static const String visa = 'assets/images/visa.svg';
@@ -57,4 +57,5 @@ class AssetManager {
   static const String subsctiptionIcon = 'assets/images/subscription_icon.svg';
   static const String arrowAnimation = 'assets/images/arrow.json';
   static const String busIconTracking = 'assets/images/bus_icon.bmp';
+  static const String call = 'assets/images/noun_call.svg';
 }

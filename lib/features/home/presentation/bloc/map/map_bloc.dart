@@ -32,7 +32,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   String timeOfSelectedRides = StringManager.timeOfSelectedRides;
   Set<Marker> markersOfBus = {};
   // List<GeoPoint> points =  [
-  
+
   //   GeoPoint(30.74247473924697, 31.261134493008118),
   //   GeoPoint(30.743878358850573, 31.261797951021475),
   //   GeoPoint(30.745457406458065, 31.262155197644052),
@@ -43,7 +43,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   //   GeoPoint(30.757387151852857, 31.260828281594474),
   //   GeoPoint(30.761027184314887, 31.26047103495726),
   //   GeoPoint(30.76400927693074, 31.260062753102893),
-    
+
   // ];
   // List<GeoPoint> l =  [GeoPoint(30.766333491051945, 31.25980757691648)];
   SharedPreferences perfs = di<SharedPreferences>();
@@ -325,7 +325,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       emit(ChangeMarkersOfBus(markersOfBus));
       MapManager.kGooglePlex = CameraPosition(
         bearing: 0,
-        tilt : 0,
+        tilt: 0,
         target: LatLng(event.point.latitude, event.point.longitude),
         zoom: 16,
       );
