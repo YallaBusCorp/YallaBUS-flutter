@@ -1,3 +1,5 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../resources/asset_manager.dart';
 import '../../features/choose_company/presentation/bloc/company_selection_bloc.dart';
@@ -81,6 +83,15 @@ extension TextFormStyle on InputDecoration {
       filled: true,
       fillColor: ColorsExtensions.setColorOfTextForm(context),
     );
+  }
+}
+
+extension StringsExtensions on String {
+  static List<String> splitDate(Timestamp time) {
+    return time.toDate().toString().split(' ');
+  }
+  static String removeSecondsFromDate(String time,String amOrPm) {
+    return time.substring(0,5) + ' ' + amOrPm;
   }
 }
 

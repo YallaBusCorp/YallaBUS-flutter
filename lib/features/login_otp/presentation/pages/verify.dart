@@ -16,7 +16,8 @@ import '../widgets/pin_code.dart';
 
 class VerifyScreen extends StatefulWidget {
   final String number;
-  const VerifyScreen({Key? key, required this.number}) : super(key: key);
+  final String mode;
+  const VerifyScreen({Key? key, required this.number,required this.mode}) : super(key: key);
 
   @override
   State<VerifyScreen> createState() => _VerifyScreenState();
@@ -68,7 +69,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
             ),
             BlocBuilder<KeyboardBloc, KeyboardState>(
               builder: (context, state) {
-                return AuthButton(   
+                return AuthButton( 
+                  edit: widget.mode,  
                   type: StringManager.otp,
                   text: StringManager.verify.tr(),
                   onPressed: keyboard.indexOfPinNumber == ValuesManager.v6

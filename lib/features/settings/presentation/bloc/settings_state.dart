@@ -4,8 +4,7 @@ part of 'settings_bloc.dart';
 abstract class SettingsState extends Equatable {
   const SettingsState();
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 class SettingsInitial extends SettingsState {}
@@ -52,8 +51,49 @@ class GetCompanyError extends SettingsState {
 
 class FAQsChange extends SettingsState {}
 
-class Loading extends SettingsState{}
+class Loading extends SettingsState {}
 
 class UpdateStudentInfoSuccess extends SettingsState {}
 
 class UpdateStudentInfoError extends SettingsState {}
+
+class GetNewComplaintDataSuccess extends SettingsState {
+  const GetNewComplaintDataSuccess();
+}
+
+class PostComplaintSuccess extends SettingsState {}
+
+class PostComplaintError extends SettingsState {}
+
+class RefershMessage extends SettingsState {
+  final String value;
+
+  const RefershMessage(this.value);
+
+  @override
+  List<Object?> get props => [value];
+}
+
+class GetNotScannedRidesSuccess extends SettingsState {
+  final List<RideHis> list;
+
+  const GetNotScannedRidesSuccess(this.list);
+}
+
+class GetNonScannedRidesError extends SettingsState {
+  final String message;
+
+  const GetNonScannedRidesError(this.message);
+}
+
+class GetScannedRidesSuccess extends SettingsState {
+  final List<RideHis> list;
+
+  const GetScannedRidesSuccess(this.list);
+}
+
+class GetScannedRidesError extends SettingsState {
+  final String message;
+
+  const GetScannedRidesError(this.message);
+}

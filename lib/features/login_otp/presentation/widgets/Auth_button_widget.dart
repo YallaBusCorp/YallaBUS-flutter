@@ -15,7 +15,7 @@ import '../bloc/Login/login_bloc.dart';
 
 class AuthButton extends StatelessWidget {
   // add type properity
-  String? edit;
+  final String edit;
   final String type;
   final String text;
   final GestureTapCallback? onPressed;
@@ -24,7 +24,7 @@ class AuthButton extends StatelessWidget {
       required this.text,
       required this.onPressed,
       required this.type,
-      this.edit})
+      required this.edit})
       : super(key: key);
 
   @override
@@ -55,10 +55,10 @@ class AuthButton extends StatelessWidget {
             } else if (perfs.getInt(ConstantsManager.company) != null) {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil(Routes.home, (route) => false);
-            } else {}
+            } 
           } else {
             Navigator.of(context)
-                .pushNamed(Routes.verifyOtp, arguments: keyboard.number);
+                .pushNamed(Routes.verifyOtp, arguments: ScreenArguments(keyboard.number, edit));
           }
         } else if (state is Error) {
           Navigator.of(context).pop();

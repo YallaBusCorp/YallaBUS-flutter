@@ -113,15 +113,15 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(
           create: (builder) => di<CompanySelectionBloc>(),
-          child: ChooseCompany(),
+          child: const ChooseCompany(edit: ConstantsManager.register,),
         ),
         BlocProvider(
           create: (builder) => LoginBloc(),
-          child: LoginOtp(),
+          child: LoginOtp(editOrRegister: ConstantsManager.register,),
         ),
         BlocProvider(
           create: (builder) => KeyboardBloc(),
-          child: LoginOtp(),
+          child:LoginOtp(editOrRegister: ConstantsManager.register,),
         ),
         BlocProvider(
           create: (builder) => di<MapBloc>(),

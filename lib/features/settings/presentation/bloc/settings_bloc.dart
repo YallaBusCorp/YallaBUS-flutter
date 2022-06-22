@@ -1,9 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
+import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
+import 'package:yalla_bus/features/settings/domain/use_case/get_non_scanned_rides.dart';
 import 'package:yalla_bus/features/settings/domain/use_case/update_student.dart';
 import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
 
@@ -15,6 +18,7 @@ import '../../../sign_up/domain/use_case/get_all_towns.dart';
 import '../../../sign_up/domain/use_case/get_all_universities.dart';
 import '../../../sign_up/presentation/bloc/completeprofile_bloc.dart';
 import '../../domain/use_case/get_company_info.dart';
+import '../../domain/use_case/get_scanned_rides.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';
@@ -24,25 +28,37 @@ enum Resonses { answered, inQueue }
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   Color replyOrNot = Colors.red;
   List<bool> isOpen = [false, false, false, false];
-  List<String> dropDownOptions = [
-    'Driver issues',
-    'Subscription issues',
-    'Other',
-  ];
 
+  List<dynamic> docData = [];
+  final Stream<QuerySnapshot> complaintStream = FirebaseFirestore.instance
+      .collection('company')
+      .doc('serkes')
+      .collection('complaint')
+      .snapshots();
+
+  @override
+  void onChange(Change<SettingsState> change) {
+    super.onChange(change);
+    print(change.nextState);
+  }
+
+  final TextEditingController controller = TextEditingController();
   CompanySelectionBloc companyName = di<CompanySelectionBloc>();
-  LoginBloc number = di<LoginBloc>();
   GetAllUniversities university;
   GetAllTowns town;
   GetCompanyInfo company;
   UpdateStudentInfo updateStudentInfo;
+  GetNonScannedRides nonScannedRides;
+  GetScannedRides scannedRides;
   late Company companyItem;
+  String value = "";
   List<String> names = [];
   List<int> ids = [];
   Map<String, int> towns = {};
   Map<String, int> universities = {};
   SharedPreferences perfs = di<SharedPreferences>();
-  SettingsBloc(this.town, this.university, this.company, this.updateStudentInfo)
+  SettingsBloc(this.town, this.university, this.company, this.updateStudentInfo,
+      this.nonScannedRides, this.scannedRides)
       : super(SettingsInitial()) {
     on<SettingsEvent>((event, emit) {});
 
@@ -99,7 +115,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     });
 
     on<UpdateStudentInfoEvent>((event, emit) async {
-    
       (await updateStudentInfo.update(event.student)).fold((l) {
         final names = event.student.stdName.split(' ');
         perfs.setString(ConstantsManager.firstName, names[0]);
@@ -109,6 +124,68 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         emit(UpdateStudentInfoSuccess());
       }, (r) {
         emit(UpdateStudentInfoError());
+      });
+    });
+
+    on<GetNewComplaintDataEvent>((event, emit) {
+      docData.clear();
+      event.snapshot
+          .map((DocumentSnapshot document) {
+            Map<String, dynamic> s = document.data() as Map<String, dynamic>;
+            if (s['userID'] == perfs.getString(ConstantsManager.uid)) {
+              docData.add(s);
+            }
+          })
+          .toList()
+          .cast();
+
+      emit(const GetNewComplaintDataSuccess());
+    });
+
+    on<RefershMessageEvent>((event, emit) {
+      value = controller.text;
+      emit(RefershMessage(value));
+    });
+
+    on<PostComplaintEvent>((event, emit) async {
+      final data = <String, dynamic>{
+        'complaintID': '',
+        'message': event.text,
+        'msgTimestamp': Timestamp.fromDate(DateTime.now()),
+        'rideID': 'ididid',
+        'userID': perfs.getString(ConstantsManager.uid),
+      };
+      DocumentReference value = await FirebaseFirestore.instance
+          .collection('company')
+          .doc('serkes')
+          .collection('complaint')
+          .add(data);
+      FirebaseFirestore.instance
+          .collection('company')
+          .doc('serkes')
+          .collection('complaint')
+          .doc(value.id)
+          .update({
+        'complaintID': value.id,
+      });
+      emit(PostComplaintSuccess());
+    });
+
+    on<GetNotScannedRidesEvent>((event, emit) async {
+      emit(Loading());
+      (await nonScannedRides.getNonScannedRides(event.id)).fold((l) {
+        emit(GetNotScannedRidesSuccess(l));
+      }, (r) {
+        emit(GetNonScannedRidesError(r.message));
+      });
+    });
+
+    on<GetNotScannedRidesEvent>((event, emit) async {
+      emit(Loading());
+      (await nonScannedRides.getNonScannedRides(event.id)).fold((l) {
+        emit(GetScannedRidesSuccess(l));
+      }, (r) {
+        emit(GetScannedRidesError(r.message));
       });
     });
   }

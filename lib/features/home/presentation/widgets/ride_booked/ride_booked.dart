@@ -22,42 +22,45 @@ class RideBooked extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MapBloc, MapState>(
-      builder: (context, state) {
-        return Align(
-          alignment: Alignment.bottomCenter,
-          child: DecorationBoxWidget(
-            radius: const BorderRadius.only(
-                topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-            color: ColorsExtensions.setColorOfContainersOverMap(context),
-            child: Padding(
-              padding: const EdgeInsets.all(ValuesManager.v16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Your driver is comming',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontSize: 18),
-                  ),
-                  const DriverInfo(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const RideOptions(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
+    return Visibility(
+      visible: false,
+      child: BlocBuilder<MapBloc, MapState>(
+        builder: (context, state) {
+          return Align(
+            alignment: Alignment.bottomCenter,
+            child: DecorationBoxWidget(
+              radius: const BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              color: ColorsExtensions.setColorOfContainersOverMap(context),
+              child: Padding(
+                padding: const EdgeInsets.all(ValuesManager.v16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Your driver is comming',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: 18),
+                    ),
+                    const DriverInfo(),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const RideOptions(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

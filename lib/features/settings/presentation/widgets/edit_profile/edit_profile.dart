@@ -14,7 +14,6 @@ import '../../../../../core/resources/colors_manager.dart';
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../../../core/resources/routes_manager.dart';
 import '../../bloc/settings_bloc.dart';
-import '../drop_down_widget.dart';
 import '../../../../sign_up/presentation/widgets/drop_down_widget.dart';
 
 import '../../../../../core/custom_widgets/separtor_widget.dart';
@@ -74,12 +73,6 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                 ),
               );
-              Future.delayed(
-                  const Duration(
-                    seconds: 2,
-                  ), () {
-                Navigator.of(context).pop();
-              });
             }
 
             if (state is UpdateStudentInfoError) {
@@ -127,11 +120,16 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(
                 height: 10,
               ),
-              DropDownWidget(
-                  type: false,
-                  hint: bloc.perfs.getString(ConstantsManager.universityName)!,
-                  ids: bloc.universities.values.toList(),
-                  options: bloc.universities.keys.toList()),
+              BlocBuilder<SettingsBloc, SettingsState>(
+                builder: (context, state) {
+                  return DropDownWidget(
+                      type: false,
+                      hint: bloc.perfs
+                          .getString(ConstantsManager.universityName)!,
+                      ids: bloc.universities.values.toList(),
+                      options: bloc.universities.keys.toList());
+                },
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -244,8 +242,10 @@ class _EditProfileState extends State<EditProfile> {
                           stdName: firstNameController.text +
                               ' ' +
                               lastNameController.text,
-                          stdPhone: bloc.perfs.getString(ConstantsManager.number)!,
-                          companyId: CompanyId(bloc.perfs.getInt(ConstantsManager.company)!),
+                          stdPhone:
+                              bloc.perfs.getString(ConstantsManager.number)!,
+                          companyId: CompanyId(
+                              bloc.perfs.getInt(ConstantsManager.company)!),
                           townId: TownId(2),
                           universityId: UniversityId(4),
                         ),

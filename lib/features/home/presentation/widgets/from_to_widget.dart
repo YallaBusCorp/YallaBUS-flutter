@@ -30,7 +30,7 @@ class _FromToWidgetState extends State<FromToWidget> {
   Widget build(BuildContext context) {
     return Visibility(
       // visible: !(bloc.perfs.getBool('Booked') ?? false),
-      visible: false,
+      visible: true,
       child: Positioned(
         top: MediaQuery.of(context).size.height - ValuesManager.v220,
         left: ValuesManager.v10,

@@ -21,10 +21,10 @@ Widget launchFirst() {
           return const CompleteProfile();
         }
       } else {
-        return  ChooseCompany();
+        return  const ChooseCompany(edit: ConstantsManager.register,);
       }
     } else {
-      return LoginOtp();
+      return LoginOtp(editOrRegister: ConstantsManager.register,);
     }
   } else {
     return const OnBoardingBase();

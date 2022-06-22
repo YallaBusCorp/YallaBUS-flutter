@@ -2,17 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/ride_booked/ride_info.dart';
 import '../../../../../core/custom_widgets/button_widget.dart';
-import '../../../../../core/custom_widgets/text_widget.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
-import '../../../../../core/resources/constants_manager.dart';
-import '../../bloc/map/map_bloc.dart';
 import '../book_ride.dart';
 import 'qr_view.dart';
-
-import '../../../../../core/extensions/extensions.dart';
-import '../../../../../core/injection/di.dart';
-import '../../../../../core/resources/values_manager.dart';
 
 class RideOptions extends StatelessWidget {
   const RideOptions({Key? key}) : super(key: key);

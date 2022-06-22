@@ -5,9 +5,11 @@ import '../../../../../core/extensions/extensions.dart';
 
 import '../../../../../core/custom_widgets/separtor_widget.dart';
 import '../../../../../core/resources/colors_manager.dart';
+import '../../../domain/entity/ride_history_model.dart';
 
 class RideHistoryItem extends StatelessWidget {
-  const RideHistoryItem({Key? key}) : super(key: key);
+  final RideHis rideHis;
+  const RideHistoryItem({Key? key, required this.rideHis}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +36,12 @@ class RideHistoryItem extends StatelessWidget {
                               .headline6!
                               .copyWith(fontSize: 18)),
                       const SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
                       FittedBox(
                         fit: BoxFit.fitWidth,
                         child: Text(
-                          'Mit Ghamr',
+                          rideHis.pick.name,
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
@@ -64,16 +66,19 @@ class RideHistoryItem extends StatelessWidget {
                                 .copyWith(fontSize: 18)),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
-                      FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                          'Mansoura University',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(fontSize: 18),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            rideHis.drop.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(fontSize: 18),
+                          ),
                         ),
                       ),
                     ],
@@ -120,18 +125,19 @@ class RideHistoryItem extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '08:20 AM 12 March',
+                    StringsExtensions.removeSecondsFromDate(
+                        rideHis.appoinment.date, rideHis.appoinment.amOrPm),
                     style: Theme.of(context).textTheme.caption,
                   ),
                   Text(
-                    'Mohamed Abdo',
+                    rideHis.emp,
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
                         .copyWith(fontSize: 18),
                   ),
                   Text(
-                    'ABC | 4444',
+                    rideHis.busId,
                     style: Theme.of(context)
                         .textTheme
                         .headline6!

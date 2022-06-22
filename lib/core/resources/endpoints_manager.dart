@@ -15,4 +15,7 @@ class ApiEndPoints {
   static const String bookRide = '/txBooking/save-txBooking';
   static const String updateStudent = '/student/update-student';
   static const String getStudentByUID = '/student/get-by-uid';
+  static const String getNonScannedRides =
+      '/txBooking/student/get-all-not-scanned';
+  static const String getScannedRides = '/txBooking/student/get-all-scanned';
 }

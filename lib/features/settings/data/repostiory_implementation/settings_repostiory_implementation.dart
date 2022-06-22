@@ -1,3 +1,5 @@
+import 'package:yalla_bus/features/settings/data/model/settings_model_converters.dart';
+import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import 'package:yalla_bus/features/sign_up/data/model/complete_profile_converters.dart';
 import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
 
@@ -14,7 +16,6 @@ class SettingsRepostioryImplementation extends SettingsRepostiory {
   late Company company;
   final SettingsApiClient client;
   final NetworkInfo network;
-  
 
   SettingsRepostioryImplementation(this.client, this.network);
   @override
@@ -38,6 +39,34 @@ class SettingsRepostioryImplementation extends SettingsRepostiory {
       try {
         await client.update(student);
         return Left(Success());
+      } on ServerFailure {
+        return Right(Failure("Server Failure"));
+      }
+    } else {
+      return Right(Failure("You don't have internet access!"));
+    }
+  }
+
+  @override
+  Future<Either<List<RideHis>, Failure>> getNonScannedRides(int id) async {
+    if (await network.isConnected()) {
+      try {
+        List<dynamic> list = await client.getNonScannedRides(id);
+        return Left(list.map((e) => RideHisModel.fromJson(e)).toList());
+      } on ServerFailure {
+        return Right(Failure("Server Failure"));
+      }
+    } else {
+      return Right(Failure("You don't have internet access!"));
+    }
+  }
+
+  @override
+  Future<Either<List<RideHis>, Failure>> getScannedRides(int id) async {
+    if (await network.isConnected()) {
+      try {
+        List<dynamic> list = await client.getScannedRides(id);
+        return Left(list.map((e) => RideHisModel.fromJson(e)).toList());
       } on ServerFailure {
         return Right(Failure("Server Failure"));
       }

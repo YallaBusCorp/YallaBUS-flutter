@@ -1,11 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
+import '../../../../../core/injection/di.dart';
 import '../../../../../core/resources/routes_manager.dart';
+import '../../bloc/settings_bloc.dart';
 import 'complaint_body.dart';
 
 import '../../../../../core/resources/colors_manager.dart';
 
-class Complaints extends StatelessWidget {
+class Complaints extends StatefulWidget {
   const Complaints({Key? key}) : super(key: key);
+
+  @override
+  State<Complaints> createState() => _ComplaintsState();
+}
+
+class _ComplaintsState extends State<Complaints> {
+  late SettingsBloc bloc;
+
+  @override
+  void initState() {
+    bloc = BlocProvider.of<SettingsBloc>(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +46,30 @@ class Complaints extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: ListView.separated(
-          itemCount: 2,
-          separatorBuilder: (BuildContext context, int index) {
-            return const SizedBox(
-              height: 10,
-            );
-          },
-          itemBuilder: (BuildContext context, int index) {
-            return const ComplaintBody();
-          },
-        ),
+        child: StreamBuilder<QuerySnapshot>(
+            stream: bloc.complaintStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                bloc.add(GetNewComplaintDataEvent(snapshot.data!.docs));
+                
+              }
+              return BlocBuilder<SettingsBloc, SettingsState>(
+                builder: (context, state) {
+                  return ListView.separated(
+                    itemCount: bloc.docData.length,
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(
+                        height: 10,
+                      );
+                    },
+                    itemBuilder: (BuildContext context, int index) {
+                      
+                      return ComplaintBody(index: index);
+                    },
+                  );
+                },
+              );
+            }),
       ),
     );
   }

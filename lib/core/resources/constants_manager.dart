@@ -24,7 +24,7 @@ class ConstantsManager {
   static const String booked = 'Booked';
   static const String townName = 'TownName';
   static const String universityName = 'UniversityName';
-  static const String edit = 'EditMode';
+  static const String edit = 'Edit';
   static const String register = 'RegisterMode';
 
 

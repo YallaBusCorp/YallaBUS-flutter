@@ -4,6 +4,7 @@ import '../../features/login_otp/presentation/pages/verify.dart';
 import '../../features/payment/presentation/pages/add_payment.dart';
 import '../../features/payment/presentation/pages/success_payment.dart';
 import '../../features/settings/presentation/pages/settings.dart';
+import '../../features/settings/presentation/widgets/complaints/complaint_response.dart';
 import '../../features/settings/presentation/widgets/complaints/complaints.dart';
 import '../../features/settings/presentation/widgets/complaints/file_complaint.dart';
 import '../../features/settings/presentation/widgets/edit_profile/edit_profile.dart';
@@ -32,6 +33,8 @@ class Routes {
   static const String subscriptionDetails = '/subscriptionDetails';
   static const String editProfile = '/editProfile';
   static const String faqs = '/faqs';
+  static const String complaintMessageAndResponse =
+      'complaintMessageAndResponse';
 }
 
 class RouteGenerator {
@@ -73,11 +76,19 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const EditProfile());
       case Routes.faqs:
         return MaterialPageRoute(builder: (_) => FAQs());
+      case Routes.complaintMessageAndResponse:
+        var args = settings.arguments  as int;
+        return MaterialPageRoute(
+            builder: (_) => ComplaintResponse(
+                  index: args,
+                ));
       case Routes.verifyOtp:
-        var args = settings.arguments as String;
+        ScreenArguments argument  = settings.arguments as ScreenArguments;
         return MaterialPageRoute(
           builder: (_) => VerifyScreen(
-            number: args,
+            number: argument.number,
+            mode : argument.mode,
+            
           ),
         );
       default:
@@ -94,4 +105,11 @@ class RouteGenerator {
               body: const Center(child: Text('Not Found!')),
             ));
   }
+}
+
+class ScreenArguments{
+  final String number;
+  final String mode;
+
+  ScreenArguments(this.number, this.mode);
 }

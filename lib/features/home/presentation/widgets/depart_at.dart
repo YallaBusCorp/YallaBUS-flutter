@@ -65,7 +65,7 @@ class _DepartAtState extends State<DepartAt> {
       builder: (context, state) {
         return Visibility(
           // visible: !(bloc.perfs.getBool('Booked') ?? false),
-          visible: false,
+          visible: true,
           child: Positioned(
             top: MediaQuery.of(context).size.height - 80,
             child: SizedBox(

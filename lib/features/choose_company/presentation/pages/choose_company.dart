@@ -11,8 +11,8 @@ import '../widgets/company_button_widget.dart';
 import '../widgets/search_field.dart';
 
 class ChooseCompany extends StatefulWidget {
-  String? edit;
-  ChooseCompany({Key? key, this.edit}) : super(key: key);
+  final String edit;
+  const ChooseCompany({Key? key,required this.edit}) : super(key: key);
 
   @override
   State<ChooseCompany> createState() => _ChooseCompanyState();

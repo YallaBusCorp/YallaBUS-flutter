@@ -17,8 +17,8 @@ import '../widgets/phone_number_widget.dart';
 import '../../../../core/resources/string_manager.dart';
 
 class LoginOtp extends StatefulWidget {
-  String? editOrRegister;
-  LoginOtp({Key? key, this.editOrRegister}) : super(key: key);
+  final String editOrRegister;
+  LoginOtp({Key? key, required this.editOrRegister}) : super(key: key);
 
   @override
   State<LoginOtp> createState() => _LoginOtpState();
