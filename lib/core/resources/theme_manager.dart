@@ -16,7 +16,6 @@ const TextTheme textThemeEnglish = TextTheme(
   caption: TextStyle(
     fontFamily: FontFamily.nunitoRegular,
   ),
-  
 );
 
 //Not Completed
@@ -36,7 +35,7 @@ final ThemeData light = ThemeData(
   colorScheme: const ColorScheme.light(),
   primaryColor: Colors.white,
   textTheme: textThemeEnglish,
-  backgroundColor: ColorsManager.offGrey,
+  backgroundColor: Colors.white,
   scaffoldBackgroundColor: ColorsManager.offGrey,
   iconTheme: const IconThemeData(
     color: Colors.black,
@@ -47,7 +46,7 @@ final ThemeData light = ThemeData(
     iconTheme: IconThemeData(
       color: ColorsManager.orange,
     ),
-    color: Colors.white,
+    color: ColorsManager.offGrey,
     elevation: 0,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,

@@ -1,34 +1,30 @@
 import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 
 class RideHisModel extends RideHis {
-  RideHisModel(
-      {required PickUp pick,
-      required DropOff drop,
-      required Appoint appoinment,
-      required String busId,
-      required String emp})
-      : super(
-            pick: pick,
-            drop: drop,
-            appoinment: appoinment,
-            busId: busId,
-            emp: emp);
+  RideHisModel(int id, PickUp pick, DropOff drop, Appoint appoinment,
+      String busId, String emp)
+      : super(id, pick, drop, appoinment, busId, emp);
 
   factory RideHisModel.fromJson(Map<String, dynamic> json) {
     return RideHisModel(
-        pick: PickUpModel.fromJson(json['pickupPoint']),
-        drop: DropOffModel.fromJson(json['dropoffPoint']),
-        appoinment: AppointModel.fromJson(json['appointment']),
-        busId: json['bus'] ?? 'ABC | 4444',
-        emp: json['emp'] ?? 'Abdo Abdo');
+        json['id'] ?? -1,
+        PickUpModel.fromJson(
+            json['pickupPoint'] ?? {'mapPointTitleEn': 'name'}),
+        DropOffModel.fromJson(
+            json['dropoffPoint'] ?? {'mapPointTitleEn': 'name'}),
+        AppointModel.fromJson(json['appointment'] ??
+            {'appointmentStartTime': '05:52:00', 'appointmentType': 'AM'}),
+        json['bus'] ?? 'ABC | 4444',
+        json['emp'] ?? 'Abdo Abdo');
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['emp'] = emp;
-    data['pickupPoint'] = PickUpModel(name: pick.name).toJson();
-    data['dropoffPoint'] = DropOffModel(name: pick.name).toJson();
+    data['pickupPoint'] = PickUpModel(pick!.name).toJson();
+    data['dropoffPoint'] = DropOffModel(pick!.name).toJson();
     data['appointment'] =
-        AppointModel(date: appoinment.date, amOrPm: appoinment.amOrPm).toJson();
+        AppointModel(appoinment!.date, appoinment!.amOrPm).toJson();
     data['bus'] = busId;
 
     return data;
@@ -36,9 +32,9 @@ class RideHisModel extends RideHis {
 }
 
 class PickUpModel extends PickUp {
-  PickUpModel({required String name}) : super(name: name);
+  PickUpModel(String name) : super(name);
   factory PickUpModel.fromJson(Map<String, dynamic> json) {
-    return PickUpModel(name: json['mapPointTitleEn']);
+    return PickUpModel(json['mapPointTitleEn']);
   }
 
   Map<String, dynamic> toJson() {
@@ -50,9 +46,9 @@ class PickUpModel extends PickUp {
 }
 
 class DropOffModel extends DropOff {
-  DropOffModel({required String name}) : super(name: name);
+  DropOffModel(String name) : super(name);
   factory DropOffModel.fromJson(Map<String, dynamic> json) {
-    return DropOffModel(name: json['mapPointTitleEn']);
+    return DropOffModel(json['mapPointTitleEn']);
   }
 
   Map<String, dynamic> toJson() {
@@ -64,18 +60,18 @@ class DropOffModel extends DropOff {
 }
 
 class AppointModel extends Appoint {
-  AppointModel({required String date, required String amOrPm})
-      : super(date: date, amOrPm: amOrPm);
+  AppointModel(String date, String amOrPm) : super(date, amOrPm);
 
   factory AppointModel.fromJson(Map<String, dynamic> json) {
     return AppointModel(
-        date: json['appointmentStartTime'], amOrPm: json['appointmentType']);
+      json['appointmentStartTime'],
+      json['appointmentType']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['appointmentStartTime'] = date;
-    data['amOrPm'] = amOrPm;
+    data['appointmentType'] = amOrPm;
 
     return data;
   }

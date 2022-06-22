@@ -56,10 +56,6 @@ class AddDropOffMarkerTitleToTexts extends MapEvent {
   List<Object> get props => [title];
 }
 
-class SaveInSharedPerfsEvent extends MapEvent {}
-
-class CancelRideEvent extends MapEvent {}
-
 class BookRideEvent extends MapEvent {
   final Ride ride;
 
@@ -73,6 +69,12 @@ class GetStudentIDEvent extends MapEvent {
 }
 
 class CameraPositionAfterBookingEvent extends MapEvent {}
+
+class GetCurrentRideByUIDEvent extends MapEvent {
+  final String uid;
+
+  const GetCurrentRideByUIDEvent(this.uid);
+}
 
 class RefreshBusCoordinateEvent extends MapEvent {
   final GeoPoint point;

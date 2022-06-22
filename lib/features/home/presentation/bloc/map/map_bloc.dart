@@ -6,8 +6,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/resources/map_manager.dart';
+import 'package:yalla_bus/features/home/domain/use_case/get_current_ride.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/string_manager.dart';
+import '../../../../settings/domain/entity/ride_history_model.dart';
 import '../../../domain/enitity/ride.dart';
 import '../../../domain/use_case/book_ride.dart';
 import '../../../domain/use_case/get_appoinments_of_am.dart';
@@ -28,24 +30,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final GetMapDropOffPoints dropOff;
   final GetMapPickUpPoints pickUp;
   final BookRide bookRide;
+  final GetCurrentRide currentRide;
+  bool departAndFromToVisible = false;
+  bool rideVisible = false;
 
   String timeOfSelectedRides = StringManager.timeOfSelectedRides;
   Set<Marker> markersOfBus = {};
-  // List<GeoPoint> points =  [
-
-  //   GeoPoint(30.74247473924697, 31.261134493008118),
-  //   GeoPoint(30.743878358850573, 31.261797951021475),
-  //   GeoPoint(30.745457406458065, 31.262155197644052),
-  //   GeoPoint(30.747124150850247, 31.261746915789676),
-  //   GeoPoint(30.74979965390514,  31.26154277486249),
-  //   GeoPoint(30.75295752916673, 31.261185528229856),
-  //   GeoPoint(30.753132963699226, 31.261134492985253),
-  //   GeoPoint(30.757387151852857, 31.260828281594474),
-  //   GeoPoint(30.761027184314887, 31.26047103495726),
-  //   GeoPoint(30.76400927693074, 31.260062753102893),
-
-  // ];
-  // List<GeoPoint> l =  [GeoPoint(30.766333491051945, 31.25980757691648)];
   SharedPreferences perfs = di<SharedPreferences>();
   String from = StringManager.pickUpPoint;
   String to = StringManager.dropOffPoint;
@@ -79,7 +69,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   MapBloc(this.appointmentOfAm, this.appointmentOfPm, this.pickUp, this.dropOff,
-      this.bookRide)
+      this.bookRide, this.currentRide)
       : super(MapInitial()) {
     on<GetMyLocation>((event, emit) async {
       final GoogleMapController con = await MapManager.controller.future;
@@ -271,24 +261,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       emit(SelectDropOffFromPlace(event.title));
     });
 
-    on<SaveInSharedPerfsEvent>((event, emit) {
-      perfs.setBool(ConstantsManager.booked, true);
-      perfs.setString(ConstantsManager.pickUp, from);
-      perfs.setString(ConstantsManager.dropOff, to);
-      emit(Saved());
-    });
-
-    on<CancelRideEvent>((event, emit) {
-      perfs.setBool(ConstantsManager.booked, false);
-      emit(CancelRide());
-    });
-
     on<BookRideEvent>((event, emit) async {
       emit(Loading());
       (await bookRide.bookRide(event.ride)).fold((l) {
         emit(BookRideError(l.message));
       }, (r) {
+        perfs.setString(ConstantsManager.dateOfRide, timeOfSelectedRides);
         emit(BookRideSuccess());
+
         add(CameraPositionAfterBookingEvent());
       });
     });
@@ -318,9 +298,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           marker: markersOfBus,
           latlng: LatLng(event.point.latitude, event.point.longitude),
           icon: await MapManager.busIcon(),
-          rotation: MapManager.bearingBetweenLocations(
-              LatLng(event.point.latitude, event.point.longitude),
-              LatLng(event.point2.latitude, event.point2.longitude)),
           anchor: const Offset(0.5, 0.5));
       emit(ChangeMarkersOfBus(markersOfBus));
       MapManager.kGooglePlex = CameraPosition(
@@ -334,6 +311,23 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       con.animateCamera(update);
 
       emit(ChangeBusCoordinate());
+    });
+
+    on<GetCurrentRideByUIDEvent>((event, emit) async {
+      emit(Loading());
+      (await currentRide.getCurrentRideByUID(event.uid)).fold((l) {
+        emit(StudentCurrentRideError(l.message));
+      }, (r) {
+        if (r.id == -1) {
+          departAndFromToVisible = true;
+          rideVisible = false;
+          emit(const StudentNotInCurrentRide());
+        } else {
+          rideVisible = true;
+          departAndFromToVisible = false;
+          emit(StudentInCurrentRide(r));
+        }
+      });
     });
   }
 }

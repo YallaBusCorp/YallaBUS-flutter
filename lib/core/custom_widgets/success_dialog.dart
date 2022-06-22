@@ -35,12 +35,15 @@ class SuccessDialog extends StatelessWidget {
           const SizedBox(
             width: ValuesManager.v10,
           ),
-          TextWidget(
-            text: message,
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(fontWeight: FontWeight.normal),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextWidget(
+              text: message,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontWeight: FontWeight.normal),
+            ),
           ),
           const SizedBox(
             height: ValuesManager.v20,

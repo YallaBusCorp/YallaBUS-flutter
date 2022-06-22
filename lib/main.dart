@@ -28,6 +28,7 @@ import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_blo
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 
 import 'core/resources/notification_manager.dart';
+import 'features/bus_mobile/rides/presentation/pages/bus_rides.dart';
 import 'features/home/presentation/bloc/map/map_bloc.dart';
 import 'features/home/presentation/pages/home.dart';
 import 'features/login_otp/presentation/pages/login.dart';
@@ -55,20 +56,6 @@ void main() async {
   ]);
 
   await EasyLocalization.ensureInitialized();
-  AwesomeNotifications().initialize(
-      // set the icon to null if you want to use the default app icon
-      null,
-      [
-        NotificationChannel(
-          channelKey: 'scheduled_channel',
-          channelName: 'Scheduled notifications',
-          channelDescription: 'Notification channel for Scheduled tests',
-          defaultColor: Color(0xFF9D50DD),
-          defaultRingtoneType: DefaultRingtoneType.Notification,
-        ),
-      ],
-      debug: true);
-
   runApp(
     EasyLocalization(
       child: MyApp(),
@@ -91,20 +78,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late MapBloc bloc;
-  @override
-  void initState() {
-    // AwesomeNotifications().actionStream.listen((event) {
-    //   Navigator.of(context)
-    //       .pushNamedAndRemoveUntil(Routes.home, (route) => route.isFirst);
-
-    //   NotificationManager.createScheduleNotifi(
-    //     DateTime(2022, 6, 19, 23, 48),
-    //   );
-    // });
-    super.initState();
-  }
-
   final SharedPreferences perfs = di<SharedPreferences>();
 
   @override
@@ -113,15 +86,21 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(
           create: (builder) => di<CompanySelectionBloc>(),
-          child: const ChooseCompany(edit: ConstantsManager.register,),
+          child: const ChooseCompany(
+            edit: ConstantsManager.register,
+          ),
         ),
         BlocProvider(
           create: (builder) => LoginBloc(),
-          child: LoginOtp(editOrRegister: ConstantsManager.register,),
+          child: LoginOtp(
+            editOrRegister: ConstantsManager.register,
+          ),
         ),
         BlocProvider(
           create: (builder) => KeyboardBloc(),
-          child:LoginOtp(editOrRegister: ConstantsManager.register,),
+          child: LoginOtp(
+            editOrRegister: ConstantsManager.register,
+          ),
         ),
         BlocProvider(
           create: (builder) => di<MapBloc>(),
@@ -151,7 +130,7 @@ class _MyAppState extends State<MyApp> {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: launchFirst(),
+        home: BusRides(),
       ),
     );
   }

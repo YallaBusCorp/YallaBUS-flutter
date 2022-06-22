@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/pages/qr_scanner.dart';
+import 'package:yalla_bus/features/bus_mobile/rides/presentation/pages/bus_rides.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/faqs/fags.dart';
 import '../../features/login_otp/presentation/pages/verify.dart';
 import '../../features/payment/presentation/pages/add_payment.dart';
@@ -35,6 +37,10 @@ class Routes {
   static const String faqs = '/faqs';
   static const String complaintMessageAndResponse =
       'complaintMessageAndResponse';
+  static const String busRides = 'BusRides';
+  static const String busSettings = 'BusSettings';
+  static const String busMap = 'BusMap';
+  static const String busQrScanner = 'BusQr';
 }
 
 class RouteGenerator {
@@ -76,19 +82,22 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const EditProfile());
       case Routes.faqs:
         return MaterialPageRoute(builder: (_) => FAQs());
+      case Routes.busRides:
+        return MaterialPageRoute(builder: (_) => const BusRides());
+      case Routes.busQrScanner:
+        return MaterialPageRoute(builder: (_) => const BusQRScanner());
       case Routes.complaintMessageAndResponse:
-        var args = settings.arguments  as int;
+        var args = settings.arguments as int;
         return MaterialPageRoute(
             builder: (_) => ComplaintResponse(
                   index: args,
                 ));
       case Routes.verifyOtp:
-        ScreenArguments argument  = settings.arguments as ScreenArguments;
+        ScreenArguments argument = settings.arguments as ScreenArguments;
         return MaterialPageRoute(
           builder: (_) => VerifyScreen(
             number: argument.number,
-            mode : argument.mode,
-            
+            mode: argument.mode,
           ),
         );
       default:
@@ -107,7 +116,7 @@ class RouteGenerator {
   }
 }
 
-class ScreenArguments{
+class ScreenArguments {
   final String number;
   final String mode;
 

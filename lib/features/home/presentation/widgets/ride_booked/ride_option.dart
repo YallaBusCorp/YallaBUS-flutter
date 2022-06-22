@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/ride_booked/ride_info.dart';
+import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import '../../../../../core/custom_widgets/button_widget.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
@@ -8,7 +9,8 @@ import '../book_ride.dart';
 import 'qr_view.dart';
 
 class RideOptions extends StatelessWidget {
-  const RideOptions({Key? key}) : super(key: key);
+  final RideHis ride;
+  const RideOptions({Key? key, required this.ride}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,10 @@ class RideOptions extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        const Expanded(child: RideInfo()),
+         Expanded(
+            child: RideInfo(
+          ride: ride,
+        )),
         const SizedBox(
           width: 10,
         ),

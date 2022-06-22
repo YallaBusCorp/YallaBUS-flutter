@@ -26,7 +26,7 @@ class ConstantsManager {
   static const String universityName = 'UniversityName';
   static const String edit = 'Edit';
   static const String register = 'RegisterMode';
-
+  static const String dateOfRide = 'dateOfRide';
 
   static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
 }

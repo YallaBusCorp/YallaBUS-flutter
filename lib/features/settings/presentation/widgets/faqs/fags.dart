@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/faqs/faq_body.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/faqs/faq_body_model.dart';
-
-import '../../../../../core/custom_widgets/separtor_widget.dart';
 import '../../../../../core/injection/di.dart';
 
-class FAQs extends StatelessWidget {
+class FAQs extends StatefulWidget {
   FAQs({Key? key}) : super(key: key);
-  SettingsBloc bloc = di<SettingsBloc>();
 
+  @override
+  State<FAQs> createState() => _FAQsState();
+}
+
+class _FAQsState extends State<FAQs> {
+  SettingsBloc bloc = di<SettingsBloc>();
+  List<bool> _open = [false, false, false, false];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,41 +27,86 @@ class FAQs extends StatelessWidget {
           child: ExpansionPanelList(
             dividerColor: Colors.grey.shade800,
             children: [
-              faqBody(
-                context,
-                bloc,
-                FAQModel(
-                    'Is there a deadline for booking a ride ?',
+              ExpansionPanel(
+                canTapOnHeader: true,
+                backgroundColor: Theme.of(context).backgroundColor,
+                headerBuilder: ((context, isExpanded) => Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        'Is there a deadline for booking a ride ?',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(fontSize: 18),
+                      ),
+                    )),
+                body: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
                     'You can book a ride until 3 hours before each ride bro. Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up ',
-                    0),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontSize: 18),
+                  ),
+                ),
+                isExpanded: _open[0],
               ),
-              faqBody(
-                context,
-                bloc,
-                FAQModel(
-                    'Is there a deadline for booking a ride ?',
+              ExpansionPanel(
+                canTapOnHeader: true,
+                backgroundColor: Theme.of(context).backgroundColor,
+                headerBuilder: ((context, isExpanded) => Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        'Is there a deadline for booking a ride ?',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(fontSize: 18),
+                      ),
+                    )),
+                body: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
                     'You can book a ride until 3 hours before each ride bro. Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up ',
-                    1),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontSize: 18),
+                  ),
+                ),
+                isExpanded: _open[1],
               ),
-              faqBody(
-                context,
-                bloc,
-                FAQModel(
-                    'Is there a deadline for booking a ride ?',
+              ExpansionPanel(
+                canTapOnHeader: true,
+                backgroundColor: Theme.of(context).backgroundColor,
+                headerBuilder: ((context, isExpanded) => Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        'Is there a deadline for booking a ride ?',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(fontSize: 18),
+                      ),
+                    )),
+                body: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
                     'You can book a ride until 3 hours before each ride bro. Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up ',
-                    2),
-              ),
-              faqBody(
-                context,
-                bloc,
-                FAQModel(
-                    'Is there a deadline for booking a ride ?',
-                    'You can book a ride until 3 hours before each ride bro. Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up Harry up ',
-                    3),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontSize: 18),
+                  ),
+                ),
+                isExpanded: _open[2],
               ),
             ],
             expansionCallback: (i, open) {
-              bloc.add(SelectFaqQuestionEvent(i, open));
+              setState(() {
+                _open[i] = !open;
+              });
             },
           ),
         ),

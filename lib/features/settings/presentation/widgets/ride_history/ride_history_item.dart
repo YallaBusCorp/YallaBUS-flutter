@@ -41,7 +41,7 @@ class RideHistoryItem extends StatelessWidget {
                       FittedBox(
                         fit: BoxFit.fitWidth,
                         child: Text(
-                          rideHis.pick.name,
+                          rideHis.pick!.name,
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
@@ -73,7 +73,7 @@ class RideHistoryItem extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            rideHis.drop.name,
+                            rideHis.drop!.name,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5!
@@ -126,18 +126,18 @@ class RideHistoryItem extends StatelessWidget {
                 children: [
                   Text(
                     StringsExtensions.removeSecondsFromDate(
-                        rideHis.appoinment.date, rideHis.appoinment.amOrPm),
+                        rideHis.appoinment!.date, rideHis.appoinment!.amOrPm),
                     style: Theme.of(context).textTheme.caption,
                   ),
                   Text(
-                    rideHis.emp,
+                    rideHis.emp!,
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
                         .copyWith(fontSize: 18),
                   ),
                   Text(
-                    rideHis.busId,
+                    rideHis.busId!,
                     style: Theme.of(context)
                         .textTheme
                         .headline6!

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import '../../bloc/map/map_bloc.dart';
 import '../painting.dart';
 
@@ -9,7 +10,8 @@ import '../../../../../core/extensions/extensions.dart';
 import '../../../../../core/resources/values_manager.dart';
 
 class RideInfo extends StatelessWidget {
-  const RideInfo({Key? key}) : super(key: key);
+  final RideHis ride;
+  const RideInfo({Key? key,required this.ride}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class RideInfo extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: TextWidget(
-                      text: 'From Mit Ghamr',
+                      text: 'From ${ride.pick!.name}',
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
@@ -46,7 +48,7 @@ class RideInfo extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: TextWidget(
-                      text: 'To Elslab',
+                      text: 'To ${ride.drop!.name}',
                       style: Theme.of(context)
                           .textTheme
                           .headline6!

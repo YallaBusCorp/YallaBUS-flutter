@@ -1,6 +1,8 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
+import '../injection/di.dart';
 import '../resources/asset_manager.dart';
 import '../../features/choose_company/presentation/bloc/company_selection_bloc.dart';
 
@@ -90,14 +92,20 @@ extension StringsExtensions on String {
   static List<String> splitDate(Timestamp time) {
     return time.toDate().toString().split(' ');
   }
-  static String removeSecondsFromDate(String time,String amOrPm) {
-    return time.substring(0,5) + ' ' + amOrPm;
-  }
-}
 
-String selectAnimationLightOrDark(BuildContext context) {
-  if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-    return AssetManager.darkverify;
+  static String removeSecondsFromDate(String time, String amOrPm) {
+    return time.substring(0, 5) + ' ' + amOrPm;
   }
-  return AssetManager.lightverify;
+
+  static String selectAnimationLightOrDark(BuildContext context) {
+    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+      return AssetManager.darkverify;
+    }
+    return AssetManager.lightverify;
+  }
+
+  static String generateQR(String dateOfRide) {
+    SharedPreferences perfs = di<SharedPreferences>();
+    return dateOfRide + '/' + perfs.getString(ConstantsManager.uid)!;
+  }
 }

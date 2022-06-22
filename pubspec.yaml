@@ -50,6 +50,7 @@ dependencies:
   get_it: ^7.2.0
   google_maps_flutter: ^2.1.3
   lottie: ^1.2.2
+  mobile_scanner: ^1.1.1
   qr_flutter: ^4.0.0
   shared_preferences: ^2.0.13
   smooth_page_indicator: ^1.0.0+2

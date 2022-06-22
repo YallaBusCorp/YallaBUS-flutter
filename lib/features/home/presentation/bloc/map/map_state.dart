@@ -99,15 +99,24 @@ class ChangeMapViewAfterBooking extends MapState {}
 
 class ChangeBusCoordinate extends MapState {}
 
-class ChangeMarkersOfBus extends MapState{
+class ChangeMarkersOfBus extends MapState {
   final Set<Marker> m;
 
   ChangeMarkersOfBus(this.m);
 }
 
+class StudentInCurrentRide extends MapState {
+  final RideHis ride;
 
+  const StudentInCurrentRide(this.ride);
+}
 
-// class DrawMarkers extends MapState {
-//   Set<Marker> markers;
-//   DrawMarkers(this.markers);
-// }
+class StudentNotInCurrentRide extends MapState {
+  const StudentNotInCurrentRide();
+}
+
+class StudentCurrentRideError extends MapState {
+  final String message;
+
+  const StudentCurrentRideError(this.message);
+}

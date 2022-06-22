@@ -97,4 +97,22 @@ class MapApiClient {
       throw ServerException();
     }
   }
+
+  Future<dynamic> getCurrentRideByUID(String uid) async {
+    try {
+      Response response = await dio.get(
+        ApiEndPoints.getCurrentRideByUID,
+        queryParameters: {
+          'uId': uid,
+        },
+      );
+      if (response.data.toString().isEmpty) {
+        return 500;
+      } else {
+        return response.data;
+      }
+    } on DioError {
+      throw ServerException();
+    }
+  }
 }

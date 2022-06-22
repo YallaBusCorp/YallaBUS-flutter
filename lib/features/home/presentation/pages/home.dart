@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
+import '../../../../core/resources/constants_manager.dart';
 import '../widgets/controllers.dart';
 import '../widgets/depart_at.dart';
 import '../widgets/from_to_widget.dart';
@@ -13,6 +16,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late MapBloc bloc;
+  @override
+  void initState() {
+    bloc = BlocProvider.of<MapBloc>(context);
+    bloc.add(
+        GetCurrentRideByUIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -43,6 +43,7 @@ class AssetManager {
   static const String termsConditions = 'assets/images/terms-conditions.svg';
   static const String placeMarker = 'assets/images/Place_Marker.bmp';
   static const String busStationMarker = 'assets/images/bus_station.bmp';
+  static const String busStationSvg = 'assets/images/bus-station.svg';
   static const String guyWaving = 'assets/images/swinging-sad-emoji.json';
   static const String loading = 'assets/images/loading_anim.json';
   static const String done = 'assets/images/correct.png';
@@ -57,5 +58,6 @@ class AssetManager {
   static const String subsctiptionIcon = 'assets/images/subscription_icon.svg';
   static const String arrowAnimation = 'assets/images/arrow.json';
   static const String busIconTracking = 'assets/images/bus_icon.bmp';
-  static const String call = 'assets/images/noun_call.svg';
+  static const String call = 'assets/images/noun_call.svg'; 
+  static const String busScanIcon = 'assets/images/noun_scan.svg'; 
 }

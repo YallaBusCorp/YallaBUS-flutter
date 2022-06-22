@@ -27,17 +27,14 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   late String _lightMapStyle;
   late List<dynamic> geoPoints;
   late GeoPoint point;
-  late MapBloc bloc;
-  
+
 
   @override
   void initState() {
     _loadMapStyles();
 
     WidgetsBinding.instance!.addObserver(this);
-    bloc = BlocProvider.of<MapBloc>(context);
     
- 
     super.initState();
   }
 
@@ -48,7 +45,6 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    
     if (state == AppLifecycleState.resumed) {
       final GoogleMapController controller = await MapManager.controller.future;
       if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
@@ -75,14 +71,13 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         stream: tracking,
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          
           if (snapshot.data != null) {
             geoPoints = snapshot.data!.get('location');
             int size = geoPoints.length;
             point = geoPoints[size - 1];
-            GeoPoint point2 =  point;
+            GeoPoint point2 = point;
             if (size > 1) point2 = geoPoints[size - 2];
-            map.add(RefreshBusCoordinateEvent(point,point2));
+            map.add(RefreshBusCoordinateEvent(point, point2));
           }
 
           return BlocConsumer<MapBloc, MapState>(
@@ -93,8 +88,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
               if (state is DropOffPointsMarkersChanged) {
                 markers = MapManager.dropOffMarkers;
               }
-              if(state is ChangeMarkersOfBus)
-              {
+              if (state is ChangeMarkersOfBus) {
                 markers = map.markersOfBus;
               }
             },
@@ -123,6 +117,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
           );
         });
   }
+
   @override
   void dispose() {
     super.dispose();

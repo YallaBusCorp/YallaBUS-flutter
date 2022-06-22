@@ -64,7 +64,7 @@ class SettingsApiClient {
     };
     try {
       Response response = await dio.get(
-        ApiEndPoints.getNonScannedRides,
+        ApiEndPoints.getScannedRides,
         queryParameters: data,
       );
       return response.data;

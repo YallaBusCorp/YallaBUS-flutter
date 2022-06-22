@@ -49,7 +49,7 @@ class _LoginOtpState extends State<LoginOtp> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AuthHeader(
-              asset: selectAnimationLightOrDark(context),
+              asset: StringsExtensions.selectAnimationLightOrDark(context),
               header1: StringManager.enterYourNumber,
               header2: StringManager.sendYouConfirmation,
             ),

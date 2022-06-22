@@ -1,3 +1,6 @@
+import 'package:yalla_bus/features/settings/data/model/settings_model_converters.dart';
+import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
+
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/network/network_info.dart';
 import 'package:dartz/dartz.dart';
@@ -99,10 +102,28 @@ class MapRepositoryImplementation extends MapRepository {
 
   @override
   Future<Either<Failure, int>> getStudentId(String uid) async {
-     if (await info.isConnected()) {
+    if (await info.isConnected()) {
       try {
         int id = await client.getStudentId(uid);
         return Right(id);
+      } on ServerException {
+        return Left(Failure('Try Again in another time'));
+      }
+    } else {
+      return Left(Failure("You don't have access to internet!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RideHis>> getCurrentRide(String uid) async {
+    if (await info.isConnected()) {
+      try {
+        final result = await client.getCurrentRideByUID(uid);
+        if (result == 500) {
+          return Right(RideHisModel.fromJson({}));
+        } else {
+          return Right(RideHisModel.fromJson(result));
+        }
       } on ServerException {
         return Left(Failure('Try Again in another time'));
       }

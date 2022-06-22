@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
 import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import 'package:yalla_bus/features/settings/domain/use_case/get_non_scanned_rides.dart';
 import 'package:yalla_bus/features/settings/domain/use_case/update_student.dart';
@@ -180,9 +179,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       });
     });
 
-    on<GetNotScannedRidesEvent>((event, emit) async {
+    on<GetScannedRidesEvent>((event, emit) async {
       emit(Loading());
-      (await nonScannedRides.getNonScannedRides(event.id)).fold((l) {
+      (await scannedRides.getScannedRides(event.id)).fold((l) {
         emit(GetScannedRidesSuccess(l));
       }, (r) {
         emit(GetScannedRidesError(r.message));
