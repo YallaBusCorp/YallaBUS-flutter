@@ -12,14 +12,3 @@ class MapPoint {
       required this.longitude,
       required this.latitude});
 }
-
-
-/*
-
- "id": 4,
-        "mapPointTitle": "الصنيه",
-        "mapPointType": "D",
-        "longitude": 111.500024,
-        "latitude": 51111.099609,
-
- */

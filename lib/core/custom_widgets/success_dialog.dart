@@ -23,7 +23,7 @@ class SuccessDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Padding(
-            padding:  EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 0),
+            padding: EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 0),
             child: Image(
               image: AssetImage(
                 AssetManager.done,
@@ -48,29 +48,29 @@ class SuccessDialog extends StatelessWidget {
           const SizedBox(
             height: ValuesManager.v20,
           ),
-          Separtor(
-              color: [
-                Colors.grey.shade800,
-                Colors.grey.shade800,
-              ],
-            ),
-          Padding(
-            padding: const EdgeInsets.all(ValuesManager.v16),
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Center(
-                child: TextWidget(
-                  text: StringManager.cancel,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: Colors.blue[900]),
-                ),
-              ),
-            ),
-          ),
+          // Separtor(
+          //   color: [
+          //     Colors.grey.shade800,
+          //     Colors.grey.shade800,
+          //   ],
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.all(ValuesManager.v16),
+          //   child: InkWell(
+          //     onTap: () {
+          //       Navigator.of(context).pop();
+          //     },
+          //     child: Center(
+          //       child: TextWidget(
+          //         text: StringManager.cancel,
+          //         style: Theme.of(context)
+          //             .textTheme
+          //             .headline6!
+          //             .copyWith(color: Colors.blue[900]),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

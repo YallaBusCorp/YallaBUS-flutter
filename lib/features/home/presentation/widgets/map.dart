@@ -9,6 +9,7 @@ import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/map_manager.dart';
 import '../../../../core/custom_widgets/error_dialog.dart';
+import '../../../../core/extensions/extensions.dart';
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/notification_manager.dart';
@@ -27,14 +28,14 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   late String _lightMapStyle;
   late List<dynamic> geoPoints;
   late GeoPoint point;
-
+  bool x = false;
 
   @override
   void initState() {
     _loadMapStyles();
 
     WidgetsBinding.instance!.addObserver(this);
-    
+
     super.initState();
   }
 
@@ -60,7 +61,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
       .collection('company')
       .doc('serkes')
       .collection('ride')
-      .doc('ididid')
+      .doc('hamo')
       .snapshots();
 
   Set<Marker> markers = <Marker>{};
@@ -71,13 +72,13 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         stream: tracking,
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.data != null) {
+          MapExtensions.CheckIfDocumentExistsOrNotEvent('hamo')
+              .then((value) => x = value);
+          if (x) {
             geoPoints = snapshot.data!.get('location');
             int size = geoPoints.length;
             point = geoPoints[size - 1];
-            GeoPoint point2 = point;
-            if (size > 1) point2 = geoPoints[size - 2];
-            map.add(RefreshBusCoordinateEvent(point, point2));
+            map.add(RefreshBusCoordinateEvent(point));
           }
 
           return BlocConsumer<MapBloc, MapState>(

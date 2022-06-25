@@ -17,10 +17,13 @@ class BusTimes extends StatefulWidget {
 }
 
 class _BusTimesState extends State<BusTimes> {
-  List<bool> selectedAmShips = List.generate(10, (index) => false);
-  List<bool> selectedPmShips = List.generate(10, (index) => false);
-  int previousIndex = 10;
-  int previousIndexOfPm = 10;
+  late MapBloc bloc;
+  @override
+  void initState() {
+    bloc = BlocProvider.of<MapBloc>(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -50,8 +53,8 @@ class _BusTimesState extends State<BusTimes> {
                       .copyWith(fontSize: ValuesManager.v18),
                 ),
                 selected: widget.amOrPm == 'AM'
-                    ? selectedAmShips[index]
-                    : selectedPmShips[index],
+                    ? bloc.selectedAmShips[index]
+                    : bloc.selectedPmShips[index],
                 onSelected: (s) {
                   widget.amOrPm == 'AM'
                       ? selectAMTrip(index)
@@ -67,26 +70,25 @@ class _BusTimesState extends State<BusTimes> {
 
   void selectAMTrip(int index) {
     setState(() {
-      selectedAmShips[index] = !selectedAmShips[index];
-      if (previousIndex != 10) {
-        selectedAmShips[previousIndex] = !selectedAmShips[previousIndex];
+      bloc.selectedAmShips[index] = !bloc.selectedAmShips[index];
+      if (bloc.previousIndex != 10) {
+        bloc.selectedAmShips[bloc.previousIndex] =
+            !bloc.selectedAmShips[bloc.previousIndex];
       }
-      previousIndex = index;
+      bloc.previousIndex = index;
     });
-    BlocProvider.of<MapBloc>(context)
-        .add(SelectAMTripEvent(widget.times[index]));
+    bloc.add(SelectAMTripEvent(widget.times[index]));
   }
 
   void selectPMTrip(int index) {
     setState(() {
-      selectedPmShips[index] = !selectedPmShips[index];
-      if (previousIndexOfPm != 10) {
-        selectedPmShips[previousIndexOfPm] =
-            !selectedPmShips[previousIndexOfPm];
+      bloc.selectedPmShips[index] = !bloc.selectedPmShips[index];
+      if (bloc.previousIndexOfPm != 10) {
+        bloc.selectedPmShips[bloc.previousIndexOfPm] =
+            !bloc.selectedPmShips[bloc.previousIndexOfPm];
       }
-      previousIndexOfPm = index;
+      bloc.previousIndexOfPm = index;
     });
-    BlocProvider.of<MapBloc>(context)
-        .add(SelectPMTripEvent(widget.times[index]));
+    bloc.add(SelectPMTripEvent(widget.times[index]));
   }
 }

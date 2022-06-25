@@ -17,9 +17,21 @@ class BookRideInitial extends MapState {}
 
 class ChangeSwitchButtonColor extends MapState {}
 
-class AMTripSelected extends MapState {}
+class AMTripSelected extends MapState {
+  final String trip;
 
-class PMTripSelected extends MapState {}
+  const AMTripSelected(this.trip);
+  @override
+  List<Object> get props => [trip];
+}
+
+class PMTripSelected extends MapState {
+  final String trip;
+
+  const PMTripSelected(this.trip);
+  @override
+  List<Object> get props => [trip];
+}
 
 class InitializedMarkersOfStaticMap extends MapState {}
 
@@ -27,12 +39,16 @@ class GetAppoinmentAmSuccess extends MapState {
   final List<String> am;
 
   const GetAppoinmentAmSuccess(this.am);
+    @override
+  List<Object> get props => [am];
 }
 
 class GetAppoinmentPmSuccess extends MapState {
   final List<String> pm;
 
   const GetAppoinmentPmSuccess(this.pm);
+  @override
+  List<Object> get props => [pm];
 }
 
 class GetAppoinmentAmError extends MapState {
@@ -120,3 +136,9 @@ class StudentCurrentRideError extends MapState {
 
   const StudentCurrentRideError(this.message);
 }
+
+class ShowCurrentRideAfterBooking extends MapState {}
+
+class DocumentExists extends MapState {}
+
+class DocumentNotExists extends MapState {}

@@ -76,9 +76,27 @@ class GetCurrentRideByUIDEvent extends MapEvent {
   const GetCurrentRideByUIDEvent(this.uid);
 }
 
+class ShowCurrentRideAfterBookingEvent extends MapEvent {}
+
 class RefreshBusCoordinateEvent extends MapEvent {
   final GeoPoint point;
-  final GeoPoint point2;
 
-  const RefreshBusCoordinateEvent(this.point, this.point2);
+  const RefreshBusCoordinateEvent(this.point);
+}
+
+class ShowBothPickUpAndDropOffMarkersEvent extends MapEvent {}
+
+class CheckBusMarkerAccordingToPickAndDropMarkersEvent extends MapEvent {
+  final LatLng bus;
+  final LatLng pick;
+  final LatLng drop;
+
+  const CheckBusMarkerAccordingToPickAndDropMarkersEvent(
+      this.bus, this.pick, this.drop);
+}
+
+class CheckIfDocumentExistsOrNotEvent extends MapEvent {
+  final String docId;
+
+  const CheckIfDocumentExistsOrNotEvent(this.docId);
 }

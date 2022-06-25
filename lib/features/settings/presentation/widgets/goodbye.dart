@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
 import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../core/custom_widgets/success_dialog.dart';
@@ -25,8 +26,9 @@ class _GoodByeState extends State<GoodBye> {
   @override
   void didChangeDependencies() {
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(Routes.loginOtp, (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          Routes.loginOtp, (route) => false,
+          arguments: ConstantsManager.register);
     });
     super.didChangeDependencies();
   }

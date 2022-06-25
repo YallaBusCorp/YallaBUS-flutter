@@ -44,7 +44,6 @@ class _BusRidesState extends State<BusRides> {
               height: 20,
             ),
             UpcomingRides(),
-      
           ],
         ),
       ),

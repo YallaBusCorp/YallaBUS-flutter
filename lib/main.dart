@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         BlocProvider(
-          create: (builder) => LoginBloc(),
+          create: (builder) => di<LoginBloc>(),
           child: LoginOtp(
             editOrRegister: ConstantsManager.register,
           ),
@@ -130,7 +130,7 @@ class _MyAppState extends State<MyApp> {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: BusRides(),
+        home: launchFirst(),  
       ),
     );
   }

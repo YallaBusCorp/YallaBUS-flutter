@@ -25,20 +25,26 @@ class VerifyScreen extends StatefulWidget {
 }
 
 class _VerifyScreenState extends State<VerifyScreen> {
+  // @override
+  // void didChangeDependencies() {
+  //   KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
+  //   for (int i = 0; i < 9; i++) {
+  //     bloc.add(RemovePinNumberEvent());
+  //   }
+  //   super.didChangeDependencies();
+  // }
+
+  late LoginBloc login;
+  late KeyboardBloc keyboard;
   @override
-  void didChangeDependencies() {
-    KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
-    for (int i = 0; i < 9; i++) {
-      bloc.add(RemovePinNumberEvent());
-    }
-    super.didChangeDependencies();
+  void initState() {
+    login = BlocProvider.of<LoginBloc>(context);
+    keyboard = BlocProvider.of<KeyboardBloc>(context);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
-    KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
@@ -76,7 +82,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   text: StringManager.verify.tr(),
                   onPressed: keyboard.indexOfPinNumber == ValuesManager.v6
                       ? () {
-                          bloc.add(
+                          login.add(
                             VerifyCodeVerificationEvent(keyboard.pinCode),
                           );
                         }

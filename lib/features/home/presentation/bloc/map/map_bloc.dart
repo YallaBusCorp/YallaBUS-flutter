@@ -4,7 +4,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/map_manager.dart';
 import 'package:yalla_bus/features/home/domain/use_case/get_current_ride.dart';
 import '../../../../../core/resources/asset_manager.dart';
@@ -33,6 +35,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final GetCurrentRide currentRide;
   bool departAndFromToVisible = false;
   bool rideVisible = false;
+  double distanceOfRide = 0.0;
+  double actualDistance = 0.0;
 
   String timeOfSelectedRides = StringManager.timeOfSelectedRides;
   Set<Marker> markersOfBus = {};
@@ -41,26 +45,26 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   String to = StringManager.dropOffPoint;
   List<int> pickUpIDs = [];
   List<int> dropOffIDs = [];
-  late LatLng pickUpSelectedPosition;
-  late LatLng dropOffSelectedPosition;
+   LatLng pickUpSelectedPosition= LatLng(30.965317563392837, 31.316227249605518);
+   LatLng dropOffSelectedPosition = LatLng(31.020093991171894, 31.370074396647205);
   List<String> amTitle = [];
   List<String> pmTitle = [];
   Map<String, int> amTimeAndID = {};
   Map<String, int> pmTimeAndID = {};
   late int pickUpID;
   late int dropOffID;
-  late int amID;
-  late int pmID;
   late int std;
   bool switchButtonValue = false;
   bool switchColor = false;
-  List<String> amRides = [];
-  List<String> pmRides = [];
   List<String> titlesOfPickUp = [];
   List<String> titlesOfDropOff = [];
   List<dynamic> pickUps = const [];
-
   List<dynamic> dropOffs = const [];
+
+  List<bool> selectedAmShips = List.generate(10, (index) => false);
+  List<bool> selectedPmShips = List.generate(10, (index) => false);
+  int previousIndex = 10;
+  int previousIndexOfPm = 10;
 
   @override
   void onChange(Change<MapState> change) {
@@ -75,16 +79,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       final GoogleMapController con = await MapManager.controller.future;
       MapManager.position = await determinePosition();
 
-      if (perfs.getBool('Booked') != null && perfs.getBool('Booked')!) {
-        MapManager.addMarker(
-            latlng: pickUpSelectedPosition,
-            icon: await MapManager.stationIcon(),
-            marker: MapManager.markers);
-        MapManager.addMarker(
-            latlng: dropOffSelectedPosition,
-            icon: await MapManager.stationIcon(),
-            marker: MapManager.markers);
-      }
       MapManager.addMarker(
           latlng: LatLng(
               MapManager.position.latitude, MapManager.position.longitude),
@@ -103,19 +97,22 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<SelectAMTripEvent>((event, emit) {
       timeOfSelectedRides = "";
       timeOfSelectedRides = event.timeOfTrip;
-      amID = amTimeAndID[timeOfSelectedRides]!;
-      emit(AMTripSelected());
+      perfs.setString(ConstantsManager.dateOfRide, timeOfSelectedRides);
+      emit(AMTripSelected(timeOfSelectedRides));
     });
 
     on<SelectPMTripEvent>((event, emit) {
+      if (timeOfSelectedRides == "Choose Ride") {
+        timeOfSelectedRides = "";
+      }
       if (timeOfSelectedRides.contains('-')) {
         timeOfSelectedRides = "";
       } else if (timeOfSelectedRides.isNotEmpty) {
         timeOfSelectedRides += " - ";
       }
       timeOfSelectedRides += event.timeOfTrip;
-      pmID = pmTimeAndID[timeOfSelectedRides]!;
-      emit(PMTripSelected());
+      perfs.setString(ConstantsManager.dateOfRide, timeOfSelectedRides);
+      emit(PMTripSelected(timeOfSelectedRides));
     });
 
     on<GetAmAppoinmentsEvent>((event, emit) async {
@@ -125,16 +122,17 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         emit(GetAppoinmentAmError(failure.message));
       }, (appointments) {
         for (var e in appointments) {
-          amTimeAndID.addEntries([
-            MapEntry(
-                '${e.appointmentStartTime.substring(0, 5)} ${e.appointmentType}',
-                e.id)
-          ]);
+          String date = StringsExtensions.convertHourTo12HoursOnly(
+              e.appointmentStartTime);
+          amTimeAndID
+              .addEntries([MapEntry('$date ${e.appointmentType}', e.id)]);
         }
         amTitle = amTimeAndID.keys.toList();
         amTitle.sort();
-        emit(GetAppoinmentAmSuccess(amRides));
+        emit(GetAppoinmentAmSuccess(amTitle));
       });
+
+      emit(GetAppoinmentAmSuccess(amTitle));
     });
 
     on<GetPmAppoinmentsEvent>((event, emit) async {
@@ -144,16 +142,17 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         emit(GetAppoinmentPmError(failure.message));
       }, (appointments) {
         for (var e in appointments) {
-          pmTimeAndID.addEntries([
-            MapEntry(
-                '${e.appointmentStartTime.substring(0, 5)} ${e.appointmentType}',
-                e.id)
-          ]);
+          String date = StringsExtensions.convertHourTo12HoursOnly(
+              e.appointmentStartTime);
+          pmTimeAndID
+              .addEntries([MapEntry('$date ${e.appointmentType}', e.id)]);
         }
         pmTitle = pmTimeAndID.keys.toList();
         pmTitle.sort();
-        emit(GetAppoinmentPmSuccess(pmRides));
+        emit(GetAppoinmentPmSuccess(pmTitle));
       });
+
+      emit(GetAppoinmentPmSuccess(pmTitle));
     });
 
     on<GetPickUpPointsEvent>((event, emit) async {
@@ -201,7 +200,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         for (int i = 0; i < dropOffs.length; i++) {
           MapManager.addMarker(
               marker: MapManager.dropOffMarkers,
-              latlng: dropOffSelectedPosition,
+              latlng: dropOffs[i],
               icon: await MapManager.stationIcon(),
               onTap: () {
                 dropOffSelectedPosition = dropOffs[i];
@@ -209,15 +208,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
                 add(AddDropOffMarkerTitleToTexts(to, dropOffIDs[i]));
               });
         }
-        add(CameraPositionOfDropOffPoints());
       });
+      add(CameraPositionOfDropOffPoints());
       emit(DropOffPointsMarkersChanged());
     });
 
     on<CameraPositionOfPickUpPoints>((event, emit) async {
       final GoogleMapController con = await MapManager.controller.future;
       LatLng location1 = pickUps[0];
-      LatLng location2 = pickUps[pickUps.length - 1];
+      LatLng location2 = pickUps[1];
 
       double avgOfLat = (location1.latitude + location2.latitude) / 2;
       double avgOfLong = (location1.longitude + location2.longitude) / 2;
@@ -248,7 +247,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       CameraUpdate update =
           CameraUpdate.newCameraPosition(MapManager.kGooglePlex);
       con.animateCamera(update);
-      emit(ChangeMapViewForPickUpPoints());
+      emit(ChangeMapViewForDropOffPoints());
     });
 
     on<AddPickUpMarkerTitleToTexts>((event, emit) {
@@ -266,10 +265,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       (await bookRide.bookRide(event.ride)).fold((l) {
         emit(BookRideError(l.message));
       }, (r) {
-        perfs.setString(ConstantsManager.dateOfRide, timeOfSelectedRides);
+        distanceOfRide =
+            RouteDistanceExtensions.calculateDistanceFromPickToDrop(
+                pickUpSelectedPosition, dropOffSelectedPosition);
+        actualDistance = distanceOfRide;
         emit(BookRideSuccess());
-
-        add(CameraPositionAfterBookingEvent());
+       
       });
     });
 
@@ -297,7 +298,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       MapManager.addMarker(
           marker: markersOfBus,
           latlng: LatLng(event.point.latitude, event.point.longitude),
-          icon: await MapManager.busIcon(),
+          icon: BitmapDescriptor.defaultMarker,
           anchor: const Offset(0.5, 0.5));
       emit(ChangeMarkersOfBus(markersOfBus));
       MapManager.kGooglePlex = CameraPosition(
@@ -309,25 +310,67 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       CameraUpdate update =
           CameraUpdate.newCameraPosition(MapManager.kGooglePlex);
       con.animateCamera(update);
-
+      distanceOfRide = RouteDistanceExtensions.reduceDistance(
+          LatLng(event.point.latitude, event.point.longitude),
+          pickUpSelectedPosition,
+          dropOffSelectedPosition,
+          distanceOfRide);
+      add(CheckBusMarkerAccordingToPickAndDropMarkersEvent(
+          LatLng(event.point.latitude, event.point.longitude),
+          pickUpSelectedPosition,
+          dropOffSelectedPosition));
       emit(ChangeBusCoordinate());
     });
 
     on<GetCurrentRideByUIDEvent>((event, emit) async {
+  
       emit(Loading());
       (await currentRide.getCurrentRideByUID(event.uid)).fold((l) {
         emit(StudentCurrentRideError(l.message));
       }, (r) {
+        print(event.uid);
         if (r.id == -1) {
           departAndFromToVisible = true;
           rideVisible = false;
           emit(const StudentNotInCurrentRide());
         } else {
+          add(ShowBothPickUpAndDropOffMarkersEvent());
+          distanceOfRide =
+              RouteDistanceExtensions.calculateDistanceFromPickToDrop(
+                  pickUpSelectedPosition, dropOffSelectedPosition);
+
           rideVisible = true;
           departAndFromToVisible = false;
           emit(StudentInCurrentRide(r));
         }
       });
+    });
+
+    on<ShowBothPickUpAndDropOffMarkersEvent>((event, emit) async {
+      MapManager.pickUpMarkers.clear();
+      MapManager.dropOffMarkers.clear();
+      MapManager.addMarker(
+          latlng: pickUpSelectedPosition,
+          icon: await MapManager.stationIcon(),
+          marker: MapManager.markers);
+      MapManager.addMarker(
+          latlng: dropOffSelectedPosition,
+          icon: await MapManager.stationIcon(),
+          marker: MapManager.markers);
+    });
+
+    on<CheckBusMarkerAccordingToPickAndDropMarkersEvent>((event, emit) async {
+      if (distanceOfRide < actualDistance) {
+        MapManager.removeMarker(
+            marker: MapManager.markers,
+            latlng: pickUpSelectedPosition,
+            icon: await MapManager.positionIcon());
+      } else if (distanceOfRide > actualDistance) {
+        MapManager.removeMarker(
+            marker: MapManager.markers,
+            latlng: dropOffSelectedPosition,
+            icon: await MapManager.positionIcon());
+      }
     });
   }
 }

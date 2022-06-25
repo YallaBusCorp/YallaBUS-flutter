@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/core/resources/map_manager.dart';
 import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
 import '../../../../core/resources/constants_manager.dart';
 import '../widgets/controllers.dart';
@@ -20,6 +21,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     bloc = BlocProvider.of<MapBloc>(context);
+    if (bloc.markersOfBus.isEmpty) {
+      bloc.add(GetMyLocation());
+    }
     bloc.add(
         GetCurrentRideByUIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
     super.initState();

@@ -1,5 +1,9 @@
 
 
-abstract class Repository {
-  // Future<Either<Failure, bool>> sendCodeToPhoneNumber(String number);
+import 'package:dartz/dartz.dart';
+
+import '../../../../core/states/state.dart';
+
+abstract class LoginRepository {
+
 }

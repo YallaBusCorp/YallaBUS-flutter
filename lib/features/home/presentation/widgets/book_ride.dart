@@ -8,7 +8,6 @@ import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 import '../bloc/map/map_bloc.dart';
 import 'bus_times.dart';
-import 'switch_button.dart';
 
 class BookRideScreen extends StatefulWidget {
   const BookRideScreen({Key? key}) : super(key: key);
@@ -19,22 +18,21 @@ class BookRideScreen extends StatefulWidget {
 
 class _BookRideScreenState extends State<BookRideScreen> {
   bool switchColor = false;
-
+  late MapBloc bloc;
   @override
-  void didChangeDependencies() {
-    BlocProvider.of<MapBloc>(context).add(GetAmAppoinmentsEvent());
-    BlocProvider.of<MapBloc>(context).add(GetPmAppoinmentsEvent());
-    super.didChangeDependencies();
+  void initState() {
+    bloc = BlocProvider.of<MapBloc>(context);
+    bloc.add(GetAmAppoinmentsEvent());
+    bloc.add(GetPmAppoinmentsEvent());
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    MapBloc bloc = BlocProvider.of<MapBloc>(context);
     return DecoratedBox(
       decoration: BoxDecoration(
         color: ColorsExtensions.setColorOfContainersOverMap(context),
         borderRadius: BorderRadius.circular(ValuesManager.v16),
-     
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: ValuesManager.v16),
@@ -47,11 +45,9 @@ class _BookRideScreenState extends State<BookRideScreen> {
                 return Align(
                   alignment: Alignment.topRight,
                   child: TextButton(
-                    onPressed: bloc.timeOfSelectedRides != 'Choose Ride'
-                        ? () {
-                            Navigator.of(context).pop();
-                          }
-                        : null,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                     child: TextWidget(
                       text: 'Done',
                       style: Theme.of(context)

@@ -22,7 +22,7 @@ class RidesHistory extends StatefulWidget {
 class _RidesHistoryState extends State<RidesHistory>
     with TickerProviderStateMixin {
   late TabController controller;
-  List<RideHis>? nonScanned;
+  List<RideHis> nonScanned = [];
   List<RideHis> scanned = [];
   late SettingsBloc bloc;
   @override
@@ -107,9 +107,18 @@ class _RidesHistoryState extends State<RidesHistory>
             controller: controller,
             physics: const BouncingScrollPhysics(),
             children: [
-              DoneRideHistory(
-                list: nonScanned ?? [],
-              ),
+              nonScanned.isEmpty
+                  ? Center(
+                      child: SvgPicture.asset(
+                        AssetManager.error404,
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : DoneRideHistory(
+                      list: nonScanned,
+                    ),
               scanned.isEmpty
                   ? Center(
                       child: SvgPicture.asset(

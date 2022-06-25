@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
 import '../../domain/enitity/student.dart';
 import '../../domain/use_case/get_all_universities.dart';
+import '../../domain/use_case/get_student_id.dart';
 import '../../domain/use_case/post_student_information.dart';
 
 import '../../../../core/injection/di.dart';
@@ -17,6 +19,7 @@ class CompleteprofileBloc
   GetAllUniversities university;
   GetAllTowns town;
   PostStudentInformation postStudent;
+  GetStudentId stdId;
   List<String> names = [];
   List<int> ids = [];
   late int companyId;
@@ -25,7 +28,7 @@ class CompleteprofileBloc
   int universityId = 0;
   SharedPreferences perfs = di<SharedPreferences>();
 
-  CompleteprofileBloc(this.university, this.town, this.postStudent)
+  CompleteprofileBloc(this.university, this.town, this.postStudent, this.stdId)
       : super(CompleteprofileInitial()) {
     on<CompleteprofileEvent>((event, emit) {});
 
@@ -66,7 +69,6 @@ class CompleteprofileBloc
 
     on<SendStudentDataEvent>((event, emit) async {
       emit(LoadingSendData());
-
       student = Student(
           stdUid: perfs.getString(ConstantsManager.uid)!,
           stdName: event.userName,
@@ -78,6 +80,15 @@ class CompleteprofileBloc
         emit(PostStudentDataError(failure.message));
       }, (r) {
         emit(PostStudentDataSuccess());
+      });
+    });
+
+    on<GetStudentIDEvent>((event, emit) async {
+      (await stdId.getStudentId(event.uid)).fold((l) {
+        print(l.message);
+      }, (r) {
+        print(r);
+        perfs.setInt(ConstantsManager.stdId, r);
       });
     });
   }

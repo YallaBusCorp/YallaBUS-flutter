@@ -83,20 +83,7 @@ class MapApiClient {
     }
   }
 
-  Future<int> getStudentId(String uid) async {
-    try {
-      Response response = await dio.get(
-        ApiEndPoints.getStudentByUID,
-        queryParameters: {
-          'stdUid': uid,
-        },
-      );
-      print(response.data['id']);
-      return response.data['id'];
-    } on DioError {
-      throw ServerException();
-    }
-  }
+
 
   Future<dynamic> getCurrentRideByUID(String uid) async {
     try {

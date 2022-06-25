@@ -25,20 +25,26 @@ class LoginOtp extends StatefulWidget {
 }
 
 class _LoginOtpState extends State<LoginOtp> {
+  late LoginBloc login;
+  late KeyboardBloc keyboard;
   @override
-  void didChangeDependencies() {
-    KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
-    for (int i = 0; i < 9; i++) {
-      bloc.add(RemovePhoneNumberEvent());
-    }
-    super.didChangeDependencies();
+  void initState() {
+    login = BlocProvider.of<LoginBloc>(context);
+    keyboard = BlocProvider.of<KeyboardBloc>(context);
+    super.initState();
   }
+  // @override
+  // void didChangeDependencies() {
+  //   KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
+  //   for (int i = 0; i < 9; i++) {
+  //     bloc.add(RemovePhoneNumberEvent());
+  //   }
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
-    KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
-    // keyboard.phoneNumber = List.generate(9, (index) => 0);
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 10,
@@ -89,7 +95,7 @@ class _LoginOtpState extends State<LoginOtp> {
                   text: StringManager.sendCode.tr(),
                   onPressed: keyboard.indexOfPhoneNumber == ValuesManager.iv9
                       ? () {
-                          bloc.add(SendCodeVerificationEvent(keyboard.number));
+                          login.add(SendCodeVerificationEvent(keyboard.number));
                         }
                       : null,
                 );

@@ -1,6 +1,7 @@
 class ApiEndPoints {
-  static const String baseUrl = 'https://yalla-bus.herokuapp.com/api/v1';
-  // static const String baseUrl = 'https://yallabus.live/api/v1/';
+  // static const String baseUrl = 'https://yalla-bus.herokuapp.com/api/v1';
+  // static const String baseUrl = 'https://yallabus.azurewebsites.net/api/v1';
+  static const String baseUrl = 'https://yallabus.live/api/v1/';
   static const String companies = '/company';
   static const String companyId = '/company/get-by-id';
   static const String townsByCompanyId = '/lkTown/company/active';

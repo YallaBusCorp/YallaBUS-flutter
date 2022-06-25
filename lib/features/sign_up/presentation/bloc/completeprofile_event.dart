@@ -29,3 +29,9 @@ class SendUniValueEvent extends CompleteprofileEvent {
   final String university;
   const SendUniValueEvent(this.value, this.university);
 }
+
+class GetStudentIDEvent extends CompleteprofileEvent{
+  final String uid;
+
+  const GetStudentIDEvent(this.uid);
+}

@@ -2,11 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/features/login_otp/data/repository_implementation/repository_implementation.dart';
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/network/network_info.dart';
 import '../../../../../core/resources/constants_manager.dart';
+import '../../../../home/presentation/bloc/map/map_bloc.dart';
+import '../../../domain/repository/repository.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -15,15 +17,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final NetworkInfo network = di<NetworkInfo>();
   late String verificationId;
   late UserCredential user;
+  LoginRepository imple;
   SharedPreferences perfs = di<SharedPreferences>();
 
   @override
   void onChange(Change<LoginState> change) {
     super.onChange(change);
-    print(change);
+    print(change.nextState);
   }
 
-  LoginBloc() : super(LoginInitial()) {
+  LoginBloc(this.imple) : super(LoginInitial()) {
     on<SendCodeVerificationEvent>((event, emit) async {
       emit(SendingData());
       FirebaseAuth _auth = FirebaseAuth.instance;
@@ -43,12 +46,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<VerifyCodeVerificationEvent>((event, emit) async {
       await submitOtp(event.otpCode);
     });
+    
   }
 
   void verificationCompleted(AuthCredential credential) {}
   void verificationFailed(FirebaseAuthException authException) {
     emit(Error('${authException.message}'));
-    
   }
 
   void codeSent(String verificationId, int? resendToken) {
@@ -56,6 +59,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(Success());
   }
 
+  
+  
   Future<void> submitOtp(String otpCode) async {
     emit(SendingData());
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -64,6 +69,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       user = await FirebaseAuth.instance.signInWithCredential(credential);
       final userFirebase = FirebaseAuth.instance.currentUser;
       final uid = userFirebase!.uid;
+      
       final number = FirebaseAuth.instance.currentUser!.phoneNumber!;
       perfs.setString(ConstantsManager.uid, uid);
       perfs.setString(ConstantsManager.number, number);

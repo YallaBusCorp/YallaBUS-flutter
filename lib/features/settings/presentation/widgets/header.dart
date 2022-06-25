@@ -23,7 +23,7 @@ class Header extends StatelessWidget {
           width: ValuesManager.v110,
           height: ValuesManager.v110,
           decoration: BoxDecoration(
-            // color: ColorsManager.orange,
+
             borderRadius: BorderRadius.circular(ValuesManager.v100),
           ),
           child: Lottie.asset(

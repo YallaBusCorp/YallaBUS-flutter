@@ -14,6 +14,7 @@ class ConstantsManager {
   static const String error = 'Error';
   static const String company = 'Company';
   static const String uid = 'Uid';
+  static const String stdId = 'id';
   static const String number = 'Number';
   static const String firstName = 'FirstName';
   static const String secondName = 'SecondName';

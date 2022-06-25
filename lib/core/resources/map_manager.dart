@@ -48,9 +48,14 @@ class MapManager {
 
   static Future<BitmapDescriptor> busIcon() async {
     return await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(
-  
-      ),
+      const ImageConfiguration(),
+      AssetManager.busIconTracking,
+    );
+  }
+
+  static Future<BitmapDescriptor> normalIcon() async {
+    return await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(),
       AssetManager.busIconTracking,
     );
   }
@@ -63,6 +68,27 @@ class MapManager {
       double? rotation,
       Offset? anchor}) {
     marker.add(
+      Marker(
+        markerId: MarkerId(
+          latlng.toString(),
+        ),
+        position: latlng, //position of marker
+        onTap: onTap,
+        icon: icon,
+        rotation: rotation ?? 0.0,
+        anchor: anchor ?? const Offset(0.5, 1.0),
+      ),
+    );
+  }
+
+  static void removeMarker(
+      {required Set<Marker> marker,
+      required LatLng latlng,
+      required BitmapDescriptor icon,
+      GestureTapCallback? onTap,
+      double? rotation,
+      Offset? anchor}) {
+    marker.remove(
       Marker(
         markerId: MarkerId(
           latlng.toString(),

@@ -100,19 +100,7 @@ class MapRepositoryImplementation extends MapRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, int>> getStudentId(String uid) async {
-    if (await info.isConnected()) {
-      try {
-        int id = await client.getStudentId(uid);
-        return Right(id);
-      } on ServerException {
-        return Left(Failure('Try Again in another time'));
-      }
-    } else {
-      return Left(Failure("You don't have access to internet!"));
-    }
-  }
+  
 
   @override
   Future<Either<Failure, RideHis>> getCurrentRide(String uid) async {

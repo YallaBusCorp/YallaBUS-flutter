@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
 import 'package:yalla_bus/core/custom_widgets/success_dialog.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/features/home/domain/enitity/ride.dart';
 import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/custom_widgets/text_widget.dart';
@@ -21,14 +23,21 @@ class DepartAt extends StatefulWidget {
 }
 
 class _DepartAtState extends State<DepartAt> {
+  late MapBloc bloc;
+  @override
+  void initState() {
+    bloc = BlocProvider.of<MapBloc>(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    MapBloc bloc = BlocProvider.of<MapBloc>(context);
     return BlocConsumer<MapBloc, MapState>(
       listener: (context, state) {
         if (state is Loading) {
           showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (BuildContext context) => const Dialog(
               backgroundColor: Colors.transparent,
               child: LoadingDialog(),
@@ -38,13 +47,22 @@ class _DepartAtState extends State<DepartAt> {
           Navigator.of(context).pop();
           showDialog(
             context: context,
-            builder: (BuildContext context) => const Dialog(
-              backgroundColor: Colors.transparent,
-              child: SuccessDialog(
-                message: 'You have booked a ride !',
-              ),
-            ),
+            builder: (BuildContext context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.of(context).pop();
+              });
+              return const Dialog(
+                backgroundColor: Colors.transparent,
+                child: SuccessDialog(
+                  message: 'You have booked a ride !',
+                ),
+              );
+            },
           );
+          bloc.add(CameraPositionAfterBookingEvent());
+          bloc.add(GetCurrentRideByUIDEvent(
+              bloc.perfs.getString(ConstantsManager.uid)!));
+          Navigator.of(context).pop();
         } else if (state is BookRideError) {
           Navigator.of(context).pop();
           showDialog(
@@ -61,7 +79,6 @@ class _DepartAtState extends State<DepartAt> {
       },
       builder: (context, state) {
         return Visibility(
-          // visible: !(bloc.perfs.getBool('Booked') ?? false),
           visible: bloc.departAndFromToVisible,
           child: Positioned(
             top: MediaQuery.of(context).size.height - 80,
@@ -79,70 +96,61 @@ class _DepartAtState extends State<DepartAt> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: ValuesManager.v16),
-                      child: BlocBuilder<MapBloc, MapState>(
-                        builder: (context, state) {
-                          return TextButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (builder) => const BookRideScreen());
-                            },
-                            child: TextWidget(
-                              text: bloc.timeOfSelectedRides,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
+                      child: TextButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (builder) => const BookRideScreen());
+                        },
+                        child: TextWidget(
+                          text: bloc.timeOfSelectedRides,
+                          style:
+                              Theme.of(context).textTheme.headline6!.copyWith(
                                     color: ColorsExtensions.checkSelectedOrNot(
                                         bloc.timeOfSelectedRides,
                                         StringManager.timeOfSelectedRides,
                                         context),
                                     fontSize: 18,
                                   ),
-                            ),
-                          );
-                        },
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
-                  BlocBuilder<MapBloc, MapState>(
-                    builder: (context, state) {
-                      return ButtonWidget(
-                        width: ValuesManager.v65,
-                        height: ValuesManager.v50,
-                        onPressed: checkValidation() == true
-                            ? () {
-                                bloc.add(
-                                  BookRideEvent(
-                                    Ride(
-                                      qrCode: StringsExtensions.generateQR(
-                                          '05:52AM'),
-                                      pickupPoint: PickUpPoint(bloc.pickUpID),
-                                      dropOffPoint:
-                                          DropOffPoint(bloc.dropOffID),
-                                      appointment: Appointments(
-                                          bloc.amTimeAndID[
-                                              bloc.timeOfSelectedRides]!),
-                                      std: StudentID(174),
-                                    ),
-                                  ),
-                                );
-                              }
-                            : null,
-                        child: TextWidget(
-                          text: StringManager.go,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(fontSize: ValuesManager.v25),
-                        ),
-                      );
-                    },
+                  ButtonWidget(
+                    width: ValuesManager.v65,
+                    height: ValuesManager.v50,
+                    onPressed: checkValidation() == true
+                        ? () {
+                            bloc.add(
+                              BookRideEvent(
+                                Ride(
+                                  qrCode: StringsExtensions.generateQR(bloc
+                                      .perfs
+                                      .getString(ConstantsManager.dateOfRide)!),
+                                  pickupPoint: PickUpPoint(bloc.pickUpID),
+                                  dropOffPoint: DropOffPoint(bloc.dropOffID),
+                                  appointment: Appointments(bloc.amTimeAndID[
+                                          bloc.timeOfSelectedRides] ??
+                                      bloc.pmTimeAndID[
+                                          bloc.timeOfSelectedRides]!),
+                                  std: StudentID(11),
+                                ),
+                              ),
+                            );
+                          }
+                        : null,
+                    child: TextWidget(
+                      text: StringManager.go,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5!
+                          .copyWith(fontSize: ValuesManager.v25),
+                    ),
                   ),
                 ],
               ),

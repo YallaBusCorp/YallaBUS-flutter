@@ -60,4 +60,19 @@ class CompleteProfileApiClient {
       throw ServerException();
     }
   }
+
+  Future<int> getStudentId(String uid) async {
+    try {
+      Response response =
+          await dio.get(ApiEndPoints.getStudentByUID, queryParameters: {
+        'stdUid': uid,
+      });
+      print(response.data);
+      print('++++++++++');
+      print(response.data['id']);
+      return response.data['id'];
+    } on DioError {
+      throw ServerException();
+    }
+  }
 }

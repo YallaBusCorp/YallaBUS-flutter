@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../../core/injection/di.dart';
 
 part 'keyboard_event.dart';
 part 'keyboard_state.dart';
@@ -11,12 +14,12 @@ class KeyboardBloc extends Bloc<KeyboardEvent, KeyboardState> {
   late String pinCode = "";
   late int indexOfPhoneNumber = 0;
   late int indexOfPinNumber = 0;
-  // int i = 0;
+  SharedPreferences perfs = di<SharedPreferences>();
 
   @override
   void onChange(Change<KeyboardState> change) {
     super.onChange(change);
-    print(change);
+    print(change.nextState);
   }
 
   KeyboardBloc() : super(KeyboardInitial()) {

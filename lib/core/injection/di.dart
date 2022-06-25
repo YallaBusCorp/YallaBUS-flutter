@@ -3,9 +3,13 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/features/home/domain/use_case/book_ride.dart';
 import 'package:yalla_bus/features/home/domain/use_case/get_current_ride.dart';
+import 'package:yalla_bus/features/login_otp/data/remote_data_source/login_remote_data_source.dart';
+import 'package:yalla_bus/features/login_otp/data/repository_implementation/repository_implementation.dart';
+import 'package:yalla_bus/features/login_otp/domain/repository/repository.dart';
 import 'package:yalla_bus/features/settings/domain/use_case/get_non_scanned_rides.dart';
 import 'package:yalla_bus/features/settings/domain/use_case/get_scanned_rides.dart';
 import 'package:yalla_bus/features/settings/domain/use_case/update_student.dart';
+import 'package:yalla_bus/features/sign_up/domain/use_case/get_student_id.dart';
 import '../network/network_info.dart';
 import '../../features/choose_company/data/data_sources/remote_data_source.dart';
 import '../../features/choose_company/data/repository_implementation/company_repository_implementation.dart';
@@ -41,7 +45,11 @@ Future<void> init() async {
   final perfs = await SharedPreferences.getInstance();
   di.registerLazySingleton(() => perfs);
 
-  di.registerFactory(() => LoginBloc());
+  di.registerFactory(() => LoginBloc(di()));
+
+  di.registerLazySingleton<LoginRepository>(
+      () => LoginRepositoryImplementation(di(), di()));
+  di.registerLazySingleton(() => LoginApiClient());
 
   di.registerFactory(() => KeyboardBloc());
 
@@ -55,10 +63,12 @@ Future<void> init() async {
       () => CompanyRepositoryImplementation(di(), di()));
   di.registerLazySingleton(() => CompaniesApiClient());
 
-  di.registerFactory(() => CompleteprofileBloc(di(), di(), di()));
+  di.registerFactory(() => CompleteprofileBloc(di(), di(), di(), di()));
+
   di.registerLazySingleton(() => GetAllUniversities(di()));
   di.registerLazySingleton(() => GetAllTowns(di()));
   di.registerLazySingleton(() => PostStudentInformation(di()));
+  di.registerLazySingleton(() => GetStudentId(di()));
   di.registerLazySingleton<CompleteProfileRepository>(
       () => ComplelteProfileRepositoryImplemenation(di(), di()));
   di.registerLazySingleton(() => CompleteProfileApiClient());

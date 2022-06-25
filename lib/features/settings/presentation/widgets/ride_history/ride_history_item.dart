@@ -130,14 +130,14 @@ class RideHistoryItem extends StatelessWidget {
                     style: Theme.of(context).textTheme.caption,
                   ),
                   Text(
-                    rideHis.emp!,
+                    rideHis.emp!.empName,
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
                         .copyWith(fontSize: 18),
                   ),
                   Text(
-                    rideHis.busId!,
+                    rideHis.bus!.busLicenceNumber,
                     style: Theme.of(context)
                         .textTheme
                         .headline6!

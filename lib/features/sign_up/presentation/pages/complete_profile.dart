@@ -33,11 +33,17 @@ class _CompleteProfileState extends State<CompleteProfile> {
   List<int> townsIds = [];
   List<int> universitiesIds = [];
   late Student student;
+  late CompleteprofileBloc bloc;
+  @override
+  void initState() {
+    bloc = BlocProvider.of<CompleteprofileBloc>(context);
+    bloc.add(GetAllUniversitiesEvent());
+    bloc.add(GetAllTownsEvent());
+    super.initState();
+  }
+
   @override
   void didChangeDependencies() {
-    BlocProvider.of<CompleteprofileBloc>(context)
-        .add(GetAllUniversitiesEvent());
-    BlocProvider.of<CompleteprofileBloc>(context).add(GetAllTownsEvent());
     super.didChangeDependencies();
   }
 
@@ -61,6 +67,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
               ),
             ),
           );
+          bloc.add(const GetStudentIDEvent(ConstantsManager.uid));
           await Future.delayed(const Duration(seconds: ValuesManager.iv2));
           Navigator.of(context).pushNamedAndRemoveUntil(
             Routes.successfulPayment,
@@ -188,12 +195,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
   }
 
   void _onPressed() {
-    SharedPreferences perfs = di<SharedPreferences>();
     String userName = "${firstNameController.text} ${lastNameController.text}";
-    perfs.setString(ConstantsManager.firstName, firstNameController.text);
-    perfs.setString(ConstantsManager.secondName, lastNameController.text);
-    BlocProvider.of<CompleteprofileBloc>(context)
-        .add(SendStudentDataEvent(userName));
+    bloc.perfs.setString(ConstantsManager.firstName, firstNameController.text);
+    bloc.perfs.setString(ConstantsManager.secondName, lastNameController.text);
+    bloc.add(SendStudentDataEvent(userName));
   }
 
   @override

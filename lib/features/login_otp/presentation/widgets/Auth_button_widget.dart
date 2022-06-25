@@ -13,8 +13,7 @@ import '../../../../core/resources/values_manager.dart';
 import '../bloc/Keyboard/keyboard_bloc.dart';
 import '../bloc/Login/login_bloc.dart';
 
-class AuthButton extends StatelessWidget {
-  // add type properity
+class AuthButton extends StatefulWidget {
   final String edit;
   final String type;
   final String text;
@@ -28,9 +27,19 @@ class AuthButton extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<AuthButton> createState() => _AuthButtonState();
+}
+
+class _AuthButtonState extends State<AuthButton> {
+  late KeyboardBloc keyboard;
+  @override
+  void initState() {
+    keyboard = BlocProvider.of<KeyboardBloc>(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    SharedPreferences perfs = di<SharedPreferences>();
-    KeyboardBloc keyboard = BlocProvider.of<KeyboardBloc>(context);
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is SendingData) {
@@ -43,22 +52,23 @@ class AuthButton extends StatelessWidget {
           );
         } else if (state is Success) {
           Navigator.of(context).pop();
-          if (type == StringManager.otp) {
-            if (edit == ConstantsManager.edit) {
+          if (widget.type == StringManager.otp) {
+            if (widget.edit == ConstantsManager.edit) {
               Navigator.of(context).pop();
               Navigator.of(context).pop();
               Navigator.of(context).pop();
-            } else if (perfs.getInt(ConstantsManager.company) == null) {
+            } else if (keyboard.perfs.getInt(ConstantsManager.company) ==
+                null) {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   Routes.chooseCompany, (route) => false,
                   arguments: ConstantsManager.register);
-            } else if (perfs.getInt(ConstantsManager.company) != null) {
+            } else {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil(Routes.home, (route) => false);
-            } 
+            }
           } else {
-            Navigator.of(context)
-                .pushNamed(Routes.verifyOtp, arguments: ScreenArguments(keyboard.number, edit));
+            Navigator.of(context).pushNamed(Routes.verifyOtp,
+                arguments: ScreenArguments(keyboard.number, widget.edit));
           }
         } else if (state is Error) {
           Navigator.of(context).pop();
@@ -69,7 +79,7 @@ class AuthButton extends StatelessWidget {
               backgroundColor: Colors.transparent,
               child: ErrorDialog(
                 message: 'Try again in another time!',
-                onTap: onPressed,
+                onTap: widget.onPressed,
               ),
             ),
           );
@@ -78,9 +88,9 @@ class AuthButton extends StatelessWidget {
       builder: (context, state) {
         return Center(
           child: ElevatedButton(
-            onPressed: onPressed,
+            onPressed: widget.onPressed,
             child: Text(
-              text.tr(),
+              widget.text.tr(),
               style: Theme.of(context).textTheme.headline5,
             ),
             style: ElevatedButton.styleFrom(

@@ -28,12 +28,21 @@ class RideBooked extends StatefulWidget {
 
 class _RideBookedState extends State<RideBooked> {
   late MapBloc bloc;
-  RideHis ride = RideHis(-1, PickUp('name'), DropOff('name'),
-      Appoint('date', 'amOrPm'), 'busId', 'emp');
+  late RideHis ride;
 
   @override
   void initState() {
     bloc = BlocProvider.of<MapBloc>(context);
+    ride = RideHis(
+        -1,
+        PickUp(bloc.from),
+        DropOff(bloc.to),
+        Appoint(
+          bloc.timeOfSelectedRides.substring(0, 5),
+          bloc.timeOfSelectedRides.substring(6, 8),
+        ),
+        Bus(1, "busUid", "phone", "busLicenceNumber"),
+        Employee("empCode", "empName"));
     super.initState();
   }
 
@@ -46,14 +55,14 @@ class _RideBookedState extends State<RideBooked> {
           Navigator.of(context).pop();
           ride = state.ride;
         }
-        if(state is StudentNotInCurrentRide)
-        {
+        if (state is StudentNotInCurrentRide) {
           Navigator.of(context).pop();
           Navigator.of(context).pop();
         }
         if (state is Loading) {
           showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (BuildContext context) => const Dialog(
               backgroundColor: Colors.transparent,
               child: LoadingDialog(),
@@ -62,7 +71,7 @@ class _RideBookedState extends State<RideBooked> {
         }
       },
       builder: (context, state) {
-        return ride.id != -1
+        return ride.id != -1 || bloc.rideVisible
             ? Visibility(
                 visible: bloc.rideVisible,
                 child: Align(
