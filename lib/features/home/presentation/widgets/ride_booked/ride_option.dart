@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yalla_bus/core/custom_widgets/yes_no_dialog.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/ride_booked/ride_info.dart';
 import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import '../../../../../core/custom_widgets/button_widget.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
+import '../../bloc/map/map_bloc.dart';
 import '../book_ride.dart';
 import 'qr_view.dart';
 
-class RideOptions extends StatelessWidget {
+class RideOptions extends StatefulWidget {
   final RideHis ride;
   const RideOptions({Key? key, required this.ride}) : super(key: key);
 
+  @override
+  State<RideOptions> createState() => _RideOptionsState();
+}
+
+class _RideOptionsState extends State<RideOptions> {
+  late MapBloc bloc;
+
+  @override
+  void initState() {
+    bloc = BlocProvider.of<MapBloc>(context);
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -44,7 +60,18 @@ class RideOptions extends StatelessWidget {
               height: 20,
             ),
             ButtonWidget(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(context: context, builder: (_){
+                  return Dialog(
+                    insetPadding: const EdgeInsets.all(16),
+                    backgroundColor: Colors.transparent,
+                    child: YesNoDialog(message: 'Are you sure you want to call a driver ?',labelTap1: 'Yes', labelTap2: 'No' , onTap: (){
+                       bloc.add(CallDriverEvent(widget.ride.bus!.phone));
+                    }),
+                  );
+                });
+               
+              },
               color: Theme.of(context).backgroundColor,
               child: SvgPicture.asset(
                 AssetManager.call,
@@ -62,7 +89,7 @@ class RideOptions extends StatelessWidget {
         ),
          Expanded(
             child: RideInfo(
-          ride: ride,
+          ride: widget.ride,
         )),
         const SizedBox(
           width: 10,

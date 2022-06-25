@@ -106,9 +106,13 @@ extension StringsExtensions on String {
     return AssetManager.lightverify;
   }
 
-  static String generateQR(String dateOfRide) {
-    SharedPreferences perfs = di<SharedPreferences>();
-    return dateOfRide + '/' + perfs.getString(ConstantsManager.uid)!;
+  static Future<String> generateQR(String dateOfRide) async {
+    SharedPreferences perfs = await SharedPreferences.getInstance();
+    String code = dateOfRide.replaceFirst(RegExp(r' '), '') +
+        '/' +
+        perfs.getString(ConstantsManager.uid)!;
+    perfs.setString(ConstantsManager.qrCode, code);
+    return code;
   }
 
   static String convertHourTo12HoursOnly(String d) {
@@ -144,24 +148,21 @@ extension RouteDistanceExtensions on double {
         d.LatLng(bus.latitude.toDouble(), bus.longitude.toDouble()),
         d.LatLng(pick.latitude.toDouble(), pick.longitude.toDouble()));
 
-    if (dis1 <= dis2) {
+    if (dis1 <= distance) {
       distance -= dis2;
     }
     return distance;
   }
 }
 
-extension MapExtensions on bool{
-  static Future<bool> CheckIfDocumentExistsOrNotEvent(String docId)async{
-   
-        final collectionRef = FirebaseFirestore.instance
-            .collection('company')
-            .doc('serkes')
-            .collection('ride');
-        final document = await collectionRef.doc(docId).get();
-        return document.exists;
-        
-    
+extension MapExtensions on bool {
+  static Future<bool> CheckIfDocumentExistsOrNotEvent(String docId) async {
+    final collectionRef = FirebaseFirestore.instance
+        .collection('company')
+        .doc('serkes')
+        .collection('ride');
+    final document = await collectionRef.doc(docId).get();
+    return document.exists;
   }
 }
 /*

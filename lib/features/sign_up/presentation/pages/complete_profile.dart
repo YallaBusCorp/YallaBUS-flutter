@@ -67,7 +67,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
               ),
             ),
           );
-          bloc.add(const GetStudentIDEvent(ConstantsManager.uid));
+          bloc.add(GetStudentIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
           await Future.delayed(const Duration(seconds: ValuesManager.iv2));
           Navigator.of(context).pushNamedAndRemoveUntil(
             Routes.successfulPayment,

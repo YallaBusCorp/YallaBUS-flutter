@@ -29,11 +29,12 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   late List<dynamic> geoPoints;
   late GeoPoint point;
   bool x = false;
+  late MapBloc bloc;
 
   @override
   void initState() {
     _loadMapStyles();
-
+    bloc = BlocProvider.of<MapBloc>(context);
     WidgetsBinding.instance!.addObserver(this);
 
     super.initState();
@@ -72,13 +73,17 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         stream: tracking,
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          MapExtensions.CheckIfDocumentExistsOrNotEvent('hamo')
+          MapExtensions.CheckIfDocumentExistsOrNotEvent(bloc.perfs.getString(ConstantsManager.rideID)!)
               .then((value) => x = value);
           if (x) {
             geoPoints = snapshot.data!.get('location');
             int size = geoPoints.length;
             point = geoPoints[size - 1];
             map.add(RefreshBusCoordinateEvent(point));
+            map.add(CheckBusMarkerAccordingToPickAndDropMarkersEvent(
+                LatLng(point.latitude, point.longitude),
+                map.pickUpSelectedPosition,
+                map.dropOffSelectedPosition));
           }
 
           return BlocConsumer<MapBloc, MapState>(
@@ -86,6 +91,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
               if (state is PickUpPointsMarkersChanged) {
                 markers = MapManager.pickUpMarkers;
               }
+              
               if (state is DropOffPointsMarkersChanged) {
                 markers = MapManager.dropOffMarkers;
               }

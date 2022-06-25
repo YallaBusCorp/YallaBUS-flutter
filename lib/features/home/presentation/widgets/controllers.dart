@@ -1,14 +1,9 @@
-import 'dart:async';
-import 'dart:math';
-
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/resources/notification_manager.dart';
-
+import '../../../../core/injection/di.dart';
+import '../../../../core/resources/constants_manager.dart';
 import '../../../../core/resources/routes_manager.dart';
+import '../../../sign_up/domain/use_case/get_student_id.dart';
 import '../bloc/map/map_bloc.dart';
 
 import '../../../../core/custom_widgets/separtor_widget.dart';
@@ -66,7 +61,6 @@ class _ControllersState extends State<Controllers> {
                 onPressed: () {
                   map.add(GetMyLocation());
                 },
-                // printPoints();
                 icon: Icon(
                   Icons.gps_fixed,
                   color: Theme.of(context).iconTheme.color,

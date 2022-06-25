@@ -21,14 +21,9 @@ import 'package:yalla_bus/features/choose_company/presentation/bloc/company_sele
 import 'package:yalla_bus/features/choose_company/presentation/pages/choose_company.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
-import 'package:yalla_bus/features/onBoarding/pages/onboarding_base.dart';
 import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
-
-import 'core/resources/notification_manager.dart';
-import 'features/bus_mobile/rides/presentation/pages/bus_rides.dart';
 import 'features/home/presentation/bloc/map/map_bloc.dart';
 import 'features/home/presentation/pages/home.dart';
 import 'features/login_otp/presentation/pages/login.dart';

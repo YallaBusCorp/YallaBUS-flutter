@@ -100,3 +100,17 @@ class CheckIfDocumentExistsOrNotEvent extends MapEvent {
 
   const CheckIfDocumentExistsOrNotEvent(this.docId);
 }
+
+class CallDriverEvent extends MapEvent {
+  final String number;
+
+  const CallDriverEvent(this.number);
+}
+
+class RefreshMyLocationChanagesEvent extends MapEvent {
+  final LocationData locationData;
+
+  const RefreshMyLocationChanagesEvent(this.locationData);
+   @override
+  List<Object> get props => [locationData];
+}

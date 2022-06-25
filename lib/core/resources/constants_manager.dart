@@ -28,6 +28,8 @@ class ConstantsManager {
   static const String edit = 'Edit';
   static const String register = 'RegisterMode';
   static const String dateOfRide = 'dateOfRide';
+  static const String qrCode = 'qrCode';
+  static const String rideID = 'rideId';
 
   static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
 }

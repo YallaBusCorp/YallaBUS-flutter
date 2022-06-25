@@ -23,75 +23,83 @@ class _DriverInfoState extends State<DriverInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Spacer(),
-        Column(
+    return BlocBuilder<MapBloc, MapState>(
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Visibility(
-              visible: !true,
-              child: Text(
-                'Ride has not started yet',
-                style: Theme.of(context).textTheme.caption,
-              ),
-            ),
-            Visibility(
-              visible: true,
-              child: Text(
-                widget.ride.emp!.empName,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(fontSize: 18),
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Visibility(
-              visible: true,
-              child: DecorationBoxWidget(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+            const Spacer(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Visibility(
+                  visible: bloc.markersOfBus.isEmpty,
                   child: Text(
-                    widget.ride.bus!.busLicenceNumber,
+                    'Ride has not started yet',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                ),
+                Visibility(
+                  visible:  bloc.markersOfBus.isNotEmpty,
+                  child: Text(
+                    widget.ride.emp!.empName,
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
                         .copyWith(fontSize: 18),
                   ),
                 ),
-              ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Visibility(
+                  visible: bloc.markersOfBus.isNotEmpty,
+                  child: DecorationBoxWidget(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        widget.ride.bus!.busLicenceNumber,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 50,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.ideographic,
+              children: [
+                TextWidget(
+                  text: '${bloc.distanceOfRide.toInt()}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(fontSize: 30),
+                ),
+                TextWidget(
+                  text: 'Km',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(fontSize: 18),
+                ),
+              ],
             ),
           ],
-        ),
-        const SizedBox(
-          width: 50,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          textBaseline: TextBaseline.ideographic,
-          children: [
-            TextWidget(
-              text: '${bloc.distanceOfRide.toInt()}',
-              style:
-                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 30),
-            ),
-            TextWidget(
-              text: 'Km',
-              style:
-                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 18),
-            ),
-          ],
-        ),
-      ],
+        );
+      },
     );
   }
 }

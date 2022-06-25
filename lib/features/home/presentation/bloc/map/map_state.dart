@@ -39,7 +39,7 @@ class GetAppoinmentAmSuccess extends MapState {
   final List<String> am;
 
   const GetAppoinmentAmSuccess(this.am);
-    @override
+  @override
   List<Object> get props => [am];
 }
 
@@ -142,3 +142,21 @@ class ShowCurrentRideAfterBooking extends MapState {}
 class DocumentExists extends MapState {}
 
 class DocumentNotExists extends MapState {}
+
+class AddBothPickUpAndDropOffMarkers extends MapState {
+  final Set<Marker> s;
+  final Set<Marker> s1;
+
+  const AddBothPickUpAndDropOffMarkers(this.s, this.s1);
+}
+
+class MarkersRemoved extends MapState{}
+
+class ChangeMyLocationState extends MapState{
+  final LocationData data;
+
+  const ChangeMyLocationState(this.data);
+
+   @override
+  List<Object> get props => [data];
+}

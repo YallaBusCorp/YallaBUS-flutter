@@ -43,7 +43,8 @@ class _DepartAtState extends State<DepartAt> {
               child: LoadingDialog(),
             ),
           );
-        } else if (state is BookRideSuccess) {
+        }
+        if (state is BookRideSuccess) {
           Navigator.of(context).pop();
           showDialog(
             context: context,
@@ -59,11 +60,12 @@ class _DepartAtState extends State<DepartAt> {
               );
             },
           );
-          bloc.add(CameraPositionAfterBookingEvent());
           bloc.add(GetCurrentRideByUIDEvent(
               bloc.perfs.getString(ConstantsManager.uid)!));
+          bloc.add(CameraPositionAfterBookingEvent());
           Navigator.of(context).pop();
-        } else if (state is BookRideError) {
+        }
+        if (state is BookRideError) {
           Navigator.of(context).pop();
           showDialog(
             context: context,
@@ -125,20 +127,21 @@ class _DepartAtState extends State<DepartAt> {
                     width: ValuesManager.v65,
                     height: ValuesManager.v50,
                     onPressed: checkValidation() == true
-                        ? () {
+                        ? () async {
                             bloc.add(
                               BookRideEvent(
                                 Ride(
-                                  qrCode: StringsExtensions.generateQR(bloc
-                                      .perfs
-                                      .getString(ConstantsManager.dateOfRide)!),
+                                  qrCode: await StringsExtensions.generateQR(
+                                      bloc.perfs.getString(
+                                          ConstantsManager.dateOfRide)!),
                                   pickupPoint: PickUpPoint(bloc.pickUpID),
                                   dropOffPoint: DropOffPoint(bloc.dropOffID),
                                   appointment: Appointments(bloc.amTimeAndID[
                                           bloc.timeOfSelectedRides] ??
                                       bloc.pmTimeAndID[
                                           bloc.timeOfSelectedRides]!),
-                                  std: StudentID(11),
+                                  std: StudentID(bloc.perfs
+                                      .getInt(ConstantsManager.stdId)!),
                                 ),
                               ),
                             );

@@ -2,14 +2,16 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 
 class MapManager {
   static Completer<GoogleMapController> controller = Completer();
 
-  static late Position position;
+  static Location location = Location();
+  static late LocationData myLocation;
 
   static final Set<Marker> markers = <Marker>{};
   static final Set<Marker> dropOffMarkers = <Marker>{};
@@ -28,7 +30,7 @@ class MapManager {
 
   static final CameraPosition cameraPosition = CameraPosition(
       bearing: 0,
-      target: LatLng(position.latitude, position.longitude),
+      target: LatLng(myLocation.latitude!, myLocation.longitude!),
       tilt: 0,
       zoom: 19.151926040649414);
 
@@ -53,15 +55,9 @@ class MapManager {
     );
   }
 
-  static Future<BitmapDescriptor> normalIcon() async {
-    return await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(),
-      AssetManager.busIconTracking,
-    );
-  }
-
   static void addMarker(
-      {required Set<Marker> marker,
+      {required int id,
+      required Set<Marker> marker,
       required LatLng latlng,
       required BitmapDescriptor icon,
       GestureTapCallback? onTap,
@@ -70,36 +66,19 @@ class MapManager {
     marker.add(
       Marker(
         markerId: MarkerId(
-          latlng.toString(),
+          id.toString(),
         ),
         position: latlng, //position of marker
         onTap: onTap,
         icon: icon,
         rotation: rotation ?? 0.0,
-        anchor: anchor ?? const Offset(0.5, 1.0),
+        anchor: anchor ?? const Offset(0.5, 0.5),
       ),
     );
   }
 
-  static void removeMarker(
-      {required Set<Marker> marker,
-      required LatLng latlng,
-      required BitmapDescriptor icon,
-      GestureTapCallback? onTap,
-      double? rotation,
-      Offset? anchor}) {
-    marker.remove(
-      Marker(
-        markerId: MarkerId(
-          latlng.toString(),
-        ),
-        position: latlng, //position of marker
-        onTap: onTap,
-        icon: icon,
-        rotation: rotation ?? 0.0,
-        anchor: anchor ?? const Offset(0.5, 1.0),
-      ),
-    );
+  static void removeMarker({required Marker m, required Set<Marker> marker}) {
+    marker.remove(m);
   }
 
   static double bearingBetweenLocations(LatLng latLng1, LatLng latLng2) {

@@ -7,20 +7,24 @@ class RideHis {
   final Appoint? appoinment;
   final Bus? bus;
   final Employee? emp;
+  final TxRide txRide;
 
-  RideHis(this.id, this.pick, this.drop, this.appoinment, this.bus, this.emp);
+  RideHis(this.id, this.pick, this.drop, this.appoinment, this.bus, this.emp, this.txRide);
 }
 
 class PickUp {
   final String name;
+  final double longitude;
+  final double latitude;
 
-  PickUp(this.name);
+  PickUp(this.name, this.latitude, this.longitude);
 }
 
 class DropOff {
   final String name;
-
-  DropOff(this.name);
+  final double longitude;
+  final double latitude;
+  DropOff(this.name, this.latitude, this.longitude);
 }
 
 class Appoint {
@@ -44,4 +48,11 @@ class Employee {
   final String empName;
 
   Employee(this.empCode, this.empName);
+}
+
+class TxRide {
+  final int id;
+  final String rideStatus;
+
+  TxRide(this.id, this.rideStatus);
 }

@@ -38,16 +38,7 @@ class _ContactUsState extends State<ContactUs> {
                 backgroundColor: Colors.transparent,
                 child: ErrorDialog(message: state.message, onTap: () {})),
           );
-        } else {
-          showDialog(
-            context: context,
-            builder: (_) => const Dialog(
-              insetPadding: EdgeInsets.all(25),
-              backgroundColor: Colors.transparent,
-              child: LoadingDialog(),
-            ),
-          );
-        }
+        } 
       },
       builder: (context, state) {
         if (state is GetCompanySuccess) {

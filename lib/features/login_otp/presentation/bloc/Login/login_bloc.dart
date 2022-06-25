@@ -69,7 +69,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       user = await FirebaseAuth.instance.signInWithCredential(credential);
       final userFirebase = FirebaseAuth.instance.currentUser;
       final uid = userFirebase!.uid;
-      
       final number = FirebaseAuth.instance.currentUser!.phoneNumber!;
       perfs.setString(ConstantsManager.uid, uid);
       perfs.setString(ConstantsManager.number, number);

@@ -40,7 +40,7 @@ class _QRViewState extends State<QRView> {
           Padding(
             padding: const EdgeInsets.all(25),
             child: QrImage(
-              data: StringsExtensions.generateQR(date),
+              data: bloc.perfs.getString(ConstantsManager.qrCode)!,
               version: QrVersions.auto,
               backgroundColor: Colors.white,
               size: 200,
