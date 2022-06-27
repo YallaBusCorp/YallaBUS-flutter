@@ -10,6 +10,7 @@ import 'package:yalla_bus/features/settings/presentation/widgets/ride_history/do
 import 'package:yalla_bus/features/settings/presentation/widgets/ride_history/missed_ride_history.dart';
 import '../../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../../core/custom_widgets/loading_dialog.dart';
+import '../../../../../core/resources/constants_manager.dart';
 import 'ride_history_item.dart';
 
 class RidesHistory extends StatefulWidget {
@@ -29,8 +30,9 @@ class _RidesHistoryState extends State<RidesHistory>
   void initState() {
     controller = TabController(length: 2, vsync: this);
     bloc = BlocProvider.of<SettingsBloc>(context);
-    bloc.add(GetNotScannedRidesEvent(174));
-    bloc.add(GetScannedRidesEvent(174));
+    bloc.add(
+        GetNotScannedRidesEvent(bloc.perfs.getInt(ConstantsManager.stdId)!));
+    bloc.add(GetScannedRidesEvent(bloc.perfs.getInt(ConstantsManager.stdId)!));
     super.initState();
   }
 

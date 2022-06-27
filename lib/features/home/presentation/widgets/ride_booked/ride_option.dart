@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yalla_bus/core/custom_widgets/yes_no_dialog.dart';
+import 'package:yalla_bus/core/resources/map_manager.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/ride_booked/ride_info.dart';
 import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import '../../../../../core/custom_widgets/button_widget.dart';
@@ -27,7 +28,7 @@ class _RideOptionsState extends State<RideOptions> {
     bloc = BlocProvider.of<MapBloc>(context);
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -61,16 +62,22 @@ class _RideOptionsState extends State<RideOptions> {
             ),
             ButtonWidget(
               onPressed: () {
-                showDialog(context: context, builder: (_){
-                  return Dialog(
-                    insetPadding: const EdgeInsets.all(16),
-                    backgroundColor: Colors.transparent,
-                    child: YesNoDialog(message: 'Are you sure you want to call a driver ?',labelTap1: 'Yes', labelTap2: 'No' , onTap: (){
-                       bloc.add(CallDriverEvent(widget.ride.bus!.phone));
-                    }),
-                  );
-                });
-               
+                showDialog(
+                    context: context,
+                    builder: (_) {
+                      return Dialog(
+                        insetPadding: const EdgeInsets.all(16),
+                        backgroundColor: Colors.transparent,
+                        child: YesNoDialog(
+                            message: 'Are you sure you want to call a driver ?',
+                            labelTap1: 'Yes',
+                            labelTap2: 'No',
+                            onTap: () {
+                              bloc.add(CallDriverEvent(widget.ride.bus!.phone));
+                              Navigator.of(context).pop();
+                            }),
+                      );
+                    });
               },
               color: Theme.of(context).backgroundColor,
               child: SvgPicture.asset(
@@ -87,7 +94,7 @@ class _RideOptionsState extends State<RideOptions> {
         const SizedBox(
           width: 10,
         ),
-         Expanded(
+        Expanded(
             child: RideInfo(
           ride: widget.ride,
         )),
@@ -120,7 +127,25 @@ class _RideOptionsState extends State<RideOptions> {
               height: 20,
             ),
             ButtonWidget(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (_) {
+                      return Dialog(
+                        insetPadding: const EdgeInsets.all(16),
+                        backgroundColor: Colors.transparent,
+                        child: YesNoDialog(
+                            message:
+                                'Are you sure you want to cancel this ride ?',
+                            labelTap1: 'Yes',
+                            labelTap2: 'No',
+                            onTap: () {
+                              bloc.add(CancelRideEvent(widget.ride.id!));
+                              Navigator.of(context).pop();
+                            }),
+                      );
+                    });
+              },
               color: Theme.of(context).backgroundColor,
               child: SvgPicture.asset(
                 AssetManager.cancelSVG,

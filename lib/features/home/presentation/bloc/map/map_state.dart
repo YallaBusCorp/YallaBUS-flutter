@@ -99,8 +99,6 @@ class GetDropOffPointsError extends MapState {
 
 class Saved extends MapState {}
 
-class CancelRide extends MapState {}
-
 class BookRideSuccess extends MapState {}
 
 class BookRideError extends MapState {
@@ -118,7 +116,7 @@ class ChangeBusCoordinate extends MapState {}
 class ChangeMarkersOfBus extends MapState {
   final Set<Marker> m;
 
-  ChangeMarkersOfBus(this.m);
+  const ChangeMarkersOfBus(this.m);
 }
 
 class StudentInCurrentRide extends MapState {
@@ -150,13 +148,27 @@ class AddBothPickUpAndDropOffMarkers extends MapState {
   const AddBothPickUpAndDropOffMarkers(this.s, this.s1);
 }
 
-class MarkersRemoved extends MapState{}
+class MarkersRemoved extends MapState {}
 
-class ChangeMyLocationState extends MapState{
+class ChangeMyLocationState extends MapState {
   final LocationData data;
 
   const ChangeMyLocationState(this.data);
 
-   @override
+  @override
   List<Object> get props => [data];
+}
+
+class Calling extends MapState {}
+
+class CancelRideError extends MapState {
+  final String message;
+
+  const CancelRideError(this.message);
+}
+
+class CancelRideSuccess extends MapState {
+  final Set<Marker> s;
+
+  const CancelRideSuccess(this.s);
 }

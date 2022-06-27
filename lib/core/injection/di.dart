@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/features/home/domain/use_case/book_ride.dart';
+import 'package:yalla_bus/features/home/domain/use_case/cancel_ride.dart';
 import 'package:yalla_bus/features/home/domain/use_case/get_current_ride.dart';
 import 'package:yalla_bus/features/login_otp/data/remote_data_source/login_remote_data_source.dart';
 import 'package:yalla_bus/features/login_otp/data/repository_implementation/repository_implementation.dart';
@@ -80,8 +81,10 @@ Future<void> init() async {
         di(),
         di(),
         di(),
+        di(),
       ));
   di.registerLazySingleton(() => GetCurrentRide(di()));
+  di.registerLazySingleton(() => CancelRide(di()));
   di.registerLazySingleton(() => GetAppoinmentOfAM(di()));
   di.registerLazySingleton(() => GetAppoinmentOfPM(di()));
   di.registerLazySingleton(() => GetMapPickUpPoints(di()));

@@ -111,6 +111,12 @@ class RefreshMyLocationChanagesEvent extends MapEvent {
   final LocationData locationData;
 
   const RefreshMyLocationChanagesEvent(this.locationData);
-   @override
+  @override
   List<Object> get props => [locationData];
+}
+
+class CancelRideEvent extends MapEvent {
+  final int id;
+
+  const CancelRideEvent(this.id);
 }

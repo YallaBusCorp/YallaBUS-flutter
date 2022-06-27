@@ -53,9 +53,7 @@ class YesNoDialog extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(ValuesManager.v16),
                   child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
+                    onTap: onTap,
                     child: Center(
                       child: TextWidget(
                         text: labelTap1 ?? StringManager.returnStatement,
@@ -76,7 +74,9 @@ class YesNoDialog extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(ValuesManager.v16),
                   child: InkWell(
-                    onTap: onTap,
+                    onTap:  (){
+                       Navigator.of(context).pop();
+                    },
                     child: Center(
                       child: TextWidget(
                         text: labelTap2 ?? StringManager.signOut,

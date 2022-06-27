@@ -100,8 +100,6 @@ class MapRepositoryImplementation extends MapRepository {
     }
   }
 
-  
-
   @override
   Future<Either<Failure, RideHis>> getCurrentRide(String uid) async {
     if (await info.isConnected()) {
@@ -112,6 +110,20 @@ class MapRepositoryImplementation extends MapRepository {
         } else {
           return Right(RideHisModel.fromJson(result));
         }
+      } on ServerException {
+        return Left(Failure('Try Again in another time'));
+      }
+    } else {
+      return Left(Failure("You don't have access to internet!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> cancelRide(int bookingID) async {
+    if (await info.isConnected()) {
+      try {
+        final result = await client.cancelRide(bookingID);
+        return Right(result);
       } on ServerException {
         return Left(Failure('Try Again in another time'));
       }

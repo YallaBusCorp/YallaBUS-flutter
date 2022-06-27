@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as gmaps;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
-import '../injection/di.dart';
 import '../resources/asset_manager.dart';
 import 'package:latlong2/latlong.dart' as d;
 import '../../features/choose_company/presentation/bloc/company_selection_bloc.dart';
@@ -121,8 +120,11 @@ extension StringsExtensions on String {
     if (hours > 12) {
       String p = d.substring(2, 6);
       hours -= 12;
-      date = "0" + hours.toString();
+      date = hours < 10 ? "0" + hours.toString() : hours.toString();
       date += p;
+      date += ' PM';
+    } else {
+      date += ' AM';
     }
     return date;
   }
@@ -139,6 +141,9 @@ extension RouteDistanceExtensions on double {
 
   static double reduceDistance(
       gmaps.LatLng bus, gmaps.LatLng pick, gmaps.LatLng drop, double distance) {
+    if (bus == const gmaps.LatLng(30.965317563392837, 31.316227249605518)) {
+      return distance;
+    } 
     double dis1 = const d.Distance().as(
         d.LengthUnit.Kilometer,
         d.LatLng(bus.latitude.toDouble(), bus.longitude.toDouble()),
@@ -154,6 +159,8 @@ extension RouteDistanceExtensions on double {
     return distance;
   }
 }
+
+extension QrValidationExtension on bool {}
 
 extension MapExtensions on bool {
   static Future<bool> CheckIfDocumentExistsOrNotEvent(String docId) async {

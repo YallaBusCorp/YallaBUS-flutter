@@ -85,9 +85,7 @@ class CompleteprofileBloc
 
     on<GetStudentIDEvent>((event, emit) async {
       (await stdId.getStudentId(event.uid)).fold((l) {
-        print(l.message);
       }, (r) {
-        print(r);
         perfs.setInt(ConstantsManager.stdId, r);
       });
     });

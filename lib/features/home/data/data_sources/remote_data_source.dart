@@ -75,15 +75,11 @@ class MapApiClient {
         ApiEndPoints.bookRide,
         data: data,
       );
-      print(response.data);
       return 200;
     } on DioError catch (e) {
-      print(e.message);
       throw ServerException();
     }
   }
-
-
 
   Future<dynamic> getCurrentRideByUID(String uid) async {
     try {
@@ -99,6 +95,22 @@ class MapApiClient {
         return response.data;
       }
     } on DioError {
+      throw ServerException();
+    }
+  }
+
+  Future<bool> cancelRide(int bookingId) async {
+    try {
+      Response response = await dio.delete(
+        ApiEndPoints.cancelRide,
+        queryParameters: {
+          'id': bookingId,
+        },
+      );
+      print(response.data);
+      return response.data;
+    } on DioError catch(e) {
+      print(e.message);
       throw ServerException();
     }
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/extensions/extensions.dart';
+import '../../../../../core/extensions/extensions.dart';
 
-import '../../../../core/resources/values_manager.dart';
+import '../../../../../core/resources/values_manager.dart';
 
 class PinLayout extends StatelessWidget {
   final String pin;

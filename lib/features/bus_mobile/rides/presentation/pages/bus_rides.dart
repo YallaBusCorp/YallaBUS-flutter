@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/presentation/widgets/upcoming_rides.dart';
+import 'package:yalla_bus/features/bus_mobile/rides/presentation/widgets/settings.dart';
 
 import '../../../../../core/resources/routes_manager.dart';
 import '../widgets/coming_rides.dart';
@@ -43,7 +43,7 @@ class _BusRidesState extends State<BusRides> {
             SizedBox(
               height: 20,
             ),
-            UpcomingRides(),
+            BusSettings(),
           ],
         ),
       ),

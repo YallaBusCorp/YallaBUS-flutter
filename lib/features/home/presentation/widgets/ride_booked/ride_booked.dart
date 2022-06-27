@@ -10,16 +10,14 @@ import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/book_ride.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/ride_booked/qr_view.dart';
 import '../../../../../core/custom_widgets/loading_dialog.dart';
-import '../../../../../core/custom_widgets/text_widget.dart';
+import '../../../../../core/custom_widgets/success_dialog.dart';
 import '../../../../../core/extensions/extensions.dart';
 import '../../../../../core/resources/values_manager.dart';
 import '../../../../settings/domain/entity/ride_history_model.dart';
 import '../../bloc/map/map_bloc.dart';
 import 'driver_info.dart';
 import 'ride_option.dart';
-import 'ride_info.dart';
 
-import '../../../../../core/injection/di.dart';
 
 class RideBooked extends StatefulWidget {
   const RideBooked({Key? key}) : super(key: key);
@@ -76,6 +74,45 @@ class _RideBookedState extends State<RideBooked> {
         if (state is StudentCurrentRideError) {
           Navigator.of(context).pop();
           Navigator.of(context).pop();
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) => Dialog(
+              backgroundColor: Colors.transparent,
+              child: ErrorDialog(
+                message: state.message,
+                onTap: () {
+                  bloc.add(
+                      const GetCurrentRideByUIDEvent(ConstantsManager.uid));
+                },
+              ),
+            ),
+          );
+        }
+
+        if (state is CancelRideSuccess) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.of(context).pop();
+              });
+              return const Dialog(
+                backgroundColor: Colors.transparent,
+                child: SuccessDialog(
+                  message: 'You canceled a ride !',
+                ),
+              );
+            },
+          );
+          Navigator.of(context).pop();
+          bloc.add(
+            GetCurrentRideByUIDEvent(
+                bloc.perfs.getString(ConstantsManager.uid)!),
+          );
+        }
+
+        if (state is CancelRideError) {
           showDialog(
             context: context,
             barrierDismissible: false,

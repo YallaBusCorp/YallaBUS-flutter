@@ -36,7 +36,7 @@ class RideHisModel extends RideHis {
             }),
         TxRideModel.fromJson(json['txRide'] ??
             {
-              'id': '1',
+              'id': 1,
               'rideStatus': 'complete',
             }));
   }

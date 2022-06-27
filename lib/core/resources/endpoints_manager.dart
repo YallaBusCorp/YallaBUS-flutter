@@ -22,4 +22,5 @@ class ApiEndPoints {
       '/txBooking/student/get-all-not-scanned';
   static const String getScannedRides = '/txBooking/student/get-all-scanned';
   static const String getCurrentRideByUID = '/txBooking/get-current-by-stdUid';
+  static const String cancelRide = '/txBooking/';
 }

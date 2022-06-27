@@ -12,5 +12,5 @@ abstract class MapRepository {
   Future<Either<Failure, List<MapPoint>>> getMapDropOffPoints(int id);
   Future<Either<Failure, RideHis>> getCurrentRide(String uid);
   Future<Either<Failure, Success>> bookRide(Ride ride);
-  
+  Future<Either<Failure, bool>> cancelRide(int bookingID);
 }

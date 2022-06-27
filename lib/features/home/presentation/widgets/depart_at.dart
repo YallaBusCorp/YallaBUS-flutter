@@ -51,6 +51,10 @@ class _DepartAtState extends State<DepartAt> {
             builder: (BuildContext context) {
               Future.delayed(const Duration(seconds: 2), () {
                 Navigator.of(context).pop();
+                bloc.add(GetCurrentRideByUIDEvent(
+                    bloc.perfs.getString(ConstantsManager.uid)!));
+                Navigator.of(context).pop();
+                bloc.add(CameraPositionAfterBookingEvent());
               });
               return const Dialog(
                 backgroundColor: Colors.transparent,
@@ -60,12 +64,9 @@ class _DepartAtState extends State<DepartAt> {
               );
             },
           );
-          bloc.add(GetCurrentRideByUIDEvent(
-              bloc.perfs.getString(ConstantsManager.uid)!));
-          bloc.add(CameraPositionAfterBookingEvent());
-          Navigator.of(context).pop();
         }
         if (state is BookRideError) {
+          Navigator.of(context).pop();
           Navigator.of(context).pop();
           showDialog(
             context: context,

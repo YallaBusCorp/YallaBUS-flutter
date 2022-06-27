@@ -45,7 +45,7 @@ class _DriverInfoState extends State<DriverInfo> {
                   ),
                 ),
                 Visibility(
-                  visible:  bloc.markersOfBus.isNotEmpty,
+                  visible: bloc.markersOfBus.isNotEmpty,
                   child: Text(
                     widget.ride.emp!.empName,
                     style: Theme.of(context)
@@ -75,7 +75,7 @@ class _DriverInfoState extends State<DriverInfo> {
               ],
             ),
             const SizedBox(
-              width: 50,
+              width: 45,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,

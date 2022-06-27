@@ -5,15 +5,10 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/map_manager.dart';
-import '../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../core/extensions/extensions.dart';
-import '../../../../core/injection/di.dart';
 import '../../../../core/resources/asset_manager.dart';
-import '../../../../core/resources/notification_manager.dart';
-import '../../../../core/resources/routes_manager.dart';
 import '../bloc/map/map_bloc.dart';
 
 class MapWidget extends StatefulWidget {
@@ -30,13 +25,19 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   late GeoPoint point;
   bool x = false;
   late MapBloc bloc;
+  late Stream<DocumentSnapshot> tracking;
 
   @override
   void initState() {
     _loadMapStyles();
     bloc = BlocProvider.of<MapBloc>(context);
     WidgetsBinding.instance!.addObserver(this);
-
+    tracking = FirebaseFirestore.instance
+        .collection('company')
+        .doc('serkes')
+        .collection('ride')
+        .doc(bloc.perfs.getString(ConstantsManager.rideID) ?? 'hamdo')
+        .snapshots();
     super.initState();
   }
 
@@ -58,13 +59,6 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
   }
 
-  Stream<DocumentSnapshot> tracking = FirebaseFirestore.instance
-      .collection('company')
-      .doc('serkes')
-      .collection('ride')
-      .doc('hamo')
-      .snapshots();
-
   Set<Marker> markers = <Marker>{};
   @override
   Widget build(BuildContext context) {
@@ -73,9 +67,10 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         stream: tracking,
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          MapExtensions.CheckIfDocumentExistsOrNotEvent(bloc.perfs.getString(ConstantsManager.rideID)!)
+          MapExtensions.CheckIfDocumentExistsOrNotEvent(
+                  bloc.perfs.getString(ConstantsManager.rideID) ?? 'hamdo')
               .then((value) => x = value);
-          if (x) {
+          if (snapshot.hasData && x) {
             geoPoints = snapshot.data!.get('location');
             int size = geoPoints.length;
             point = geoPoints[size - 1];
@@ -91,7 +86,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
               if (state is PickUpPointsMarkersChanged) {
                 markers = MapManager.pickUpMarkers;
               }
-              
+
               if (state is DropOffPointsMarkersChanged) {
                 markers = MapManager.dropOffMarkers;
               }
@@ -110,7 +105,9 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
                 onMapCreated: (GoogleMapController controller) {
                   if (!MapManager.controller.isCompleted) {
                     MapManager.controller.complete(controller);
-                    // map.add(GetMyLocation());
+                    if (bloc.markersOfBus.isEmpty) {
+                      map.add(GetMyLocation());
+                    }
                   }
                   if (MediaQuery.of(context).platformBrightness ==
                       Brightness.dark) {

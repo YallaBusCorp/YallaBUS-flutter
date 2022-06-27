@@ -1,8 +1,5 @@
 // ignore_for_file: must_be_immutable
 import 'dart:async';
-
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +14,10 @@ import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/debugger_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/theme_manager.dart';
+import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/bloc/employee_code_bloc.dart';
+import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/pages/verify.dart';
+import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/bloc/qr_scanner_bloc.dart';
+import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/pages/qr_scanner.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/choose_company/presentation/pages/choose_company.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
@@ -109,9 +110,16 @@ class _MyAppState extends State<MyApp> {
           create: (builder) => di<SettingsBloc>(),
           child: const SettingsScreen(),
         ),
+        BlocProvider(
+          create: (builder) => EmployeeCodeBloc(),
+          child: const EmployeeCodeScreen(),
+        ),
+        BlocProvider(
+          create: (builder) => QrScannerBloc(),
+          child: const BusQRScanner(),
+        ),
       ],
       child: MaterialApp(
-        // showPerformanceOverlay: true,
         navigatorKey: DebuggerManager.alice.getNavigatorKey(),
         onGenerateRoute: RouteGenerator.getRoute,
         localizationsDelegates: context.localizationDelegates,
@@ -125,7 +133,7 @@ class _MyAppState extends State<MyApp> {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: launchFirst(),  
+        home: launchFirst(),
       ),
     );
   }

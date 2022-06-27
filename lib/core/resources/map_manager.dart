@@ -43,14 +43,18 @@ class MapManager {
 
   static Future<BitmapDescriptor> stationIcon() async {
     return await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(),
+      const ImageConfiguration(
+        devicePixelRatio: 2.5,
+      ),
       AssetManager.busStationMarker,
     );
   }
 
   static Future<BitmapDescriptor> busIcon() async {
     return await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(),
+      const ImageConfiguration(
+        devicePixelRatio: 2.5,
+      ),
       AssetManager.busIconTracking,
     );
   }
@@ -71,8 +75,8 @@ class MapManager {
         position: latlng, //position of marker
         onTap: onTap,
         icon: icon,
-        rotation: rotation ?? 0.0,
-        anchor: anchor ?? const Offset(0.5, 0.5),
+    
+        anchor: const Offset(0.5, 0.5),
       ),
     );
   }

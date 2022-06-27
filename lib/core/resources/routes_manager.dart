@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/pages/qr_scanner.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/presentation/pages/bus_rides.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/faqs/fags.dart';
@@ -41,6 +42,7 @@ class Routes {
   static const String busSettings = 'BusSettings';
   static const String busMap = 'BusMap';
   static const String busQrScanner = 'BusQr';
+  static const String busEmployeeCode = 'busEmployeeCode';
 }
 
 class RouteGenerator {
@@ -86,6 +88,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const BusRides());
       case Routes.busQrScanner:
         return MaterialPageRoute(builder: (_) => const BusQRScanner());
+      case Routes.busEmployeeCode:
+        return MaterialPageRoute(builder: (_) => const EmployeeCodeScreen());
+
       case Routes.complaintMessageAndResponse:
         var args = settings.arguments as int;
         return MaterialPageRoute(
