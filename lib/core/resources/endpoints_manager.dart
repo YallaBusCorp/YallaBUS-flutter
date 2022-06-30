@@ -14,7 +14,6 @@ class ApiEndPoints {
   static const String mapPointsPickUp = '/mapPoint/company/active/get-all-pick';
   static const String mapPointsDropDown =
       '/mapPoint/company/active/get-all-drop';
-
   static const String bookRide = '/txBooking/save-txBooking';
   static const String updateStudent = '/student/update-student';
   static const String getStudentID = '/student/get-by-uid';
@@ -23,4 +22,8 @@ class ApiEndPoints {
   static const String getScannedRides = '/txBooking/student/get-all-scanned';
   static const String getCurrentRideByUID = '/txBooking/get-current-by-stdUid';
   static const String cancelRide = '/txBooking/';
+  static const String scanQr = '/txBooking/scan-qrCode';
+  static const String getBusUid = '/bus/get-by-phone';
+  static const String getCurrentRideByBusUid = '/txBooking/bus/get-current';
+  static const String endRide = '/txRide/assign';
 }

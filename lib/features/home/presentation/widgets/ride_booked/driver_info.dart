@@ -75,14 +75,14 @@ class _DriverInfoState extends State<DriverInfo> {
               ],
             ),
             const SizedBox(
-              width: 45,
+              width: 25,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.ideographic,
               children: [
                 TextWidget(
-                  text: '${bloc.distanceOfRide.toInt()}',
+                  text: '${bloc.distanceOfRide}',
                   style: Theme.of(context)
                       .textTheme
                       .headline5!

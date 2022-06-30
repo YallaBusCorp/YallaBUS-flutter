@@ -39,6 +39,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
     bloc = BlocProvider.of<CompleteprofileBloc>(context);
     bloc.add(GetAllUniversitiesEvent());
     bloc.add(GetAllTownsEvent());
+
     super.initState();
   }
 
@@ -67,12 +68,15 @@ class _CompleteProfileState extends State<CompleteProfile> {
               ),
             ),
           );
-          bloc.add(GetStudentIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
-          await Future.delayed(const Duration(seconds: ValuesManager.iv2));
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            Routes.successfulPayment,
-            (route) => false,
-          );
+          bloc.add(
+              GetStudentIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
+          Future.delayed(const Duration(seconds: ValuesManager.iv2), () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.successfulPayment,
+              (route) => false,
+            );
+            bloc.add(AddStdentUidToFireStoreEvent());
+          });
         } else if (state is PostStudentDataError) {
           Navigator.of(context).pop();
           showDialog(

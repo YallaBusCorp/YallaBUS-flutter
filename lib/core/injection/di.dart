@@ -1,6 +1,18 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/features/bus_mobile/employee_code/domain/remote_data_source.dart';
+import 'package:yalla_bus/features/bus_mobile/employee_code/domain/repostiory.dart';
+import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/bloc/employee_code_bloc.dart';
+import 'package:yalla_bus/features/bus_mobile/map/api/all_coordinates.dart';
+import 'package:yalla_bus/features/bus_mobile/map/presentation/bloc/bus_map_bloc.dart';
+import 'package:yalla_bus/features/bus_mobile/qr_scanner/data/remote_data_source.dart';
+import 'package:yalla_bus/features/bus_mobile/qr_scanner/data/repostiory_implementation.dart';
+import 'package:yalla_bus/features/bus_mobile/qr_scanner/domain/repository/repostiory.dart';
+import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/bloc/qr_scanner_bloc.dart';
+import 'package:yalla_bus/features/bus_mobile/rides/data/remote_data_source.dart';
+import 'package:yalla_bus/features/bus_mobile/rides/data/repostiory_implementation.dart';
+import 'package:yalla_bus/features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
 import 'package:yalla_bus/features/home/domain/use_case/book_ride.dart';
 import 'package:yalla_bus/features/home/domain/use_case/cancel_ride.dart';
 import 'package:yalla_bus/features/home/domain/use_case/get_current_ride.dart';
@@ -103,4 +115,24 @@ Future<void> init() async {
   di.registerLazySingleton<SettingsRepostiory>(
       () => SettingsRepostioryImplementation(di(), di()));
   di.registerLazySingleton(() => SettingsApiClient());
+
+  di.registerFactory(() => QrScannerBloc(di()));
+
+  di.registerLazySingleton<BusQrRepository>(
+      () => BusQrRepostioryImplementation(di(), di()));
+
+  di.registerLazySingleton(() => BusQrApiClient());
+
+  di.registerFactory(() => EmployeeCodeBloc(di()));
+
+  di.registerLazySingleton(() => EmployeeCodeRepository(di(), di()));
+  di.registerLazySingleton(() => EmployeeApiClient());
+
+  di.registerFactory(() => BusRideBloc(di()));
+
+  di.registerLazySingleton(() => BusRideRepostiory(di(), di()));
+  di.registerLazySingleton(() => BusRideApiClient());
+
+  di.registerFactory(() => BusMapBloc(di()));
+  di.registerLazySingleton(() => CoordinateApiClient());
 }

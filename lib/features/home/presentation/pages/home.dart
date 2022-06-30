@@ -21,9 +21,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     bloc = BlocProvider.of<MapBloc>(context);
-    // if (bloc.markersOfBus.isEmpty) {
-    //   bloc.add(GetMyLocation());
-    // }
+
     bloc.add(
         GetCurrentRideByUIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
     

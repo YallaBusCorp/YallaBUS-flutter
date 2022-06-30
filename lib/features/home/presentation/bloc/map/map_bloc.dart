@@ -295,7 +295,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         distanceOfRide =
             RouteDistanceExtensions.calculateDistanceFromPickToDrop(
                 pickUpSelectedPosition, dropOffSelectedPosition);
-                
+
         actualDistance = distanceOfRide;
 
         emit(BookRideSuccess());
@@ -340,11 +340,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       CameraUpdate update =
           CameraUpdate.newCameraPosition(MapManager.kGooglePlex);
       con.animateCamera(update);
-      distanceOfRide = RouteDistanceExtensions.reduceDistance(
-          LatLng(event.point.latitude, event.point.longitude),
-          pickUpSelectedPosition,
-          dropOffSelectedPosition,
-          actualDistance);
+      if (markersOfBus.isNotEmpty) {
+        distanceOfRide = RouteDistanceExtensions.reduceDistance(
+            LatLng(event.point.latitude, event.point.longitude),
+            pickUpSelectedPosition,
+            dropOffSelectedPosition,
+            actualDistance);
+      }
 
       emit(ChangeMarkersOfBus(markersOfBus));
     });

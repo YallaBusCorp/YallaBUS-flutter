@@ -50,27 +50,37 @@ class _AuthButtonState extends State<AuthButton> {
               child: LoadingDialog(),
             ),
           );
-        } else if (state is Success) {
-          Navigator.of(context).pop();
-          if (widget.type == StringManager.otp) {
-            if (widget.edit == ConstantsManager.edit) {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            } else if (keyboard.perfs.getInt(ConstantsManager.company) ==
-                null) {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  Routes.chooseCompany, (route) => false,
-                  arguments: ConstantsManager.register);
-            } else {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil(Routes.home, (route) => false);
-            }
+        }
+        if (state is ThisIsStudentAccount) {
+          if (keyboard.perfs.getInt(ConstantsManager.company) == null) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                Routes.chooseCompany, (route) => false,
+                arguments: ConstantsManager.register);
           } else {
-            Navigator.of(context).pushNamed(Routes.verifyOtp,
-                arguments: ScreenArguments(keyboard.number, widget.edit));
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(Routes.home, (route) => false);
           }
-        } else if (state is Error) {
+        }
+        if (state is ThisIsDriverAccount) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            Routes.busEmployeeCode,
+            (route) => false,
+          );
+        }
+        if (state is Success) {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed(Routes.verifyOtp,
+              arguments: ScreenArguments(keyboard.number, widget.edit));
+        }
+
+        // if (widget.type == StringManager.otp) {
+        //   if (widget.edit == ConstantsManager.edit) {
+        //     Navigator.of(context).pop();
+        //     Navigator.of(context).pop();
+        //     Navigator.of(context).pop();
+        //   }
+        // } else {}
+        if (state is Error) {
           Navigator.of(context).pop();
           showDialog(
             context: context,

@@ -7,23 +7,32 @@ import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 import '../bloc/Keyboard/keyboard_bloc.dart';
 
-
-class KeyboardWidget extends StatelessWidget {
+class KeyboardWidget extends StatefulWidget {
   final String type;
   const KeyboardWidget({
     required this.type,
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<KeyboardWidget> createState() => _KeyboardWidgetState();
+}
+
+class _KeyboardWidgetState extends State<KeyboardWidget> {
+  late KeyboardBloc bloc;
+  @override
+  void initState() {
+    bloc = BlocProvider.of<KeyboardBloc>(context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height / ValuesManager.v2AndHalf,
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(ValuesManager.v16),
- 
       ),
       child: Padding(
         padding: const EdgeInsets.all(ValuesManager.v16),
@@ -35,7 +44,7 @@ class KeyboardWidget extends StatelessWidget {
               children: [
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv1))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv1));
@@ -47,7 +56,7 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv2))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv2));
@@ -59,7 +68,7 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv3))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv3));
@@ -77,7 +86,7 @@ class KeyboardWidget extends StatelessWidget {
               children: [
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv4))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv4));
@@ -89,7 +98,7 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv5))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv5));
@@ -101,7 +110,7 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv6))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv6));
@@ -119,7 +128,7 @@ class KeyboardWidget extends StatelessWidget {
               children: [
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv7))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv7));
@@ -131,7 +140,7 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv8))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv8));
@@ -143,7 +152,7 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv9))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv9));
@@ -165,7 +174,7 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(const WritePinCodeEvent(ValuesManager.iv0))
                         : bloc.add(
                             const WritePhoneNumberEvent(ValuesManager.iv0));
@@ -177,7 +186,7 @@ class KeyboardWidget extends StatelessWidget {
                 ),
                 CircleButtonWidget(
                   onPressed: () {
-                    type == StringManager.otp
+                    widget.type == StringManager.otp
                         ? bloc.add(RemovePinNumberEvent())
                         : bloc.add(RemovePhoneNumberEvent());
                   },

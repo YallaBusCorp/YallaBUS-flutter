@@ -7,8 +7,6 @@ abstract class LoginEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
-
 class SendCodeVerificationEvent extends LoginEvent {
   final String number;
 
@@ -21,3 +19,4 @@ class VerifyCodeVerificationEvent extends LoginEvent {
   const VerifyCodeVerificationEvent(this.otpCode);
 }
 
+class CheckIfUserIsStudentOrDriverEvent extends LoginEvent {}

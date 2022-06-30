@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/pages/verify.dart';
+import 'package:yalla_bus/features/bus_mobile/map/presentation/pages/bus_map.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/pages/qr_scanner.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/presentation/pages/bus_rides.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/faqs/fags.dart';
+import '../../features/bus_mobile/rides/domain/entity/all_rides.dart';
 import '../../features/login_otp/presentation/pages/verify.dart';
 import '../../features/payment/presentation/pages/add_payment.dart';
 import '../../features/payment/presentation/pages/success_payment.dart';
@@ -90,7 +92,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const BusQRScanner());
       case Routes.busEmployeeCode:
         return MaterialPageRoute(builder: (_) => const EmployeeCodeScreen());
-
+      case Routes.busMap:
+        var args = settings.arguments as List<Booking>;
+        return MaterialPageRoute(
+            builder: (_) => BusMap(
+                  bookings: args,
+                ));
       case Routes.complaintMessageAndResponse:
         var args = settings.arguments as int;
         return MaterialPageRoute(

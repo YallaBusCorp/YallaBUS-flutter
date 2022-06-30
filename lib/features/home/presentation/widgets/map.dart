@@ -67,14 +67,14 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         stream: tracking,
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          MapExtensions.CheckIfDocumentExistsOrNotEvent(
+          FirebaseExtensions.CheckIfDocumentExistsOrNotEvent(
                   bloc.perfs.getString(ConstantsManager.rideID) ?? 'hamdo')
               .then((value) => x = value);
           if (snapshot.hasData && x) {
             geoPoints = snapshot.data!.get('location');
             int size = geoPoints.length;
             point = geoPoints[size - 1];
-            map.add(RefreshBusCoordinateEvent(point));
+            // map.add(RefreshBusCoordinateEvent(point));
             map.add(CheckBusMarkerAccordingToPickAndDropMarkersEvent(
                 LatLng(point.latitude, point.longitude),
                 map.pickUpSelectedPosition,

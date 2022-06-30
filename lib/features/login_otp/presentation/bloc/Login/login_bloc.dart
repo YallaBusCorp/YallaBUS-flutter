@@ -3,13 +3,13 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/features/login_otp/data/repository_implementation/repository_implementation.dart';
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/network/network_info.dart';
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../../home/presentation/bloc/map/map_bloc.dart';
 import '../../../domain/repository/repository.dart';
-
 part 'login_event.dart';
 part 'login_state.dart';
 
@@ -46,7 +46,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<VerifyCodeVerificationEvent>((event, emit) async {
       await submitOtp(event.otpCode);
     });
-    
+
+    on<CheckIfUserIsStudentOrDriverEvent>((event, emit) async {
+      final r = await FirebaseExtensions.checkIfRoleIsStudentOrBus(
+          perfs.getString(ConstantsManager.uid)!);
+      if (r) {
+        emit(ThisIsDriverAccount());
+      } else {
+        emit(ThisIsStudentAccount());
+      }
+    });
   }
 
   void verificationCompleted(AuthCredential credential) {}
@@ -59,8 +68,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(Success());
   }
 
-  
-  
   Future<void> submitOtp(String otpCode) async {
     emit(SendingData());
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -72,7 +79,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final number = FirebaseAuth.instance.currentUser!.phoneNumber!;
       perfs.setString(ConstantsManager.uid, uid);
       perfs.setString(ConstantsManager.number, number);
-      emit(Success());
+      add(CheckIfUserIsStudentOrDriverEvent());
     } on FirebaseAuthException {
       emit(const Error('Wrong Verification!'));
     }

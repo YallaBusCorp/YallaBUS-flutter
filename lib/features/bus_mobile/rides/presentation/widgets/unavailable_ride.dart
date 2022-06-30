@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
+import 'package:yalla_bus/features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
 
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
 
@@ -11,23 +13,34 @@ class UnavailableRide extends StatefulWidget {
 }
 
 class _UnavailableRideState extends State<UnavailableRide> {
+  late BusRideBloc bloc;
+  @override
+  void initState() {
+    bloc = BlocProvider.of<BusRideBloc>(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DecorationBoxWidget(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'There is not ride yet!',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: Colors.grey, fontSize: 18),
+            Center(
+              child: Text(
+                'There is not ride yet!',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: Colors.grey, fontSize: 18),
+              ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                bloc.add(CheckIfThereIsCurrentRideOrNotEvent());
+              },
               child: Text(
                 'Refersh',
                 style: Theme.of(context)
@@ -35,9 +48,6 @@ class _UnavailableRideState extends State<UnavailableRide> {
                     .headline6!
                     .copyWith(color: ColorsManager.orange, fontSize: 18),
               ),
-            ),
-            const SizedBox(
-              height: 10,
             ),
           ],
         ),

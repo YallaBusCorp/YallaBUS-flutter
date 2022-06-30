@@ -11,4 +11,8 @@ class CheckForQRCodeEvent extends QrScannerEvent {
   final String code;
 
   const CheckForQRCodeEvent(this.code);
+  @override
+  List<Object> get props => [code];
 }
+
+class QrValidationBasedOnDataFailedEvent extends QrScannerEvent {}

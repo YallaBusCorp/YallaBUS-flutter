@@ -30,6 +30,8 @@ class ConstantsManager {
   static const String dateOfRide = 'dateOfRide';
   static const String qrCode = 'qrCode';
   static const String rideID = 'rideId';
+  static const String busUid = 'busUid';
+  static const String busId = 'busId';
   static const String employeeCode = 'EmployeeCode';
 
 

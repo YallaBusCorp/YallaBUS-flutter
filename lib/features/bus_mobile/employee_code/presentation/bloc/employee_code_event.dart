@@ -20,3 +20,9 @@ class SaveEmployeeCodeEvent extends EmployeeCodeEvent {
 
   const SaveEmployeeCodeEvent(this.code);
 }
+
+class GetBusUidEvent extends EmployeeCodeEvent {
+  final String number;
+
+  const GetBusUidEvent(this.number);
+}

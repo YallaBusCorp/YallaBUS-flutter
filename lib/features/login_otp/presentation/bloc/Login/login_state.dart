@@ -26,3 +26,9 @@ class Error extends LoginState {
 
   const Error(this.message);
 }
+
+class ThisIsStudentAccount extends LoginState {}
+
+class ThisIsDriverAccount extends LoginState {}
+
+class PerfsRefersh extends LoginState {}

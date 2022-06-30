@@ -141,9 +141,6 @@ extension RouteDistanceExtensions on double {
 
   static double reduceDistance(
       gmaps.LatLng bus, gmaps.LatLng pick, gmaps.LatLng drop, double distance) {
-    if (bus == const gmaps.LatLng(30.965317563392837, 31.316227249605518)) {
-      return distance;
-    } 
     double dis1 = const d.Distance().as(
         d.LengthUnit.Kilometer,
         d.LatLng(bus.latitude.toDouble(), bus.longitude.toDouble()),
@@ -160,9 +157,15 @@ extension RouteDistanceExtensions on double {
   }
 }
 
-extension QrValidationExtension on bool {}
+extension QrValidationExtension on bool {
+  static bool checkDates(String code, String dateRide) {
+    String dateFromQr = code.split('/').first;
+    String dateOfRide = StringsExtensions.convertHourTo12HoursOnly(dateRide);
+    return dateFromQr == dateOfRide;
+  }
+}
 
-extension MapExtensions on bool {
+extension FirebaseExtensions on bool {
   static Future<bool> CheckIfDocumentExistsOrNotEvent(String docId) async {
     final collectionRef = FirebaseFirestore.instance
         .collection('company')
@@ -170,6 +173,15 @@ extension MapExtensions on bool {
         .collection('ride');
     final document = await collectionRef.doc(docId).get();
     return document.exists;
+  }
+
+  static Future<bool> checkIfRoleIsStudentOrBus(String docId) async {
+    final collectionRef = FirebaseFirestore.instance.collection('Users');
+    final document = await collectionRef.doc(docId).get();
+    if (document.get('role') == 'Bus') {
+      return true;
+    }
+    return false;
   }
 }
 /*

@@ -33,14 +33,7 @@ class _LoginOtpState extends State<LoginOtp> {
     keyboard = BlocProvider.of<KeyboardBloc>(context);
     super.initState();
   }
-  // @override
-  // void didChangeDependencies() {
-  //   KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
-  //   for (int i = 0; i < 9; i++) {
-  //     bloc.add(RemovePhoneNumberEvent());
-  //   }
-  //   super.didChangeDependencies();
-  // }
+
 
   @override
   Widget build(BuildContext context) {

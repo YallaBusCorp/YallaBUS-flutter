@@ -79,7 +79,7 @@ class GetCurrentRideByUIDEvent extends MapEvent {
 class ShowCurrentRideAfterBookingEvent extends MapEvent {}
 
 class RefreshBusCoordinateEvent extends MapEvent {
-  final GeoPoint point;
+  final LatLng point;
 
   const RefreshBusCoordinateEvent(this.point);
 }

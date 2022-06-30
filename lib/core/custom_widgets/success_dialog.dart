@@ -48,29 +48,6 @@ class SuccessDialog extends StatelessWidget {
           const SizedBox(
             height: ValuesManager.v20,
           ),
-          // Separtor(
-          //   color: [
-          //     Colors.grey.shade800,
-          //     Colors.grey.shade800,
-          //   ],
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.all(ValuesManager.v16),
-          //   child: InkWell(
-          //     onTap: () {
-          //       Navigator.of(context).pop();
-          //     },
-          //     child: Center(
-          //       child: TextWidget(
-          //         text: StringManager.cancel,
-          //         style: Theme.of(context)
-          //             .textTheme
-          //             .headline6!
-          //             .copyWith(color: Colors.blue[900]),
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

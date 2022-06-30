@@ -43,9 +43,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_polyline_points: ^1.0.0
   flutter_svg: ^1.0.3
   flutter_switch: ^0.3.2
   get_it: ^7.2.0
+  google_map_polyline_new: ^0.3.0+2
   google_maps_flutter: ^2.1.3
   latlong2: ^0.8.1
   location: ^4.4.0
@@ -55,6 +57,7 @@ dependencies:
   shared_preferences: ^2.0.13
   smooth_page_indicator: ^1.0.0+2
   url_launcher: ^6.0.20
+  vibration: ^1.7.4-nullsafety.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0

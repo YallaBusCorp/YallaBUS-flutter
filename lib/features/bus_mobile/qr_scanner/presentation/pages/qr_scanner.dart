@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:vibration/vibration.dart';
+import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/bloc/qr_scanner_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/pages/border_painter.dart';
+import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/widgets/unsuccessful_dialog.dart';
+
+import '../../../../../core/custom_widgets/success_dialog.dart';
+import '../../../../../core/extensions/extensions.dart';
 
 class BusQRScanner extends StatefulWidget {
   const BusQRScanner({Key? key}) : super(key: key);
@@ -30,7 +36,63 @@ class _QRScannerState extends State<BusQRScanner> {
       ),
       body: BlocConsumer<QrScannerBloc, QrScannerState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state is QrScanStatus) {
+            if (state.status == 'Valid QR Code') {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  Future.delayed(const Duration(seconds: 2), () {});
+                  Vibration.vibrate();
+                  return Dialog(
+                    backgroundColor: Colors.transparent,
+                    child: SuccessDialog(
+                      message: state.status,
+                    ),
+                  );
+                },
+              );
+            } else {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  Future.delayed(const Duration(seconds: 2), () {});
+                  return Dialog(
+                    backgroundColor: Colors.transparent,
+                    child: InvalidQrDialog(
+                      message: state.status,
+                    ),
+                  );
+                },
+              );
+            }
+          }
+          if (state is QrScanError) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                Future.delayed(const Duration(seconds: 2), () {});
+                return Dialog(
+                  backgroundColor: Colors.transparent,
+                  child: ErrorDialog(message: state.message, onTap: () {}),
+                );
+              },
+            );
+          }
+
+          // if (state is QrNotInProperDate) {
+          //   showDialog(
+          //     context: context,
+          //     builder: (BuildContext context) {
+          //       Future.delayed(const Duration(seconds: 2), () {});
+          //       return const Dialog(
+          //         backgroundColor: Colors.transparent,
+          //         child: InvalidQrDialog(
+          //           message: "It's not your Booking ride",
+          //         ),
+          //       );
+          //     },
+          //   );
+          // }
         },
         builder: (context, state) {
           return Stack(
@@ -42,6 +104,7 @@ class _QRScannerState extends State<BusQRScanner> {
                     debugPrint('Failed to scan Barcode');
                   } else {
                     bloc.add(CheckForQRCodeEvent(barcode.rawValue!));
+
                     debugPrint('Barcode found! ${barcode.rawValue!}');
                   }
                 },

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
@@ -22,10 +23,10 @@ class CompleteprofileBloc
   GetStudentId stdId;
   List<String> names = [];
   List<int> ids = [];
-  late int companyId;
   late Student student;
   int townId = 0;
   int universityId = 0;
+
   SharedPreferences perfs = di<SharedPreferences>();
 
   CompleteprofileBloc(this.university, this.town, this.postStudent, this.stdId)
@@ -79,15 +80,25 @@ class CompleteprofileBloc
       (await postStudent.postStudentInfo(student)).fold((failure) {
         emit(PostStudentDataError(failure.message));
       }, (r) {
+        add(AddStdentUidToFireStoreEvent());
         emit(PostStudentDataSuccess());
       });
     });
 
     on<GetStudentIDEvent>((event, emit) async {
-      (await stdId.getStudentId(event.uid)).fold((l) {
-      }, (r) {
+      (await stdId.getStudentId(event.uid)).fold((l) {}, (r) {
         perfs.setInt(ConstantsManager.stdId, r);
       });
+    });
+
+    on<AddStdentUidToFireStoreEvent>((event, emit) {
+      final data = {
+        'companyID': perfs.getInt(ConstantsManager.company)!,
+      };
+      FirebaseFirestore.instance
+          .collection('student')
+          .doc(perfs.getString(ConstantsManager.uid)!)
+          .set(data);
     });
   }
 }

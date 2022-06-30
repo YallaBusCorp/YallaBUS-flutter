@@ -25,14 +25,7 @@ class VerifyScreen extends StatefulWidget {
 }
 
 class _VerifyScreenState extends State<VerifyScreen> {
-  // @override
-  // void didChangeDependencies() {
-  //   KeyboardBloc bloc = BlocProvider.of<KeyboardBloc>(context);
-  //   for (int i = 0; i < 9; i++) {
-  //     bloc.add(RemovePinNumberEvent());
-  //   }
-  //   super.didChangeDependencies();
-  // }
+
 
   late LoginBloc login;
   late KeyboardBloc keyboard;
@@ -84,8 +77,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                       ? () {
                           login.add(
                             VerifyCodeVerificationEvent(keyboard.pinCode),
-                          );
-                        }
+                          );                        }
                       : null,
                 );
               },

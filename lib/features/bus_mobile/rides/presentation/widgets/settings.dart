@@ -16,7 +16,7 @@ class BusSettings extends StatelessWidget {
       children: [
         Text(
           'Advanced',
-          style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 25),
+          style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 20),
         ),
         const SizedBox(
           height: 5,

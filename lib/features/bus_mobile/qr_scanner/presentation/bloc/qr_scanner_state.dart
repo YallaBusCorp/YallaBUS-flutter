@@ -10,3 +10,19 @@ abstract class QrScannerState extends Equatable {
 class QrScannerInitial extends QrScannerState {}
 
 class InvalidQR extends QrScannerState {}
+
+class QrScanError extends QrScannerState {
+  final String message;
+
+  const QrScanError(this.message);
+}
+
+class QrScanStatus extends QrScannerState {
+  final String status;
+
+  const QrScanStatus(this.status);
+  @override
+  List<Object> get props => [status];
+}
+
+class QrNotInProperDate extends QrScannerState {}
