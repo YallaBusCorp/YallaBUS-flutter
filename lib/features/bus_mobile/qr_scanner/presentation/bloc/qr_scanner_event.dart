@@ -16,3 +16,5 @@ class CheckForQRCodeEvent extends QrScannerEvent {
 }
 
 class QrValidationBasedOnDataFailedEvent extends QrScannerEvent {}
+
+

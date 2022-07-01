@@ -2,12 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:yalla_bus/core/exceptions/exception.dart';
 import 'package:yalla_bus/core/resources/endpoints_manager.dart';
 
+import '../../../../core/resources/debugger_manager.dart';
+
 class BusQrApiClient {
   late Dio dio;
   BusQrApiClient() {
     dio = Dio(BaseOptions(
       baseUrl: ApiEndPoints.baseUrl,
     ));
+    dio.interceptors.add(DebuggerManager.alice.getDioInterceptor());
   }
   Future<String> scanQr(String qrCode, int busId) async {
     try {

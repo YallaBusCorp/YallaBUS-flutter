@@ -89,7 +89,7 @@ class MapApiClient {
           'uId': uid,
         },
       );
-      if (response.data.toString().isEmpty) {
+      if (response.data.toString().isEmpty || response.statusCode == 500) {
         return 500;
       } else {
         return response.data;

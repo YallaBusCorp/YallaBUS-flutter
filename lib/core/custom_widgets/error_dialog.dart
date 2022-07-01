@@ -10,7 +10,7 @@ import '../extensions/extensions.dart';
 
 class ErrorDialog extends StatelessWidget {
   final GestureTapCallback? onTap;
-  const ErrorDialog({Key? key, required this.message, required this.onTap})
+  const ErrorDialog({Key? key, required this.message, this.onTap})
       : super(key: key);
   final String message;
   @override

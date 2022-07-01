@@ -13,5 +13,16 @@ class LoginApiClient {
       ),
     );
   }
-  
+  Future<dynamic> getBusUid(int number) async {
+    try {
+      Response response =
+          await dio.get(ApiEndPoints.getBusUid, queryParameters: {
+        'phone': number,
+      });
+
+      return response.data;
+    } on DioError {
+      throw ServerException();
+    }
+  }
 }

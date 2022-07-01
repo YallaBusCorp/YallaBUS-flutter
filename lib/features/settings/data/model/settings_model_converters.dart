@@ -31,8 +31,9 @@ class RideHisModel extends RideHis {
             }),
         EmployeeModel.fromJson(json['emp'] ??
             {
+              'id' : 1,
               'empName': 'Abdo Mohamed',
-              'empCode': "6735",
+              'empCode': '6735',
             }),
         TxRideModel.fromJson(json['txRide'] ??
             {
@@ -43,7 +44,7 @@ class RideHisModel extends RideHis {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['emp'] = EmployeeModel(emp!.empCode, emp!.empName);
+    data['emp'] = EmployeeModel(emp!.id, emp!.empCode, emp!.empName);
     data['pickupPoint'] =
         PickUpModel(pick!.name, pick!.latitude, pick!.longitude).toJson();
     data['dropoffPoint'] =
@@ -137,14 +138,16 @@ class BusModel extends Bus {
 }
 
 class EmployeeModel extends Employee {
-  EmployeeModel(String empCode, String empName) : super(empCode, empName);
+  EmployeeModel(int id, String empCode, String empName)
+      : super(id, empCode, empName);
 
   factory EmployeeModel.fromJson(Map<String, dynamic> json) {
-    return EmployeeModel(json['empCode'], json['empName']);
+    return EmployeeModel(json['id'], json['empCode'], json['empName']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['empCode'] = empCode;
     data['empName'] = empName;
 

@@ -12,5 +12,4 @@ class ColorsManager {
   static final Color offRed = ColorsExtensions.hexColor("#D35050");
   static final Color offRed2 = ColorsExtensions.hexColor("#FF4242");
   static final Color offGrey = ColorsExtensions.hexColor("#F2F2F7");
-   
 }

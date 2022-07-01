@@ -26,4 +26,6 @@ class ApiEndPoints {
   static const String getBusUid = '/bus/get-by-phone';
   static const String getCurrentRideByBusUid = '/txBooking/bus/get-current';
   static const String endRide = '/txRide/assign';
+  static const String getEmployeeByCode = '/employee/get-by-empCode';
+  static const String saveTxRide = '/txBus/save-txBus';
 }

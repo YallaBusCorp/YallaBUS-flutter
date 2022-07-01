@@ -1,13 +1,20 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/presentation/widgets/settings.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/presentation/widgets/unavailable_ride.dart';
 
+import '../../../../../core/resources/constants_manager.dart';
+import '../../../../../core/resources/map_manager.dart';
 import '../../../../../core/resources/routes_manager.dart';
+import '../../../map/presentation/bloc/bus_map_bloc.dart';
 import '../../domain/entity/all_rides.dart';
 import '../widgets/coming_rides.dart';
 
@@ -25,6 +32,7 @@ class _BusRidesState extends State<BusRides> {
   void initState() {
     bloc = BlocProvider.of<BusRideBloc>(context);
     bloc.add(CheckIfThereIsCurrentRideOrNotEvent());
+
     super.initState();
   }
 

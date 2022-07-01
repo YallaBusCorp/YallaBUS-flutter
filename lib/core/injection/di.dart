@@ -5,6 +5,8 @@ import 'package:yalla_bus/features/bus_mobile/employee_code/domain/remote_data_s
 import 'package:yalla_bus/features/bus_mobile/employee_code/domain/repostiory.dart';
 import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/bloc/employee_code_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/map/api/all_coordinates.dart';
+import 'package:yalla_bus/features/bus_mobile/map/api/remote_data_source.dart';
+import 'package:yalla_bus/features/bus_mobile/map/api/repostiory.dart';
 import 'package:yalla_bus/features/bus_mobile/map/presentation/bloc/bus_map_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/data/remote_data_source.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/data/repostiory_implementation.dart';
@@ -134,5 +136,6 @@ Future<void> init() async {
   di.registerLazySingleton(() => BusRideApiClient());
 
   di.registerFactory(() => BusMapBloc(di()));
-  di.registerLazySingleton(() => CoordinateApiClient());
+  di.registerLazySingleton(() => BusMapRepository(di(), di()));
+  di.registerLazySingleton(() => BusMapApiClient());
 }

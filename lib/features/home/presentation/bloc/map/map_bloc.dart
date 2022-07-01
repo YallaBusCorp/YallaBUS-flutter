@@ -176,7 +176,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         pmTitle.sort();
         emit(GetAppoinmentPmSuccess(pmTitle));
       });
-
       emit(GetAppoinmentPmSuccess(pmTitle));
     });
 
@@ -187,6 +186,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           .fold((failure) {
         emit(GetPickUpPointsError(failure.message));
       }, (pick) async {
+        
         titlesOfPickUp = pick.map((e) => e.mapPointTitleEn).toList();
         pickUps = pick.map((e) => LatLng(e.latitude, e.longitude)).toList();
         pickUpIDs = pick.map((e) => e.id).toList();
@@ -209,17 +209,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
 
     on<GetDropOffPointsEvent>((event, emit) async {
-      BitmapDescriptor markerbitmap = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(),
-        AssetManager.busStationMarker,
-      );
-
       (await dropOff.getMapDropOffPoints(
         perfs.getInt(ConstantsManager.company)!,
       ))
           .fold((failure) {
         emit(GetDropOffPointsError(failure.message));
       }, (drop) async {
+
         titlesOfDropOff = drop.map((e) => e.mapPointTitleEn).toList();
         dropOffs = drop.map((e) => LatLng(e.latitude, e.longitude)).toList();
         dropOffIDs = drop.map((e) => e.id).toList();
@@ -295,9 +291,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         distanceOfRide =
             RouteDistanceExtensions.calculateDistanceFromPickToDrop(
                 pickUpSelectedPosition, dropOffSelectedPosition);
-
         actualDistance = distanceOfRide;
-
         emit(BookRideSuccess());
       });
     });
@@ -323,22 +317,23 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<RefreshBusCoordinateEvent>((event, emit) async {
       final GoogleMapController con = await MapManager.controller.future;
       busPosition = LatLng(event.point.latitude, event.point.longitude);
-      markersOfBus.clear();
+
       MapManager.addMarker(
         id: 2,
         marker: markersOfBus,
         latlng: busPosition,
-        icon: await MapManager.busIcon(),
+        rotation: MapManager.bearingBetweenLocations(event.point, event.point2),
+        icon: await MapManager.bitmapDisForBus(
+            event.context, AssetManager.busIconTracking),
       );
 
-      MapManager.kGooglePlex = CameraPosition(
+      CameraPosition kGooglePlex = CameraPosition(
         bearing: 0,
         tilt: 90,
         target: LatLng(event.point.latitude, event.point.longitude),
-        zoom: 13.5,
+        zoom: 14.5,
       );
-      CameraUpdate update =
-          CameraUpdate.newCameraPosition(MapManager.kGooglePlex);
+      CameraUpdate update = CameraUpdate.newCameraPosition(kGooglePlex);
       con.animateCamera(update);
       if (markersOfBus.isNotEmpty) {
         distanceOfRide = RouteDistanceExtensions.reduceDistance(
@@ -348,11 +343,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             actualDistance);
       }
 
-      emit(ChangeMarkersOfBus(markersOfBus));
+      emit(ChangeMarkersOfBus(kGooglePlex));
     });
 
     on<GetCurrentRideByUIDEvent>((event, emit) async {
       emit(Loading());
+      print(event.uid);
       (await currentRide.getCurrentRideByUID(event.uid)).fold((l) {
         emit(StudentCurrentRideError(l.message));
       }, (r) {
@@ -365,7 +361,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           dropOffSelectedPosition = LatLng(r.drop!.latitude, r.drop!.longitude);
           distanceOfRide = RouteDistanceExtensions.reduceDistance(busPosition,
               pickUpSelectedPosition, dropOffSelectedPosition, actualDistance);
-          add(ShowBothPickUpAndDropOffMarkersEvent());
+          add(ShowBothPickUpAndDropOffMarkersEvent(event.context));
           rideVisible = true;
           departAndFromToVisible = false;
           if (r.txRide.rideStatus == 'process') {
@@ -382,12 +378,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       MapManager.addMarker(
           id: 3,
           latlng: pickUpSelectedPosition,
-          icon: await MapManager.stationIcon(),
+          icon: await MapManager.bitmapDescriptorFromSvgAsset(
+              event.context, AssetManager.busStationSvg),
           marker: MapManager.markers);
       MapManager.addMarker(
           id: 4,
           latlng: dropOffSelectedPosition,
-          icon: await MapManager.stationIcon(),
+          icon: await MapManager.bitmapDescriptorFromSvgAsset(
+              event.context, AssetManager.busStationSvg),
           marker: MapManager.markers);
       emit(AddBothPickUpAndDropOffMarkers(
           MapManager.pickUpMarkers, MapManager.dropOffMarkers));

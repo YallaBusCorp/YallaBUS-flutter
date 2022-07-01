@@ -35,7 +35,7 @@ class _SendCodeButtonState extends State<SendCodeButton> {
   Widget build(BuildContext context) {
     return BlocConsumer<EmployeeCodeBloc, EmployeeCodeState>(
       listener: (context, state) {
-        if (state is Loading) {
+        if (state is LoadingCode) {
           showDialog(
             context: context,
             builder: (BuildContext context) => const Dialog(

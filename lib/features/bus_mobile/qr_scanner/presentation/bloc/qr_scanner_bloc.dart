@@ -15,6 +15,12 @@ class QrScannerBloc extends Bloc<QrScannerEvent, QrScannerState> {
   BusQrRepository repo;
   SharedPreferences perfs = di<SharedPreferences>();
   QrScannerBloc(this.repo) : super(QrScannerInitial()) {
+    @override
+    void onChange(Change<QrScannerState> change) {
+      super.onChange(change);
+      print(change.nextState);
+    }
+
     on<QrScannerEvent>((event, emit) {
       // TODO: implement event handler
     });
@@ -23,11 +29,8 @@ class QrScannerBloc extends Bloc<QrScannerEvent, QrScannerState> {
           .fold((l) {
         emit(QrScanError(l.message));
       }, (r) {
-        emit(QrScanStatus(r));
+        emit(QrScanStatus(r, event.code));
       });
     });
-    // on<QrValidationBasedOnDataFailedEvent>((event, emit) {
-    //   emit(QrNotInProperDate());
-    // });
   }
 }

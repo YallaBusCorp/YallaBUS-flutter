@@ -29,7 +29,7 @@ class BusSettings extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -58,7 +58,7 @@ class BusSettings extends StatelessWidget {
               InkWell(
                 onTap: () {},
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

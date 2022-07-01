@@ -32,9 +32,11 @@ class AuthButton extends StatefulWidget {
 
 class _AuthButtonState extends State<AuthButton> {
   late KeyboardBloc keyboard;
+  late LoginBloc bloc;
   @override
   void initState() {
     keyboard = BlocProvider.of<KeyboardBloc>(context);
+    bloc = BlocProvider.of<LoginBloc>(context);
     super.initState();
   }
 
@@ -52,7 +54,7 @@ class _AuthButtonState extends State<AuthButton> {
           );
         }
         if (state is ThisIsStudentAccount) {
-          if (keyboard.perfs.getInt(ConstantsManager.company) == null) {
+          if (bloc.perfs.getInt(ConstantsManager.company) == null) {
             Navigator.of(context).pushNamedAndRemoveUntil(
                 Routes.chooseCompany, (route) => false,
                 arguments: ConstantsManager.register);

@@ -28,7 +28,7 @@ class _Page2State extends State<Page2>  {
         children: [
           AnimationWidget(
             asset: AssetManager.masterCard,
-            height: ValuesManager.v3,
+            height: 3.5,
             width: ValuesManager.v3,
           ),
           const SizedBox(

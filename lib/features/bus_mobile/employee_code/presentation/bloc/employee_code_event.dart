@@ -26,3 +26,15 @@ class GetBusUidEvent extends EmployeeCodeEvent {
 
   const GetBusUidEvent(this.number);
 }
+
+class GetEmployeeEntityEvent extends EmployeeCodeEvent {
+  final String code;
+
+  const GetEmployeeEntityEvent(this.code);
+}
+
+class SaveTxRideEvent extends EmployeeCodeEvent {
+  final int id;
+
+  const SaveTxRideEvent(this.id);
+}

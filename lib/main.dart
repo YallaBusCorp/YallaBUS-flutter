@@ -14,24 +14,29 @@ import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/debugger_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/theme_manager.dart';
+import 'package:yalla_bus/features/home/domain/enitity/appoinment.dart';
 import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/bloc/employee_code_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/bus_mobile/map/presentation/bloc/bus_map_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/map/presentation/pages/bus_map.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/bloc/qr_scanner_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/pages/qr_scanner.dart';
+import 'package:yalla_bus/features/bus_mobile/rides/domain/entity/all_rides.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/presentation/pages/bus_rides.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/choose_company/presentation/pages/choose_company.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
 import 'package:yalla_bus/features/onBoarding/pages/onboarding_base.dart';
+import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 import 'features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
+import 'features/home/domain/enitity/map_point.dart';
 import 'features/home/presentation/bloc/map/map_bloc.dart';
 import 'features/home/presentation/pages/home.dart';
+import 'features/home/presentation/widgets/map.dart';
 import 'features/login_otp/presentation/pages/login.dart';
 import 'features/settings/presentation/pages/settings.dart';
 
@@ -152,7 +157,49 @@ class _MyAppState extends State<MyApp> {
         darkTheme: context.deviceLocale.languageCode == 'ar'
             ? dark.copyWith(textTheme: textThemeArabic)
             : dark,
-        home: OnBoardingBase(),
+        // home: BusMap(
+        //   bookings: [
+        //     Booking(
+        //       Appoinment(
+        //           id: 4,
+        //           appointmentStartTime: "18:00:00",
+        //           appointmentType: "PM"),
+        //       MapPoint(
+        //           id: 18,
+        //           mapPointTitleEn: 'Fisha Bana',
+        //           mapPointTitleAr: 'فيشا بنا',
+        //           longitude: 31.260197,
+        //           latitude: 30.809932),
+        //       MapPoint(
+        //           id: 27,
+        //           mapPointTitleEn: 'Elslap',
+        //           mapPointTitleAr: 'معهد السلا',
+        //           longitude: 31.377755,
+        //           latitude: 31.015205),
+        //       TxRide(158, 'process'),
+        //     ),
+        //     Booking(
+        //       Appoinment(
+        //           id: 4,
+        //           appointmentStartTime: "18:00:00",
+        //           appointmentType: "PM"),
+        //       MapPoint(
+        //           id: 18,
+        //           mapPointTitleEn: 'Fisha Bana',
+        //           mapPointTitleAr: 'فيشا بنا',
+        //           longitude: 31.2655,
+        //           latitude: 30.839355),
+        //       MapPoint(
+        //           id: 27,
+        //           mapPointTitleEn: 'Elslap',
+        //           mapPointTitleAr: 'معهد السلا',
+        //           longitude: 31.354753,
+        //           latitude: 31.038515),
+        //       TxRide(158, 'process'),
+        //     ),
+        //   ],
+        // ),
+        home: launchFirst(),
       ),
     );
   }

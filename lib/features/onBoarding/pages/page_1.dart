@@ -15,8 +15,6 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> {
-  
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,10 +23,7 @@ class _Page1State extends State<Page1> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AnimationWidget(
-  
-              asset: AssetManager.ticket,
-              width: ValuesManager.v3,
-              height: ValuesManager.v3),
+              asset: AssetManager.ticket, width: ValuesManager.v3, height: 3.5),
           const SizedBox(
             height: ValuesManager.v10,
           ),
@@ -41,5 +36,4 @@ class _Page1State extends State<Page1> {
       ),
     );
   }
-
 }

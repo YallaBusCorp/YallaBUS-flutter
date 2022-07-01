@@ -20,3 +20,5 @@ class VerifyCodeVerificationEvent extends LoginEvent {
 }
 
 class CheckIfUserIsStudentOrDriverEvent extends LoginEvent {}
+
+class GetBusUidEvent extends LoginEvent {}

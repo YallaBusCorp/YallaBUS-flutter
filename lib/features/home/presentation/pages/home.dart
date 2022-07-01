@@ -22,16 +22,14 @@ class _HomeState extends State<Home> {
   void initState() {
     bloc = BlocProvider.of<MapBloc>(context);
 
-    bloc.add(
-        GetCurrentRideByUIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
-    
-    MapManager.location.onLocationChanged.listen((newLocation) { 
-      bloc.add(RefreshMyLocationChanagesEvent(newLocation));
-    });
+    bloc.add(GetCurrentRideByUIDEvent(
+        bloc.perfs.getString(ConstantsManager.uid)!, context));
+
+    // MapManager.location.onLocationChanged.listen((newLocation) {
+    //   bloc.add(RefreshMyLocationChanagesEvent(newLocation));
+    // });
     super.initState();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {

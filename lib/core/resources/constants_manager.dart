@@ -33,7 +33,8 @@ class ConstantsManager {
   static const String busUid = 'busUid';
   static const String busId = 'busId';
   static const String employeeCode = 'EmployeeCode';
-
+  static const String driver = 'Driver';
+  static const String student = 'Student';
 
   static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
 }

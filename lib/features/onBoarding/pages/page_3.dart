@@ -25,7 +25,7 @@ class _Page3State extends State<Page3> {
           AnimationWidget(
             asset: AssetManager.liveTracking,
             width: ValuesManager.v3,
-            height: ValuesManager.v3,
+            height: 3.5,
           ),
           const SizedBox(
             height: ValuesManager.v10,

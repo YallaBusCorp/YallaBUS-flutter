@@ -175,10 +175,19 @@ extension FirebaseExtensions on bool {
     return document.exists;
   }
 
-  static Future<bool> checkIfRoleIsStudentOrBus(String docId) async {
+  static Future<bool> checkIfRoleIsBus(String docId) async {
     final collectionRef = FirebaseFirestore.instance.collection('Users');
     final document = await collectionRef.doc(docId).get();
-    if (document.get('role') == 'Bus') {
+    if (document.exists && document.get('role') == 'Bus') {
+      return true;
+    }
+    return false;
+  }
+
+  static Future<bool> checkIfRoleIsStudent(String docId) async {
+    final collectionRef = FirebaseFirestore.instance.collection('Users');
+    final document = await collectionRef.doc(docId).get();
+    if (document.exists && document.get('role') == 'Student') {
       return true;
     }
     return false;

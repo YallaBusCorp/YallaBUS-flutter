@@ -15,13 +15,14 @@ class EmployeeCodeBloc extends Bloc<EmployeeCodeEvent, EmployeeCodeState> {
   late int indexOfPhoneNumber = 0;
   late int indexOfPinNumber = 0;
   EmployeeCodeRepository repo;
+  String empName = "";
   SharedPreferences perfs = di<SharedPreferences>();
   EmployeeCodeBloc(this.repo) : super(EmployeeCodeInitial()) {
     on<EmployeeCodeEvent>((event, emit) {
       // TODO: implement event handler
     });
     on<WritePinCodeEvent>((event, emit) {
-      emit(Loading());
+      emit(LoadingCode());
       pins[indexOfPinNumber] = event.number.toString();
       pinCode += event.number.toString();
       if (indexOfPinNumber < pins.length) {
@@ -31,7 +32,7 @@ class EmployeeCodeBloc extends Bloc<EmployeeCodeEvent, EmployeeCodeState> {
     });
 
     on<RemovePinNumberEvent>((event, emit) {
-      emit(Loading());
+      emit(LoadingCode());
       if (indexOfPinNumber >= 1) {
         pinCode = pinCode.substring(0, pinCode.length - 1);
         indexOfPinNumber--;
@@ -40,19 +41,27 @@ class EmployeeCodeBloc extends Bloc<EmployeeCodeEvent, EmployeeCodeState> {
       emit(ChangeIndexOfPin());
     });
 
-    on<GetBusUidEvent>((event, emit) async {
-      (await repo.getBusUid(
-        int.parse(event.number.substring(1)),
-      ))
-          .fold((l) {}, (r) {
-        perfs.setString(ConstantsManager.busUid, r.uid);
-        perfs.setInt(ConstantsManager.busId, r.id);
-      });
-    });
-
     on<SaveEmployeeCodeEvent>((event, emit) async {
       perfs.setString(ConstantsManager.employeeCode, event.code);
       emit(Saved());
+    });
+    on<GetEmployeeEntityEvent>((event, emit) async {
+      emit(LoadingCode());
+      (await repo.getEmployee(event.code)).fold((l) {
+        emit(AuthFailed(l.message));
+      }, (r) {
+        empName = r.empName;
+        perfs.setString(ConstantsManager.employeeCode, event.code);
+        add(SaveTxRideEvent(r.id));
+        emit(GetEmployeeSuccess());
+      });
+    });
+
+    on<SaveTxRideEvent>((event, emit) async {
+      (await repo.saveTxRide(event.id, perfs.getInt(ConstantsManager.busId)!))
+          .fold((l) {}, (r) {
+        emit(AuthSuccess());
+      });
     });
   }
 }

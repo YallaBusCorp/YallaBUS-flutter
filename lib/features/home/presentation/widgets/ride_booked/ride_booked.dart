@@ -18,7 +18,6 @@ import '../../bloc/map/map_bloc.dart';
 import 'driver_info.dart';
 import 'ride_option.dart';
 
-
 class RideBooked extends StatefulWidget {
   const RideBooked({Key? key}) : super(key: key);
 
@@ -42,7 +41,7 @@ class _RideBookedState extends State<RideBooked> {
         bloc.timeOfSelectedRides.substring(6, 8),
       ),
       Bus(1, "busUid", "phone", "busLicenceNumber"),
-      Employee("empCode", "empName"),
+      Employee(1, "empCode", "empName"),
       TxRide(1, 'complete'),
     );
     super.initState();
@@ -82,8 +81,8 @@ class _RideBookedState extends State<RideBooked> {
               child: ErrorDialog(
                 message: state.message,
                 onTap: () {
-                  bloc.add(
-                      const GetCurrentRideByUIDEvent(ConstantsManager.uid));
+                  bloc.add(GetCurrentRideByUIDEvent(
+                      bloc.perfs.getString(ConstantsManager.uid)!, context));
                 },
               ),
             ),
@@ -108,7 +107,7 @@ class _RideBookedState extends State<RideBooked> {
           Navigator.of(context).pop();
           bloc.add(
             GetCurrentRideByUIDEvent(
-                bloc.perfs.getString(ConstantsManager.uid)!),
+                bloc.perfs.getString(ConstantsManager.uid)!, context),
           );
         }
 
@@ -121,8 +120,8 @@ class _RideBookedState extends State<RideBooked> {
               child: ErrorDialog(
                 message: state.message,
                 onTap: () {
-                  bloc.add(
-                      const GetCurrentRideByUIDEvent(ConstantsManager.uid));
+                  bloc.add(GetCurrentRideByUIDEvent(
+                      bloc.perfs.getString(ConstantsManager.uid)!, context));
                 },
               ),
             ),

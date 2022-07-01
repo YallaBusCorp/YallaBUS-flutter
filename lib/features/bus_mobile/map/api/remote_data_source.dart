@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:yalla_bus/core/resources/endpoints_manager.dart';
 
 import '../../../../core/exceptions/exception.dart';
+import '../../../../core/resources/debugger_manager.dart';
 
 class BusMapApiClient {
   late Dio dio;
@@ -12,6 +13,7 @@ class BusMapApiClient {
         baseUrl: ApiEndPoints.baseUrl,
       ),
     );
+    dio.interceptors.add(DebuggerManager.alice.getDioInterceptor());
   }
 
   Future<bool> finishRide(int id) async {
@@ -19,7 +21,10 @@ class BusMapApiClient {
       Response response = await dio.put(ApiEndPoints.endRide, queryParameters: {
         'id': id,
       });
-      return response.data;
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
     } on DioError {
       throw ServerException();
     }

@@ -29,8 +29,11 @@ class BusMovesEvent extends BusMapEvent {
 class RefershBusEvent extends BusMapEvent {
   final LatLng x;
   final BuildContext context;
-  const RefershBusEvent(this.x,this.context);
+  const RefershBusEvent(this.x, this.context);
   @override
-  List<Object> get props => [x,context];
-  
+  List<Object> get props => [x, context];
+}
+
+class FinishRideEvent extends BusMapEvent {
+  const FinishRideEvent();
 }

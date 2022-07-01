@@ -114,9 +114,11 @@ class ChangeMapViewAfterBooking extends MapState {}
 class ChangeBusCoordinate extends MapState {}
 
 class ChangeMarkersOfBus extends MapState {
-  final Set<Marker> m;
+  final CameraPosition p;
 
-  const ChangeMarkersOfBus(this.m);
+  const ChangeMarkersOfBus(this.p);
+  @override
+  List<Object> get props => [p];
 }
 
 class StudentInCurrentRide extends MapState {

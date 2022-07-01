@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../core/custom_widgets/success_dialog.dart';
@@ -16,7 +15,6 @@ import '../bloc/completeprofile_bloc.dart';
 import '../widgets/drop_down_widget.dart';
 import '../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../core/extensions/extensions.dart';
-import '../../../../core/injection/di.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../domain/enitity/student.dart';
 

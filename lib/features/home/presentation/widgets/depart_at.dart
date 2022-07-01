@@ -52,7 +52,7 @@ class _DepartAtState extends State<DepartAt> {
               Future.delayed(const Duration(seconds: 2), () {
                 Navigator.of(context).pop();
                 bloc.add(GetCurrentRideByUIDEvent(
-                    bloc.perfs.getString(ConstantsManager.uid)!));
+                    bloc.perfs.getString(ConstantsManager.uid)!, context));
                 Navigator.of(context).pop();
                 bloc.add(CameraPositionAfterBookingEvent());
               });

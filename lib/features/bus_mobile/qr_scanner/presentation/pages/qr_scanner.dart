@@ -41,7 +41,9 @@ class _QRScannerState extends State<BusQRScanner> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  Future.delayed(const Duration(seconds: 2), () {});
+                  Future.delayed(const Duration(seconds: 2), () {
+                    Navigator.of(context).pop();
+                  });
                   Vibration.vibrate();
                   return Dialog(
                     backgroundColor: Colors.transparent,
@@ -55,7 +57,9 @@ class _QRScannerState extends State<BusQRScanner> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  Future.delayed(const Duration(seconds: 2), () {});
+                  Future.delayed(const Duration(seconds: 2), () {
+                    Navigator.of(context).pop();
+                  });
                   return Dialog(
                     backgroundColor: Colors.transparent,
                     child: InvalidQrDialog(
@@ -70,7 +74,6 @@ class _QRScannerState extends State<BusQRScanner> {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                Future.delayed(const Duration(seconds: 2), () {});
                 return Dialog(
                   backgroundColor: Colors.transparent,
                   child: ErrorDialog(message: state.message, onTap: () {}),
@@ -78,33 +81,18 @@ class _QRScannerState extends State<BusQRScanner> {
               },
             );
           }
-
-          // if (state is QrNotInProperDate) {
-          //   showDialog(
-          //     context: context,
-          //     builder: (BuildContext context) {
-          //       Future.delayed(const Duration(seconds: 2), () {});
-          //       return const Dialog(
-          //         backgroundColor: Colors.transparent,
-          //         child: InvalidQrDialog(
-          //           message: "It's not your Booking ride",
-          //         ),
-          //       );
-          //     },
-          //   );
-          // }
         },
         builder: (context, state) {
           return Stack(
             children: [
               MobileScanner(
-                allowDuplicates: false,
                 onDetect: (barcode, args) {
                   if (barcode.rawValue == null) {
                     debugPrint('Failed to scan Barcode');
                   } else {
-                    bloc.add(CheckForQRCodeEvent(barcode.rawValue!));
-
+                    setState(() {
+                      bloc.add(CheckForQRCodeEvent(barcode.rawValue!));
+                    });
                     debugPrint('Barcode found! ${barcode.rawValue!}');
                   }
                 },

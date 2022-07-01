@@ -30,49 +30,50 @@ class _DriverInfoState extends State<DriverInfo> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Spacer(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                Visibility(
-                  visible: bloc.markersOfBus.isEmpty,
-                  child: Text(
-                    'Ride has not started yet',
-                    style: Theme.of(context).textTheme.caption,
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                Visibility(
-                  visible: bloc.markersOfBus.isNotEmpty,
-                  child: Text(
-                    widget.ride.emp!.empName,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontSize: 18),
+                  Visibility(
+                    visible: bloc.markersOfBus.isEmpty,
+                    child: Text(
+                      'Ride has not started yet',
+                      style: Theme.of(context).textTheme.caption,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Visibility(
-                  visible: bloc.markersOfBus.isNotEmpty,
-                  child: DecorationBoxWidget(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        widget.ride.bus!.busLicenceNumber,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(fontSize: 18),
+                  Visibility(
+                    visible: bloc.markersOfBus.isNotEmpty,
+                    child: Text(
+                      widget.ride.emp!.empName,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: 18),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Visibility(
+                    visible: bloc.markersOfBus.isNotEmpty,
+                    child: DecorationBoxWidget(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.ride.bus!.busLicenceNumber,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(fontSize: 18),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(
               width: 25,

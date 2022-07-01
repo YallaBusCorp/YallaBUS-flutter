@@ -62,7 +62,7 @@ class _FromToWidgetState extends State<FromToWidget> {
                             builder: (context, state) {
                               return InkWell(
                                 onTap: () {
-                                  bloc.add(GetPickUpPointsEvent());
+                                  bloc.add(GetPickUpPointsEvent(context));
                                 },
                                 child: TextWidget(
                                   text: bloc.from,
@@ -98,7 +98,7 @@ class _FromToWidgetState extends State<FromToWidget> {
                             builder: (context, state) {
                               return InkWell(
                                 onTap: () {
-                                  bloc.add(GetDropOffPointsEvent());
+                                  bloc.add(GetDropOffPointsEvent(context));
                                 },
                                 child: FittedBox(
                                   fit: BoxFit.fitWidth,

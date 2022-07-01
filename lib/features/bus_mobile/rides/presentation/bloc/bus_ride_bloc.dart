@@ -13,6 +13,12 @@ part 'bus_ride_state.dart';
 class BusRideBloc extends Bloc<BusRideEvent, BusRideState> {
   BusRideRepostiory repo;
   SharedPreferences perfs = di<SharedPreferences>();
+  @override
+  void onChange(Change<BusRideState> change) {
+    super.onChange(change);
+    print(change.nextState);
+  }
+
   BusRideBloc(this.repo) : super(BusRideInitial()) {
     on<BusRideEvent>((event, emit) {
       // TODO: implement event handler
@@ -24,6 +30,7 @@ class BusRideBloc extends Bloc<BusRideEvent, BusRideState> {
           .fold((l) {
         emit(Error(l.message));
       }, (r) {
+        perfs.setInt(ConstantsManager.rideID, r[0].ride.id);
         emit(GetListOfBooking(r));
       });
     });

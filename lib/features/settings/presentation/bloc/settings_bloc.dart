@@ -53,6 +53,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   String value = "";
   List<String> names = [];
   List<int> ids = [];
+  List<RideHis> nonScannedList = [];
+  List<RideHis> scannedList = [];
   Map<String, int> towns = {};
   Map<String, int> universities = {};
   SharedPreferences perfs = di<SharedPreferences>();
@@ -173,7 +175,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<GetNotScannedRidesEvent>((event, emit) async {
       emit(Loading());
       (await nonScannedRides.getNonScannedRides(event.id)).fold((l) {
-        emit(GetNotScannedRidesSuccess(l));
+        l.map((e) {
+          if (e.txRide.rideStatus != 'pending') {
+            nonScannedList.add(e);
+          }
+        });
+        emit(GetNotScannedRidesSuccess(nonScannedList));
       }, (r) {
         emit(GetNonScannedRidesError(r.message));
       });

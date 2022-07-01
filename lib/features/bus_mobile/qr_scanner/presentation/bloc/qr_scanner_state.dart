@@ -19,10 +19,10 @@ class QrScanError extends QrScannerState {
 
 class QrScanStatus extends QrScannerState {
   final String status;
-
-  const QrScanStatus(this.status);
+  final String code;
+  const QrScanStatus(this.status,this.code);
   @override
-  List<Object> get props => [status];
+  List<Object> get props => [status,code];
 }
 
 class QrNotInProperDate extends QrScannerState {}

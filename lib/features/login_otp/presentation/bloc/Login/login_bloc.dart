@@ -18,6 +18,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   late String verificationId;
   late UserCredential user;
   LoginRepository imple;
+  bool driverFoundOrNot = false;
+  bool studentFoundOrNot = false;
   SharedPreferences perfs = di<SharedPreferences>();
 
   @override
@@ -48,13 +50,31 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<CheckIfUserIsStudentOrDriverEvent>((event, emit) async {
-      final r = await FirebaseExtensions.checkIfRoleIsStudentOrBus(
+      driverFoundOrNot = await FirebaseExtensions.checkIfRoleIsBus(
           perfs.getString(ConstantsManager.uid)!);
-      if (r) {
+      studentFoundOrNot = await FirebaseExtensions.checkIfRoleIsStudent(
+          perfs.getString(ConstantsManager.uid)!);
+      if (driverFoundOrNot) {
+        perfs.setString(ConstantsManager.driver, 'Exists');
         emit(ThisIsDriverAccount());
+      }
+      else if (studentFoundOrNot) {
+        perfs.setString(ConstantsManager.student, 'Exists');
+        emit(ThisIsStudentAccount());
       } else {
+        perfs.setString(ConstantsManager.student, 'New');
         emit(ThisIsStudentAccount());
       }
+    });
+
+    on<GetBusUidEvent>((event, emit) async {
+      (await imple.getBusUid(
+        int.parse(FirebaseAuth.instance.currentUser!.phoneNumber!.substring(1)),
+      ))
+          .fold((l) {}, (r) {
+        perfs.setString(ConstantsManager.busUid, r.uid);
+        perfs.setInt(ConstantsManager.busId, r.id);
+      });
     });
   }
 
@@ -79,6 +99,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final number = FirebaseAuth.instance.currentUser!.phoneNumber!;
       perfs.setString(ConstantsManager.uid, uid);
       perfs.setString(ConstantsManager.number, number);
+      add(GetBusUidEvent());
       add(CheckIfUserIsStudentOrDriverEvent());
     } on FirebaseAuthException {
       emit(const Error('Wrong Verification!'));

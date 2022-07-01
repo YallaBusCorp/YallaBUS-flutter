@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_map_polyline_new/google_map_polyline_new.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:yalla_bus/core/resources/map_manager.dart';
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/constants_manager.dart';
 import '../../../../core/resources/routes_manager.dart';
@@ -66,15 +67,11 @@ class _ControllersState extends State<Controllers> {
               IconButton(
                 onPressed: () async {
                   // map.add(GetMyLocation());
-                  List<LatLng>? coordinates =
-                      await googleMapPolyline.getCoordinatesWithLocation(
-                          origin: const LatLng(
-                              30.739511310446257, 31.263069637010513),
-                          destination: const LatLng(30.773347, 31.259078),
-                          mode: RouteMode.driving);
-                  int i = 0;
-                  Timer.periodic(const Duration(milliseconds: 500), (timer) {
-                    map.add(RefreshBusCoordinateEvent(coordinates![i]));
+
+                  int i = 1;
+                  Timer.periodic(const Duration(seconds: 2), (timer) {
+                    map.add(RefreshBusCoordinateEvent(
+                        MapManager.list[i], MapManager.list[i - 1], context));
                     i++;
                   });
                 },

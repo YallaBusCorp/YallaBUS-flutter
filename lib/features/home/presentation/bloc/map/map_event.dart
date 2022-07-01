@@ -31,9 +31,19 @@ class GetAmAppoinmentsEvent extends MapEvent {}
 
 class GetPmAppoinmentsEvent extends MapEvent {}
 
-class GetPickUpPointsEvent extends MapEvent {}
+class GetPickUpPointsEvent extends MapEvent {
+  final BuildContext context;
+  const GetPickUpPointsEvent(this.context);
+  @override
+  List<Object> get props => [context];
+}
 
-class GetDropOffPointsEvent extends MapEvent {}
+class GetDropOffPointsEvent extends MapEvent {
+  final BuildContext context;
+  const GetDropOffPointsEvent(this.context);
+  @override
+  List<Object> get props => [context];
+}
 
 class CameraPositionOfPickUpPoints extends MapEvent {}
 
@@ -72,19 +82,25 @@ class CameraPositionAfterBookingEvent extends MapEvent {}
 
 class GetCurrentRideByUIDEvent extends MapEvent {
   final String uid;
-
-  const GetCurrentRideByUIDEvent(this.uid);
+  final BuildContext context;
+  const GetCurrentRideByUIDEvent(this.uid, this.context);
 }
 
 class ShowCurrentRideAfterBookingEvent extends MapEvent {}
 
 class RefreshBusCoordinateEvent extends MapEvent {
   final LatLng point;
-
-  const RefreshBusCoordinateEvent(this.point);
+  final LatLng point2;
+  final BuildContext context;
+  const RefreshBusCoordinateEvent(this.point, this.point2, this.context);
+  @override
+  List<Object> get props => [point, point2, context];
 }
 
-class ShowBothPickUpAndDropOffMarkersEvent extends MapEvent {}
+class ShowBothPickUpAndDropOffMarkersEvent extends MapEvent {
+  final BuildContext context;
+  const ShowBothPickUpAndDropOffMarkersEvent(this.context);
+}
 
 class CheckBusMarkerAccordingToPickAndDropMarkersEvent extends MapEvent {
   final LatLng bus;

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
 import '../../../../../core/injection/di.dart';
+import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/routes_manager.dart';
 import '../../bloc/settings_bloc.dart';
 import 'complaint_body.dart';
@@ -51,22 +53,29 @@ class _ComplaintsState extends State<Complaints> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 bloc.add(GetNewComplaintDataEvent(snapshot.data!.docs));
-                
               }
               return BlocBuilder<SettingsBloc, SettingsState>(
                 builder: (context, state) {
-                  return ListView.separated(
-                    itemCount: bloc.docData.length,
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(
-                        height: 10,
-                      );
-                    },
-                    itemBuilder: (BuildContext context, int index) {
-                      
-                      return ComplaintBody(index: index);
-                    },
-                  );
+                  return bloc.docData.isNotEmpty
+                      ? ListView.separated(
+                          itemCount: bloc.docData.length,
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(
+                              height: 10,
+                            );
+                          },
+                          itemBuilder: (BuildContext context, int index) {
+                            return ComplaintBody(index: index);
+                          },
+                        )
+                      : Center(
+                          child: SvgPicture.asset(
+                            AssetManager.error404,
+                            width: 200,
+                            height: 200,
+                            fit: BoxFit.cover,
+                          ),
+                        );
                 },
               );
             }),

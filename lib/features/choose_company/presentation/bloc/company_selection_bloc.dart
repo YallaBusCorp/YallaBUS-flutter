@@ -11,12 +11,6 @@ class CompanySelectionBloc
   GetCompaniesInfo useCase;
   List<Company> companies = [];
 
-  // @override
-  // void onChange(Change<CompanySelectionState> change) {
-  //   super.onChange(change);
-  //   print(change);
-  // }
-
   //Here
   List<bool> isSelected = [];
   List<Company> searchedElements = [];

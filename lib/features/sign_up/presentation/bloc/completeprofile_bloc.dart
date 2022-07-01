@@ -70,6 +70,7 @@ class CompleteprofileBloc
 
     on<SendStudentDataEvent>((event, emit) async {
       emit(LoadingSendData());
+
       student = Student(
           stdUid: perfs.getString(ConstantsManager.uid)!,
           stdName: event.userName,
@@ -93,10 +94,11 @@ class CompleteprofileBloc
 
     on<AddStdentUidToFireStoreEvent>((event, emit) {
       final data = {
-        'companyID': perfs.getInt(ConstantsManager.company)!,
+        'UID': perfs.getString(ConstantsManager.uid)!,
+        'role': 'Student',
       };
       FirebaseFirestore.instance
-          .collection('student')
+          .collection('Users')
           .doc(perfs.getString(ConstantsManager.uid)!)
           .set(data);
     });

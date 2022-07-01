@@ -12,7 +12,12 @@ class YesNoDialog extends StatelessWidget {
   final String? labelTap1;
   final String? labelTap2;
   final GestureTapCallback? onTap;
-  const YesNoDialog({Key? key, required this.message, required this.onTap,this.labelTap1,this.labelTap2})
+  const YesNoDialog(
+      {Key? key,
+      required this.message,
+      required this.onTap,
+      this.labelTap1,
+      this.labelTap2})
       : super(key: key);
   final String message;
 
@@ -56,7 +61,7 @@ class YesNoDialog extends StatelessWidget {
                     onTap: onTap,
                     child: Center(
                       child: TextWidget(
-                        text: labelTap1 ?? StringManager.returnStatement,
+                        text: labelTap1 ?? StringManager.signOut,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                               color: Colors.blue[900],
                             ),
@@ -74,12 +79,12 @@ class YesNoDialog extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(ValuesManager.v16),
                   child: InkWell(
-                    onTap:  (){
-                       Navigator.of(context).pop();
+                    onTap: () {
+                      Navigator.of(context).pop();
                     },
                     child: Center(
                       child: TextWidget(
-                        text: labelTap2 ?? StringManager.signOut,
+                        text: labelTap2 ?? StringManager.returnStatement,
                         style: Theme.of(context)
                             .textTheme
                             .headline6!

@@ -41,7 +41,7 @@ class Header extends StatelessWidget {
               children: [
                 TextWidget(
                     text: perfs.getString(ConstantsManager.firstName)! +
-                        ' ' +
+                      
                         perfs.getString(ConstantsManager.secondName)!,
                     style: Theme.of(context).textTheme.headline5!),
                 const SizedBox(
