@@ -31,13 +31,14 @@ class _LoginOtpState extends State<LoginOtp> {
   void initState() {
     login = BlocProvider.of<LoginBloc>(context);
     keyboard = BlocProvider.of<KeyboardBloc>(context);
+    keyboard.number = "+201";
+    keyboard.indexOfPhoneNumber = 0;
+    keyboard.phoneNumber = List.generate(9, (index) => 0);
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 10,

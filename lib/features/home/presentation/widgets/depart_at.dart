@@ -105,7 +105,7 @@ class _DepartAtState extends State<DepartAt> {
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
                               context: context,
-                              builder: (builder) => const BookRideScreen());
+                              builder: (builder) => BookRideScreen());
                         },
                         child: TextWidget(
                           text: bloc.timeOfSelectedRides,
@@ -132,17 +132,19 @@ class _DepartAtState extends State<DepartAt> {
                             bloc.add(
                               BookRideEvent(
                                 Ride(
-                                  qrCode: await StringsExtensions.generateQR(
-                                      bloc.perfs.getString(
-                                          ConstantsManager.dateOfRide)!),
+                                  qrCode: StringsExtensions.generateQR(bloc
+                                      .perfs
+                                      .getString(ConstantsManager.dateOfRide)!),
                                   pickupPoint: PickUpPoint(bloc.pickUpID),
                                   dropOffPoint: DropOffPoint(bloc.dropOffID),
                                   appointment: Appointments(bloc.amTimeAndID[
                                           bloc.timeOfSelectedRides] ??
                                       bloc.pmTimeAndID[
                                           bloc.timeOfSelectedRides]!),
-                                  std: StudentID(bloc.perfs
-                                      .getInt(ConstantsManager.stdId)!),
+                                  std: StudentID(
+                                      bloc.perfs
+                                          .getInt(ConstantsManager.stdId)!,
+                                      ''),
                                 ),
                               ),
                             );

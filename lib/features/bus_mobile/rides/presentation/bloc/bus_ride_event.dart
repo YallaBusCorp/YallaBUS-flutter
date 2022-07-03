@@ -8,3 +8,11 @@ abstract class BusRideEvent extends Equatable {
 }
 
 class CheckIfThereIsCurrentRideOrNotEvent extends BusRideEvent {}
+
+class SignOutEvent extends BusRideEvent {}
+
+class SendNotificationEvent extends BusRideEvent {
+  final int rideId;
+
+  const SendNotificationEvent(this.rideId);
+}

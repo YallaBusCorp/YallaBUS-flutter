@@ -47,7 +47,7 @@ class _SendCodeButtonState extends State<SendCodeButton> {
           Navigator.of(context).pop();
           Navigator.of(context)
               .pushNamedAndRemoveUntil(Routes.busRides, (route) => false);
-        } else if (state is Error) {
+        } else if (state is AuthFailed) {
           Navigator.of(context).pop();
           showDialog(
             context: context,

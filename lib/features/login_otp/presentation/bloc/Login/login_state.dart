@@ -32,3 +32,5 @@ class ThisIsStudentAccount extends LoginState {}
 class ThisIsDriverAccount extends LoginState {}
 
 class PerfsRefersh extends LoginState {}
+
+class ThisIsNewStudentAccount extends LoginState {}

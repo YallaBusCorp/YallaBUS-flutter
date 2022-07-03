@@ -9,7 +9,7 @@ class BookRide {
   final MapRepository repo;
 
   BookRide(this.repo);
-  Future<Either<Failure,Success>> bookRide(Ride ride) async {
+  Future<Either<Failure,int>> bookRide(Ride ride) async {
     return await repo.bookRide(ride);
   }
 }

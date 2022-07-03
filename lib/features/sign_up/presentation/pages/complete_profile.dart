@@ -66,11 +66,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
               ),
             ),
           );
-          bloc.add(
-              GetStudentIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
+
           Future.delayed(const Duration(seconds: ValuesManager.iv2), () {
             Navigator.of(context).pushNamedAndRemoveUntil(
-              Routes.successfulPayment,
+              Routes.home,
               (route) => false,
             );
             bloc.add(AddStdentUidToFireStoreEvent());

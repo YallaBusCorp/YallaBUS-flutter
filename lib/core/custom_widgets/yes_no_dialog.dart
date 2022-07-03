@@ -88,7 +88,7 @@ class YesNoDialog extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .headline6!
-                            .copyWith(color: Colors.red[900]),
+                            .copyWith(color: Colors.blue[900]),
                       ),
                     ),
                   ),

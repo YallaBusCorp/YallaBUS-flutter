@@ -14,7 +14,7 @@ class CompanySelectionBloc
   //Here
   List<bool> isSelected = [];
   List<Company> searchedElements = [];
-
+  late String companyName;
   late int companyId;
 
   CompanySelectionBloc(this.useCase) : super(CompanySelectionInitial()) {
@@ -24,6 +24,7 @@ class CompanySelectionBloc
         isSelected[i] = false;
       }
       isSelected[event.indexOfCompany] = !isSelected[event.indexOfCompany];
+      companyName = companies[event.indexOfCompany].companyName;
       companyId = companies[event.indexOfCompany].id;
       emit(ChangeSelection());
     });

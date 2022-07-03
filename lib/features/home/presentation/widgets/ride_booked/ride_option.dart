@@ -8,12 +8,14 @@ import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dar
 import '../../../../../core/custom_widgets/button_widget.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
+import '../../../../bus_mobile/qr_scanner/presentation/widgets/unsuccessful_dialog.dart';
+import '../../../domain/enitity/returned_ride.dart';
 import '../../bloc/map/map_bloc.dart';
 import '../book_ride.dart';
 import 'qr_view.dart';
 
 class RideOptions extends StatefulWidget {
-  final RideHis ride;
+  final ReturenedRide ride;
   const RideOptions({Key? key, required this.ride}) : super(key: key);
 
   @override
@@ -106,12 +108,30 @@ class _RideOptionsState extends State<RideOptions> {
           children: [
             ButtonWidget(
               onPressed: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  context: context,
-                  builder: (builder) => const BookRideScreen(),
-                );
+                if (widget.ride.emp!.empName == 'TTTTTTTT') {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (builder) => const BookRideScreen(),
+                  );
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.of(context).pop();
+                      });
+                      return const Dialog(
+                        backgroundColor: Colors.transparent,
+                        child: InvalidDialog(
+                          message:
+                              'You are not allowed to reschedule this ride ',
+                        ),
+                      );
+                    },
+                  );
+                }
               },
               color: Theme.of(context).backgroundColor,
               child: SvgPicture.asset(

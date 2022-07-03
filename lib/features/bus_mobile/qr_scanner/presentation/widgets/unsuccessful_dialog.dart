@@ -3,9 +3,9 @@ import '../../../../../core/custom_widgets/text_widget.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/values_manager.dart';
 
-class InvalidQrDialog extends StatelessWidget {
+class InvalidDialog extends StatelessWidget {
   final String message;
-  const InvalidQrDialog({Key? key, required this.message}) : super(key: key);
+  const InvalidDialog({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

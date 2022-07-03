@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:yalla_bus/features/home/domain/enitity/returned_ride.dart';
 
 import '../../../../core/states/state.dart';
 import '../../../settings/domain/entity/ride_history_model.dart';
@@ -10,7 +11,7 @@ class GetCurrentRide {
   final MapRepository repo;
 
   GetCurrentRide(this.repo);
-  Future<Either<Failure, RideHis>> getCurrentRideByUID(String uid) async {
+  Future<Either<Failure, ReturenedRide>> getCurrentRideByUID(String uid) async {
     return await repo.getCurrentRide(uid);
   }
 }

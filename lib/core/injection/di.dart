@@ -14,17 +14,19 @@ import 'package:yalla_bus/features/bus_mobile/qr_scanner/domain/repository/repos
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/bloc/qr_scanner_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/data/remote_data_source.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/data/repostiory_implementation.dart';
+import 'package:yalla_bus/features/bus_mobile/rides/data/send_notification.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
 import 'package:yalla_bus/features/home/domain/use_case/book_ride.dart';
 import 'package:yalla_bus/features/home/domain/use_case/cancel_ride.dart';
 import 'package:yalla_bus/features/home/domain/use_case/get_current_ride.dart';
+import 'package:yalla_bus/features/home/domain/use_case/reschedule_ride.dart';
 import 'package:yalla_bus/features/login_otp/data/remote_data_source/login_remote_data_source.dart';
 import 'package:yalla_bus/features/login_otp/data/repository_implementation/repository_implementation.dart';
 import 'package:yalla_bus/features/login_otp/domain/repository/repository.dart';
 import 'package:yalla_bus/features/settings/domain/use_case/get_non_scanned_rides.dart';
 import 'package:yalla_bus/features/settings/domain/use_case/get_scanned_rides.dart';
 import 'package:yalla_bus/features/settings/domain/use_case/update_student.dart';
-import 'package:yalla_bus/features/sign_up/domain/use_case/get_student_id.dart';
+import 'package:yalla_bus/features/home/domain/use_case/get_student_id.dart';
 import '../network/network_info.dart';
 import '../../features/choose_company/data/data_sources/remote_data_source.dart';
 import '../../features/choose_company/data/repository_implementation/company_repository_implementation.dart';
@@ -83,12 +85,14 @@ Future<void> init() async {
   di.registerLazySingleton(() => GetAllUniversities(di()));
   di.registerLazySingleton(() => GetAllTowns(di()));
   di.registerLazySingleton(() => PostStudentInformation(di()));
-  di.registerLazySingleton(() => GetStudentId(di()));
+
   di.registerLazySingleton<CompleteProfileRepository>(
       () => ComplelteProfileRepositoryImplemenation(di(), di()));
   di.registerLazySingleton(() => CompleteProfileApiClient());
 
   di.registerFactory(() => MapBloc(
+        di(),
+        di(),
         di(),
         di(),
         di(),
@@ -104,6 +108,8 @@ Future<void> init() async {
   di.registerLazySingleton(() => GetMapPickUpPoints(di()));
   di.registerLazySingleton(() => GetMapDropOffPoints(di()));
   di.registerLazySingleton(() => BookRide(di()));
+  di.registerLazySingleton(() => GetStudentId(di()));
+  di.registerLazySingleton(() => RescheduleRide(di()));
   di.registerLazySingleton<MapRepository>(
       () => MapRepositoryImplementation(di(), di()));
   di.registerLazySingleton(() => MapApiClient());
@@ -130,10 +136,11 @@ Future<void> init() async {
   di.registerLazySingleton(() => EmployeeCodeRepository(di(), di()));
   di.registerLazySingleton(() => EmployeeApiClient());
 
-  di.registerFactory(() => BusRideBloc(di()));
+  di.registerFactory(() => BusRideBloc(di(), di()));
 
   di.registerLazySingleton(() => BusRideRepostiory(di(), di()));
   di.registerLazySingleton(() => BusRideApiClient());
+  di.registerLazySingleton(() => SendNotificationApiClient());
 
   di.registerFactory(() => BusMapBloc(di()));
   di.registerLazySingleton(() => BusMapRepository(di(), di()));

@@ -33,7 +33,9 @@ class Appointments {
 
 class StudentID {
   final int id;
-  StudentID(this.id);
+  final String name;
+
+  StudentID(this.id,this.name);
 }
 
 

@@ -34,9 +34,9 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
     WidgetsBinding.instance!.addObserver(this);
     tracking = FirebaseFirestore.instance
         .collection('company')
-        .doc('serkes')
+        .doc(bloc.perfs.getString(ConstantsManager.companyName))
         .collection('ride')
-        .doc(bloc.perfs.getString(ConstantsManager.rideID) ?? 'hamdo')
+        .doc(bloc.perfs.getString(ConstantsManager.rideID) ?? 'h')
         .snapshots();
     super.initState();
   }
@@ -49,7 +49,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
-      final GoogleMapController controller = await MapManager.controller.future;
+      final GoogleMapController controller = await bloc.controller.future;
       if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
         controller.setMapStyle(_darkMapStyle);
       } else {
@@ -68,13 +68,14 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           FirebaseExtensions.CheckIfDocumentExistsOrNotEvent(
-                  bloc.perfs.getString(ConstantsManager.rideID) ?? 'hamdo')
+                  bloc.perfs.getString(ConstantsManager.rideID) ?? 'h')
               .then((value) => x = value);
           if (snapshot.hasData && x) {
             geoPoints = snapshot.data!.get('location');
             int size = geoPoints.length;
             point = geoPoints[size - 1];
-            // map.add(RefreshBusCoordinateEvent(point));
+            map.add(RefreshBusCoordinateEvent(
+                LatLng(point.latitude, point.longitude), context));
             map.add(CheckBusMarkerAccordingToPickAndDropMarkersEvent(
                 LatLng(point.latitude, point.longitude),
                 map.pickUpSelectedPosition,
@@ -103,8 +104,8 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
                 mapToolbarEnabled: false,
                 initialCameraPosition: MapManager.kGooglePlex,
                 onMapCreated: (GoogleMapController controller) {
-                  if (!MapManager.controller.isCompleted) {
-                    MapManager.controller.complete(controller);
+                  if (!bloc.controller.isCompleted) {
+                    bloc.controller.complete(controller);
                     if (bloc.markersOfBus.isEmpty) {
                       map.add(GetMyLocation());
                     }
@@ -125,6 +126,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   @override
   void dispose() {
     super.dispose();
+
     AwesomeNotifications().actionSink.close();
     AwesomeNotifications().createdSink.close();
   }

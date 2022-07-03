@@ -1,14 +1,20 @@
+import 'dart:math';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as gmaps;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
+import '../injection/di.dart';
 import '../resources/asset_manager.dart';
 import 'package:latlong2/latlong.dart' as d;
 import '../../features/choose_company/presentation/bloc/company_selection_bloc.dart';
 
 import '../resources/colors_manager.dart';
 import '../resources/values_manager.dart';
+
+SharedPreferences perfs = di<SharedPreferences>();
 
 extension ColorsExtensions on Color {
   static Color hexColor(String color) {
@@ -105,8 +111,7 @@ extension StringsExtensions on String {
     return AssetManager.lightverify;
   }
 
-  static Future<String> generateQR(String dateOfRide) async {
-    SharedPreferences perfs = await SharedPreferences.getInstance();
+  static String generateQR(String dateOfRide) {
     String code = dateOfRide.replaceFirst(RegExp(r' '), '') +
         '/' +
         perfs.getString(ConstantsManager.uid)!;
@@ -169,7 +174,7 @@ extension FirebaseExtensions on bool {
   static Future<bool> CheckIfDocumentExistsOrNotEvent(String docId) async {
     final collectionRef = FirebaseFirestore.instance
         .collection('company')
-        .doc('serkes')
+        .doc(perfs.getString(ConstantsManager.companyName))
         .collection('ride');
     final document = await collectionRef.doc(docId).get();
     return document.exists;
@@ -188,11 +193,21 @@ extension FirebaseExtensions on bool {
     final collectionRef = FirebaseFirestore.instance.collection('Users');
     final document = await collectionRef.doc(docId).get();
     if (document.exists && document.get('role') == 'Student') {
+      perfs.setInt(ConstantsManager.company, document.get('CompanyID'));
+      perfs.setString(
+          ConstantsManager.companyName, document.get('CompanyName'));
       return true;
     }
     return false;
   }
 }
+
+extension NotificationExtension on bool {
+  // static Future<void> backgroundNotification(RemoteMessage message) {
+  
+  // }
+}
+
 /*
    await http.post(
     'https://fcm.googleapis.com/fcm/send',
@@ -209,8 +224,6 @@ extension FirebaseExtensions on bool {
        'priority': 'high',
        'data': <String, dynamic>{
          'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-         'id': '1',
-         'status': 'done'
        },
        'to': await firebaseMessaging.getToken(),
      },

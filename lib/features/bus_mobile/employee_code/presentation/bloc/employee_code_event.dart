@@ -38,3 +38,9 @@ class SaveTxRideEvent extends EmployeeCodeEvent {
 
   const SaveTxRideEvent(this.id);
 }
+
+class GetCompanyName extends EmployeeCodeEvent{
+  final int id;
+
+  const GetCompanyName(this.id);
+}

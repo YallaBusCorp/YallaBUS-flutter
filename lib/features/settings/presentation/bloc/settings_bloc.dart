@@ -27,13 +27,9 @@ enum Resonses { answered, inQueue }
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   Color replyOrNot = Colors.red;
   List<bool> isOpen = [false, false, false, false];
-
+  SharedPreferences perfs = di<SharedPreferences>();
   List<dynamic> docData = [];
-  final Stream<QuerySnapshot> complaintStream = FirebaseFirestore.instance
-      .collection('company')
-      .doc('serkes')
-      .collection('complaint')
-      .snapshots();
+  
 
   @override
   void onChange(Change<SettingsState> change) {
@@ -57,7 +53,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   List<RideHis> scannedList = [];
   Map<String, int> towns = {};
   Map<String, int> universities = {};
-  SharedPreferences perfs = di<SharedPreferences>();
   SettingsBloc(this.town, this.university, this.company, this.updateStudentInfo,
       this.nonScannedRides, this.scannedRides)
       : super(SettingsInitial()) {
@@ -158,12 +153,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       };
       DocumentReference value = await FirebaseFirestore.instance
           .collection('company')
-          .doc('serkes')
+          .doc(perfs.getString(ConstantsManager.companyName))
           .collection('complaint')
           .add(data);
       FirebaseFirestore.instance
           .collection('company')
-          .doc('serkes')
+          .doc(perfs.getString(ConstantsManager.companyName))
           .collection('complaint')
           .doc(value.id)
           .update({

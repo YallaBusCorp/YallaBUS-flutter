@@ -1,13 +1,14 @@
 import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 
 class RideHisModel extends RideHis {
-  RideHisModel(int id, PickUp pick, DropOff drop, Appoint appoinment, Bus bus,
-      Employee emp, TxRide txRide)
-      : super(id, pick, drop, appoinment, bus, emp, txRide);
+  RideHisModel(int id, String qrCode, PickUp pick, DropOff drop,
+      Appoint appoinment, Bus bus, Employee emp, TxRide txRide)
+      : super(id, qrCode, pick, drop, appoinment, bus, emp, txRide);
 
   factory RideHisModel.fromJson(Map<String, dynamic> json) {
     return RideHisModel(
         json['id'] ?? -1,
+        json['qrCode'] ?? '08:00AMOsdafosdgsdag',
         PickUpModel.fromJson(json['pickupPoint'] ??
             {
               'mapPointTitleEn': 'name',
@@ -31,8 +32,11 @@ class RideHisModel extends RideHis {
             }),
         EmployeeModel.fromJson(json['emp'] ??
             {
-              'id' : 1,
-              'empName': 'Abdo Mohamed',
+              'id': 1,
+              'company' : {
+                'id' : 1,
+              },
+              'empName': 'TTTTTTTT',
               'empCode': '6735',
             }),
         TxRideModel.fromJson(json['txRide'] ??
@@ -44,7 +48,7 @@ class RideHisModel extends RideHis {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['emp'] = EmployeeModel(emp!.id, emp!.empCode, emp!.empName);
+    data['emp'] = EmployeeModel(emp!.id,emp!.company ,emp!.empCode,  emp!.empName);
     data['pickupPoint'] =
         PickUpModel(pick!.name, pick!.latitude, pick!.longitude).toJson();
     data['dropoffPoint'] =
@@ -136,24 +140,37 @@ class BusModel extends Bus {
     return data;
   }
 }
+class CompanyIdModel extends CompanyId{
+  CompanyIdModel(int id) : super(id);
+  factory CompanyIdModel.fromJson(Map<String, dynamic> json) {
+    return CompanyIdModel(json['id']);
+  }
 
+   Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    return data;
+  }
+}
 class EmployeeModel extends Employee {
-  EmployeeModel(int id, String empCode, String empName)
-      : super(id, empCode, empName);
+  EmployeeModel(int id, CompanyId company, String empCode, String empName)
+      : super(id, company, empCode, empName);
 
   factory EmployeeModel.fromJson(Map<String, dynamic> json) {
-    return EmployeeModel(json['id'], json['empCode'], json['empName']);
+    return EmployeeModel(json['id'],CompanyIdModel.fromJson(json['company']), json['empCode'], json['empName']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['company'] = CompanyIdModel(id).toJson();
     data['empCode'] = empCode;
     data['empName'] = empName;
 
     return data;
   }
 }
+ 
 
 class TxRideModel extends TxRide {
   TxRideModel(int id, String rideStatus) : super(id, rideStatus);

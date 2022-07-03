@@ -25,3 +25,10 @@ class AuthSuccess extends EmployeeCodeState {}
 
 class GetEmployeeSuccess extends EmployeeCodeState {}
 
+class SuccessID extends EmployeeCodeState {}
+
+class Error extends EmployeeCodeState {
+  final String message;
+
+  const Error(this.message);
+}

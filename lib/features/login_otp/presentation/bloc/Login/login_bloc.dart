@@ -56,14 +56,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           perfs.getString(ConstantsManager.uid)!);
       if (driverFoundOrNot) {
         perfs.setString(ConstantsManager.driver, 'Exists');
+        perfs.setString(ConstantsManager.student, 'Not Exists');
         emit(ThisIsDriverAccount());
       }
       else if (studentFoundOrNot) {
         perfs.setString(ConstantsManager.student, 'Exists');
+        perfs.setString(ConstantsManager.driver, 'Not Exists');
         emit(ThisIsStudentAccount());
       } else {
         perfs.setString(ConstantsManager.student, 'New');
-        emit(ThisIsStudentAccount());
+        emit(ThisIsNewStudentAccount());
       }
     });
 

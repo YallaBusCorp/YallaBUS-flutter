@@ -7,6 +7,9 @@ import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 import 'package:yalla_bus/core/resources/colors_manager.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/features/home/domain/enitity/reschedule_body.dart';
+import 'package:yalla_bus/features/home/domain/enitity/returned_ride.dart';
+import 'package:yalla_bus/features/home/domain/enitity/ride.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/book_ride.dart';
 import 'package:yalla_bus/features/home/presentation/widgets/ride_booked/qr_view.dart';
 import '../../../../../core/custom_widgets/loading_dialog.dart';
@@ -27,23 +30,22 @@ class RideBooked extends StatefulWidget {
 
 class _RideBookedState extends State<RideBooked> {
   late MapBloc bloc;
-  late RideHis ride;
+  late ReturenedRide ride;
 
   @override
   void initState() {
     bloc = BlocProvider.of<MapBloc>(context);
-    ride = RideHis(
+    ride = ReturenedRide(
       -1,
-      PickUp(bloc.from, 30.000001, 40.2424224),
-      DropOff(bloc.to, 35.000001, 40.2424224),
+      'pending',
       Appoint(
         bloc.timeOfSelectedRides.substring(0, 5),
         bloc.timeOfSelectedRides.substring(6, 8),
       ),
       Bus(1, "busUid", "phone", "busLicenceNumber"),
-      Employee(1, "empCode", "empName"),
-      TxRide(1, 'complete'),
+      Employee(1, CompanyId(1), "empCode", "empName"),
     );
+
     super.initState();
   }
 
@@ -122,6 +124,49 @@ class _RideBookedState extends State<RideBooked> {
                 onTap: () {
                   bloc.add(GetCurrentRideByUIDEvent(
                       bloc.perfs.getString(ConstantsManager.uid)!, context));
+                },
+              ),
+            ),
+          );
+        }
+
+        if (state is RescheduleRideSuccess) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.of(context).pop();
+              });
+              return const Dialog(
+                backgroundColor: Colors.transparent,
+                child: SuccessDialog(
+                  message: 'You rescheduled your ride!',
+                ),
+              );
+            },
+          );
+        }
+
+        if (state is RescheduleRideError) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) => Dialog(
+              backgroundColor: Colors.transparent,
+              child: ErrorDialog(
+                message: state.message,
+                onTap: () {
+                  bloc.add(
+                    RescheduleRideEvent(
+                      Reschedule(
+                        ride.id!,
+                        StringsExtensions.generateQR(bloc.timeOfSelectedRides),
+                        Appointments(
+                            bloc.amTimeAndID[bloc.timeOfSelectedRides] ??
+                                bloc.pmTimeAndID[bloc.timeOfSelectedRides]!),
+                      ),
+                    ),
+                  );
                 },
               ),
             ),

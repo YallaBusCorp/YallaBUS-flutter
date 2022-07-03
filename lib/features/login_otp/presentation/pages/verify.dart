@@ -25,14 +25,15 @@ class VerifyScreen extends StatefulWidget {
 }
 
 class _VerifyScreenState extends State<VerifyScreen> {
-
-
   late LoginBloc login;
   late KeyboardBloc keyboard;
   @override
   void initState() {
     login = BlocProvider.of<LoginBloc>(context);
     keyboard = BlocProvider.of<KeyboardBloc>(context);
+    keyboard.indexOfPinNumber = 0;
+    keyboard.pinCode = "";
+    keyboard.pins = List.generate(6, (index) => '');
     super.initState();
   }
 
@@ -52,7 +53,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                 header2: StringManager.codeSentTo.tr() + keyboard.number,
                 asset: StringsExtensions.selectAnimationLightOrDark(context)),
             const Spacer(),
-            PinCode(),
+            Center(child: PinCode()),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: ValuesManager.v15),
@@ -77,7 +78,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
                       ? () {
                           login.add(
                             VerifyCodeVerificationEvent(keyboard.pinCode),
-                          );                        }
+                          );
+                        }
                       : null,
                 );
               },

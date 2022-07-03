@@ -122,7 +122,7 @@ class ChangeMarkersOfBus extends MapState {
 }
 
 class StudentInCurrentRide extends MapState {
-  final RideHis ride;
+  final ReturenedRide ride;
 
   const StudentInCurrentRide(this.ride);
 }
@@ -173,4 +173,14 @@ class CancelRideSuccess extends MapState {
   final Set<Marker> s;
 
   const CancelRideSuccess(this.s);
+}
+
+class FormToPreparationSuccess extends MapState {}
+
+class RescheduleRideSuccess extends MapState {}
+
+class RescheduleRideError extends MapState {
+  final String message;
+
+  const RescheduleRideError(this.message);
 }

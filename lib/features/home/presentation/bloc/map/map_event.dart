@@ -90,11 +90,10 @@ class ShowCurrentRideAfterBookingEvent extends MapEvent {}
 
 class RefreshBusCoordinateEvent extends MapEvent {
   final LatLng point;
-  final LatLng point2;
   final BuildContext context;
-  const RefreshBusCoordinateEvent(this.point, this.point2, this.context);
+  const RefreshBusCoordinateEvent(this.point, this.context);
   @override
-  List<Object> get props => [point, point2, context];
+  List<Object> get props => [point, context];
 }
 
 class ShowBothPickUpAndDropOffMarkersEvent extends MapEvent {
@@ -135,4 +134,12 @@ class CancelRideEvent extends MapEvent {
   final int id;
 
   const CancelRideEvent(this.id);
+}
+
+class FormToPreparationEvent extends MapEvent {}
+
+class RescheduleRideEvent extends MapEvent {
+  final Reschedule rescheduleRide;
+
+  const RescheduleRideEvent(this.rescheduleRide);
 }

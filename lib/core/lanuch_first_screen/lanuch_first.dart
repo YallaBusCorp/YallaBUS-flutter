@@ -19,7 +19,7 @@ Widget launchFirst() {
     if (FirebaseAuth.instance.currentUser != null) {
       if (perfs.getString(ConstantsManager.student) == 'Exists' ||
           (perfs.getInt(ConstantsManager.company) != null &&
-              perfs.getInt(ConstantsManager.company) != null)) {
+              perfs.getString(ConstantsManager.companyName) != null)) {
         return const Home();
       } else if (perfs.getString(ConstantsManager.student) == 'New') {
         if (perfs.getInt(ConstantsManager.company) != null) {

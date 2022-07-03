@@ -53,6 +53,7 @@ class EmployeeCodeBloc extends Bloc<EmployeeCodeEvent, EmployeeCodeState> {
         empName = r.empName;
         perfs.setString(ConstantsManager.employeeCode, event.code);
         add(SaveTxRideEvent(r.id));
+        add(GetCompanyName(r.company.id));
         emit(GetEmployeeSuccess());
       });
     });
@@ -61,6 +62,15 @@ class EmployeeCodeBloc extends Bloc<EmployeeCodeEvent, EmployeeCodeState> {
       (await repo.saveTxRide(event.id, perfs.getInt(ConstantsManager.busId)!))
           .fold((l) {}, (r) {
         emit(AuthSuccess());
+      });
+    });
+
+    on<GetCompanyName>((event, emit) async {
+      (await repo.getCompanyName(event.id)).fold((l) {
+        emit(Error(l.message));
+      }, (r) {
+        perfs.setString(ConstantsManager.companyName, r);
+        emit(SuccessID());
       });
     });
   }

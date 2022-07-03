@@ -10,7 +10,7 @@ import 'package:location/location.dart';
 import 'package:yalla_bus/core/resources/asset_manager.dart';
 
 class MapManager {
-  static Completer<GoogleMapController> controller = Completer();
+ 
 
   static Location location = Location();
   static late LocationData myLocation;

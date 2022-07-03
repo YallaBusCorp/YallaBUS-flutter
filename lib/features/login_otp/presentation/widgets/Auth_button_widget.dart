@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/widgets/unsuccessful_dialog.dart';
 import '../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../core/resources/constants_manager.dart';
 import '../../../../core/custom_widgets/error_dialog.dart';
@@ -53,15 +54,18 @@ class _AuthButtonState extends State<AuthButton> {
             ),
           );
         }
+        if (state is ThisIsNewStudentAccount) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.chooseCompany, (route) => false,
+              arguments: ConstantsManager.register);
+        }
         if (state is ThisIsStudentAccount) {
-          if (bloc.perfs.getInt(ConstantsManager.company) == null) {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                Routes.chooseCompany, (route) => false,
-                arguments: ConstantsManager.register);
-          } else {
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil(Routes.home, (route) => false);
-          }
+          Navigator.of(context).pop();
+
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            Routes.home,
+            (route) => false,
+          );
         }
         if (state is ThisIsDriverAccount) {
           Navigator.of(context).pushNamedAndRemoveUntil(
@@ -75,25 +79,21 @@ class _AuthButtonState extends State<AuthButton> {
               arguments: ScreenArguments(keyboard.number, widget.edit));
         }
 
-        // if (widget.type == StringManager.otp) {
-        //   if (widget.edit == ConstantsManager.edit) {
-        //     Navigator.of(context).pop();
-        //     Navigator.of(context).pop();
-        //     Navigator.of(context).pop();
-        //   }
-        // } else {}
         if (state is Error) {
           Navigator.of(context).pop();
           showDialog(
             context: context,
-            builder: (BuildContext context) => Dialog(
-              insetPadding: const EdgeInsets.all(25),
-              backgroundColor: Colors.transparent,
-              child: ErrorDialog(
-                message: 'Try again in another time!',
-                onTap: widget.onPressed,
-              ),
-            ),
+            builder: (BuildContext context) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.of(context).pop();
+              });
+              return Dialog(
+                backgroundColor: Colors.transparent,
+                child: InvalidDialog(
+                  message: state.message,
+                ),
+              );
+            },
           );
         }
       },

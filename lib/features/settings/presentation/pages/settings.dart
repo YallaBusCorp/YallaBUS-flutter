@@ -64,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
           children: [
             const Header(),
             const UserStatistics(),
-            const SizedBox(height: ValuesManager.v20),
+            const SizedBox(height: ValuesManager.v10),
             Options(),
           ],
         ),

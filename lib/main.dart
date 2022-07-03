@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 import 'dart:async';
+import 'dart:math';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,6 +33,7 @@ import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.
 import 'package:yalla_bus/features/onBoarding/pages/onboarding_base.dart';
 import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
 import 'features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
@@ -44,14 +48,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await sl.init();
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(backgroundNotification);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+          id: Random().nextInt(1000),
+          channelKey: 'basic_channel',
+          title: 'Your ride has just been started!',
+          body: 'Tab here to track your bus'),
+    );
+  });
   await Future.wait([
-    precachePicture(
-      ExactAssetPicture(
-        SvgPicture.svgStringDecoderOutsideViewBoxBuilder, // See UPDATE below!
-        AssetManager.successfulPurchase,
-      ),
-      null,
-    ),
     precachePicture(
       ExactAssetPicture(
         SvgPicture.svgStringDecoderOutsideViewBoxBuilder, // See UPDATE below!
@@ -60,7 +67,25 @@ void main() async {
       null,
     ),
   ]);
-
+  AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+          channelGroupKey: 'basic_channel_group',
+          channelKey: 'basic_channel',
+          channelName: 'Basic notifications',
+          importance: NotificationImportance.Max,
+          channelDescription: 'Notification channel for basic tests',
+          defaultColor: const Color(0xFF9D50DD),
+        )
+      ],
+      // Channel groups are only visual and are not required
+      channelGroups: [
+        NotificationChannelGroup(
+            channelGroupkey: 'basic_channel_group',
+            channelGroupName: 'Basic group')
+      ],
+      debug: true);
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
@@ -69,6 +94,16 @@ void main() async {
       path: 'assets/lang',
       fallbackLocale: const Locale('en', 'Uk'),
     ),
+  );
+}
+
+Future<void> backgroundNotification(RemoteMessage message) async {
+  AwesomeNotifications().createNotification(
+    content: NotificationContent(
+        id: Random().nextInt(1000),
+        channelKey: 'basic_channel',
+        title: 'Your ride has just been started!',
+        body: 'Tab here to track your bus'),
   );
 }
 
@@ -85,6 +120,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final SharedPreferences perfs = di<SharedPreferences>();
+
+  @override
+  void initState() {
+    FirebaseMessaging.instance.getToken().then((value) => print(value));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +160,10 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (builder) => di<CompleteprofileBloc>(),
           child: const CompleteProfile(),
+        ),
+        BlocProvider(
+          create: (builder) => di<SettingsBloc>(),
+          child: const GoodBye(),
         ),
         BlocProvider(
           create: (builder) => di<SettingsBloc>(),

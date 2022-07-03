@@ -2,6 +2,7 @@ import 'package:yalla_bus/features/home/domain/enitity/appoinment.dart';
 
 class RideHis {
   final int? id;
+  final String? qrCode;
   final PickUp? pick;
   final DropOff? drop;
   final Appoint? appoinment;
@@ -9,8 +10,8 @@ class RideHis {
   final Employee? emp;
   final TxRide txRide;
 
-  RideHis(this.id, this.pick, this.drop, this.appoinment, this.bus, this.emp,
-      this.txRide);
+  RideHis(this.id, this.qrCode, this.pick, this.drop, this.appoinment, this.bus,
+      this.emp, this.txRide);
 }
 
 class PickUp {
@@ -46,10 +47,11 @@ class Bus {
 
 class Employee {
   final int id;
+  final CompanyId company;
   final String empCode;
   final String empName;
 
-  Employee(this.id, this.empCode, this.empName);
+  Employee(this.id, this.company, this.empCode, this.empName);
 }
 
 class TxRide {
@@ -57,4 +59,10 @@ class TxRide {
   final String rideStatus;
 
   TxRide(this.id, this.rideStatus);
+}
+
+class CompanyId {
+  final int id;
+
+  CompanyId(this.id);
 }

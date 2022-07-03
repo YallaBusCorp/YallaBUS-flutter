@@ -30,10 +30,5 @@ class SendUniValueEvent extends CompleteprofileEvent {
   const SendUniValueEvent(this.value, this.university);
 }
 
-class GetStudentIDEvent extends CompleteprofileEvent {
-  final String uid;
-
-  const GetStudentIDEvent(this.uid);
-}
 
 class AddStdentUidToFireStoreEvent extends CompleteprofileEvent {}

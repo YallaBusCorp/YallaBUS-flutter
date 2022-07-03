@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
 import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
 import 'package:yalla_bus/core/extensions/extensions.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
+import 'package:yalla_bus/features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
 
 import '../../domain/entity/all_rides.dart';
 
@@ -16,10 +18,12 @@ class CurrentRides extends StatefulWidget {
 
 class _CurrentRidesState extends State<CurrentRides> {
   late String time;
+  late BusRideBloc bloc;
   @override
   void initState() {
     time = StringsExtensions.convertHourTo12HoursOnly(
         widget.bookings.first.appoinment.appointmentStartTime);
+    bloc = BlocProvider.of<BusRideBloc>(context);
     super.initState();
   }
 
@@ -74,6 +78,7 @@ class _CurrentRidesState extends State<CurrentRides> {
                 ),
                 ButtonWidget(
                   onPressed: () {
+                    bloc.add(SendNotificationEvent(widget.bookings[0].ride.id));
                     Navigator.of(context)
                         .pushNamed(Routes.busMap, arguments: widget.bookings);
                   },

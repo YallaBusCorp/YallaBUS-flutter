@@ -3,6 +3,7 @@ import 'package:yalla_bus/core/resources/debugger_manager.dart';
 import 'package:yalla_bus/features/home/data/model/map_json_converters.dart';
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/resources/endpoints_manager.dart';
+import '../../domain/enitity/reschedule_body.dart';
 import '../../domain/enitity/ride.dart';
 
 class MapApiClient {
@@ -75,7 +76,7 @@ class MapApiClient {
         ApiEndPoints.bookRide,
         data: data,
       );
-      return 200;
+      return response.data['id'];
     } on DioError catch (e) {
       throw ServerException();
     }
@@ -109,7 +110,37 @@ class MapApiClient {
       );
       print(response.data);
       return response.data;
-    } on DioError catch(e) {
+    } on DioError catch (e) {
+      print(e.message);
+      throw ServerException();
+    }
+  }
+
+  Future<dynamic> getStudentId(String uid) async {
+    try {
+      Response response =
+          await dio.get(ApiEndPoints.getStudentID, queryParameters: {
+        'stdUid': uid,
+      });
+      print(response.data);
+      print('++++++++++');
+      print(response.data['id']);
+      return response.data;
+    } on DioError catch (e) {
+      print(e.message);
+      throw ServerException();
+    }
+  }
+
+  Future<dynamic> rescheduleRide(Reschedule r) async {
+    final data =
+        RescheduleModel(r.id, r.qrCode, Appointments(r.appointments.id))
+            .toJson();
+    try {
+      Response response =
+          await dio.put(ApiEndPoints.rescheduleRide, data: data);
+      return response.data;
+    } on DioError catch (e) {
       print(e.message);
       throw ServerException();
     }

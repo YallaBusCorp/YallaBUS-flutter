@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/resources/asset_manager.dart';
+import '../../../../../core/resources/constants_manager.dart';
 import '../../../../../core/resources/routes_manager.dart';
 import '../../bloc/settings_bloc.dart';
 import 'complaint_body.dart';
@@ -20,10 +21,15 @@ class Complaints extends StatefulWidget {
 
 class _ComplaintsState extends State<Complaints> {
   late SettingsBloc bloc;
-
+  late Stream<QuerySnapshot> complaintStream;
   @override
   void initState() {
     bloc = BlocProvider.of<SettingsBloc>(context);
+    complaintStream = FirebaseFirestore.instance
+        .collection('company')
+        .doc(bloc.perfs.getString(ConstantsManager.companyName))
+        .collection('complaint')
+        .snapshots();
     super.initState();
   }
 
@@ -49,7 +55,7 @@ class _ComplaintsState extends State<Complaints> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: StreamBuilder<QuerySnapshot>(
-            stream: bloc.complaintStream,
+            stream: complaintStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 bloc.add(GetNewComplaintDataEvent(snapshot.data!.docs));

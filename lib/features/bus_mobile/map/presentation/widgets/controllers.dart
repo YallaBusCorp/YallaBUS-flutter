@@ -30,7 +30,7 @@ class _ControllersOfBusState extends State<ControllersOfBus> {
   Widget build(BuildContext context) {
     return Positioned(
       bottom: MediaQuery.of(context).size.height - 180,
-      right: MediaQuery.of(context).size.width - ValuesManager.v350,
+      right: 12,
       child: Container(
         width: ValuesManager.v50,
         height: ValuesManager.v100,
@@ -59,22 +59,22 @@ class _ControllersOfBusState extends State<ControllersOfBus> {
               IconButton(
                 onPressed: () {
                   showDialog(
-                    context: context,
-                    builder: (_) {
-                      return Dialog(
-                        insetPadding: const EdgeInsets.all(16),
-                        backgroundColor: Colors.transparent,
-                        child: YesNoDialog(
-                            message: 'Are you sure you want to finish this ride?',
-                            labelTap1: 'Yes',
-                            labelTap2: 'No',
-                            onTap: () {
-                              map.add(const FinishRideEvent());
-                              Navigator.of(context).pop();
-                            }),
-                      );
-                    });
-                  
+                      context: context,
+                      builder: (_) {
+                        return Dialog(
+                          insetPadding: const EdgeInsets.all(16),
+                          backgroundColor: Colors.transparent,
+                          child: YesNoDialog(
+                              message:
+                                  'Are you sure you want to finish this ride?',
+                              labelTap1: 'Yes',
+                              labelTap2: 'No',
+                              onTap: () {
+                                map.add(const FinishRideEvent());
+                                Navigator.of(context).pop();
+                              }),
+                        );
+                      });
                 },
                 icon: Icon(
                   Icons.pause,

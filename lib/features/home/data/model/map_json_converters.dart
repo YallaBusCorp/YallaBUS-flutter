@@ -1,9 +1,13 @@
 import 'package:yalla_bus/features/home/domain/enitity/ride.dart';
+import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 
 import '../../../choose_company/domain/enitity/company.dart';
+import '../../../settings/data/model/settings_model_converters.dart';
 import '../../domain/enitity/appoinment.dart';
 
 import '../../domain/enitity/map_point.dart';
+import '../../domain/enitity/reschedule_body.dart';
+import '../../domain/enitity/returned_ride.dart';
 
 class AppointmentModel extends Appoinment {
   AppointmentModel({
@@ -80,7 +84,7 @@ class RideModel extends Ride {
     data['pickupPoint'] = PickUpPointModel(pickupPoint.id).toJson();
     data['dropoffPoint'] = DropOffPointModel(dropOffPoint.id).toJson();
     data['appointment'] = AppointmentsModel(appointment.id).toJson();
-    data['std'] = StudentIdModel(std.id).toJson();
+    data['std'] = StudentIdModel(std.id, std.name).toJson();
     return data;
   }
 }
@@ -122,13 +126,57 @@ class AppointmentsModel extends Appointments {
 }
 
 class StudentIdModel extends StudentID {
-  StudentIdModel(int id) : super(id);
+  StudentIdModel(int id, String name) : super(id, name);
   factory StudentIdModel.fromJson(Map<String, dynamic> json) {
-    return StudentIdModel(json['id']);
+    return StudentIdModel(json['id'], json['stdName']);
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['stdName'] = name;
     return data;
+  }
+}
+
+class RescheduleModel extends Reschedule {
+  RescheduleModel(int id, String qrCode, Appointments appointments)
+      : super(id, qrCode, appointments);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['qrCode'] = qrCode;
+    data['appointment'] = AppointmentsModel(appointments.id).toJson();
+    return data;
+  }
+}
+
+class ReturenedRideModel extends ReturenedRide {
+  ReturenedRideModel(
+      int? id, String? status, Appoint? appoinment, Bus? bus, Employee? emp)
+      : super(id, status, appoinment, bus, emp);
+
+  factory ReturenedRideModel.fromJson(Map<String, dynamic> json) {
+    return ReturenedRideModel(
+      json['id'] ?? -1,
+      json['rideStatus'] ?? 'pending',
+      AppointModel.fromJson(json['appointment'] ??
+          {'appointmentStartTime': '05:52:00', 'appointmentType': 'AM'}),
+      BusModel.fromJson(json['bus'] ??
+          {
+            'id': 1,
+            'busUid': "8888",
+            'phone': "01010101010101",
+            'busLicenceNumber': '1 9 2 | ح ب ي ',
+          }),
+      EmployeeModel.fromJson(json['emp'] ??
+          {
+            'id': 1,
+            'company' : {
+              'id' : 1,
+            },
+            'empName': 'TTTTTTTT',
+            'empCode': '6735',
+          }),
+    );
   }
 }

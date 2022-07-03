@@ -50,7 +50,7 @@ class _BusMapState extends State<BusMap> with WidgetsBindingObserver {
       };
       await FirebaseFirestore.instance
           .collection('company')
-          .doc('serkes')
+          .doc(bloc.perfs.getString(ConstantsManager.companyName))
           .collection('ride')
           .doc(bloc.perfs.getInt(ConstantsManager.rideID).toString())
           .set(data, SetOptions(merge: true));

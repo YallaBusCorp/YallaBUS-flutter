@@ -32,7 +32,6 @@ class _BusRidesState extends State<BusRides> {
   void initState() {
     bloc = BlocProvider.of<BusRideBloc>(context);
     bloc.add(CheckIfThereIsCurrentRideOrNotEvent());
-
     super.initState();
   }
 

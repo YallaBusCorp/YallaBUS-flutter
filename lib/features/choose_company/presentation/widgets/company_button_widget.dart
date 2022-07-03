@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yalla_bus/core/extensions/extensions.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../bloc/company_selection_bloc.dart';
 
@@ -28,6 +29,8 @@ class CompanyButton extends StatelessWidget {
             onPressed: bloc.isSelected.contains(true)
                 ? () {
                     prefs.setInt(ConstantsManager.company, bloc.companyId);
+                    perfs.setString(
+                        ConstantsManager.companyName, bloc.companyName);
                     bloc.add(ConfirmationOfCompanySelectEvent());
                     if (edit == ConstantsManager.edit) {
                       Navigator.of(context).pop();

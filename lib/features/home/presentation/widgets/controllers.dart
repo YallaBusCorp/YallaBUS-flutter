@@ -2,14 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:google_map_polyline_new/google_map_polyline_new.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yalla_bus/core/resources/map_manager.dart';
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/constants_manager.dart';
 import '../../../../core/resources/routes_manager.dart';
-import '../../../sign_up/domain/use_case/get_student_id.dart';
+import '../../domain/use_case/get_student_id.dart';
 import '../bloc/map/map_bloc.dart';
 
 import '../../../../core/custom_widgets/separtor_widget.dart';
@@ -26,11 +24,9 @@ class Controllers extends StatefulWidget {
 
 class _ControllersState extends State<Controllers> {
   late MapBloc map;
-  late GoogleMapPolyline googleMapPolyline;
   @override
   void initState() {
     map = BlocProvider.of<MapBloc>(context);
-    googleMapPolyline = GoogleMapPolyline(apiKey: ConstantsManager.mapToken);
     super.initState();
   }
 
@@ -38,7 +34,7 @@ class _ControllersState extends State<Controllers> {
   Widget build(BuildContext context) {
     return Positioned(
       bottom: MediaQuery.of(context).size.height - 180,
-      right: MediaQuery.of(context).size.width - ValuesManager.v350,
+      right: 12,
       child: Container(
         width: ValuesManager.v50,
         height: ValuesManager.v100,
@@ -66,14 +62,14 @@ class _ControllersState extends State<Controllers> {
               ),
               IconButton(
                 onPressed: () async {
-                  // map.add(GetMyLocation());
+                  map.add(GetMyLocation());
 
-                  int i = 1;
-                  Timer.periodic(const Duration(seconds: 2), (timer) {
-                    map.add(RefreshBusCoordinateEvent(
-                        MapManager.list[i], MapManager.list[i - 1], context));
-                    i++;
-                  });
+                  // int i = 1;
+                  // Timer.periodic(const Duration(seconds: 2), (timer) {
+                  //   map.add(RefreshBusCoordinateEvent(
+                  //       MapManager.list[i], MapManager.list[i - 1], context));
+                  //   i++;
+                  // });
                 },
                 icon: Icon(
                   Icons.gps_fixed,

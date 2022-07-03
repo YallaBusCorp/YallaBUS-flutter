@@ -29,7 +29,7 @@ class _ComplaintResponseState extends State<ComplaintResponse> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Complaint Content',
+          'Complaint',
           style: Theme.of(context).textTheme.headline5,
         ),
       ),
@@ -59,6 +59,11 @@ class _ComplaintResponseState extends State<ComplaintResponse> {
                     alignment: Alignment.centerRight,
                     child: Text(
                       bloc.docData[widget.index]['message'],
+                      textDirection: RegExp(r'^[A-Za-z0-9_.]+$').hasMatch(bloc
+                              .docData[widget.index]['message']
+                              .toString()[0])
+                          ? TextDirection.ltr
+                          : TextDirection.rtl,
                       style: Theme.of(context).textTheme.headline6,
                     ),
                   ),

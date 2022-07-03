@@ -23,7 +23,6 @@ class Header extends StatelessWidget {
           width: ValuesManager.v110,
           height: ValuesManager.v110,
           decoration: BoxDecoration(
-
             borderRadius: BorderRadius.circular(ValuesManager.v100),
           ),
           child: Lottie.asset(
@@ -40,16 +39,17 @@ class Header extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(
-                    text: perfs.getString(ConstantsManager.firstName)! +
-                      
-                        perfs.getString(ConstantsManager.secondName)!,
+                    text: perfs.getString(ConstantsManager.userName) ??
+                        perfs.getString(ConstantsManager.firstName)! +
+                            ' ' +
+                            perfs.getString(ConstantsManager.secondName)!,
                     style: Theme.of(context).textTheme.headline5!),
                 const SizedBox(
                   height: ValuesManager.v5,
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed(Routes.editProfile);
+                    // Navigator.of(context).pushNamed(Routes.editProfile);
                   },
                   child: TextWidget(
                     text: 'Edit Profile',

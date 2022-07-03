@@ -62,7 +62,7 @@ class CompleteProfileApiClient {
   }
 
   Future<int> getStudentId(String uid) async {
-    print(uid);
+
     try {
       Response response =
           await dio.get(ApiEndPoints.getStudentID, queryParameters: {

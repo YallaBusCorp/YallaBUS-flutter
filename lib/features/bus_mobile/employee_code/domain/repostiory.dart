@@ -38,4 +38,17 @@ class EmployeeCodeRepository {
       return Left(Failure("You don't have access to internet!"));
     }
   }
+
+  Future<Either<Failure, String>> getCompanyName(int id) async {
+    if (await info.isConnected()) {
+      try {
+        final result = await client.getCompanyName(id);
+        return Right(result);
+      } on ServerException {
+        return Left(Failure('Try Again in another time'));
+      }
+    } else {
+      return Left(Failure("You don't have access to internet!"));
+    }
+  }
 }

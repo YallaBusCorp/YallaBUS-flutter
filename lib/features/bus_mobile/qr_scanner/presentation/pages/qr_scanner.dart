@@ -62,7 +62,7 @@ class _QRScannerState extends State<BusQRScanner> {
                   });
                   return Dialog(
                     backgroundColor: Colors.transparent,
-                    child: InvalidQrDialog(
+                    child: InvalidDialog(
                       message: state.status,
                     ),
                   );

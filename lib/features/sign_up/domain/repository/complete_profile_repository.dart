@@ -10,5 +10,5 @@ abstract class CompleteProfileRepository {
       int companyId);
   Future<Either<Failure, List<Town>>> getRemoteTowns(int companyId);
   Future<Either<Failure, int>> postStudentInfo(Student student);
-    Future<Either<Failure, int>> getStudentID(String uid);
+   
 }

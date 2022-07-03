@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
 
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../../core/custom_widgets/separtor_widget.dart';
+import '../../../../../core/custom_widgets/yes_no_dialog.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
+import '../../../../../core/resources/routes_manager.dart';
+import '../bloc/bus_ride_bloc.dart';
 
-class BusSettings extends StatelessWidget {
+class BusSettings extends StatefulWidget {
   const BusSettings({Key? key}) : super(key: key);
+
+  @override
+  State<BusSettings> createState() => _BusSettingsState();
+}
+
+class _BusSettingsState extends State<BusSettings> {
+  late BusRideBloc bloc;
+  @override
+  void initState() {
+    bloc = BlocProvider.of<BusRideBloc>(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +73,24 @@ class BusSettings extends StatelessWidget {
                 ],
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) => Dialog(
+                      insetPadding: const EdgeInsets.all(25),
+                      backgroundColor: Colors.transparent,
+                      child: YesNoDialog(
+                          message: 'Are you sure you want to sign out ?',
+                          onTap: () {
+                            bloc.add(SignOutEvent());
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                Routes.loginOtp, (route) => false,
+                                arguments: ConstantsManager.register);
+                          }),
+                    ),
+                  );
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Row(

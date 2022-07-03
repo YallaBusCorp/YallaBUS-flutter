@@ -2,10 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/features/home/domain/enitity/reschedule_body.dart';
+import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../../domain/enitity/returned_ride.dart';
+import '../../domain/enitity/ride.dart';
 import '../bloc/map/map_bloc.dart';
 import 'bus_times.dart';
 
@@ -46,6 +51,16 @@ class _BookRideScreenState extends State<BookRideScreen> {
                   alignment: Alignment.topRight,
                   child: TextButton(
                     onPressed: () {
+                      if (bloc.rideVisible) {
+                        String newCode = StringsExtensions.generateQR(
+                            bloc.timeOfSelectedRides);
+                        bloc.add(RescheduleRideEvent(Reschedule(
+                            perfs.getInt(ConstantsManager.bookingID)!,
+                            newCode,
+                            Appointments(bloc
+                                    .amTimeAndID[bloc.timeOfSelectedRides] ??
+                                bloc.pmTimeAndID[bloc.timeOfSelectedRides]!))));
+                      }
                       Navigator.of(context).pop();
                     },
                     child: TextWidget(

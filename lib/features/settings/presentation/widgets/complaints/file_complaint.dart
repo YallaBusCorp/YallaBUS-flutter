@@ -33,80 +33,80 @@ class _FileComplaintState extends State<FileComplaint> {
         title: Text('File a complaint',
             style: Theme.of(context).textTheme.headline5),
       ),
-      body: 
-           Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextWidget(
-                    text: 'Please tell us what happened in detail.',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontSize: 18)),
-                const SizedBox(
-                  height: 10,
-                ),
-                TxtField(controller: bloc.controller),
-                const Spacer(),
-                TextWidget(
-                    text:
-                        "We are very sorry that you've faced some issues please be assured we are working very hard to make your experience as smooth as possible",
-                    style: Theme.of(context).textTheme.caption!),
-                const SizedBox(
-                  height: 10,
-                ),
-                BlocConsumer<SettingsBloc, SettingsState>(
-                  listener: (context, state) {
-                    if (state is PostComplaintSuccess) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => const Dialog(
-                          backgroundColor: Colors.transparent,
-                          child: SuccessDialog(
-                            message: 'You have sent your complaint!',
-                          ),
-                        ),
-                      );
-                      Future.delayed(Duration(seconds: 2), () {
-                        Navigator.of(context).pop();
-                      });
-                    }
-                    if (state is PostComplaintError) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => Dialog(
-                          backgroundColor: Colors.transparent,
-                          child: ErrorDialog(
-                            message: 'Try again in another time',
-                            onTap: () {},
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                  builder: (context, state) {
-                    return Align(
-                      alignment: Alignment.center,
-                      child: ButtonWidget(
-                        onPressed: bloc.value.isNotEmpty
-                            ? () {
-                                bloc.add(
-                                    PostComplaintEvent(bloc.controller.text));
-                              }
-                            : null,
-                        child: Text(
-                          'Submit Complaint',
-                          style: Theme.of(context).textTheme.headline6,
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextWidget(
+                text: 'Please tell us what happened in detail.',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(fontSize: 18)),
+            const SizedBox(
+              height: 10,
+            ),
+            TxtField(controller: bloc.controller),
+            const Spacer(),
+            TextWidget(
+                text:
+                    "We are very sorry that you've faced some issues please be assured we are working very hard to make your experience as smooth as possible",
+                style: Theme.of(context).textTheme.caption!),
+            const SizedBox(
+              height: 10,
+            ),
+            BlocConsumer<SettingsBloc, SettingsState>(
+              listener: (context, state) {
+                if (state is PostComplaintSuccess) {
+                  Future.delayed(const Duration(seconds: 2), () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => const Dialog(
+                        backgroundColor: Colors.transparent,
+                        child: SuccessDialog(
+                          message: 'You have sent your complaint!',
                         ),
                       ),
                     );
-                  },
-                ),
-              ],
+                    Navigator.of(context).pop();
+                  });
+                }
+                if (state is PostComplaintError) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => Dialog(
+                      backgroundColor: Colors.transparent,
+                      child: ErrorDialog(
+                        message: 'Try again in another time',
+                        onTap: () {},
+                      ),
+                    ),
+                  );
+                }
+              },
+              builder: (context, state) {
+                return Align(
+                  alignment: Alignment.center,
+                  child: ButtonWidget(
+                    onPressed: bloc.value.isNotEmpty
+                        ? () {
+                            bloc.add(PostComplaintEvent(bloc.controller.text));
+                          }
+                        : null,
+                    child: Text(
+                      'Submit Complaint',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                );
+              },
             ),
-          ),
+          ],
+        ),
+      ),
     );
   }
 }

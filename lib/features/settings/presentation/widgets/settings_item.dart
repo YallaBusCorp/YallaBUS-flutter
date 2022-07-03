@@ -26,8 +26,8 @@ class ToScreen extends StatelessWidget {
           case 1:
             Navigator.of(context).pushNamed(Routes.subscriptionDetails);
             break;
-          case 2 : 
-             Navigator.of(context).pushNamed(Routes.faqs);
+          case 2:
+            Navigator.of(context).pushNamed(Routes.faqs);
             break;
           case 4:
             showModalBottomSheet(
@@ -58,7 +58,7 @@ class ToScreen extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline5!
-                .copyWith(fontSize: ValuesManager.v20),
+                .copyWith(fontSize: ValuesManager.v18),
           ),
           const Spacer(),
           Icon(Icons.arrow_circle_right_outlined,

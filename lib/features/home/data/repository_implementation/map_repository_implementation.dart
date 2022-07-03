@@ -1,3 +1,4 @@
+import 'package:yalla_bus/features/home/domain/enitity/reschedule_body.dart';
 import 'package:yalla_bus/features/settings/data/model/settings_model_converters.dart';
 import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 
@@ -5,6 +6,7 @@ import '../../../../core/exceptions/exception.dart';
 import '../../../../core/network/network_info.dart';
 import 'package:dartz/dartz.dart';
 import '../../../../core/states/state.dart';
+import '../../domain/enitity/returned_ride.dart';
 import '../../domain/enitity/ride.dart';
 import '../model/map_json_converters.dart';
 import '../../domain/enitity/appoinment.dart';
@@ -87,11 +89,10 @@ class MapRepositoryImplementation extends MapRepository {
   }
 
   @override
-  Future<Either<Failure, Success>> bookRide(Ride ride) async {
+  Future<Either<Failure, int>> bookRide(Ride ride) async {
     if (await info.isConnected()) {
       try {
-        await client.bookRide(ride);
-        return Right(Success());
+        return Right(await client.bookRide(ride));
       } on ServerException {
         return Left(Failure('Try Again in another time'));
       }
@@ -101,14 +102,14 @@ class MapRepositoryImplementation extends MapRepository {
   }
 
   @override
-  Future<Either<Failure, RideHis>> getCurrentRide(String uid) async {
+  Future<Either<Failure, ReturenedRide>> getCurrentRide(String uid) async {
     if (await info.isConnected()) {
       try {
         final result = await client.getCurrentRideByUID(uid);
         if (result == 500) {
-          return Right(RideHisModel.fromJson({}));
+          return Right(ReturenedRideModel.fromJson({}));
         } else {
-          return Right(RideHisModel.fromJson(result));
+          return Right(ReturenedRideModel.fromJson(result));
         }
       } on ServerException {
         return Left(Failure('Try Again in another time'));
@@ -124,6 +125,34 @@ class MapRepositoryImplementation extends MapRepository {
       try {
         final result = await client.cancelRide(bookingID);
         return Right(result);
+      } on ServerException {
+        return Left(Failure('Try Again in another time'));
+      }
+    } else {
+      return Left(Failure("You don't have access to internet!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, StudentID>> getStudentID(String uid) async {
+    if (await info.isConnected()) {
+      try {
+        final data = await client.getStudentId(uid);
+        return Right(StudentIdModel.fromJson(data));
+      } on ServerException {
+        return Left(Failure('Try Again in another time'));
+      }
+    } else {
+      return Left(Failure("You don't have access to internet!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RideHis>> rescheduleRide(Reschedule r) async {
+    if (await info.isConnected()) {
+      try {
+        final data = await client.rescheduleRide(r);
+        return Right(RideHisModel.fromJson(data));
       } on ServerException {
         return Left(Failure('Try Again in another time'));
       }

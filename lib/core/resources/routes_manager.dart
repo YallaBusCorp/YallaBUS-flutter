@@ -6,8 +6,6 @@ import 'package:yalla_bus/features/bus_mobile/rides/presentation/pages/bus_rides
 import 'package:yalla_bus/features/settings/presentation/widgets/faqs/fags.dart';
 import '../../features/bus_mobile/rides/domain/entity/all_rides.dart';
 import '../../features/login_otp/presentation/pages/verify.dart';
-import '../../features/payment/presentation/pages/add_payment.dart';
-import '../../features/payment/presentation/pages/success_payment.dart';
 import '../../features/settings/presentation/pages/settings.dart';
 import '../../features/settings/presentation/widgets/complaints/complaint_response.dart';
 import '../../features/settings/presentation/widgets/complaints/complaints.dart';
@@ -28,8 +26,6 @@ class Routes {
   static const String loginOtp = '/login';
   static const String verifyOtp = '/verifyOtp';
   static const String completeProfile = '/completeProfile';
-  static const String addPayment = '/addPayment';
-  static const String successfulPayment = '/successfulPayment';
   static const String settings = '/settings';
   static const String goodBye = '/goodBye';
   static const String complaints = '/complaints';
@@ -66,10 +62,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const Home());
       case Routes.completeProfile:
         return MaterialPageRoute(builder: (_) => const CompleteProfile());
-      case Routes.addPayment:
-        return MaterialPageRoute(builder: (_) => const PaymentScreen());
-      case Routes.successfulPayment:
-        return MaterialPageRoute(builder: (_) => const SuccessPayment());
       case Routes.settings:
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
       case Routes.complaints:

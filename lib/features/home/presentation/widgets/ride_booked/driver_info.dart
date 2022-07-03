@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yalla_bus/features/home/domain/enitity/returned_ride.dart';
 import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
 import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../../core/custom_widgets/text_widget.dart';
 
 class DriverInfo extends StatefulWidget {
-  final RideHis ride;
+  final ReturenedRide ride;
   const DriverInfo({Key? key, required this.ride}) : super(key: key);
 
   @override

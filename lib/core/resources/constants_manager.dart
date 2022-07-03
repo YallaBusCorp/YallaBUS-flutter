@@ -13,6 +13,7 @@ class ConstantsManager {
   static const String success = 'Success';
   static const String error = 'Error';
   static const String company = 'Company';
+  static const String userName = 'UserName';
   static const String uid = 'Uid';
   static const String stdId = 'id';
   static const String number = 'Number';
@@ -35,6 +36,12 @@ class ConstantsManager {
   static const String employeeCode = 'EmployeeCode';
   static const String driver = 'Driver';
   static const String student = 'Student';
+  static const String companyName = 'CompanyName';
+  static const String bookingID = 'bookingID';
+  static const String pickUpSelectedPositionLat = 'PickUpSelectedLat';
+  static const String pickUpSelectedPositionLong = 'PickUpSelectedLong';
+  static const String dropOffSelectedPositionLat = 'DropOffSelectedLat';
+  static const String dropOffSelectedPositionLong = 'DropOffSelectedLong';
 
   static const String mapToken = 'AIzaSyDhhzroxfeueYbsPwObnCwde_9LvNXsdPE';
 }

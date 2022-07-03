@@ -29,6 +29,18 @@ class EmployeeApiClient {
     }
   }
 
+  Future<dynamic> getCompanyName(int id) async {
+    try {
+      Response response =
+          await dio.get(ApiEndPoints.companyId, queryParameters: {
+        'id': id,
+      });
+      return response.data['companyName'];
+    } on DioError {
+      throw ServerException();
+    }
+  }
+
   Future<int> saveTxRide(int empId, int busId) async {
     final data = {
       'emp': {

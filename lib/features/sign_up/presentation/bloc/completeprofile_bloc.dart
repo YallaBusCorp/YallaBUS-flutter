@@ -2,10 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
 import '../../domain/enitity/student.dart';
 import '../../domain/use_case/get_all_universities.dart';
-import '../../domain/use_case/get_student_id.dart';
+import '../../../home/domain/use_case/get_student_id.dart';
 import '../../domain/use_case/post_student_information.dart';
 
 import '../../../../core/injection/di.dart';
@@ -86,15 +85,11 @@ class CompleteprofileBloc
       });
     });
 
-    on<GetStudentIDEvent>((event, emit) async {
-      (await stdId.getStudentId(event.uid)).fold((l) {}, (r) {
-        perfs.setInt(ConstantsManager.stdId, r);
-      });
-    });
-
     on<AddStdentUidToFireStoreEvent>((event, emit) {
       final data = {
         'UID': perfs.getString(ConstantsManager.uid)!,
+        'CompanyID': perfs.getInt(ConstantsManager.company),
+        'CompanyName': perfs.getString(ConstantsManager.companyName),
         'role': 'Student',
       };
       FirebaseFirestore.instance

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:yalla_bus/core/resources/constants_manager.dart';
+import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
 import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../core/custom_widgets/success_dialog.dart';
@@ -23,14 +25,17 @@ class GoodBye extends StatefulWidget {
 }
 
 class _GoodByeState extends State<GoodBye> {
+  late SettingsBloc bloc;
   @override
-  void didChangeDependencies() {
+  void initState() {
+    bloc = BlocProvider.of<SettingsBloc>(context);
     Future.delayed(const Duration(seconds: 3), () {
+      bloc.add(SignOutEvent());
       Navigator.of(context).pushNamedAndRemoveUntil(
           Routes.loginOtp, (route) => false,
           arguments: ConstantsManager.register);
     });
-    super.didChangeDependencies();
+    super.initState();
   }
 
   @override

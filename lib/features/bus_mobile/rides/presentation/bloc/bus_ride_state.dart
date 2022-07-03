@@ -20,3 +20,11 @@ class Error extends BusRideState {
 
   const Error(this.message);
 }
+
+class SignOutSuccess extends BusRideState {}
+
+class SignOutError extends BusRideState {
+  final String message;
+
+  const SignOutError(this.message);
+}
