@@ -42,12 +42,16 @@ class _ComplaintBodyState extends State<ComplaintBody> {
             children: [
               Row(
                 children: [
-                  CircleAvatar(
-                    backgroundColor:
-                        bloc.docData[widget.index]['response'] == null
-                            ? ColorsManager.offRed
-                            : ColorsManager.green,
-                    radius: 10,
+                  BlocBuilder<SettingsBloc, SettingsState>(
+                    builder: (context, state) {
+                      return CircleAvatar(
+                        backgroundColor:
+                            bloc.docData[widget.index]['response'] == null
+                                ? ColorsManager.offRed
+                                : ColorsManager.green,
+                        radius: 10,
+                      );
+                    },
                   ),
                   const SizedBox(
                     width: 10,

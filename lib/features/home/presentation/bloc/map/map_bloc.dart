@@ -49,8 +49,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   bool departAndFromToVisible = false;
   bool rideVisible = false;
   double distanceOfRide = 0.0;
-  double actualDistance = 0.0;
-
   String timeOfSelectedRides = StringManager.timeOfSelectedRides;
   Set<Marker> markersOfBus = {};
   SharedPreferences perfs = di<SharedPreferences>();
@@ -318,7 +316,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         distanceOfRide =
             RouteDistanceExtensions.calculateDistanceFromPickToDrop(
                 pickUpSelectedPosition, dropOffSelectedPosition);
-        actualDistance = distanceOfRide;
+        perfs.setDouble(ConstantsManager.distance, distanceOfRide);
         emit(BookRideSuccess());
       });
     });
@@ -361,11 +359,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       con.animateCamera(update);
       if (markersOfBus.isNotEmpty) {
         distanceOfRide = RouteDistanceExtensions.reduceDistance(
-          LatLng(event.point.latitude, event.point.longitude),
-          pickUpSelectedPosition,
-          dropOffSelectedPosition,
-          actualDistance,
-        );
+            LatLng(event.point.latitude, event.point.longitude),
+            pickUpSelectedPosition,
+            dropOffSelectedPosition,
+            distanceOfRide);
       }
 
       emit(ChangeMarkersOfBus(kGooglePlex));
@@ -375,31 +372,49 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       emit(Loading());
       (await currentRide.getCurrentRideByUID(event.uid)).fold((l) {
         emit(StudentCurrentRideError(l.message));
+        departAndFromToVisible = true;
+        rideVisible = false;
       }, (r) {
         if (r.id == -1) {
           departAndFromToVisible = true;
           rideVisible = false;
           emit(const StudentNotInCurrentRide());
         } else {
-          pickUpSelectedPosition = LatLng(
-              perfs.getDouble(ConstantsManager.pickUpSelectedPositionLat)!,
-              perfs.getDouble(ConstantsManager.pickUpSelectedPositionLong)!);
-          dropOffSelectedPosition = LatLng(
-              perfs.getDouble(ConstantsManager.dropOffSelectedPositionLat)!,
-              perfs.getDouble(ConstantsManager.dropOffSelectedPositionLong)!);
-          add(ShowBothPickUpAndDropOffMarkersEvent(event.context));
-          rideVisible = true;
-          departAndFromToVisible = false;
+          pickUpSelectedPosition = LatLng(r.pick!.latitude, r.pick!.longitude);
+          dropOffSelectedPosition = LatLng(r.drop!.latitude, r.drop!.longitude);
           if (markersOfBus.isEmpty) {
             distanceOfRide =
                 RouteDistanceExtensions.calculateDistanceFromPickToDrop(
                     pickUpSelectedPosition, dropOffSelectedPosition);
           }
-          if (r.status == 'process') {
-            perfs.setString(ConstantsManager.rideID, r.id.toString());
-            FirebaseMessaging.instance.subscribeToTopic('${r.id}');
+          rideVisible = true;
+          departAndFromToVisible = false;
+          add(ShowBothPickUpAndDropOffMarkersEvent(event.context));
+          if (r.txRide!.rideStatus == 'process') {
+            perfs.setString(ConstantsManager.rideID, r.txRide!.id.toString());
+            FirebaseMessaging.instance.subscribeToTopic("${r.txRide!.id}");
+            emit(StudentInCurrentRide(r));
+          } else if (r.txRide!.rideStatus == 'complete') {
+            rideVisible = false;
+            departAndFromToVisible = true;
+            Marker pick1 = MapManager.markers
+                .firstWhere((element) => element.markerId.value == '3',
+                    orElse: () => const Marker(
+                          markerId: MarkerId('3553'),
+                        ));
+            Marker drop1 = MapManager.markers
+                .firstWhere((element) => element.markerId.value == '4',
+                    orElse: () => const Marker(
+                          markerId: MarkerId('3553'),
+                        ));
+            MapManager.removeMarker(m: pick1, marker: MapManager.markers);
+            MapManager.removeMarker(m: drop1, marker: MapManager.markers);
+            markersOfBus.clear();
+            emit(StudentRideComplete());
+            add(FormToPreparationEvent());
+          } else {
+            emit(StudentInCurrentRide(r));
           }
-          emit(StudentInCurrentRide(r));
         }
       });
     });
@@ -432,9 +447,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               orElse: () => const Marker(
                     markerId: MarkerId('3553'),
                   ));
-      if (distanceOfRide < actualDistance) {
+      if (distanceOfRide < perfs.getDouble(ConstantsManager.distance)!) {
         MapManager.removeMarker(m: pick1, marker: MapManager.pickUpMarkers);
-      } else if (distanceOfRide > actualDistance) {
+      } else if (distanceOfRide > perfs.getDouble(ConstantsManager.distance)!) {
         MapManager.removeMarker(m: drop1, marker: MapManager.dropOffMarkers);
       }
       emit(MarkersRemoved());

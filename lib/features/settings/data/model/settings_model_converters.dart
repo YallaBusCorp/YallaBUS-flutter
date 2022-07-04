@@ -42,7 +42,7 @@ class RideHisModel extends RideHis {
         TxRideModel.fromJson(json['txRide'] ??
             {
               'id': 1,
-              'rideStatus': 'complete',
+              'rideStatus': 'pending',
             }));
   }
   Map<String, dynamic> toJson() {
@@ -57,7 +57,7 @@ class RideHisModel extends RideHis {
         AppointModel(appoinment!.date, appoinment!.amOrPm).toJson();
     data['bus'] =
         BusModel(bus!.id, bus!.busUid, bus!.phone, bus!.busLicenceNumber);
-    data['txRide'] = TxRideModel(txRide.id, txRide.rideStatus);
+    data['txRide'] = TxRideModel(txRide!.id, txRide!.rideStatus);
     return data;
   }
 }

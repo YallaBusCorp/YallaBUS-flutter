@@ -45,10 +45,14 @@ class _RidesHistoryState extends State<RidesHistory>
           style: Theme.of(context).textTheme.headline5,
         ),
         bottom: TabBar(
-          labelColor: ColorsManager.orange,
-          unselectedLabelColor: Colors.grey,
-          unselectedLabelStyle:
-              Theme.of(context).textTheme.headline5!.copyWith(fontSize: 18),
+          labelStyle: Theme.of(context)
+              .textTheme
+              .headline5!
+              .copyWith(fontSize: 18, color: ColorsManager.orange),
+          unselectedLabelStyle: Theme.of(context)
+              .textTheme
+              .headline5!
+              .copyWith(fontSize: 18, color: Colors.grey),
           indicatorColor: ColorsManager.orange,
           controller: controller,
           tabs: [

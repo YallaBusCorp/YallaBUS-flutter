@@ -23,8 +23,8 @@ class _HomeState extends State<Home> {
     bloc = BlocProvider.of<MapBloc>(context);
     bloc.add(GetCurrentRideByUIDEvent(
         bloc.perfs.getString(ConstantsManager.uid)!, context));
-     bloc.add(GetStudentIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
-     bloc.add(FormToPreparationEvent());
+    bloc.add(GetStudentIDEvent(bloc.perfs.getString(ConstantsManager.uid)!));
+    bloc.add(FormToPreparationEvent());
     // MapManager.location.onLocationChanged.listen((newLocation) {
     //   bloc.add(RefreshMyLocationChanagesEvent(newLocation));
     // });

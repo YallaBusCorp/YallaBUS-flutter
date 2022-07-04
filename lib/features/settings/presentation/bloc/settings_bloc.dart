@@ -37,7 +37,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     print(change.nextState);
   }
 
-  final TextEditingController controller = TextEditingController();
   CompanySelectionBloc companyName = di<CompanySelectionBloc>();
   GetAllUniversities university;
   GetAllTowns town;
@@ -139,7 +138,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     });
 
     on<RefershMessageEvent>((event, emit) {
-      value = controller.text;
+      value = event.value;
       emit(RefershMessage(value));
     });
 
@@ -171,7 +170,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       emit(Loading());
       (await nonScannedRides.getNonScannedRides(event.id)).fold((l) {
         l.map((e) {
-          if (e.txRide.rideStatus != 'pending') {
+          if (e.txRide!.rideStatus != 'pending') {
             nonScannedList.add(e);
           }
         });

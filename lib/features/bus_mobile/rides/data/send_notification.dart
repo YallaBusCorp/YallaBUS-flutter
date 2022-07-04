@@ -16,7 +16,7 @@ class SendNotificationApiClient {
      }
     ));
   }
-  Future<void> sendNotification(int rideId) async {
+  Future<void> sendNotification(String rideId) async {
     final data =  <String, dynamic>{
        'notification': <String, dynamic>{
          'body': 'this is a body',
@@ -26,7 +26,7 @@ class SendNotificationApiClient {
        'data': <String, dynamic>{
          'click_action': 'FLUTTER_NOTIFICATION_CLICK',
        },
-       'to': 'topics/$rideId',
+       'to': 'topics/rideId',
      };
     try {
       Response response =

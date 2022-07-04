@@ -38,6 +38,8 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         .collection('ride')
         .doc(bloc.perfs.getString(ConstantsManager.rideID) ?? 'h')
         .snapshots();
+    print(bloc.perfs.getString(ConstantsManager.companyName));
+    print(bloc.perfs.getString(ConstantsManager.rideID) ?? 'h');
     super.initState();
   }
 
@@ -49,6 +51,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
+    
       final GoogleMapController controller = await bloc.controller.future;
       if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
         controller.setMapStyle(_darkMapStyle);

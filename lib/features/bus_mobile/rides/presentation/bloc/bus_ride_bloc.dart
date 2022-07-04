@@ -22,7 +22,7 @@ class BusRideBloc extends Bloc<BusRideEvent, BusRideState> {
     print(change.nextState);
   }
 
-  BusRideBloc(this.repo,this.client) : super(BusRideInitial()) {
+  BusRideBloc(this.repo, this.client) : super(BusRideInitial()) {
     on<BusRideEvent>((event, emit) {
       // TODO: implement event handler
     });
@@ -33,7 +33,7 @@ class BusRideBloc extends Bloc<BusRideEvent, BusRideState> {
           .fold((l) {
         emit(Error(l.message));
       }, (r) {
-        perfs.setInt(ConstantsManager.rideID, r[0].ride.id);
+        perfs.setString(ConstantsManager.rideID, r[0].ride.id.toString());
         emit(GetListOfBooking(r));
       });
     });
@@ -47,7 +47,7 @@ class BusRideBloc extends Bloc<BusRideEvent, BusRideState> {
       }
     });
 
-    on<SendNotificationEvent>((event,emit) async {
+    on<SendNotificationEvent>((event, emit) async {
       await client.sendNotification(event.rideId);
     });
   }

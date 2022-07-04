@@ -12,7 +12,7 @@ import '../../../../../core/extensions/extensions.dart';
 import '../../../../../core/resources/values_manager.dart';
 
 class RideInfo extends StatelessWidget {
-  final ReturenedRide ride;
+  final RideHis ride;
   const RideInfo({Key? key, required this.ride}) : super(key: key);
 
   @override

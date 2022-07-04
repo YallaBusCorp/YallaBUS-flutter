@@ -16,6 +16,7 @@ class InvalidDialog extends StatelessWidget {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Padding(
             padding: EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 0),
@@ -31,13 +32,11 @@ class InvalidDialog extends StatelessWidget {
             width: ValuesManager.v10,
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16),
             child: TextWidget(
               text: message,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(fontWeight: FontWeight.normal),
+              style:
+                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
             ),
           ),
           const SizedBox(

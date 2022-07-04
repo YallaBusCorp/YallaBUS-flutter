@@ -42,7 +42,7 @@ class SuccessDialog extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headline6!
-                  .copyWith(fontWeight: FontWeight.normal),
+                  .copyWith(fontSize : 18),
             ),
           ),
           const SizedBox(

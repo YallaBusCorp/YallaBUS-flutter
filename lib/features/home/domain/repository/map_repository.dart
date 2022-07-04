@@ -12,7 +12,7 @@ abstract class MapRepository {
   Future<Either<Failure, List<Appoinment>>> getAppoinmentsOfPM(int id);
   Future<Either<Failure, List<MapPoint>>> getMapPickUpPoints(int id);
   Future<Either<Failure, List<MapPoint>>> getMapDropOffPoints(int id);
-  Future<Either<Failure, ReturenedRide>> getCurrentRide(String uid);
+  Future<Either<Failure, RideHis>> getCurrentRide(String uid);
   Future<Either<Failure, int>> bookRide(Ride ride);
   Future<Either<Failure, StudentID>> getStudentID(String uid);
   Future<Either<Failure, bool>> cancelRide(int bookingID);

@@ -36,10 +36,8 @@ class YesNoDialog extends StatelessWidget {
                 const EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 0),
             child: Text(
               message,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(fontWeight: FontWeight.normal),
+              style:
+                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
               textAlign: TextAlign.center,
             ),
           ),
@@ -63,6 +61,7 @@ class YesNoDialog extends StatelessWidget {
                       child: TextWidget(
                         text: labelTap1 ?? StringManager.signOut,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
+                              fontSize: 18,
                               color: Colors.blue[900],
                             ),
                       ),
@@ -85,10 +84,10 @@ class YesNoDialog extends StatelessWidget {
                     child: Center(
                       child: TextWidget(
                         text: labelTap2 ?? StringManager.returnStatement,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(color: Colors.blue[900]),
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                              color: Colors.blue[900],
+                              fontSize: 18,
+                            ),
                       ),
                     ),
                   ),

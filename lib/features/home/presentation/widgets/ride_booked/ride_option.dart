@@ -15,7 +15,7 @@ import '../book_ride.dart';
 import 'qr_view.dart';
 
 class RideOptions extends StatefulWidget {
-  final ReturenedRide ride;
+  final RideHis ride;
   const RideOptions({Key? key, required this.ride}) : super(key: key);
 
   @override
@@ -52,7 +52,10 @@ class _RideOptionsState extends State<RideOptions> {
               color: Theme.of(context).backgroundColor,
               child: SvgPicture.asset(
                 AssetManager.scan,
-                color: Colors.white,
+                color:
+                    MediaQuery.of(context).platformBrightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                 width: 30,
                 height: 30,
               ),
@@ -125,8 +128,7 @@ class _RideOptionsState extends State<RideOptions> {
                       return const Dialog(
                         backgroundColor: Colors.transparent,
                         child: InvalidDialog(
-                          message:
-                              'You are not allowed to reschedule this ride ',
+                          message: "You can't reschedule this ride",
                         ),
                       );
                     },

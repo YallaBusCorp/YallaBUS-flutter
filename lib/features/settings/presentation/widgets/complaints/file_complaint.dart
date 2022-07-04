@@ -19,9 +19,11 @@ class FileComplaint extends StatefulWidget {
 }
 
 class _FileComplaintState extends State<FileComplaint> {
+  late TextEditingController controller;
   late SettingsBloc bloc;
   @override
   void initState() {
+    controller = TextEditingController();
     bloc = BlocProvider.of<SettingsBloc>(context);
     super.initState();
   }
@@ -47,7 +49,37 @@ class _FileComplaintState extends State<FileComplaint> {
             const SizedBox(
               height: 10,
             ),
-            TxtField(controller: bloc.controller),
+            TextFormField(
+              keyboardType: TextInputType.multiline,
+              maxLines: 5,
+              style: Theme.of(context).textTheme.headline6,
+              cursorColor: ColorsManager.orange,
+              controller: controller,
+              decoration: InputDecoration(
+                focusColor: ColorsManager.orange,
+                contentPadding: const EdgeInsets.all(ValuesManager.v20),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(ValuesManager.v16),
+                  borderSide: BorderSide(
+                    color: ColorsManager.orange,
+                  ),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(ValuesManager.v16),
+                  borderSide: BorderSide.none,
+                ),
+                hintText: 'Type Something',
+                hintStyle: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: Colors.grey),
+                filled: true,
+                fillColor: ColorsExtensions.setColorOfTextForm(context),
+              ),
+              onChanged: (value){
+                bloc.add(RefershMessageEvent(value));
+              },
+            ),
             const Spacer(),
             TextWidget(
                 text:
@@ -59,18 +91,18 @@ class _FileComplaintState extends State<FileComplaint> {
             BlocConsumer<SettingsBloc, SettingsState>(
               listener: (context, state) {
                 if (state is PostComplaintSuccess) {
-                  Future.delayed(const Duration(seconds: 2), () {
-                    FocusScope.of(context).requestFocus(FocusNode());
-
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => const Dialog(
-                        backgroundColor: Colors.transparent,
-                        child: SuccessDialog(
-                          message: 'You have sent your complaint!',
-                        ),
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => const Dialog(
+                      backgroundColor: Colors.transparent,
+                      child: SuccessDialog(
+                        message: 'You have sent your complaint!',
                       ),
-                    );
+                    ),
+                  );
+                  Future.delayed(const Duration(seconds: 2), () {
+                    Navigator.of(context).pop();
                     Navigator.of(context).pop();
                   });
                 }
@@ -93,7 +125,7 @@ class _FileComplaintState extends State<FileComplaint> {
                   child: ButtonWidget(
                     onPressed: bloc.value.isNotEmpty
                         ? () {
-                            bloc.add(PostComplaintEvent(bloc.controller.text));
+                            bloc.add(PostComplaintEvent(controller.text));
                           }
                         : null,
                     child: Text(

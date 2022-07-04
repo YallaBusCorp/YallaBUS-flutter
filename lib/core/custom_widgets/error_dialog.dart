@@ -37,10 +37,8 @@ class ErrorDialog extends StatelessWidget {
           Center(
             child: TextWidget(
               text: message,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(fontWeight: FontWeight.normal),
+              style:
+                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
             ),
           ),
           const SizedBox(
@@ -62,10 +60,10 @@ class ErrorDialog extends StatelessWidget {
                     child: Center(
                       child: TextWidget(
                         text: StringManager.retry,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(color: Colors.blue[900]),
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                              color: Colors.blue[900],
+                              fontSize: 18,
+                            ),
                       ),
                     ),
                   ),

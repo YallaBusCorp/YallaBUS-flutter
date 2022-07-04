@@ -30,20 +30,23 @@ class RideBooked extends StatefulWidget {
 
 class _RideBookedState extends State<RideBooked> {
   late MapBloc bloc;
-  late ReturenedRide ride;
+  late RideHis ride;
 
   @override
   void initState() {
     bloc = BlocProvider.of<MapBloc>(context);
-    ride = ReturenedRide(
+    ride = RideHis(
       -1,
-      'pending',
+      'sdgfsagasgs',
+      PickUp('name', 30.32523, 31.235235),
+      DropOff('name', 30.32523, 31.235235),
       Appoint(
         bloc.timeOfSelectedRides.substring(0, 5),
         bloc.timeOfSelectedRides.substring(6, 8),
       ),
       Bus(1, "busUid", "phone", "busLicenceNumber"),
       Employee(1, CompanyId(1), "empCode", "empName"),
+      TxRide(1, 'pending'),
     );
 
     super.initState();
@@ -146,7 +149,10 @@ class _RideBookedState extends State<RideBooked> {
             },
           );
         }
-
+        if (state is StudentRideComplete) {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+        }
         if (state is RescheduleRideError) {
           showDialog(
             context: context,
@@ -198,6 +204,9 @@ class _RideBookedState extends State<RideBooked> {
                                 .textTheme
                                 .headline6!
                                 .copyWith(fontSize: 18),
+                          ),
+                          const SizedBox(
+                            height: 5,
                           ),
                           DriverInfo(
                             ride: ride,

@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as gmaps;
@@ -10,7 +7,6 @@ import '../injection/di.dart';
 import '../resources/asset_manager.dart';
 import 'package:latlong2/latlong.dart' as d;
 import '../../features/choose_company/presentation/bloc/company_selection_bloc.dart';
-
 import '../resources/colors_manager.dart';
 import '../resources/values_manager.dart';
 
@@ -50,7 +46,7 @@ extension ColorsExtensions on Color {
   static Color setColorOfTextForm(BuildContext context) {
     return MediaQuery.of(context).platformBrightness == Brightness.dark
         ? ColorsManager.black2
-        : Colors.grey;
+        : Colors.white;
   }
 
   static Color setColorOfContainersOverMap(BuildContext context) {

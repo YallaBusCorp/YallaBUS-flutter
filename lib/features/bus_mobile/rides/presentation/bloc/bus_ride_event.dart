@@ -12,7 +12,7 @@ class CheckIfThereIsCurrentRideOrNotEvent extends BusRideEvent {}
 class SignOutEvent extends BusRideEvent {}
 
 class SendNotificationEvent extends BusRideEvent {
-  final int rideId;
+  final String rideId;
 
   const SendNotificationEvent(this.rideId);
 }

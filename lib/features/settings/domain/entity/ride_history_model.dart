@@ -8,7 +8,7 @@ class RideHis {
   final Appoint? appoinment;
   final Bus? bus;
   final Employee? emp;
-  final TxRide txRide;
+  final TxRide? txRide;
 
   RideHis(this.id, this.qrCode, this.pick, this.drop, this.appoinment, this.bus,
       this.emp, this.txRide);

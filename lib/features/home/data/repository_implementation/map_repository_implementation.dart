@@ -102,14 +102,14 @@ class MapRepositoryImplementation extends MapRepository {
   }
 
   @override
-  Future<Either<Failure, ReturenedRide>> getCurrentRide(String uid) async {
+  Future<Either<Failure, RideHis>> getCurrentRide(String uid) async {
     if (await info.isConnected()) {
       try {
         final result = await client.getCurrentRideByUID(uid);
         if (result == 500) {
-          return Right(ReturenedRideModel.fromJson({}));
+          return Right(RideHisModel.fromJson({}));
         } else {
-          return Right(ReturenedRideModel.fromJson(result));
+          return Right(RideHisModel.fromJson(result));
         }
       } on ServerException {
         return Left(Failure('Try Again in another time'));

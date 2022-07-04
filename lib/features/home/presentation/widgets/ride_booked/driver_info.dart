@@ -7,7 +7,7 @@ import '../../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../../core/custom_widgets/text_widget.dart';
 
 class DriverInfo extends StatefulWidget {
-  final ReturenedRide ride;
+  final RideHis ride;
   const DriverInfo({Key? key, required this.ride}) : super(key: key);
 
   @override
@@ -27,13 +27,13 @@ class _DriverInfoState extends State<DriverInfo> {
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
         return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Spacer(),
             Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(
                     height: 10,
@@ -76,19 +76,21 @@ class _DriverInfoState extends State<DriverInfo> {
                 ],
               ),
             ),
-            const SizedBox(
-              width: 25,
+            SizedBox(
+              width: bloc.markersOfBus.isEmpty
+                  ? MediaQuery.of(context).size.width / 8
+                  : MediaQuery.of(context).size.width / 4.5,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.ideographic,
               children: [
                 TextWidget(
-                  text: '${bloc.distanceOfRide}',
+                  text: '${bloc.distanceOfRide.toInt()}',
                   style: Theme.of(context)
                       .textTheme
                       .headline5!
-                      .copyWith(fontSize: 30),
+                      .copyWith(fontSize: 25),
                 ),
                 TextWidget(
                   text: 'Km',

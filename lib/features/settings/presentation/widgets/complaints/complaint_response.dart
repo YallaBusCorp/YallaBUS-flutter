@@ -64,7 +64,10 @@ class _ComplaintResponseState extends State<ComplaintResponse> {
                               .toString()[0])
                           ? TextDirection.ltr
                           : TextDirection.rtl,
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontSize: 18),
                     ),
                   ),
                 ),
@@ -104,20 +107,28 @@ class _ComplaintResponseState extends State<ComplaintResponse> {
                     : true,
                 child: Column(
                   children: [
-                    DecorationBoxWidget(
-                      radius: const BorderRadius.only(
-                        topLeft: Radius.circular(16),
-                        topRight: Radius.circular(16),
-                        bottomLeft: Radius.circular(5),
-                        bottomRight: Radius.circular(16),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: DecorationBoxWidget(
+                        radius: const BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                          bottomLeft: Radius.circular(5),
+                          bottomRight: Radius.circular(16),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(18),
                           child: Text(
                             bloc.docData[widget.index]['response'] ?? '',
-                            style: Theme.of(context).textTheme.headline6,
+                            textDirection: RegExp(r'^[A-Za-z0-9_.]+$').hasMatch(
+                                    bloc.docData[widget.index]['message']
+                                        .toString()[0])
+                                ? TextDirection.ltr
+                                : TextDirection.rtl,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(fontSize: 18),
                           ),
                         ),
                       ),
@@ -133,7 +144,7 @@ class _ComplaintResponseState extends State<ComplaintResponse> {
                           width: 5,
                         ),
                         Text(
-                          'Unibus',
+                          'AlphaQ',
                           style: Theme.of(context)
                               .textTheme
                               .headline6!

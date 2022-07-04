@@ -78,7 +78,7 @@ class _CurrentRidesState extends State<CurrentRides> {
                 ),
                 ButtonWidget(
                   onPressed: () {
-                    bloc.add(SendNotificationEvent(widget.bookings[0].ride.id));
+                    bloc.add(SendNotificationEvent(widget.bookings[0].ride.id.toString()));
                     Navigator.of(context)
                         .pushNamed(Routes.busMap, arguments: widget.bookings);
                   },

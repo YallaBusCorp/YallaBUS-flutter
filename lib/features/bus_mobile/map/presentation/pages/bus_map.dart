@@ -52,7 +52,7 @@ class _BusMapState extends State<BusMap> with WidgetsBindingObserver {
           .collection('company')
           .doc(bloc.perfs.getString(ConstantsManager.companyName))
           .collection('ride')
-          .doc(bloc.perfs.getInt(ConstantsManager.rideID).toString())
+          .doc(bloc.perfs.getString(ConstantsManager.rideID))
           .set(data, SetOptions(merge: true));
       bloc.add(RefershBusEvent(
           LatLng(MapManager.list[i].latitude, MapManager.list[i].longitude),
