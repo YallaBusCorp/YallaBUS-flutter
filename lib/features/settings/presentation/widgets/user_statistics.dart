@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'user_statistics_single_layout.dart';
 
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import 'user_statistics_single_layout.dart';
 
 class UserStatistics extends StatelessWidget {
   const UserStatistics({Key? key}) : super(key: key);

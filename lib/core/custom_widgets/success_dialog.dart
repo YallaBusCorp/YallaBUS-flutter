@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'separtor_widget.dart';
-import 'text_widget.dart';
-import '../resources/asset_manager.dart';
 
-import '../extensions/extensions.dart';
-import '../resources/colors_manager.dart';
-import '../resources/string_manager.dart';
+import '../resources/asset_manager.dart';
 import '../resources/values_manager.dart';
+import 'text_widget.dart';
 
 class SuccessDialog extends StatelessWidget {
   final String message;

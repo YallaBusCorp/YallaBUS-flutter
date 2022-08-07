@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
-import 'package:yalla_bus/features/home/domain/enitity/reschedule_body.dart';
-import 'package:yalla_bus/features/home/domain/enitity/returned_ride.dart';
-import 'package:yalla_bus/features/home/domain/enitity/ride.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/book_ride.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/ride_booked/qr_view.dart';
+import '../../../../../core/custom_widgets/Decoration_widget.dart';
+import '../../../../../core/custom_widgets/button_widget.dart';
+import '../../../../../core/custom_widgets/error_dialog.dart';
+import '../../../../../core/resources/asset_manager.dart';
+import '../../../../../core/resources/colors_manager.dart';
+import '../../../../../core/resources/constants_manager.dart';
+import '../../../domain/enitity/reschedule_body.dart';
+import '../../../domain/enitity/returned_ride.dart';
+import '../../../domain/enitity/ride.dart';
+import '../../bloc/ride_booking/ride_booking_bloc.dart';
+import '../book_ride.dart';
+import 'qr_view.dart';
 import '../../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../../core/custom_widgets/success_dialog.dart';
 import '../../../../../core/extensions/extensions.dart';
 import '../../../../../core/resources/values_manager.dart';
 import '../../../../settings/domain/entity/ride_history_model.dart';
 import '../../bloc/map/map_bloc.dart';
+import '../../bloc/ride_booked/ride_booked_bloc.dart';
 import 'driver_info.dart';
 import 'ride_option.dart';
 
@@ -29,20 +31,24 @@ class RideBooked extends StatefulWidget {
 }
 
 class _RideBookedState extends State<RideBooked> {
-  late MapBloc bloc;
+  late MapBloc _mapBloc;
+  late RideBookedBloc _rideBookedBloc;
+  late RideBookingBloc _rideBookingBloc;
   late RideHis ride;
 
   @override
   void initState() {
-    bloc = BlocProvider.of<MapBloc>(context);
+    _mapBloc = BlocProvider.of<MapBloc>(context);
+    _rideBookedBloc = BlocProvider.of<RideBookedBloc>(context);
+    _rideBookingBloc = BlocProvider.of<RideBookingBloc>(context);
     ride = RideHis(
       -1,
       'sdgfsagasgs',
       PickUp('name', 30.32523, 31.235235),
       DropOff('name', 30.32523, 31.235235),
       Appoint(
-        bloc.timeOfSelectedRides.substring(0, 5),
-        bloc.timeOfSelectedRides.substring(6, 8),
+        _rideBookingBloc.timeOfSelectedRides.substring(0, 5),
+        _rideBookingBloc.timeOfSelectedRides.substring(6, 8),
       ),
       Bus(1, "busUid", "phone", "busLicenceNumber"),
       Employee(1, CompanyId(1), "empCode", "empName"),
@@ -54,7 +60,7 @@ class _RideBookedState extends State<RideBooked> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MapBloc, MapState>(
+    return BlocConsumer<RideBookedBloc, RideBookedState>(
       listener: (context, state) {
         if (state is StudentInCurrentRide) {
           Navigator.of(context).pop();
@@ -65,7 +71,7 @@ class _RideBookedState extends State<RideBooked> {
           Navigator.of(context).pop();
           Navigator.of(context).pop();
         }
-        if (state is Loading) {
+        if (state is LoadingOfBooked) {
           showDialog(
             context: context,
             barrierDismissible: false,
@@ -86,8 +92,9 @@ class _RideBookedState extends State<RideBooked> {
               child: ErrorDialog(
                 message: state.message,
                 onTap: () {
-                  bloc.add(GetCurrentRideByUIDEvent(
-                      bloc.perfs.getString(ConstantsManager.uid)!, context));
+                  _rideBookedBloc.add(GetCurrentRideByUIDEvent(
+                      _rideBookedBloc.perfs.getString(ConstantsManager.uid)!,
+                      context));
                 },
               ),
             ),
@@ -110,9 +117,10 @@ class _RideBookedState extends State<RideBooked> {
             },
           );
           Navigator.of(context).pop();
-          bloc.add(
+          _rideBookedBloc.add(
             GetCurrentRideByUIDEvent(
-                bloc.perfs.getString(ConstantsManager.uid)!, context),
+                _rideBookedBloc.perfs.getString(ConstantsManager.uid)!,
+                context),
           );
         }
 
@@ -125,8 +133,9 @@ class _RideBookedState extends State<RideBooked> {
               child: ErrorDialog(
                 message: state.message,
                 onTap: () {
-                  bloc.add(GetCurrentRideByUIDEvent(
-                      bloc.perfs.getString(ConstantsManager.uid)!, context));
+                  _rideBookedBloc.add(GetCurrentRideByUIDEvent(
+                      _rideBookedBloc.perfs.getString(ConstantsManager.uid)!,
+                      context));
                 },
               ),
             ),
@@ -162,14 +171,16 @@ class _RideBookedState extends State<RideBooked> {
               child: ErrorDialog(
                 message: state.message,
                 onTap: () {
-                  bloc.add(
+                  _rideBookedBloc.add(
                     RescheduleRideEvent(
                       Reschedule(
                         ride.id!,
-                        StringsExtensions.generateQR(bloc.timeOfSelectedRides),
-                        Appointments(
-                            bloc.amTimeAndID[bloc.timeOfSelectedRides] ??
-                                bloc.pmTimeAndID[bloc.timeOfSelectedRides]!),
+                        StringsExtensions.generateQR(
+                            _rideBookingBloc.timeOfSelectedRides),
+                        Appointments(_rideBookingBloc.dictionaryOfAmTimeAndId[
+                                _rideBookingBloc.timeOfSelectedRides] ??
+                            _rideBookingBloc.dictionaryOfPmTimeAndId[
+                                _rideBookingBloc.timeOfSelectedRides]!),
                       ),
                     ),
                   );
@@ -180,9 +191,9 @@ class _RideBookedState extends State<RideBooked> {
         }
       },
       builder: (context, state) {
-        return ride.id != -1 || bloc.rideVisible
+        return ride.id != -1 || _rideBookedBloc.rideVisible
             ? Visibility(
-                visible: bloc.rideVisible,
+                visible: _rideBookedBloc.rideVisible,
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: DecorationBoxWidget(

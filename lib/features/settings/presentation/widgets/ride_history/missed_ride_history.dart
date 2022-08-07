@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/ride_history/ride_history_item.dart';
 
 import '../../../domain/entity/ride_history_model.dart';
+import 'ride_history_item.dart';
 
 class MissedRideHistory extends StatelessWidget {
   final List<RideHis> list;

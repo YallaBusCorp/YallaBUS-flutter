@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
+import '../../bloc/settings_bloc.dart';
 import '../../../../../core/injection/di.dart';
 
 class FAQs extends StatefulWidget {

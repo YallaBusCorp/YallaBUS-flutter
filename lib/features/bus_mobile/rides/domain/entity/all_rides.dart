@@ -1,6 +1,6 @@
-import 'package:yalla_bus/features/home/domain/enitity/appoinment.dart';
-import 'package:yalla_bus/features/home/domain/enitity/map_point.dart';
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
+import '../../../../home/domain/enitity/appoinment.dart';
+import '../../../../home/domain/enitity/map_point.dart';
+import '../../../../settings/domain/entity/ride_history_model.dart';
 
 class Booking {
   final Appoinment appoinment;

@@ -1,4 +1,4 @@
-import 'package:yalla_bus/features/home/domain/enitity/ride.dart';
+import 'ride.dart';
 
 class Reschedule {
   final int id;

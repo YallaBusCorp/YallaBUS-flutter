@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
-import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
-import '../../../../core/custom_widgets/button_widget.dart';
-import '../../../../core/custom_widgets/loading_dialog.dart';
-import '../../../../core/custom_widgets/success_dialog.dart';
-import '../../../../core/resources/asset_manager.dart';
-import '../../../../core/resources/routes_manager.dart';
-import '../../../../core/injection/di.dart' as sl;
-import '../../../../core/resources/string_manager.dart';
-import '../../../login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 
-import '../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../core/custom_widgets/text_widget.dart';
-import '../../../../core/injection/di.dart';
+import '../../../../core/resources/asset_manager.dart';
+import '../../../../core/resources/constants_manager.dart';
+import '../../../../core/resources/routes_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../bloc/settings_bloc.dart';
 
 class GoodBye extends StatefulWidget {
   const GoodBye({Key? key}) : super(key: key);

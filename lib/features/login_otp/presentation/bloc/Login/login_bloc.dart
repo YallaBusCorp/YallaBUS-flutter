@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/features/login_otp/data/repository_implementation/repository_implementation.dart';
+import '../../../../../core/extensions/extensions.dart';
+import '../../../data/repository_implementation/repository_implementation.dart';
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/network/network_info.dart';
 import '../../../../../core/resources/constants_manager.dart';

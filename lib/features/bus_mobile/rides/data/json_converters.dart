@@ -1,9 +1,9 @@
-import 'package:yalla_bus/features/bus_mobile/rides/domain/entity/all_rides.dart';
-import 'package:yalla_bus/features/home/data/model/map_json_converters.dart';
-import 'package:yalla_bus/features/home/domain/enitity/appoinment.dart';
-import 'package:yalla_bus/features/settings/data/model/settings_model_converters.dart';
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
-import 'package:yalla_bus/features/home/domain/enitity/map_point.dart';
+import '../domain/entity/all_rides.dart';
+import '../../../home/data/model/map_json_converters.dart';
+import '../../../home/domain/enitity/appoinment.dart';
+import '../../../settings/data/model/settings_model_converters.dart';
+import '../../../settings/domain/entity/ride_history_model.dart';
+import '../../../home/domain/enitity/map_point.dart';
 
 class BookingModel extends Booking {
   BookingModel(

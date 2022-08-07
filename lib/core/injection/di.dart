@@ -1,32 +1,34 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/domain/remote_data_source.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/domain/repostiory.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/bloc/employee_code_bloc.dart';
-import 'package:yalla_bus/features/bus_mobile/map/api/all_coordinates.dart';
-import 'package:yalla_bus/features/bus_mobile/map/api/remote_data_source.dart';
-import 'package:yalla_bus/features/bus_mobile/map/api/repostiory.dart';
-import 'package:yalla_bus/features/bus_mobile/map/presentation/bloc/bus_map_bloc.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/data/remote_data_source.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/data/repostiory_implementation.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/domain/repository/repostiory.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/bloc/qr_scanner_bloc.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/data/remote_data_source.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/data/repostiory_implementation.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/data/send_notification.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
-import 'package:yalla_bus/features/home/domain/use_case/book_ride.dart';
-import 'package:yalla_bus/features/home/domain/use_case/cancel_ride.dart';
-import 'package:yalla_bus/features/home/domain/use_case/get_current_ride.dart';
-import 'package:yalla_bus/features/home/domain/use_case/reschedule_ride.dart';
-import 'package:yalla_bus/features/login_otp/data/remote_data_source/login_remote_data_source.dart';
-import 'package:yalla_bus/features/login_otp/data/repository_implementation/repository_implementation.dart';
-import 'package:yalla_bus/features/login_otp/domain/repository/repository.dart';
-import 'package:yalla_bus/features/settings/domain/use_case/get_non_scanned_rides.dart';
-import 'package:yalla_bus/features/settings/domain/use_case/get_scanned_rides.dart';
-import 'package:yalla_bus/features/settings/domain/use_case/update_student.dart';
-import 'package:yalla_bus/features/home/domain/use_case/get_student_id.dart';
+import '../../features/bus_mobile/employee_code/domain/remote_data_source.dart';
+import '../../features/bus_mobile/employee_code/domain/repostiory.dart';
+import '../../features/bus_mobile/employee_code/presentation/bloc/employee_code_bloc.dart';
+import '../../features/bus_mobile/map/api/all_coordinates.dart';
+import '../../features/bus_mobile/map/api/remote_data_source.dart';
+import '../../features/bus_mobile/map/api/repostiory.dart';
+import '../../features/bus_mobile/map/presentation/bloc/bus_map_bloc.dart';
+import '../../features/bus_mobile/qr_scanner/data/remote_data_source.dart';
+import '../../features/bus_mobile/qr_scanner/data/repostiory_implementation.dart';
+import '../../features/bus_mobile/qr_scanner/domain/repository/repostiory.dart';
+import '../../features/bus_mobile/qr_scanner/presentation/bloc/qr_scanner_bloc.dart';
+import '../../features/bus_mobile/rides/data/remote_data_source.dart';
+import '../../features/bus_mobile/rides/data/repostiory_implementation.dart';
+import '../../features/bus_mobile/rides/data/send_notification.dart';
+import '../../features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
+import '../../features/home/domain/use_case/book_ride.dart';
+import '../../features/home/domain/use_case/cancel_ride.dart';
+import '../../features/home/domain/use_case/get_current_ride.dart';
+import '../../features/home/domain/use_case/reschedule_ride.dart';
+import '../../features/home/presentation/bloc/ride_booked/ride_booked_bloc.dart';
+import '../../features/home/presentation/bloc/ride_booking/ride_booking_bloc.dart';
+import '../../features/login_otp/data/remote_data_source/login_remote_data_source.dart';
+import '../../features/login_otp/data/repository_implementation/repository_implementation.dart';
+import '../../features/login_otp/domain/repository/repository.dart';
+import '../../features/settings/domain/use_case/get_non_scanned_rides.dart';
+import '../../features/settings/domain/use_case/get_scanned_rides.dart';
+import '../../features/settings/domain/use_case/update_student.dart';
+import '../../features/home/domain/use_case/get_student_id.dart';
 import '../network/network_info.dart';
 import '../../features/choose_company/data/data_sources/remote_data_source.dart';
 import '../../features/choose_company/data/repository_implementation/company_repository_implementation.dart';
@@ -93,9 +95,13 @@ Future<void> init() async {
   di.registerFactory(() => MapBloc(
         di(),
         di(),
+      ));
+  di.registerFactory(() => RideBookedBloc(
         di(),
         di(),
         di(),
+      ));
+  di.registerFactory(() => RideBookingBloc(
         di(),
         di(),
         di(),

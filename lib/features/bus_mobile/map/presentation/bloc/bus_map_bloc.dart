@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
-import 'package:yalla_bus/features/bus_mobile/map/api/all_coordinates.dart';
+import '../../../../../core/resources/asset_manager.dart';
+import '../../../../../core/resources/constants_manager.dart';
+import '../../api/all_coordinates.dart';
 
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/position_locator/locator.dart';

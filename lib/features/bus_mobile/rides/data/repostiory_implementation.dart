@@ -1,9 +1,9 @@
-import 'package:yalla_bus/core/states/state.dart';
+import '../../../../core/states/state.dart';
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/data/remote_data_source.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/data/json_converters.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/data/remote_data_source.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/domain/entity/all_rides.dart';
+import '../../qr_scanner/data/remote_data_source.dart';
+import 'json_converters.dart';
+import 'remote_data_source.dart';
+import '../domain/entity/all_rides.dart';
 
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/network/network_info.dart';

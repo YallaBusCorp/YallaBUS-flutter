@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yalla_bus/core/resources/map_manager.dart';
+import '../../../../core/resources/map_manager.dart';
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/constants_manager.dart';
 import '../../../../core/resources/routes_manager.dart';

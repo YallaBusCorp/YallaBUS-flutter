@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/custom_widgets/error_dialog.dart';
 import '../bloc/company_selection_bloc.dart';
 import 'company_list_view.dart';

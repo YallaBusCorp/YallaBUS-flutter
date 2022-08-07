@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:vibration/vibration.dart';
-import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/bloc/qr_scanner_bloc.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/pages/border_painter.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/widgets/unsuccessful_dialog.dart';
+import '../../../../../core/custom_widgets/error_dialog.dart';
+import '../bloc/qr_scanner_bloc.dart';
+import 'border_painter.dart';
+import '../widgets/unsuccessful_dialog.dart';
 
 import '../../../../../core/custom_widgets/success_dialog.dart';
 import '../../../../../core/extensions/extensions.dart';

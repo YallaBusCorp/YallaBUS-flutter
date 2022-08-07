@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/home/domain/enitity/returned_ride.dart';
 
 import '../../../../core/states/state.dart';
-
 import '../../../settings/domain/entity/ride_history_model.dart';
 import '../repository/map_repository.dart';
 

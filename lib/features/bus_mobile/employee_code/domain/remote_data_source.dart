@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:yalla_bus/core/resources/endpoints_manager.dart';
-import 'package:yalla_bus/core/states/state.dart';
+import '../../../../core/resources/endpoints_manager.dart';
+import '../../../../core/states/state.dart';
 
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/resources/debugger_manager.dart';

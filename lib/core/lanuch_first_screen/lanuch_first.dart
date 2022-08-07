@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/pages/verify.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/presentation/pages/bus_rides.dart';
+import '../extensions/extensions.dart';
+import '../../features/bus_mobile/employee_code/presentation/pages/verify.dart';
+import '../../features/bus_mobile/rides/presentation/pages/bus_rides.dart';
 import '../../features/choose_company/presentation/pages/choose_company.dart';
 import '../../features/login_otp/presentation/pages/login.dart';
 import '../../features/onBoarding/pages/onboarding_base.dart';

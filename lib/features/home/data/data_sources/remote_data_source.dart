@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:yalla_bus/core/resources/debugger_manager.dart';
-import 'package:yalla_bus/features/home/data/model/map_json_converters.dart';
+import '../../../../core/resources/debugger_manager.dart';
+import '../model/map_json_converters.dart';
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/resources/endpoints_manager.dart';
 import '../../domain/enitity/reschedule_body.dart';

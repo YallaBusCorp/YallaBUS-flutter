@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/enitity/student.dart';
 import '../../domain/use_case/get_all_universities.dart';
@@ -69,7 +70,9 @@ class CompleteprofileBloc
 
     on<SendStudentDataEvent>((event, emit) async {
       emit(LoadingSendData());
-
+      final userFirebase = FirebaseAuth.instance.currentUser;
+      userFirebase!.updateDisplayName(event.userName);
+    
       student = Student(
           stdUid: perfs.getString(ConstantsManager.uid)!,
           stdName: event.userName,

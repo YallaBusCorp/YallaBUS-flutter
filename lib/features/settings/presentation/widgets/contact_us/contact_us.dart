@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../core/custom_widgets/error_dialog.dart';
-import '../../../../../core/custom_widgets/loading_dialog.dart';
+import '../../../../../core/injection/di.dart';
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../../choose_company/presentation/widgets/company_information.dart';
 import '../../bloc/settings_bloc.dart';
-
-import '../../../../../core/injection/di.dart';
-import '../../../../choose_company/domain/enitity/company.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);

@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
+import 'asset_manager.dart';
 
 class MapManager {
  
@@ -18,6 +18,7 @@ class MapManager {
   static final Set<Marker> markers = <Marker>{};
   static final Set<Marker> dropOffMarkers = <Marker>{};
   static final Set<Marker> pickUpMarkers = <Marker>{};
+  static final Set<Marker> markersOfBus = <Marker>{};
   static List<LatLng> list = const [
     LatLng(30.742434094705523, 31.261414753496542),
     LatLng(30.742973165247875, 31.26148180872014),

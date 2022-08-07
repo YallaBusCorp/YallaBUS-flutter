@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/core/custom_widgets/yes_no_dialog.dart';
-import 'package:yalla_bus/core/resources/map_manager.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/ride_booked/ride_info.dart';
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
+
 import '../../../../../core/custom_widgets/button_widget.dart';
+import '../../../../../core/custom_widgets/yes_no_dialog.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
+import '../../../../../core/resources/map_manager.dart';
 import '../../../../bus_mobile/qr_scanner/presentation/widgets/unsuccessful_dialog.dart';
-import '../../../domain/enitity/returned_ride.dart';
-import '../../bloc/map/map_bloc.dart';
+import '../../../../settings/domain/entity/ride_history_model.dart';
+import '../../bloc/ride_booked/ride_booked_bloc.dart';
 import '../book_ride.dart';
 import 'qr_view.dart';
+import 'ride_info.dart';
 
 class RideOptions extends StatefulWidget {
   final RideHis ride;
@@ -23,11 +23,11 @@ class RideOptions extends StatefulWidget {
 }
 
 class _RideOptionsState extends State<RideOptions> {
-  late MapBloc bloc;
+  late RideBookedBloc bloc;
 
   @override
   void initState() {
-    bloc = BlocProvider.of<MapBloc>(context);
+    bloc = BlocProvider.of<RideBookedBloc>(context);
     super.initState();
   }
 
@@ -73,14 +73,22 @@ class _RideOptionsState extends State<RideOptions> {
                       return Dialog(
                         insetPadding: const EdgeInsets.all(16),
                         backgroundColor: Colors.transparent,
-                        child: YesNoDialog(
-                            message: 'Are you sure you want to call a driver ?',
-                            labelTap1: 'Yes',
-                            labelTap2: 'No',
-                            onTap: () {
-                              bloc.add(CallDriverEvent(widget.ride.bus!.phone));
-                              Navigator.of(context).pop();
-                            }),
+                        child: MapManager.markersOfBus.isNotEmpty
+                            ? YesNoDialog(
+                                message:
+                                    'Are you sure you want to call a driver ?',
+                                labelTap1: 'Yes',
+                                labelTap2: 'No',
+                                onTap: () {
+                                  bloc.add(
+                                      CallDriverEvent(widget.ride.bus!.phone));
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            : const InvalidDialog(
+                                message:
+                                    "You can call driver only when ride starts",
+                              ),
                       );
                     });
               },

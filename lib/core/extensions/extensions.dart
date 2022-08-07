@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as gmaps;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
+import '../resources/constants_manager.dart';
 import '../injection/di.dart';
 import '../resources/asset_manager.dart';
 import 'package:latlong2/latlong.dart' as d;

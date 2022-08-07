@@ -1,13 +1,14 @@
+import 'package:dartz/dartz.dart';
+
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/network/network_info.dart';
-import 'package:dartz/dartz.dart';
 import '../../../../core/states/state.dart';
+import '../../domain/enitity/student.dart';
+import '../../domain/enitity/town.dart';
+import '../../domain/enitity/university.dart';
+import '../../domain/repository/complete_profile_repository.dart';
 import '../data_sources/remote_data_source.dart';
 import '../model/complete_profile_converters.dart';
-import '../../domain/enitity/student.dart';
-import '../../domain/enitity/university.dart';
-import '../../domain/enitity/town.dart';
-import '../../domain/repository/complete_profile_repository.dart';
 
 class ComplelteProfileRepositoryImplemenation
     extends CompleteProfileRepository {

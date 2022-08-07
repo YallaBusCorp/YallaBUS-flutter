@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
+
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../../core/custom_widgets/button_widget.dart';
 import '../../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../../core/custom_widgets/loading_dialog.dart';
+import '../../../../../core/custom_widgets/separtor_widget.dart';
 import '../../../../../core/custom_widgets/success_dialog.dart';
 import '../../../../../core/extensions/extensions.dart';
 import '../../../../../core/injection/di.dart';
@@ -13,10 +14,9 @@ import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/colors_manager.dart';
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../../../core/resources/routes_manager.dart';
-import '../../bloc/settings_bloc.dart';
+import '../../../../sign_up/domain/enitity/student.dart';
 import '../../../../sign_up/presentation/widgets/drop_down_widget.dart';
-
-import '../../../../../core/custom_widgets/separtor_widget.dart';
+import '../../bloc/settings_bloc.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);

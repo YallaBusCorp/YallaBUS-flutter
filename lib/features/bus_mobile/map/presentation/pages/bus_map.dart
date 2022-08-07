@@ -6,12 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yalla_bus/core/resources/map_manager.dart';
-import 'package:yalla_bus/features/bus_mobile/map/presentation/bloc/bus_map_bloc.dart';
-import 'package:yalla_bus/features/bus_mobile/map/presentation/widgets/controllers.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/domain/entity/all_rides.dart';
-import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
-import 'package:yalla_bus/features/home/presentation/widgets/controllers.dart';
+import '../../../../../core/resources/map_manager.dart';
+import '../bloc/bus_map_bloc.dart';
+import '../widgets/controllers.dart';
+import '../../../rides/domain/entity/all_rides.dart';
+import '../../../../home/presentation/bloc/map/map_bloc.dart';
+import '../../../../home/presentation/widgets/controllers.dart';
 
 import '../../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../../core/resources/asset_manager.dart';

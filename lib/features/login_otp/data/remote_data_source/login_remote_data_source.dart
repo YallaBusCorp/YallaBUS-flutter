@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:yalla_bus/core/exceptions/exception.dart';
-import 'package:yalla_bus/core/resources/endpoints_manager.dart';
+import '../../../../core/exceptions/exception.dart';
+import '../../../../core/resources/endpoints_manager.dart';
 
 class LoginApiClient {
   late Dio dio;

@@ -66,7 +66,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
               ),
             ),
           );
-
           Future.delayed(const Duration(seconds: ValuesManager.iv2), () {
             Navigator.of(context).pushNamedAndRemoveUntil(
               Routes.home,
@@ -173,15 +172,15 @@ class _CompleteProfileState extends State<CompleteProfile> {
                     ids: townsIds);
               }),
               BlocBuilder<CompleteprofileBloc, CompleteprofileState>(
-                  builder: (context, state) {
-                return DropDownWidget(
-                  type: false,
-                  hint: StringManager.university,
-                  options: universities,
-                  ids: universitiesIds,
-                );
-              }),
-
+                builder: (context, state) {
+                  return DropDownWidget(
+                    type: false,
+                    hint: StringManager.university,
+                    options: universities,
+                    ids: universitiesIds,
+                  );
+                },
+              ),
               const Spacer(),
               ButtonWidget(
                 onPressed: checkValidation() == true ? _onPressed : null,
@@ -212,8 +211,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
   bool checkValidation() {
     if (firstNameController.text.isNotEmpty &&
         lastNameController.text.isNotEmpty &&
-        BlocProvider.of<CompleteprofileBloc>(context).townId != 0 &&
-        BlocProvider.of<CompleteprofileBloc>(context).universityId != 0) {
+        bloc.townId != 0 &&
+        bloc.universityId != 0) {
       return true;
     }
     return false;

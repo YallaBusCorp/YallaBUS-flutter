@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/features/home/domain/enitity/returned_ride.dart';
-import 'package:yalla_bus/features/home/presentation/bloc/map/map_bloc.dart';
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
+import '../../../domain/enitity/returned_ride.dart';
+import '../../bloc/map/map_bloc.dart';
+import 'ride_booked.dart';
+import '../../../../settings/domain/entity/ride_history_model.dart';
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../../core/custom_widgets/text_widget.dart';
+import '../../../../../core/resources/map_manager.dart';
+import '../../bloc/ride_booked/ride_booked_bloc.dart';
+import '../../bloc/ride_booking/ride_booking_bloc.dart';
 
 class DriverInfo extends StatefulWidget {
   final RideHis ride;
@@ -15,10 +19,11 @@ class DriverInfo extends StatefulWidget {
 }
 
 class _DriverInfoState extends State<DriverInfo> {
-  late MapBloc bloc;
+  late RideBookedBloc _bloc;
+  late RideBookingBloc _rideBookingBloc;
   @override
   void initState() {
-    bloc = BlocProvider.of<MapBloc>(context);
+    _bloc = BlocProvider.of<RideBookedBloc>(context);
     super.initState();
   }
 
@@ -39,14 +44,14 @@ class _DriverInfoState extends State<DriverInfo> {
                     height: 10,
                   ),
                   Visibility(
-                    visible: bloc.markersOfBus.isEmpty,
+                    visible: !_bloc.value,
                     child: Text(
                       'Ride has not started yet',
                       style: Theme.of(context).textTheme.caption,
                     ),
                   ),
                   Visibility(
-                    visible: bloc.markersOfBus.isNotEmpty,
+                    visible: _bloc.value,
                     child: Text(
                       widget.ride.emp!.empName,
                       style: Theme.of(context)
@@ -59,7 +64,7 @@ class _DriverInfoState extends State<DriverInfo> {
                     height: 5,
                   ),
                   Visibility(
-                    visible: bloc.markersOfBus.isNotEmpty,
+                    visible: _bloc.value,
                     child: DecorationBoxWidget(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -77,7 +82,7 @@ class _DriverInfoState extends State<DriverInfo> {
               ),
             ),
             SizedBox(
-              width: bloc.markersOfBus.isEmpty
+              width: MapManager.markersOfBus.isEmpty
                   ? MediaQuery.of(context).size.width / 8
                   : MediaQuery.of(context).size.width / 4.5,
             ),
@@ -86,7 +91,7 @@ class _DriverInfoState extends State<DriverInfo> {
               textBaseline: TextBaseline.ideographic,
               children: [
                 TextWidget(
-                  text: '${bloc.distanceOfRide.toInt()}',
+                  text: '${_rideBookingBloc.distanceOfRide.toInt()}',
                   style: Theme.of(context)
                       .textTheme
                       .headline5!

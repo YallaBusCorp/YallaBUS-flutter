@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/widgets/unsuccessful_dialog.dart';
+import '../../../bus_mobile/qr_scanner/presentation/widgets/unsuccessful_dialog.dart';
 import '../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../core/resources/constants_manager.dart';
 import '../../../../core/custom_widgets/error_dialog.dart';

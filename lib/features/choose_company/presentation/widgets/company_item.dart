@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/asset_manager.dart';
-import '../bloc/company_selection_bloc.dart';
-import 'company_information.dart';
-
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 import '../../domain/enitity/company.dart';
+import '../bloc/company_selection_bloc.dart';
+import 'company_information.dart';
 
 class CompanyItem extends StatefulWidget {
   final int index;

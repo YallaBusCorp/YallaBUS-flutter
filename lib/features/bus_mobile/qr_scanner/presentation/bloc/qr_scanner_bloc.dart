@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
 
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/resources/constants_manager.dart';

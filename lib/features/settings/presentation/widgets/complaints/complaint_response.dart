@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
+
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../../core/extensions/extensions.dart';
+import '../../bloc/settings_bloc.dart';
 
 class ComplaintResponse extends StatefulWidget {
   final int index;

@@ -4,10 +4,10 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
-import 'package:yalla_bus/features/settings/domain/use_case/get_non_scanned_rides.dart';
-import 'package:yalla_bus/features/settings/domain/use_case/update_student.dart';
-import 'package:yalla_bus/features/sign_up/domain/enitity/student.dart';
+import '../../domain/entity/ride_history_model.dart';
+import '../../domain/use_case/get_non_scanned_rides.dart';
+import '../../domain/use_case/update_student.dart';
+import '../../../sign_up/domain/enitity/student.dart';
 
 import '../../../../core/injection/di.dart';
 import '../../../../core/resources/constants_manager.dart';

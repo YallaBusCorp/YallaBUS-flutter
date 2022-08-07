@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 import 'dart:async';
 import 'dart:math';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,30 +18,27 @@ import 'package:yalla_bus/core/resources/constants_manager.dart';
 import 'package:yalla_bus/core/resources/debugger_manager.dart';
 import 'package:yalla_bus/core/resources/routes_manager.dart';
 import 'package:yalla_bus/core/resources/theme_manager.dart';
-import 'package:yalla_bus/features/home/domain/enitity/appoinment.dart';
 import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/bloc/employee_code_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/pages/verify.dart';
 import 'package:yalla_bus/features/bus_mobile/map/presentation/bloc/bus_map_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/map/presentation/pages/bus_map.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/bloc/qr_scanner_bloc.dart';
 import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/pages/qr_scanner.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/domain/entity/all_rides.dart';
 import 'package:yalla_bus/features/bus_mobile/rides/presentation/pages/bus_rides.dart';
 import 'package:yalla_bus/features/choose_company/presentation/bloc/company_selection_bloc.dart';
 import 'package:yalla_bus/features/choose_company/presentation/pages/choose_company.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
 import 'package:yalla_bus/features/login_otp/presentation/bloc/Login/login_bloc.dart';
-import 'package:yalla_bus/features/onBoarding/pages/onboarding_base.dart';
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
 import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:yalla_bus/features/settings/presentation/widgets/goodbye.dart';
 import 'package:yalla_bus/features/sign_up/presentation/bloc/completeprofile_bloc.dart';
 import 'package:yalla_bus/features/sign_up/presentation/pages/complete_profile.dart';
+
 import 'features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
-import 'features/home/domain/enitity/map_point.dart';
 import 'features/home/presentation/bloc/map/map_bloc.dart';
+import 'features/home/presentation/bloc/ride_booked/ride_booked_bloc.dart';
+import 'features/home/presentation/bloc/ride_booking/ride_booking_bloc.dart';
 import 'features/home/presentation/pages/home.dart';
-import 'features/home/presentation/widgets/map.dart';
 import 'features/login_otp/presentation/pages/login.dart';
 import 'features/settings/presentation/pages/settings.dart';
 
@@ -156,6 +154,14 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (builder) => di<MapBloc>(),
           child: const Home(),
+        ),
+        BlocProvider(
+          create: (builder) => di<RideBookingBloc>(),
+          child: const Home(),
+        ),
+        BlocProvider(
+          create: (builder) => di<RideBookedBloc>(),
+          child: const BusRides(),
         ),
         BlocProvider(
           create: (builder) => di<CompleteprofileBloc>(),

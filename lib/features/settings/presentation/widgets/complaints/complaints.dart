@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
+import '../../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/resources/asset_manager.dart';
 import '../../../../../core/resources/constants_manager.dart';

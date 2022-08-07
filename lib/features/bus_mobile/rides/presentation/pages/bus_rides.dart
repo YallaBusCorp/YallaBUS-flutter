@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/presentation/widgets/settings.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/presentation/widgets/unavailable_ride.dart';
+import '../../../../../core/resources/asset_manager.dart';
+import '../../../../../core/resources/colors_manager.dart';
+import '../bloc/bus_ride_bloc.dart';
+import '../widgets/settings.dart';
+import '../widgets/unavailable_ride.dart';
 
 import '../../../../../core/resources/constants_manager.dart';
 import '../../../../../core/resources/map_manager.dart';

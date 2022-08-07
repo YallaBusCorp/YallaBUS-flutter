@@ -1,4 +1,4 @@
-import 'package:yalla_bus/features/home/domain/enitity/appoinment.dart';
+import '../../../home/domain/enitity/appoinment.dart';
 
 class RideHis {
   final int? id;

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
+import '../../../../../core/custom_widgets/comming_soon.dart';
+import '../../../../../core/resources/constants_manager.dart';
 
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
 import '../../../../../core/custom_widgets/separtor_widget.dart';
@@ -44,7 +45,20 @@ class _BusSettingsState extends State<BusSettings> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.of(context).pop();
+                      });
+                      return const Dialog(
+                        backgroundColor: Colors.transparent,
+                        child: CommingSoon(),
+                      );
+                    },
+                  );
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Row(

@@ -1,12 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/domain/bus.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/domain/remote_data_source.dart';
 
 import '../../../../../core/states/state.dart';
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/network/network_info.dart';
 import '../../../settings/data/model/settings_model_converters.dart';
 import '../../../settings/domain/entity/ride_history_model.dart';
+import 'remote_data_source.dart';
 
 class EmployeeCodeRepository {
   final EmployeeApiClient client;

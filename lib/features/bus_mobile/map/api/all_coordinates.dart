@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yalla_bus/core/resources/endpoints_manager.dart';
+import '../../../../core/resources/endpoints_manager.dart';
 
 import '../../../../core/exceptions/exception.dart';
 

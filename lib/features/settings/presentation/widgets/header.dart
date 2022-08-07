@@ -1,7 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../core/resources/routes_manager.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/injection/di.dart';
@@ -39,17 +39,14 @@ class Header extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(
-                    text: perfs.getString(ConstantsManager.userName) ??
-                        perfs.getString(ConstantsManager.firstName)! +
-                            ' ' +
-                            perfs.getString(ConstantsManager.secondName)!,
+                    text: FirebaseAuth.instance.currentUser!.displayName ??
+                        perfs.getString(ConstantsManager.userName)!,
                     style: Theme.of(context).textTheme.headline5!),
                 const SizedBox(
                   height: ValuesManager.v5,
                 ),
                 InkWell(
                   onTap: () {
-                    // Navigator.of(context).pushNamed(Routes.editProfile);
                   },
                   child: TextWidget(
                     text: 'Edit Profile',

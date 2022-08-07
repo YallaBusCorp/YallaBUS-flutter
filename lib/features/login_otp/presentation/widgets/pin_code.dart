@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/Keyboard/keyboard_bloc.dart';
-import '../../../bus_mobile/employee_code/presentation/widgets/pin_layout.dart';
 
 import '../../../../core/resources/values_manager.dart';
+import '../../../bus_mobile/employee_code/presentation/widgets/pin_layout.dart';
+import '../bloc/Keyboard/keyboard_bloc.dart';
 
 class PinCode extends StatelessWidget {
   PinCode({Key? key}) : super(key: key);

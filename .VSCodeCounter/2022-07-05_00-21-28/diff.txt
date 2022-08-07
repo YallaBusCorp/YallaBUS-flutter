@@ -1,0 +1,165 @@
+Date : 2022-07-05 00:21:28
+Directory : c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus
+Total : 95 files,  1825 codes, 232 comments, 241 blanks, all 2298 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |         24 |        625 |          0 |          9 |        634 |
+| XML        |         45 |        454 |         60 |         38 |        552 |
+| C++        |         11 |        411 |         80 |        132 |        623 |
+| Groovy     |          3 |         93 |          3 |         23 |        119 |
+| HTML       |          1 |         88 |         18 |          6 |        112 |
+| YAML       |          2 |         75 |         60 |         12 |        147 |
+| CSS        |          1 |         36 |          0 |          8 |         44 |
+| Dart       |          2 |         12 |         10 |          5 |         27 |
+| Swift      |          1 |         12 |          0 |          2 |         14 |
+| Properties |          2 |          8 |          1 |          2 |         11 |
+| JavaScript |          1 |          7 |          0 |          1 |          8 |
+| Markdown   |          2 |          4 |          0 |          3 |          7 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                             | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                |         95 |      1,825 |        232 |        241 |      2,298 |
+| android                                                                                                          |         16 |        306 |         40 |         39 |        385 |
+| android\app                                                                                                      |         12 |        262 |         39 |         27 |        328 |
+| android\app\src                                                                                                  |         10 |        151 |         36 |         14 |        201 |
+| android\app\src\debug                                                                                            |          1 |          4 |          3 |          1 |          8 |
+| android\app\src\main                                                                                             |          8 |        143 |         30 |         12 |        185 |
+| android\app\src\main\res                                                                                         |          7 |         94 |         24 |         10 |        128 |
+| android\app\src\main\res\drawable                                                                                |          3 |         64 |          2 |          3 |         69 |
+| android\app\src\main\res\drawable-night                                                                          |          1 |          5 |          2 |          2 |          9 |
+| android\app\src\main\res\drawable-v21                                                                            |          1 |          5 |          2 |          3 |         10 |
+| android\app\src\main\res\values                                                                                  |          1 |         10 |          9 |          1 |         20 |
+| android\app\src\main\res\values-night                                                                            |          1 |         10 |          9 |          1 |         20 |
+| android\app\src\profile                                                                                          |          1 |          4 |          3 |          1 |          8 |
+| android\gradle                                                                                                   |          1 |          5 |          1 |          1 |          7 |
+| android\gradle\wrapper                                                                                           |          1 |          5 |          1 |          1 |          7 |
+| assets                                                                                                           |         51 |        582 |         22 |         27 |        631 |
+| assets\images                                                                                                    |         47 |        249 |         22 |         23 |        294 |
+| assets\lang                                                                                                      |          2 |         91 |          0 |          3 |         94 |
+| assets\map_style                                                                                                 |          2 |        242 |          0 |          1 |        243 |
+| ios                                                                                                              |          9 |        273 |          2 |         10 |        285 |
+| ios\Runner                                                                                                       |          9 |        273 |          2 |         10 |        285 |
+| ios\Runner\Assets.xcassets                                                                                       |          5 |        192 |          0 |          6 |        198 |
+| ios\Runner\Assets.xcassets\AppIcon.appiconset                                                                    |          1 |        122 |          0 |          1 |        123 |
+| ios\Runner\Assets.xcassets\BrandingImage.imageset                                                                |          1 |         23 |          0 |          1 |         24 |
+| ios\Runner\Assets.xcassets\LaunchBackground.imageset                                                             |          1 |         21 |          0 |          1 |         22 |
+| ios\Runner\Assets.xcassets\LaunchImage.imageset                                                                  |          2 |         26 |          0 |          3 |         29 |
+| ios\Runner\Base.lproj                                                                                            |          2 |         68 |          2 |          1 |         71 |
+| lib                                                                                                              |          1 |         -2 |          0 |         -2 |         -4 |
+| lib\core                                                                                                         |          1 |         -2 |          0 |         -2 |         -4 |
+| lib\core\extensions                                                                                              |          1 |         -2 |          0 |         -2 |         -4 |
+| test                                                                                                             |          1 |         14 |         10 |          7 |         31 |
+| web                                                                                                              |          4 |        166 |         18 |         16 |        200 |
+| web\splash                                                                                                       |          2 |         43 |          0 |          9 |         52 |
+| windows                                                                                                          |         10 |        410 |         80 |        131 |        621 |
+| windows\flutter                                                                                                  |          2 |         14 |          9 |         11 |         34 |
+| windows\runner                                                                                                   |          8 |        396 |         71 |        120 |        587 |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                         | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\README.md                                                          | Markdown   |          1 |          0 |          1 |          2 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\analysis_options.yaml                                              | YAML       |          3 |         23 |          4 |         30 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\build.gradle                                           | Groovy     |         57 |          3 |         13 |         73 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\google-services.json                                   | JSON       |         54 |          0 |          0 |         54 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\debug\AndroidManifest.xml                          | XML        |          4 |          3 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\main\AndroidManifest.xml                           | XML        |         49 |          6 |          2 |         57 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\main\res\drawable-night\launch_background.xml      | XML        |          5 |          2 |          2 |          9 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\main\res\drawable-v21\launch_background.xml        | XML        |          5 |          2 |          3 |         10 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\main\res\drawable\ic_logo_dark.xml                 | XML        |         30 |          0 |          1 |         31 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\main\res\drawable\launch_background.xml            | XML        |         10 |          2 |          2 |         14 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\main\res\drawable\logo_white.xml                   | XML        |         24 |          0 |          0 |         24 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\main\res\values-night\styles.xml                   | XML        |         10 |          9 |          1 |         20 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\main\res\values\styles.xml                         | XML        |         10 |          9 |          1 |         20 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\app\src\profile\AndroidManifest.xml                        | XML        |          4 |          3 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\build.gradle                                               | Groovy     |         28 |          0 |          6 |         34 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\gradle.properties                                          | Properties |          3 |          0 |          1 |          4 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\gradle\wrapper\gradle-wrapper.properties                   | Properties |          5 |          1 |          1 |          7 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\android\settings.gradle                                            | Groovy     |          8 |          0 |          4 |         12 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\404 Error-pana.svg                                   | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\Dark mode phone animation.json                       | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\Light mode phone animation.json                      | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\Mobile login-bro.svg                                 | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\Successful purchase-pana.svg                         | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\arrow.json                                           | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\arrow.svg                                            | XML        |          6 |          1 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\bus_icon.svg                                         | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\bus_station.svg                                      | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\byebye.json                                          | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\cancel.svg                                           | XML        |          8 |          1 |          1 |         10 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\cash.svg                                             | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\choose_animation.json                                | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\contact-us.svg                                       | XML        |          6 |          1 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\dark_bus_loading.json                                | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\distance.svg                                         | XML        |         10 |          1 |          1 |         12 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\driver.svg                                           | XML        |          9 |          1 |          1 |         11 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\dropdown.svg                                         | XML        |          4 |          1 |          1 |          6 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\faq.svg                                              | XML        |          6 |          1 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\file-complaint.svg                                   | XML        |          8 |          1 |          1 |         10 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\guy_waving.json                                      | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\light_bus_loading.json                               | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\live_tracking.json                                   | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\loading_anim.json                                    | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\map-pinpoint.svg                                     | XML        |          6 |          1 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\mastercard_animation.json                            | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\meter.svg                                            | XML        |         17 |          1 |          1 |         19 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\name.svg                                             | XML        |          6 |          1 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\new.svg                                              | XML        |          9 |          1 |          1 |         11 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\noun_bus.svg                                         | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\noun_call.svg                                        | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\old_icon.svg                                         | XML        |         22 |          0 |          1 |         23 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\profile-animation-illustration.json                  | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\qr.svg                                               | XML        |         15 |          1 |          1 |         17 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\recenter.svg                                         | XML        |          8 |          1 |          1 |         10 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\report-bug.svg                                       | XML        |          6 |          1 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\reschedule.svg                                       | XML        |         13 |          1 |          1 |         15 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\settings.svg                                         | XML        |          6 |          1 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\sign-out.svg                                         | XML        |          7 |          1 |          1 |          9 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\subscription.svg                                     | XML        |          8 |          1 |          1 |         10 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\subscription_icon.svg                                | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\swinging-sad-emoji.json                              | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\terms-conditions.svg                                 | XML        |         20 |          1 |          1 |         22 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\tickets_animation.json                               | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\town.svg                                             | XML        |          9 |          1 |          1 |         11 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\uni.svg                                              | XML        |         16 |          1 |          1 |         18 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\images\visa.svg                                             | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\lang\ar.json                                                | JSON       |         45 |          0 |          1 |         46 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\lang\en.json                                                | JSON       |         46 |          0 |          2 |         48 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\map_style\dark_mode.json                                    | JSON       |        186 |          0 |          0 |        186 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\assets\map_style\light-mode-map.json                               | JSON       |         56 |          0 |          1 |         57 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\ios\Runner\AppDelegate.swift                                       | Swift      |         12 |          0 |          2 |         14 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\ios\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json        | JSON       |        122 |          0 |          1 |        123 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\ios\Runner\Assets.xcassets\BrandingImage.imageset\Contents.json    | JSON       |         23 |          0 |          1 |         24 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\ios\Runner\Assets.xcassets\LaunchBackground.imageset\Contents.json | JSON       |         21 |          0 |          1 |         22 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\ios\Runner\Assets.xcassets\LaunchImage.imageset\Contents.json      | JSON       |         23 |          0 |          1 |         24 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\ios\Runner\Assets.xcassets\LaunchImage.imageset\README.md          | Markdown   |          3 |          0 |          2 |          5 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\ios\Runner\Base.lproj\LaunchScreen.storyboard                      | XML        |         43 |          1 |          0 |         44 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\ios\Runner\Base.lproj\Main.storyboard                              | XML        |         25 |          1 |          1 |         27 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\ios\Runner\Runner-Bridging-Header.h                                | C++        |          1 |          0 |          1 |          2 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\lib\core\extensions\extensions.dart                                | Dart       |         -2 |          0 |         -2 |         -4 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\pubspec.yaml                                                       | YAML       |         72 |         37 |          8 |        117 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\test\widget_test.dart                                              | Dart       |         14 |         10 |          7 |         31 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\web\index.html                                                     | HTML       |         88 |         18 |          6 |        112 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\web\manifest.json                                                  | JSON       |         35 |          0 |          1 |         36 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\web\splash\splash.js                                               | JavaScript |          7 |          0 |          1 |          8 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\web\splash\style.css                                               | CSS        |         36 |          0 |          8 |         44 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\flutter\generated_plugin_registrant.cc                     | C++        |          9 |          4 |          5 |         18 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\flutter\generated_plugin_registrant.h                      | C++        |          5 |          5 |          6 |         16 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\runner\flutter_window.cpp                                  | C++        |         45 |          4 |         13 |         62 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\runner\flutter_window.h                                    | C++        |         20 |          5 |          9 |         34 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\runner\main.cpp                                            | C++        |         30 |          4 |         10 |         44 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\runner\resource.h                                          | C++        |          9 |          6 |          2 |         17 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\runner\utils.cpp                                           | C++        |         53 |          2 |         10 |         65 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\runner\utils.h                                             | C++        |          8 |          6 |          6 |         20 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\runner\win32_window.cpp                                    | C++        |        183 |         15 |         48 |        246 |
+| c:\Users\Elhoda\Downloads\Yalla Bus\yalla_bus\windows\runner\win32_window.h                                      | C++        |         48 |         29 |         22 |         99 |
+| Total                                                                                                            |            |      1,825 |        232 |        241 |      2,298 |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

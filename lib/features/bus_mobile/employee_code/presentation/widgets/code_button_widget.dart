@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../../core/resources/colors_manager.dart';

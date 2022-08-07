@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+
+import '../../../core/custom_widgets/animation_widget.dart';
 import '../../../core/resources/asset_manager.dart';
 import '../../../core/resources/string_manager.dart';
 import '../../../core/resources/values_manager.dart';
 import '../widgets/descripton_widget.dart';
 import '../widgets/headline_widget.dart';
-
-import '../../../core/custom_widgets/animation_widget.dart';
 
 class Page1 extends StatefulWidget {
   const Page1({Key? key}) : super(key: key);

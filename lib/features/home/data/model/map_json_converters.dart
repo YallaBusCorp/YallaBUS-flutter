@@ -1,5 +1,5 @@
-import 'package:yalla_bus/features/home/domain/enitity/ride.dart';
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
+import '../../domain/enitity/ride.dart';
+import '../../../settings/domain/entity/ride_history_model.dart';
 
 import '../../../choose_company/domain/enitity/company.dart';
 import '../../../settings/data/model/settings_model_converters.dart';

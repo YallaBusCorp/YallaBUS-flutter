@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
 
 import '../../../../../core/custom_widgets/separtor_widget.dart';
 import '../../../../../core/custom_widgets/text_widget.dart';
+import '../../../../../core/resources/constants_manager.dart';
 import '../../../../../core/resources/string_manager.dart';
 import '../../../../../core/resources/values_manager.dart';
 import '../../bloc/map/map_bloc.dart';

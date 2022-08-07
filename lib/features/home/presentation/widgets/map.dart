@@ -5,11 +5,13 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
-import 'package:yalla_bus/core/resources/map_manager.dart';
+import '../../../../core/resources/constants_manager.dart';
+import '../../../../core/resources/map_manager.dart';
+import '../bloc/map/pickup_dropoff_info.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/asset_manager.dart';
 import '../bloc/map/map_bloc.dart';
+import '../bloc/ride_booked/ride_booked_bloc.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({Key? key}) : super(key: key);
@@ -25,12 +27,14 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   late GeoPoint point;
   bool x = false;
   late MapBloc bloc;
+  late RideBookedBloc _rideBookedBloc;
   late Stream<DocumentSnapshot> tracking;
 
   @override
   void initState() {
     _loadMapStyles();
     bloc = BlocProvider.of<MapBloc>(context);
+    _rideBookedBloc = BlocProvider.of<RideBookedBloc>(context);
     WidgetsBinding.instance!.addObserver(this);
     tracking = FirebaseFirestore.instance
         .collection('company')
@@ -38,8 +42,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
         .collection('ride')
         .doc(bloc.perfs.getString(ConstantsManager.rideID) ?? 'h')
         .snapshots();
-    print(bloc.perfs.getString(ConstantsManager.companyName));
-    print(bloc.perfs.getString(ConstantsManager.rideID) ?? 'h');
+
     super.initState();
   }
 
@@ -51,7 +54,6 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
-    
       final GoogleMapController controller = await bloc.controller.future;
       if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
         controller.setMapStyle(_darkMapStyle);
@@ -65,7 +67,6 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   Set<Marker> markers = <Marker>{};
   @override
   Widget build(BuildContext context) {
-    MapBloc map = BlocProvider.of<MapBloc>(context);
     return StreamBuilder<DocumentSnapshot>(
         stream: tracking,
         builder:
@@ -77,12 +78,12 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
             geoPoints = snapshot.data!.get('location');
             int size = geoPoints.length;
             point = geoPoints[size - 1];
-            map.add(RefreshBusCoordinateEvent(
+            bloc.add(RefreshBusCoordinateEvent(
                 LatLng(point.latitude, point.longitude), context));
-            map.add(CheckBusMarkerAccordingToPickAndDropMarkersEvent(
+            bloc.add(CheckBusMarkerAccordingToPickAndDropMarkersEvent(
                 LatLng(point.latitude, point.longitude),
-                map.pickUpSelectedPosition,
-                map.dropOffSelectedPosition));
+                PickUpAndDropOffInfo.pickUpSelectedPosition,
+                PickUpAndDropOffInfo.dropOffSelectedPosition));
           }
 
           return BlocConsumer<MapBloc, MapState>(
@@ -95,7 +96,7 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
                 markers = MapManager.dropOffMarkers;
               }
               if (state is ChangeMarkersOfBus) {
-                markers = map.markersOfBus;
+                markers = MapManager.markersOfBus;
               }
             },
             builder: (conetxt, state) {
@@ -109,8 +110,8 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
                 onMapCreated: (GoogleMapController controller) {
                   if (!bloc.controller.isCompleted) {
                     bloc.controller.complete(controller);
-                    if (bloc.markersOfBus.isEmpty) {
-                      map.add(GetMyLocation());
+                    if (MapManager.markersOfBus.isEmpty) {
+                      bloc.add(GetMyLocation());
                     }
                   }
                   if (MediaQuery.of(context).platformBrightness ==
@@ -129,7 +130,6 @@ class _MapWidgetState extends State<MapWidget> with WidgetsBindingObserver {
   @override
   void dispose() {
     super.dispose();
-
     AwesomeNotifications().actionSink.close();
     AwesomeNotifications().createdSink.close();
   }

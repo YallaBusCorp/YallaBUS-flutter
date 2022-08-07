@@ -6,6 +6,8 @@ import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../bloc/ride_booked/ride_booked_bloc.dart';
+import '../bloc/ride_booking/ride_booking_bloc.dart';
 import 'painting.dart';
 import '../../../../core/custom_widgets/separtor_widget.dart';
 import '../bloc/map/map_bloc.dart';
@@ -18,12 +20,15 @@ class FromToWidget extends StatefulWidget {
 }
 
 class _FromToWidgetState extends State<FromToWidget> {
-  late MapBloc bloc;
-
+  late MapBloc _mapBloc;
+  late RideBookingBloc _rideBookingBloc;
+  late RideBookedBloc _rideBookedBloc;
   @override
-  void didChangeDependencies() {
-    bloc = BlocProvider.of<MapBloc>(context);
-    super.didChangeDependencies();
+  void initState() {
+    _mapBloc = BlocProvider.of<MapBloc>(context);
+    _rideBookingBloc = BlocProvider.of<RideBookingBloc>(context);
+    _rideBookedBloc = BlocProvider.of<RideBookedBloc>(context);
+    super.initState();
   }
 
   @override
@@ -31,7 +36,7 @@ class _FromToWidgetState extends State<FromToWidget> {
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
         return Visibility(
-          visible: bloc.departAndFromToVisible,
+          visible: _rideBookedBloc.departAndFromToVisible,
           child: Positioned(
             top: MediaQuery.of(context).size.height - ValuesManager.v220,
             left: ValuesManager.v10,
@@ -62,10 +67,10 @@ class _FromToWidgetState extends State<FromToWidget> {
                             builder: (context, state) {
                               return InkWell(
                                 onTap: () {
-                                  bloc.add(GetPickUpPointsEvent(context));
+                                  _mapBloc.add(GetPickUpPointsEvent(context));
                                 },
                                 child: TextWidget(
-                                  text: bloc.from,
+                                  text: _rideBookedBloc.from,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline5!
@@ -73,7 +78,7 @@ class _FromToWidgetState extends State<FromToWidget> {
                                           fontSize: ValuesManager.v18,
                                           color: ColorsExtensions
                                               .checkSelectedOrNot(
-                                                  bloc.from,
+                                                  _rideBookedBloc.from,
                                                   StringManager.pickUpPoint,
                                                   context)),
                                 ),
@@ -98,12 +103,12 @@ class _FromToWidgetState extends State<FromToWidget> {
                             builder: (context, state) {
                               return InkWell(
                                 onTap: () {
-                                  bloc.add(GetDropOffPointsEvent(context));
+                                  _mapBloc.add(GetDropOffPointsEvent(context));
                                 },
                                 child: FittedBox(
                                   fit: BoxFit.fitWidth,
                                   child: TextWidget(
-                                    text: bloc.to,
+                                    text: _rideBookedBloc.to,
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline5!
@@ -111,7 +116,7 @@ class _FromToWidgetState extends State<FromToWidget> {
                                           fontSize: ValuesManager.v18,
                                           color: ColorsExtensions
                                               .checkSelectedOrNot(
-                                                  bloc.to,
+                                                  _rideBookedBloc.to,
                                                   StringManager.dropOffPoint,
                                                   context),
                                         ),

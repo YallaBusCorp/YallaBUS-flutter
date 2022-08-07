@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yalla_bus/core/resources/asset_manager.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
-import 'package:yalla_bus/features/settings/domain/use_case/get_non_scanned_rides.dart';
-import 'package:yalla_bus/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/ride_history/done_ride_history.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/ride_history/missed_ride_history.dart';
+import '../../../../../core/resources/asset_manager.dart';
+import '../../../../../core/resources/colors_manager.dart';
+import '../../../domain/entity/ride_history_model.dart';
+import '../../../domain/use_case/get_non_scanned_rides.dart';
+import '../../bloc/settings_bloc.dart';
+import 'done_ride_history.dart';
+import 'missed_ride_history.dart';
 import '../../../../../core/custom_widgets/error_dialog.dart';
 import '../../../../../core/custom_widgets/loading_dialog.dart';
 import '../../../../../core/resources/constants_manager.dart';
@@ -113,18 +113,6 @@ class _RidesHistoryState extends State<RidesHistory>
             controller: controller,
             physics: const BouncingScrollPhysics(),
             children: [
-              nonScanned.isEmpty
-                  ? Center(
-                      child: SvgPicture.asset(
-                        AssetManager.error404,
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  : DoneRideHistory(
-                      list: nonScanned,
-                    ),
               scanned.isEmpty
                   ? Center(
                       child: SvgPicture.asset(
@@ -134,8 +122,20 @@ class _RidesHistoryState extends State<RidesHistory>
                         fit: BoxFit.cover,
                       ),
                     )
-                  : MissedRideHistory(
+                  : DoneRideHistory(
                       list: scanned,
+                    ),
+              nonScanned.isEmpty
+                  ? Center(
+                      child: SvgPicture.asset(
+                        AssetManager.error404,
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : MissedRideHistory(
+                      list: nonScanned,
                     ),
             ],
           );

@@ -1,14 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/colors_manager.dart';
+
 import '../../../../../core/custom_widgets/Decoration_widget.dart';
-import '../../../../../core/custom_widgets/text_widget.dart';
+import '../../../../../core/extensions/extensions.dart';
 import '../../../../../core/injection/di.dart';
+import '../../../../../core/resources/colors_manager.dart';
 import '../../../../../core/resources/routes_manager.dart';
 import '../../bloc/settings_bloc.dart';
-import 'complaint_response.dart';
 
 class ComplaintBody extends StatefulWidget {
   final int index;

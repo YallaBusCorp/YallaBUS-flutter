@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/domain/repostiory.dart';
 
 import '../../../../../core/injection/di.dart';
 import '../../../../../core/resources/constants_manager.dart';
+import '../../domain/repostiory.dart';
 
 part 'employee_code_event.dart';
 part 'employee_code_state.dart';

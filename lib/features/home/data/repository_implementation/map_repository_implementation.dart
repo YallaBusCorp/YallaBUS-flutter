@@ -1,6 +1,6 @@
-import 'package:yalla_bus/features/home/domain/enitity/reschedule_body.dart';
-import 'package:yalla_bus/features/settings/data/model/settings_model_converters.dart';
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
+import '../../domain/enitity/reschedule_body.dart';
+import '../../../settings/data/model/settings_model_converters.dart';
+import '../../../settings/domain/entity/ride_history_model.dart';
 
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/network/network_info.dart';

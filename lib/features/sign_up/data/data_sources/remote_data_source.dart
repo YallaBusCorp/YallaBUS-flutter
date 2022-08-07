@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/resources/endpoints_manager.dart';
-import '../model/complete_profile_converters.dart';
 import '../../domain/enitity/student.dart';
+import '../model/complete_profile_converters.dart';
 
 class CompleteProfileApiClient {
   late Dio dio;

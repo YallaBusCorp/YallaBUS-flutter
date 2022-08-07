@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/ride_booking/ride_booking_bloc.dart';
 import '../../../../core/resources/values_manager.dart';
 
 import '../../../../core/custom_widgets/text_widget.dart';
@@ -17,10 +18,10 @@ class BusTimes extends StatefulWidget {
 }
 
 class _BusTimesState extends State<BusTimes> {
-  late MapBloc bloc;
+  late RideBookingBloc bloc;
   @override
   void initState() {
-    bloc = BlocProvider.of<MapBloc>(context);
+    bloc = BlocProvider.of<RideBookingBloc>(context);
     super.initState();
   }
 

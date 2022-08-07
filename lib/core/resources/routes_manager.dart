@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/pages/verify.dart';
-import 'package:yalla_bus/features/bus_mobile/map/presentation/pages/bus_map.dart';
-import 'package:yalla_bus/features/bus_mobile/qr_scanner/presentation/pages/qr_scanner.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/presentation/pages/bus_rides.dart';
-import 'package:yalla_bus/features/settings/presentation/widgets/faqs/fags.dart';
+import '../../features/bus_mobile/employee_code/presentation/pages/verify.dart';
+import '../../features/bus_mobile/map/presentation/pages/bus_map.dart';
+import '../../features/bus_mobile/qr_scanner/presentation/pages/qr_scanner.dart';
+import '../../features/bus_mobile/rides/presentation/pages/bus_rides.dart';
+import '../../features/settings/presentation/widgets/faqs/fags.dart';
 import '../../features/bus_mobile/rides/domain/entity/all_rides.dart';
 import '../../features/login_otp/presentation/pages/verify.dart';
 import '../../features/settings/presentation/pages/settings.dart';

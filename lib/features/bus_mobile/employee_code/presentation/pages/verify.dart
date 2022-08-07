@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
-import 'package:yalla_bus/core/custom_widgets/loading_dialog.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/presentation/bloc/employee_code_bloc.dart';
-import 'package:yalla_bus/features/login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
-import 'package:yalla_bus/features/login_otp/presentation/widgets/auth_header_layout.dart';
+import '../../../../../core/custom_widgets/error_dialog.dart';
+import '../../../../../core/custom_widgets/loading_dialog.dart';
+import '../bloc/employee_code_bloc.dart';
+import '../../../../login_otp/presentation/bloc/Keyboard/keyboard_bloc.dart';
+import '../../../../login_otp/presentation/widgets/auth_header_layout.dart';
 import '../../../../../core/custom_widgets/success_dialog.dart';
 import '../../../../../core/extensions/extensions.dart';
 import '../../../../../core/resources/constants_manager.dart';

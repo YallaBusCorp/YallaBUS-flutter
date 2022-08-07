@@ -1,4 +1,4 @@
-import 'package:yalla_bus/features/settings/domain/entity/ride_history_model.dart';
+import '../../domain/entity/ride_history_model.dart';
 
 class RideHisModel extends RideHis {
   RideHisModel(int id, String qrCode, PickUp pick, DropOff drop,

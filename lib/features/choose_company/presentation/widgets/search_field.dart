@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/resources/colors_manager.dart';
-import '../bloc/company_selection_bloc.dart';
 
 import '../../../../core/extensions/extensions.dart';
+import '../../../../core/resources/colors_manager.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
+import '../bloc/company_selection_bloc.dart';
 
 class SearchField extends StatefulWidget {
   const SearchField({Key? key}) : super(key: key);

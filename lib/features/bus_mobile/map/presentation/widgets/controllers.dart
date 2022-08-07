@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:yalla_bus/features/bus_mobile/map/presentation/bloc/bus_map_bloc.dart';
+import '../bloc/bus_map_bloc.dart';
 
+import '../../../../../core/custom_widgets/comming_soon.dart';
 import '../../../../../core/custom_widgets/separtor_widget.dart';
 import '../../../../../core/custom_widgets/yes_no_dialog.dart';
 import '../../../../../core/extensions/extensions.dart';
@@ -45,7 +46,18 @@ class _ControllersOfBusState extends State<ControllersOfBus> {
             children: [
               IconButton(
                 onPressed: () {
-                  // Navigator.of(context).pushNamed(Routes.settings);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.of(context).pop();
+                      });
+                      return const Dialog(
+                        backgroundColor: Colors.transparent,
+                        child: CommingSoon(),
+                      );
+                    },
+                  );
                 },
                 icon: Icon(
                   Icons.add,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/Decoration_widget.dart';
-import 'package:yalla_bus/core/custom_widgets/button_widget.dart';
-import 'package:yalla_bus/core/extensions/extensions.dart';
-import 'package:yalla_bus/core/resources/routes_manager.dart';
-import 'package:yalla_bus/features/bus_mobile/rides/presentation/bloc/bus_ride_bloc.dart';
+import '../../../../../core/custom_widgets/Decoration_widget.dart';
+import '../../../../../core/custom_widgets/button_widget.dart';
+import '../../../../../core/extensions/extensions.dart';
+import '../../../../../core/resources/routes_manager.dart';
+import '../bloc/bus_ride_bloc.dart';
 
 import '../../domain/entity/all_rides.dart';
 

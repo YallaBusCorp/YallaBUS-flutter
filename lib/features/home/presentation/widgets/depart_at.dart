@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yalla_bus/core/custom_widgets/error_dialog.dart';
-import 'package:yalla_bus/core/custom_widgets/success_dialog.dart';
-import 'package:yalla_bus/core/resources/constants_manager.dart';
-import 'package:yalla_bus/features/home/domain/enitity/ride.dart';
+import '../../../../core/custom_widgets/error_dialog.dart';
+import '../../../../core/custom_widgets/success_dialog.dart';
+import '../../../../core/resources/constants_manager.dart';
+import '../../domain/enitity/ride.dart';
+import '../bloc/map/pickup_dropoff_info.dart';
 import '../../../../core/custom_widgets/button_widget.dart';
 import '../../../../core/custom_widgets/text_widget.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/resources/string_manager.dart';
 import '../../../../core/resources/values_manager.dart';
 import '../bloc/map/map_bloc.dart';
+import '../bloc/ride_booked/ride_booked_bloc.dart';
+import '../bloc/ride_booking/ride_booking_bloc.dart';
 import 'book_ride.dart';
 
 import '../../../../core/custom_widgets/loading_dialog.dart';
@@ -23,18 +26,22 @@ class DepartAt extends StatefulWidget {
 }
 
 class _DepartAtState extends State<DepartAt> {
-  late MapBloc bloc;
+  late MapBloc _mapBloc;
+  late RideBookingBloc _rideBookingBloc;
+  late RideBookedBloc _rideBookedBloc;
   @override
   void initState() {
-    bloc = BlocProvider.of<MapBloc>(context);
+    _mapBloc = BlocProvider.of<MapBloc>(context);
+    _rideBookingBloc = BlocProvider.of<RideBookingBloc>(context);
+    _rideBookedBloc = BlocProvider.of<RideBookedBloc>(context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MapBloc, MapState>(
+    return BlocConsumer<RideBookingBloc, RideBookingState>(
       listener: (context, state) {
-        if (state is Loading) {
+        if (state is LoadingOfBooking) {
           showDialog(
             context: context,
             barrierDismissible: false,
@@ -51,10 +58,11 @@ class _DepartAtState extends State<DepartAt> {
             builder: (BuildContext context) {
               Future.delayed(const Duration(seconds: 2), () {
                 Navigator.of(context).pop();
-                bloc.add(GetCurrentRideByUIDEvent(
-                    bloc.perfs.getString(ConstantsManager.uid)!, context));
+                _rideBookedBloc.add(GetCurrentRideByUIDEvent(
+                    _rideBookedBloc.perfs.getString(ConstantsManager.uid)!,
+                    context));
                 Navigator.of(context).pop();
-                bloc.add(CameraPositionAfterBookingEvent());
+                _mapBloc.add(CameraPositionAfterBookingEvent());
               });
               return const Dialog(
                 backgroundColor: Colors.transparent,
@@ -82,7 +90,7 @@ class _DepartAtState extends State<DepartAt> {
       },
       builder: (context, state) {
         return Visibility(
-          visible: bloc.departAndFromToVisible,
+          visible: _rideBookedBloc.departAndFromToVisible,
           child: Positioned(
             top: MediaQuery.of(context).size.height - 80,
             child: SizedBox(
@@ -108,11 +116,11 @@ class _DepartAtState extends State<DepartAt> {
                               builder: (builder) => BookRideScreen());
                         },
                         child: TextWidget(
-                          text: bloc.timeOfSelectedRides,
+                          text: _rideBookingBloc.timeOfSelectedRides,
                           style:
                               Theme.of(context).textTheme.headline6!.copyWith(
                                     color: ColorsExtensions.checkSelectedOrNot(
-                                        bloc.timeOfSelectedRides,
+                                        _rideBookingBloc.timeOfSelectedRides,
                                         StringManager.timeOfSelectedRides,
                                         context),
                                     fontSize: 18,
@@ -129,20 +137,25 @@ class _DepartAtState extends State<DepartAt> {
                     height: ValuesManager.v50,
                     onPressed: checkValidation() == true
                         ? () async {
-                            bloc.add(
+                            _rideBookingBloc.add(
                               BookRideEvent(
                                 Ride(
-                                  qrCode: StringsExtensions.generateQR(bloc
-                                      .perfs
-                                      .getString(ConstantsManager.dateOfRide)!),
-                                  pickupPoint: PickUpPoint(bloc.pickUpID),
-                                  dropOffPoint: DropOffPoint(bloc.dropOffID),
-                                  appointment: Appointments(bloc.amTimeAndID[
-                                          bloc.timeOfSelectedRides] ??
-                                      bloc.pmTimeAndID[
-                                          bloc.timeOfSelectedRides]!),
+                                  qrCode: StringsExtensions.generateQR(
+                                      _rideBookingBloc.perfs.getString(
+                                          ConstantsManager.dateOfRide)!),
+                                  pickupPoint: PickUpPoint(
+                                      PickUpAndDropOffInfo.pickUpID),
+                                  dropOffPoint: DropOffPoint(
+                                      PickUpAndDropOffInfo.dropOffID),
+                                  appointment: Appointments(_rideBookingBloc
+                                              .dictionaryOfPmTimeAndId[
+                                          _rideBookingBloc
+                                              .timeOfSelectedRides] ??
+                                      _rideBookingBloc.dictionaryOfPmTimeAndId[
+                                          _rideBookingBloc
+                                              .timeOfSelectedRides]!),
                                   std: StudentID(
-                                      bloc.perfs
+                                      _rideBookingBloc.perfs
                                           .getInt(ConstantsManager.stdId)!,
                                       ''),
                                 ),
@@ -168,10 +181,10 @@ class _DepartAtState extends State<DepartAt> {
   }
 
   bool checkValidation() {
-    if (BlocProvider.of<MapBloc>(context).timeOfSelectedRides !=
+    if (_rideBookingBloc.timeOfSelectedRides !=
             StringManager.timeOfSelectedRides &&
-        BlocProvider.of<MapBloc>(context).from != StringManager.pickUpPoint &&
-        BlocProvider.of<MapBloc>(context).to != StringManager.to) {
+        _rideBookedBloc.from != StringManager.pickUpPoint &&
+        _rideBookedBloc.to != StringManager.to) {
       return true;
     }
     return false;

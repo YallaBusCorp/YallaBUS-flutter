@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import '../../../../core/states/state.dart';
 import '../enitity/company.dart';
 import '../repository/company_repository.dart';

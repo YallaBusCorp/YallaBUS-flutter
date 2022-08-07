@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:yalla_bus/features/bus_mobile/employee_code/domain/remote_data_source.dart';
-import 'package:yalla_bus/features/bus_mobile/map/api/remote_data_source.dart';
 
 import '../../../../../core/states/state.dart';
 import '../../../../core/exceptions/exception.dart';
 import '../../../../core/network/network_info.dart';
+import 'remote_data_source.dart';
 
 class BusMapRepository {
   final BusMapApiClient client;
